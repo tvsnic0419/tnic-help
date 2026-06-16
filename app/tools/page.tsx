@@ -1,5 +1,6 @@
 import { Suspense } from 'react';
 import { ToolsHub } from '@/components/tools/ToolsHub';
+import { SectionSkeleton } from '@/components/ui/SectionSkeleton';
 import { buildPageMetadata } from '@/lib/seo';
 
 export const metadata = buildPageMetadata({
@@ -18,7 +19,13 @@ export const metadata = buildPageMetadata({
 
 export default function ToolsPage() {
   return (
-    <Suspense fallback={<div className="min-h-screen bg-background pt-24 text-center text-muted-foreground">Loading tools…</div>}>
+    <Suspense
+      fallback={
+        <div className="container-page py-12">
+          <SectionSkeleton height="lg" />
+        </div>
+      }
+    >
       <ToolsHub />
     </Suspense>
   );
