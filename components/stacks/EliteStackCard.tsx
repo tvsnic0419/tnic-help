@@ -8,13 +8,15 @@ import {
   FlaskConical,
   Activity,
   AlertTriangle,
-  ExternalLink,
+
   Zap,
   Pill,
 } from 'lucide-react';
 import { compounds } from '@/lib/data';
 import { useStack } from '@/context/PlatformContext';
 import type { EliteStack } from '@/lib/stacks-library';
+import { EvidenceTag } from '@/components/trust/EvidenceTag';
+import { PmidLink } from '@/components/trust/SourceCitation';
 import { goalLabels, costLabels, simplicityLabels } from '@/lib/stacks-library';
 
 interface EliteStackCardProps {
@@ -22,7 +24,7 @@ interface EliteStackCardProps {
   expanded?: boolean;
 }
 
-const tierColor = { A: 'text-emerald-400', B: 'text-cyan-400', C: 'text-amber-400' };
+
 const costColor = { budget: 'text-emerald-400', moderate: 'text-cyan-400', premium: 'text-violet-400', clinical: 'text-rose-400' };
 
 export function EliteStackCard({ stack, expanded: defaultExpanded = false }: EliteStackCardProps) {
@@ -46,9 +48,7 @@ export function EliteStackCard({ stack, expanded: defaultExpanded = false }: Eli
           <div className="flex-1 min-w-0">
             <div className="flex flex-wrap items-center gap-2 mb-2">
               <span className="text-[10px] font-mono text-violet-400">{goalLabels[stack.goal]}</span>
-              <span className={`text-[10px] font-mono ${tierColor[stack.evidenceTier]}`}>
-                Tier {stack.evidenceTier}
-              </span>
+              <EvidenceTag tier={stack.evidenceTier} size="sm" />
               {stack.rxCompounds && (
                 <span className="text-[10px] font-mono text-rose-400 bg-rose-400/10 px-2 py-0.5 rounded-full">
                   Rx Component
@@ -184,16 +184,10 @@ export function EliteStackCard({ stack, expanded: defaultExpanded = false }: Eli
               <div>
                 <p className="text-[10px] font-mono text-zinc-500 uppercase tracking-wider mb-2">Key Evidence</p>
                 {stack.studies.map((s) => (
-                  <a
-                    key={s.pmid}
-                    href={`https://pubmed.ncbi.nlm.nih.gov/${s.pmid}/`}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="flex items-start gap-2 text-xs text-zinc-500 hover:text-cyan-400 transition py-1 group"
-                  >
-                    <ExternalLink className="w-3 h-3 mt-0.5 shrink-0 opacity-50 group-hover:opacity-100" />
-                    <span>{s.title} ({s.journal}, {s.year})</span>
-                  </a>
+                  <div key={s.pmid} className="py-1">
+                    <p className="text-body-sm mb-0.5">{s.title} ({s.journal}, {s.year})</p>
+                    <PmidLink pmid={s.pmid} />
+                  </div>
                 ))}
               </div>
 

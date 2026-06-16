@@ -57,7 +57,7 @@ export function SiteSearch() {
       { q: 'stack', title: 'Stack Architect', href: '#stacks' },
       { q: 'bio age', title: 'Biological Age Calculator', href: '#calculator' },
       { q: 'biomarker', title: 'Biomarker Command', href: '#biomarkers' },
-      { q: 'trust', title: 'Trust Center', href: '#trust' },
+      { q: 'trust', title: 'Trust Hub', href: '/trust' },
     ];
     sections.forEach((s) => {
       if (s.q.includes(q) || s.title.toLowerCase().includes(q)) {

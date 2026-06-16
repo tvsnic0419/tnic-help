@@ -22,7 +22,7 @@ export const navLinks = [
   { href: '#science', label: 'Science', mod: 'MOD-SCI-02' },
   { href: '/labs', label: 'Labs', mod: 'MOD-LAB-11' },
   { href: '/stacks', label: 'Stacks', mod: 'MOD-ARC-04' },
-  { href: '#trust', label: 'Trust', mod: 'MOD-TRU-08' },
+  { href: '/trust', label: 'Trust', mod: 'MOD-TRU-08' },
 ];
 
 export const platformStats = [
@@ -634,7 +634,7 @@ export const gettingStartedSteps = [
   { step: 1, title: 'Run Your Defense Scan', desc: 'Input age, stress, sleep, and exercise at the Bio Age calculator. Get your biological age estimate and pathway priority.', link: '#calculator' },
   { step: 2, title: 'Review Your Biomarkers', desc: 'See which longevity markers are most depleted for your profile. Understand what your stack needs to target.', link: '#biomarkers' },
   { step: 3, title: 'Build Your Stack', desc: 'Use the Stack Architect to toggle compounds. Watch synergy score and AM/PM dosing update in real time.', link: '#stacks' },
-  { step: 4, title: 'Check Safety & Consult', desc: 'Review contraindications in the Trust Center. Export your protocol and bring it to your physician.', link: '#trust' },
+  { step: 4, title: 'Check Safety & Consult', desc: 'Review contraindications in the Trust Center. Export your protocol and bring it to your physician.', link: '/trust' },
   { step: 5, title: 'Track & Iterate', desc: 'Follow the outcomes timeline for realistic expectations. Re-scan every 90 days and adjust your stack.', link: '#learn' },
 ];
 

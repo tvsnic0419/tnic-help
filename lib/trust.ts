@@ -1,0 +1,356 @@
+import type {
+  DisclaimerBlock,
+  EvidenceTier,
+  SourceCitation,
+  UpdateHistoryEntry,
+} from './types';
+
+/** Evidence tier definitions for tagging system */
+export const evidenceTagDefinitions: Record<
+  EvidenceTier,
+  { label: string; short: string; description: string; criteria: string[]; color: string }
+> = {
+  A: {
+    label: 'Tier A — Clinical Evidence',
+    short: 'Clinical',
+    description: 'Human randomized or controlled trial with measured biomarker or healthspan outcomes.',
+    criteria: [
+      'Peer-reviewed human RCT or controlled trial',
+      'Measurable outcome reported',
+      'Independent replication or multi-trial consensus',
+      'Safety profile in human subjects',
+    ],
+    color: 'emerald',
+  },
+  B: {
+    label: 'Tier B — Mechanistic + Emerging Human',
+    short: 'Emerging',
+    description: 'Strong mechanistic data with at least one human pharmacokinetic or pilot study.',
+    criteria: [
+      'Characterized mechanism in human cells/tissue',
+      'Human PK or pilot data exists',
+      'Consistent preclinical healthspan data',
+      'Used in established protocols',
+    ],
+    color: 'cyan',
+  },
+  C: {
+    label: 'Tier C — Preclinical Only',
+    short: 'Preclinical',
+    description: 'Animal or in-vitro evidence only. Flagged — not recommended as stack foundation.',
+    criteria: [
+      'Animal or in-vitro mechanistic evidence',
+      'No human longevity outcomes',
+      'Included only when mechanism aligns with hallmark',
+      'Clearly labeled as preclinical',
+    ],
+    color: 'amber',
+  },
+};
+
+export const citationTypeLabels = {
+  clinical: 'Clinical Trial',
+  review: 'Review',
+  preclinical: 'Preclinical',
+  guideline: 'Guideline',
+  'meta-analysis': 'Meta-Analysis',
+} as const;
+
+/** How TNiC handles source citations */
+export const citationFramework = {
+  principles: [
+    {
+      title: 'Primary Literature First',
+      desc: 'Every compound recommendation traces to PubMed-indexed primary sources — not marketing pages or secondary blogs.',
+    },
+    {
+      title: 'PMID Required for Tier A',
+      desc: 'Tier A claims must link to at least one PMID. Tier B requires mechanism citations. Tier C must disclose preclinical-only status.',
+    },
+    {
+      title: 'Dose From Trials, Not Labels',
+      desc: 'Dosing ranges derive from published trial protocols, not supplement label marketing doses.',
+    },
+    {
+      title: 'Contradiction Disclosure',
+      desc: 'When trials conflict, we note it. Evidence tiers may be downgraded when replication fails.',
+    },
+    {
+      title: 'No Citation Laundering',
+      desc: 'Mouse lifespan studies are never presented as human evidence. In-vitro NRF2 data is not called "clinically proven."',
+    },
+  ],
+  formats: [
+    { format: 'Inline PMID link', example: 'Kumar et al. 2023 (PMID: 36656670)', use: 'Intervention cards, stack studies' },
+    { format: 'Structured citation block', example: 'Author · Journal · Year · DOI/PMID', use: 'Methodology page, compound deep dives' },
+    { format: 'Evidence tag + citation pair', example: 'Tier A badge + PubMed link', use: 'All TNiC compound surfaces' },
+  ],
+};
+
+/** Canonical citation registry */
+export const citationRegistry: SourceCitation[] = [
+  {
+    id: 'c-glynac-2023',
+    title: 'Improvement of mitochondrial function in older adults after GlyNAC',
+    authors: 'Kumar P et al.',
+    journal: 'J Gerontol A Biol Sci Med Sci',
+    year: 2023,
+    pmid: '36656670',
+    type: 'clinical',
+    summary: '24-week GlyNAC trial: restored glutathione, reduced oxidative stress, improved mitochondrial function.',
+  },
+  {
+    id: 'c-glynac-2021',
+    title: 'GlyNAC supplementation improves glutathione deficiency in aging humans',
+    authors: 'Kumar P et al.',
+    journal: 'J Gerontol A Biol Sci Med Sci',
+    year: 2021,
+    pmid: '34129059',
+    type: 'clinical',
+    summary: 'First human GlyNAC trial establishing glutathione restoration in older adults.',
+  },
+  {
+    id: 'c-nmn-2022',
+    title: 'NMN supplementation elevates NAD+ levels in healthy adults',
+    authors: 'Fukamizu Y et al.',
+    journal: 'GeroScience',
+    year: 2022,
+    pmid: '36482258',
+    type: 'clinical',
+    summary: 'Placebo-controlled NMN trial confirming safe NAD+ elevation in humans.',
+  },
+  {
+    id: 'c-akg-2020',
+    title: 'Alpha-ketoglutarate extends lifespan in mice',
+    authors: 'Asadi Shahmirzadi A et al.',
+    journal: 'Cell Metabolism',
+    year: 2020,
+    pmid: '33027664',
+    type: 'preclinical',
+    summary: '12–14% median lifespan extension in mice. Preclinical — not human longevity data.',
+  },
+  {
+    id: 'c-sf-2008',
+    title: 'Sulforaphane activates Nrf2 and protects against oxidative stress',
+    authors: 'Baird L, Dinkova-Kostova AT',
+    journal: 'Oncogene',
+    year: 2008,
+    pmid: '18454171',
+    type: 'review',
+    summary: 'Foundational NRF2 activation mechanism via KEAP1 modification.',
+  },
+  {
+    id: 'c-resv-2006',
+    title: 'Resveratrol improves health and survival of mice on a high-calorie diet',
+    authors: 'Baur JA et al.',
+    journal: 'Nature',
+    year: 2006,
+    pmid: '17028500',
+    type: 'preclinical',
+    summary: 'Landmark sirtuin mouse study. Preclinical — human translation debated.',
+  },
+  {
+    id: 'c-hallmarks-2013',
+    title: 'The Hallmarks of Aging',
+    authors: 'López-Otín C et al.',
+    journal: 'Cell',
+    year: 2013,
+    pmid: '23746838',
+    type: 'review',
+    summary: 'Foundational framework for TNiC hallmark mapping (updated 2023).',
+  },
+  {
+    id: 'c-rapa-2011',
+    title: 'Rapamycin extends median and maximal lifespan in genetically heterogeneous mice',
+    authors: 'Miller RA et al.',
+    journal: 'Aging Cell',
+    year: 2011,
+    pmid: '21276122',
+    type: 'preclinical',
+    summary: 'Strongest single-compound mouse lifespan data. Off-label human use requires physician supervision.',
+  },
+];
+
+export const methodologySections = [
+  {
+    id: 'compound-selection',
+    title: 'Compound Selection Methodology',
+    steps: [
+      { step: '01', title: 'Mechanism First', desc: 'Must target a mapped hallmark or defense pathway. Trend-driven inclusion rejected.' },
+      { step: '02', title: 'Bioavailability Verified', desc: 'Formulation must achieve meaningful plasma levels. Inferior forms (racemic ALA, oxide minerals) excluded.' },
+      { step: '03', title: 'PubMed Traceable', desc: 'Primary literature required. Marketing claims without citations are rejected.' },
+      { step: '04', title: 'Dose-Response Validated', desc: 'Dosing from clinical trials. AM/PM timing from absorption pharmacokinetics.' },
+      { step: '05', title: 'Synergy Tested', desc: 'Stack pairs evaluated for pathway overlap and interaction risk before recommendation.' },
+    ],
+  },
+  {
+    id: 'evidence-grading',
+    title: 'Evidence Grading Process',
+    steps: [
+      { step: 'A', title: 'Assign Initial Tier', desc: 'Literature review assigns A/B/C based on human vs. preclinical data.' },
+      { step: 'B', title: 'Independent Check', desc: 'Second review confirms PMID validity and outcome relevance.' },
+      { step: 'C', title: 'Public Labeling', desc: 'Tier displayed on every compound surface. No hidden downgrades.' },
+      { step: 'D', title: 'Quarterly Re-Review', desc: 'New trials trigger tier updates. Changes logged in Update History.' },
+    ],
+  },
+  {
+    id: 'biomarker-modeling',
+    title: 'Biomarker & Bio Age Modeling',
+    steps: [
+      { step: '01', title: 'Lifestyle Inputs', desc: 'Age, stress, sleep, exercise feed defense pathway priority calculator.' },
+      { step: '02', title: 'Stack Boost', desc: 'Selected compounds apply modeled biomarker improvements — clearly labeled as projections.' },
+      { step: '03', title: 'Lab Override', desc: 'When users log real lab data in /labs, actual values supersede projections for recommendations.' },
+      { step: '04', title: 'Never Diagnostic', desc: 'Modeled biological age is directional only. Not a laboratory diagnostic.' },
+    ],
+  },
+  {
+    id: 'conflict-of-interest',
+    title: 'Conflict of Interest Policy',
+    steps: [
+      { step: '01', title: 'No Pay-for-Placement', desc: 'Brands cannot purchase inclusion or tier upgrades.' },
+      { step: '02', title: 'Affiliate Disclosure', desc: 'Some links may be affiliate. This never influences evidence tier or ranking.' },
+      { step: '03', title: 'No Proprietary Products', desc: 'TNiC does not manufacture supplements. Independent curation only.' },
+    ],
+  },
+];
+
+export const disclaimers: DisclaimerBlock[] = [
+  {
+    id: 'not-medical-advice',
+    title: 'Not Medical Advice',
+    severity: 'legal',
+    body: 'TNiC is an educational intelligence platform. Nothing on this site constitutes medical advice, diagnosis, or treatment. Always consult a qualified physician before starting, stopping, or modifying any supplement or health protocol.',
+    appliesTo: ['All pages', 'Stack exports', 'Lab recommendations'],
+  },
+  {
+    id: 'modeled-projections',
+    title: 'Modeled Projections vs. Lab Data',
+    severity: 'warning',
+    body: 'Biological age estimates, biomarker projections, and synergy scores are algorithmic models — not laboratory diagnostics. Log real lab data in the Lab Hub for data-driven insights. Modeled and measured data are always labeled differently.',
+    appliesTo: ['Defense Calculator', 'Biomarker Command', 'Personal Dashboard'],
+  },
+  {
+    id: 'n-equals-1',
+    title: 'Personal Journey (N=1)',
+    severity: 'info',
+    body: 'The TNiC Journey timeline includes founder personal experiments (N=1). Individual results vary enormously. Personal anecdotes are labeled separately from population science and never used to upgrade evidence tiers.',
+    appliesTo: ['Journey timeline', 'Blog-style updates'],
+  },
+  {
+    id: 'rx-educational',
+    title: 'Prescription Protocols — Educational Only',
+    severity: 'warning',
+    body: 'Rapamycin, metformin, and other Rx entries in the Stacks Library are educational references for physician discussions. TNiC does not prescribe, source, or recommend self-medication with prescription drugs.',
+    appliesTo: ['Rapamycin Combo stack', 'Clinical-tier protocols'],
+  },
+  {
+    id: 'supplement-quality',
+    title: 'Third-Party Product Quality',
+    severity: 'info',
+    body: 'TNiC curates compounds by evidence and mechanism — not by brand endorsement. Product purity, contamination, and label accuracy are the user\'s responsibility. Require COA (Certificate of Analysis) for NMN and other high-risk categories.',
+    appliesTo: ['Stack Architect', 'Compound Lab'],
+  },
+  {
+    id: 'data-privacy',
+    title: 'Local Data Storage',
+    severity: 'info',
+    body: 'Stack selections, lab entries, and personal notes are stored in your browser\'s localStorage. TNiC does not transmit this data to servers. Clearing browser data deletes your entries. Export regularly for backup.',
+    appliesTo: ['Lab Hub', 'Personal Dashboard', 'Hallmark Notes'],
+  },
+];
+
+export const updateHistory: UpdateHistoryEntry[] = [
+  {
+    date: '2026-06-16',
+    version: '1.4.0',
+    title: 'Trust & Transparency System',
+    category: 'feature',
+    changes: [
+      'Launched /trust hub with evidence tagging, citations framework, methodology, disclaimers, and update history',
+      'Reusable EvidenceTag and SourceCitation components across library, stacks, and compounds',
+      'Personal journey timeline with N=1 vs. population science labeling',
+    ],
+  },
+  {
+    date: '2026-06-16',
+    version: '1.3.0',
+    title: 'Design System Overhaul',
+    category: 'design',
+    changes: [
+      'Unified typography, spacing, and accessibility tokens (WCAG AA)',
+      'PageHeader, TabBar, StatStrip, DataTable primitives',
+      'Mobile-optimized hub pages for /labs, /stacks, /library',
+    ],
+  },
+  {
+    date: '2026-06-16',
+    version: '1.2.0',
+    title: 'Lab Analysis & Tracking Hub',
+    category: 'feature',
+    changes: [
+      'Privacy-first lab hub at /labs with CSV import, trend charts, hallmark risk mapping',
+      'Stack-aware personalized recommendations from lab data',
+    ],
+  },
+  {
+    date: '2026-06-16',
+    version: '1.1.0',
+    title: 'Stacks & Protocols Library',
+    category: 'feature',
+    changes: [
+      '9 elite pre-built stacks including GlyNAC, SIRT1, Rapamycin combo (educational)',
+      'Dynamic stack builder with real-time synergy and contraindication analysis',
+      'Comparison table with goal/cost/simplicity filters',
+    ],
+  },
+  {
+    date: '2026-06-16',
+    version: '1.0.0',
+    title: 'Anti-Aging Library Launch',
+    category: 'content',
+    changes: [
+      '12 Hallmarks of Aging with evidence-ranked interventions and MDX deep dives',
+      'Intervention explorer with Tier A/B/C filtering',
+      'Personal notes integration per hallmark',
+    ],
+  },
+  {
+    date: '2026-06-01',
+    version: '0.9.0',
+    title: 'Platform Core',
+    category: 'feature',
+    changes: [
+      'Stack Architect with synergy scoring and evidence-graded presets',
+      'Defense Calculator and biomarker command center',
+      'Local-first data persistence (stack, labs, profile)',
+    ],
+  },
+  {
+    date: '2025-12-01',
+    version: '0.5.0',
+    title: 'Evidence Framework Established',
+    category: 'evidence',
+    changes: [
+      'Tier A/B/C grading system defined',
+      '6 compounds curated with PubMed traceability',
+      'Transparency pledge published',
+    ],
+  },
+];
+
+export function getCitationById(id: string): SourceCitation | undefined {
+  return citationRegistry.find((c) => c.id === id);
+}
+
+export function getCitationByPmid(pmid: string): SourceCitation | undefined {
+  return citationRegistry.find((c) => c.pmid === pmid);
+}
+
+export function pubmedUrl(pmid: string): string {
+  return `https://pubmed.ncbi.nlm.nih.gov/${pmid}/`;
+}
+
+export function formatCitationShort(c: SourceCitation): string {
+  const author = c.authors?.split(' et al')[0] ?? c.journal;
+  return `${author} (${c.year})`;
+}

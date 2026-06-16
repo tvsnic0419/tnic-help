@@ -96,7 +96,7 @@ export const trustPillars = [
   {
     title: 'Safety First',
     desc: 'Contraindications, red flags, and physician-export protocols in the Trust Center.',
-    href: '#trust',
+    href: '/trust',
   },
   {
     title: 'Radical Transparency',

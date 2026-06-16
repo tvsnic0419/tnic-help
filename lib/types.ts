@@ -8,6 +8,52 @@ export type SimplicityTier = 'minimal' | 'moderate' | 'advanced' | 'clinical';
 
 export type EvidenceTier = 'A' | 'B' | 'C';
 
+export type CitationType = 'clinical' | 'review' | 'preclinical' | 'guideline' | 'meta-analysis';
+
+export type JourneyMilestoneType = 'personal' | 'experiment' | 'protocol' | 'platform';
+
+export type UpdateCategory = 'feature' | 'evidence' | 'safety' | 'content' | 'design';
+
+export interface SourceCitation {
+  id: string;
+  title: string;
+  authors?: string;
+  journal: string;
+  year: number;
+  pmid?: string;
+  doi?: string;
+  url?: string;
+  type: CitationType;
+  summary?: string;
+}
+
+export interface JourneyMilestone {
+  date: string;
+  title: string;
+  type: JourneyMilestoneType;
+  desc: string;
+  metric: string | null;
+  evidenceTier?: EvidenceTier;
+  citationIds?: string[];
+  personal?: boolean;
+}
+
+export interface UpdateHistoryEntry {
+  date: string;
+  version: string;
+  title: string;
+  category: UpdateCategory;
+  changes: string[];
+}
+
+export interface DisclaimerBlock {
+  id: string;
+  title: string;
+  severity: 'info' | 'warning' | 'legal';
+  body: string;
+  appliesTo: string[];
+}
+
 export interface StudyRef {
   title: string;
   journal: string;

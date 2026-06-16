@@ -1,15 +1,11 @@
 'use client';
 
 import { useState, useMemo } from 'react';
-import { ExternalLink, Filter } from 'lucide-react';
+import { Filter } from 'lucide-react';
 import type { HallmarkIntervention } from '@/lib/types';
 import { compounds } from '@/lib/data';
-
-const evidenceColor = {
-  A: 'text-emerald-400 bg-emerald-400/10',
-  B: 'text-cyan-400 bg-cyan-400/10',
-  C: 'text-amber-400 bg-amber-400/10',
-};
+import { EvidenceTag } from '@/components/trust/EvidenceTag';
+import { PmidLink } from '@/components/trust/SourceCitation';
 
 const categoryLabels = {
   compound: 'Compound',
@@ -73,9 +69,7 @@ export function InterventionExplorer({
             <div className="flex-1 min-w-0">
               <div className="flex flex-wrap items-center gap-2 mb-1">
                 <h4 className="font-semibold text-sm">{item.name}</h4>
-                <span className={`text-[10px] font-mono font-bold px-1.5 py-0.5 rounded ${evidenceColor[item.evidence]}`}>
-                  Tier {item.evidence}
-                </span>
+                <EvidenceTag tier={item.evidence} size="sm" />
                 <span className="text-[10px] text-zinc-600">{categoryLabels[item.category]}</span>
                 {item.tnicAvailable && (
                   <span className="text-[10px] text-cyan-400 font-semibold">IN TNiC STACK</span>
@@ -89,16 +83,7 @@ export function InterventionExplorer({
                     View {compounds.find((c) => c.id === item.compoundId)?.name}
                   </a>
                 )}
-                {item.pmid && (
-                  <a
-                    href={`https://pubmed.ncbi.nlm.nih.gov/${item.pmid}/`}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="text-[10px] text-cyan-400 hover:underline inline-flex items-center gap-1"
-                  >
-                    PubMed <ExternalLink className="w-2.5 h-2.5" />
-                  </a>
-                )}
+                {item.pmid && <PmidLink pmid={item.pmid} />}
               </div>
             </div>
           </div>

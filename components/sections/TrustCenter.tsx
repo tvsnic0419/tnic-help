@@ -1,9 +1,11 @@
 'use client';
 
 import { useState } from 'react';
+import Link from 'next/link';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Shield, Scale, Eye, AlertTriangle, CheckCircle2, FileText } from 'lucide-react';
+import { Shield, Scale, Eye, AlertTriangle, CheckCircle2, FileText, ArrowRight } from 'lucide-react';
 import { SectionShell } from '@/components/SectionShell';
+import { EvidenceTag, EvidenceTagLegend } from '@/components/trust/EvidenceTag';
 import {
   evidenceStandards,
   selectionCriteria,
@@ -12,6 +14,7 @@ import {
   generalSafetyGuidance,
   compounds,
 } from '@/lib/data';
+import type { EvidenceTier } from '@/lib/types';
 
 const tabs = [
   { id: 'standards', label: 'Evidence Standards', icon: Scale },
@@ -21,10 +24,10 @@ const tabs = [
 
 type TabId = (typeof tabs)[number]['id'];
 
-const tierColors = {
-  A: 'text-emerald-400 bg-emerald-400/10 border-emerald-400/30',
-  B: 'text-cyan-400 bg-cyan-400/10 border-cyan-400/30',
-  C: 'text-amber-400 bg-amber-400/10 border-amber-400/30',
+const tierBorder: Record<EvidenceTier, string> = {
+  A: 'border-emerald-400/30',
+  B: 'border-cyan-400/30',
+  C: 'border-amber-400/30',
 };
 
 export function TrustCenter() {
@@ -44,19 +47,27 @@ export function TrustCenter() {
       subtitle="Consumers deserve to know how recommendations are made, what the evidence actually says, and what safety limits apply. No black boxes."
       className="bg-[#0a0f1a]/60"
     >
-      <div className="flex flex-wrap gap-2 mb-10">
-        {tabs.map((t) => (
-          <button
-            key={t.id}
-            onClick={() => setTab(t.id)}
-            className={`flex items-center gap-2 px-5 py-2.5 rounded-xl text-sm font-semibold transition-all ${
-              tab === t.id ? 'bg-emerald-400 text-black' : 'glass text-zinc-400 hover:text-white'
-            }`}
-          >
-            <t.icon className="w-4 h-4" />
-            {t.label}
-          </button>
-        ))}
+      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-10">
+        <div className="flex flex-wrap gap-2">
+          {tabs.map((t) => (
+            <button
+              key={t.id}
+              onClick={() => setTab(t.id)}
+              className={`focus-ring interactive flex items-center gap-2 px-5 py-3 min-h-[var(--space-touch)] rounded-xl text-sm font-semibold ${
+                tab === t.id ? 'bg-emerald-400 text-black' : 'glass text-zinc-400 hover:text-white'
+              }`}
+            >
+              <t.icon className="w-4 h-4" aria-hidden="true" />
+              {t.label}
+            </button>
+          ))}
+        </div>
+        <Link
+          href="/trust"
+          className="focus-ring interactive text-sm font-semibold text-emerald-400 hover:text-cyan-400 inline-flex items-center gap-1 shrink-0"
+        >
+          Full Trust Hub <ArrowRight className="w-4 h-4" aria-hidden="true" />
+        </Link>
       </div>
 
       <AnimatePresence mode="wait">
@@ -67,26 +78,28 @@ export function TrustCenter() {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -10 }}
           >
+            <EvidenceTagLegend className="mb-8" />
             <div className="grid md:grid-cols-3 gap-6 mb-12">
-              {evidenceStandards.map((std) => (
-                <div key={std.tier} className={`gradient-border p-6 border ${tierColors[std.tier]}`}>
-                  <span className={`text-xs font-bold px-2 py-1 rounded ${tierColors[std.tier]}`}>
-                    Tier {std.tier}
-                  </span>
-                  <h3 className="text-lg font-bold mt-3 mb-4">{std.label.split('—')[1]?.trim()}</h3>
-                  <ul className="space-y-2 mb-4">
-                    {std.criteria.map((c) => (
-                      <li key={c} className="flex items-start gap-2 text-xs text-zinc-400">
-                        <CheckCircle2 className="w-3.5 h-3.5 text-emerald-400 shrink-0 mt-0.5" />
-                        {c}
-                      </li>
-                    ))}
-                  </ul>
-                  <p className="text-[10px] text-zinc-500 border-t border-white/[0.06] pt-3">
-                    <span className="text-emerald-400 font-mono">Example: </span>{std.example}
-                  </p>
-                </div>
-              ))}
+              {(['A', 'B', 'C'] as EvidenceTier[]).map((tier) => {
+                const std = evidenceStandards.find((s) => s.tier === tier)!;
+                return (
+                  <div key={tier} className={`card-elevated p-6 border ${tierBorder[tier]}`}>
+                    <EvidenceTag tier={tier} size="lg" className="mb-4" />
+                    <h3 className="heading-card text-base mb-4">{std.label.split('—')[1]?.trim()}</h3>
+                    <ul className="space-y-2 mb-4">
+                      {std.criteria.map((c: string) => (
+                        <li key={c} className="flex items-start gap-2 text-body-sm">
+                          <CheckCircle2 className="w-3.5 h-3.5 text-emerald-400 shrink-0 mt-0.5" aria-hidden="true" />
+                          {c}
+                        </li>
+                      ))}
+                    </ul>
+                    <p className="text-caption border-t border-white/[0.06] pt-3">
+                      <span className="text-emerald-400">Example: </span>{std.example}
+                    </p>
+                  </div>
+                );
+              })}
             </div>
 
             <p className="text-[10px] font-mono text-emerald-400 uppercase tracking-wider mb-4">

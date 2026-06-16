@@ -5,6 +5,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { Check, Sun, Moon, Share2, Copy, CheckCheck, Bookmark, Sparkles } from 'lucide-react';
 import { SectionShell } from '@/components/SectionShell';
 import { compounds } from '@/lib/data';
+import { EvidenceTag } from '@/components/trust/EvidenceTag';
 import { stackPresets, type PresetKey } from '@/lib/presets';
 import { useStack } from '@/context/PlatformContext';
 
@@ -107,7 +108,7 @@ export function StackArchitect() {
                     }`}>
                       {isOn && <Check className="w-3 h-3" />}
                     </span>
-                    <span className="text-[10px] font-mono text-zinc-500">Tier {c.evidence}</span>
+                    <EvidenceTag tier={c.evidence} size="sm" />
                   </div>
                   <h4 className="font-bold text-sm mb-1">{c.name}</h4>
                   <p className="text-xs text-zinc-500">{c.dose}</p>

@@ -33,8 +33,8 @@ const paths = [
     color: 'text-emerald-400',
     bg: 'bg-emerald-400/10',
     steps: [
-      { label: 'Evidence standards', href: '#trust' },
-      { label: 'Safety center', href: '#trust' },
+      { label: 'Evidence standards', href: '/trust' },
+      { label: 'Safety center', href: '/trust/disclaimers' },
       { label: 'FAQ', href: '#learn' },
       { label: 'Red flags guide', href: '#learn' },
     ],

@@ -8,8 +8,10 @@ const hubLinks = [
 ];
 
 const resourceLinks = [
-  { href: '#trust', label: 'Trust & Standards', icon: Shield },
-  { href: '#learn', label: 'Consumer Guide', icon: BookOpen },
+  { href: '/trust', label: 'Trust & Transparency', icon: Shield },
+  { href: '/trust/methodology', label: 'Methodology', icon: BookOpen },
+  { href: '/trust/disclaimers', label: 'Disclaimers', icon: BookOpen },
+  { href: '/trust/updates', label: 'Update History', icon: BookOpen },
 ];
 
 export function Footer() {
@@ -74,7 +76,7 @@ export function Footer() {
             </p>
             <p className="text-caption">
               Consult a physician before starting any protocol.{' '}
-              <a href="#trust" className="text-cyan-400 hover:underline focus-ring rounded">
+              <a href="/trust/disclaimers" className="text-cyan-400 hover:underline focus-ring rounded">
                 Transparency Pledge
               </a>
             </p>
