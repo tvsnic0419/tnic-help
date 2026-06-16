@@ -1,7 +1,8 @@
 'use client';
 
 import { motion } from 'framer-motion';
-import { communityPulse, platformStats } from '@/lib/data';
+import { communityPulse } from '@/lib/data';
+import { platformStats } from '@/lib/platform-stats';
 
 export function CommunityPulse() {
   return (

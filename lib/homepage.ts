@@ -1,5 +1,6 @@
 import { stackPresets } from './presets';
-import { researchFeed, platformStats } from './data';
+import { researchFeed } from './data';
+import { platformStats } from './platform-stats';
 
 export const heroValueProps = [
   'Personal Longevity OS — dashboard, milestones, export kit',

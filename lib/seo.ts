@@ -71,7 +71,7 @@ export function buildFaqSchema() {
   return {
     '@context': 'https://schema.org',
     '@type': 'FAQPage',
-    mainEntity: consumerFAQ.slice(0, 8).map((f) => ({
+    mainEntity: consumerFAQ.map((f) => ({
       '@type': 'Question',
       name: f.question,
       acceptedAnswer: { '@type': 'Answer', text: f.answer },

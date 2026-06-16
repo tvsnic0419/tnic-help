@@ -10,10 +10,10 @@ const paths = [
     color: 'text-accent-cyan',
     bg: 'bg-accent-cyan/10',
     steps: [
+      { label: 'Learn hub (start here)', href: '/learn' },
+      { label: 'FAQ — 12 answers', href: '/faq' },
       { label: 'Search library', href: '/library' },
-      { label: '12 Hallmarks', href: '/library' },
       { label: 'Compound deep-dives', href: '/library/compounds/glynac' },
-      { label: 'Synergy guides', href: '/library/synergies/glynac-nrf2-triad' },
     ],
   },
   {

@@ -2,7 +2,7 @@
 
 import { motion } from 'framer-motion';
 import Link from 'next/link';
-import { ArrowRight, LayoutDashboard, Sparkles, CheckCircle2 } from 'lucide-react';
+import { ArrowRight, LayoutDashboard, Sparkles, CheckCircle2, ClipboardList } from 'lucide-react';
 import { heroValueProps } from '@/lib/homepage';
 import { StarterQuiz } from '@/components/sections/StarterQuiz';
 
@@ -70,22 +70,29 @@ export function HeroSection() {
               transition={{ delay: 0.3 }}
               className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start"
             >
-              <Link
-                href="/dashboard"
-                className="focus-ring interactive group bg-white text-black px-6 md:px-8 py-4 min-h-[var(--space-touch)] rounded-2xl font-semibold flex items-center justify-center gap-3 hover:bg-accent-emerald hover:text-primary-foreground"
+              <a
+                href="#starter-quiz"
+                className="focus-ring interactive group bg-white text-black px-6 md:px-8 py-4 min-h-[var(--space-touch)] rounded-2xl font-semibold flex items-center justify-center gap-3 hover:bg-accent-cyan hover:text-black"
               >
-                <LayoutDashboard className="w-5 h-5" aria-hidden="true" />
-                Initialize Longevity OS
+                <ClipboardList className="w-5 h-5" aria-hidden="true" />
+                Start 3-Min Quiz
                 <ArrowRight
                   className="w-5 h-5 group-hover:translate-x-1 transition-transform"
                   aria-hidden="true"
                 />
+              </a>
+              <Link
+                href="/dashboard"
+                className="focus-ring interactive glass px-6 md:px-8 py-4 min-h-[var(--space-touch)] rounded-2xl font-medium hover:border-accent-emerald/30 flex items-center justify-center gap-2"
+              >
+                <LayoutDashboard className="w-4 h-4" aria-hidden="true" />
+                Open Longevity OS
               </Link>
               <Link
-                href="/library"
-                className="focus-ring interactive glass px-6 md:px-8 py-4 min-h-[var(--space-touch)] rounded-2xl font-medium hover:border-accent-cyan/30 text-center"
+                href="/learn"
+                className="focus-ring interactive glass px-6 md:px-8 py-4 min-h-[var(--space-touch)] rounded-2xl font-medium hover:border-accent-cyan/30 text-center sm:hidden"
               >
-                Explore Library
+                Learn hub
               </Link>
             </motion.div>
 
@@ -100,10 +107,11 @@ export function HeroSection() {
           </div>
 
           <motion.div
+            id="starter-quiz"
             initial={{ opacity: 0, x: 40 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ delay: 0.4, duration: 0.8 }}
-            className="lg:col-span-5"
+            className="lg:col-span-5 scroll-mt-28"
           >
             <StarterQuiz />
           </motion.div>

@@ -4,6 +4,7 @@ import { Footer } from '@/components/Footer';
 import { ToolsDock } from '@/components/ToolsDock';
 import { HeroSection } from '@/components/sections/HeroSection';
 import { HomepageOSFunnel } from '@/components/sections/HomepageOSFunnel';
+import { HomepageTrustStrip } from '@/components/sections/HomepageTrustStrip';
 import { TrustBanner } from '@/components/TrustBanner';
 import { LibraryHighlights } from '@/components/sections/LibraryHighlights';
 import { HomepageTrust } from '@/components/sections/HomepageTrust';
@@ -20,6 +21,7 @@ export default function HomePage() {
         <Nav />
         <main id="main-content" tabIndex={-1}>
           <HeroSection />
+          <HomepageTrustStrip />
           <HomepageOSFunnel />
           <TrustBanner />
           <LibraryHighlights />

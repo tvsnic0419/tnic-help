@@ -1,13 +1,27 @@
 import Link from 'next/link';
-import { Dna, Shield, BookOpen, Layers, FlaskConical, Library } from 'lucide-react';
+import {
+  Dna,
+  Shield,
+  BookOpen,
+  Layers,
+  FlaskConical,
+  Library,
+  LayoutDashboard,
+  HelpCircle,
+  GraduationCap,
+} from 'lucide-react';
+import { citationRegistry } from '@/lib/trust';
 
 const hubLinks = [
+  { href: '/dashboard', label: 'My Longevity OS', icon: LayoutDashboard },
   { href: '/library', label: 'Anti-Aging Library', icon: Library },
+  { href: '/learn', label: 'Learn Hub', icon: GraduationCap },
   { href: '/stacks', label: 'Stacks & Protocols', icon: Layers },
   { href: '/labs', label: 'Lab Analysis Hub', icon: FlaskConical },
 ];
 
 const resourceLinks = [
+  { href: '/faq', label: 'FAQ', icon: HelpCircle },
   { href: '/trust', label: 'Trust & Transparency', icon: Shield },
   { href: '/trust/methodology', label: 'Methodology', icon: BookOpen },
   { href: '/trust/disclaimers', label: 'Disclaimers', icon: BookOpen },
@@ -56,13 +70,13 @@ export function Footer() {
             <ul className="space-y-3">
               {resourceLinks.map((link) => (
                 <li key={link.label}>
-                  <a
+                  <Link
                     href={link.href}
                     className="focus-ring interactive flex items-center gap-2 text-body-sm hover:text-accent-cyan rounded-md"
                   >
                     <link.icon className="w-4 h-4 shrink-0" aria-hidden="true" />
                     {link.label}
-                  </a>
+                  </Link>
                 </li>
               ))}
             </ul>
@@ -88,7 +102,7 @@ export function Footer() {
           <div className="flex flex-wrap gap-x-4 gap-y-1 text-caption font-mono">
             <span>Tier A: 4 compounds</span>
             <span>Tier B: 2 compounds</span>
-            <span>847 citations</span>
+            <span>{citationRegistry.length} indexed PMIDs</span>
           </div>
         </div>
       </div>

@@ -30,6 +30,24 @@ export const seoRoutes = {
       keywords: ['longevity dashboard', 'personal health OS', 'stack tracker'],
     }),
 
+  learn: () =>
+    buildPageMetadata({
+      title: 'Learn Hub — Getting Started, Glossary & Red Flags',
+      description:
+        'Start here before you stack: 5-step onboarding checklist, longevity glossary, supplement red flags, outcome timelines, and consumer FAQ.',
+      path: '/learn',
+      keywords: ['longevity FAQ', 'getting started biohacking', 'supplement red flags', 'longevity glossary'],
+    }),
+
+  faq: () =>
+    buildPageMetadata({
+      title: 'FAQ — Longevity Protocol Questions Answered',
+      description:
+        'Twelve honest answers about TNiC evidence tiers, safety, blood tests, biological age, medications, and how we differ from supplement stores.',
+      path: '/faq',
+      keywords: ['longevity FAQ', 'NMN safety', 'evidence tier A B C', 'supplement protocol questions'],
+    }),
+
   library: () =>
     buildPageMetadata({
       title: 'Anti-Aging Library — Hallmarks, Compounds & Protocols',

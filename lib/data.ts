@@ -17,17 +17,11 @@ import type { Compound, Hallmark, PathwayNode, RoadmapItem } from './types';
 export const navLinks = [
   { href: '/dashboard', label: 'Dashboard', mod: 'MOD-DSH-12' },
   { href: '/library', label: 'Library', mod: 'MOD-LIB-13' },
+  { href: '/learn', label: 'Learn', mod: 'MOD-LRN-09' },
   { href: '/stacks', label: 'Stacks', mod: 'MOD-ARC-04' },
   { href: '/labs', label: 'Labs', mod: 'MOD-LAB-11' },
   { href: '/tools', label: 'Tools', mod: 'MOD-TOL-14' },
   { href: '/trust', label: 'Trust', mod: 'MOD-TRU-08' },
-];
-
-export const platformStats = [
-  { value: '847', label: 'Peer-Reviewed Citations' },
-  { value: '12', label: 'Hallmarks Mapped' },
-  { value: '6', label: 'Evidence-Graded Compounds' },
-  { value: '3', label: 'Defense Pathways' },
 ];
 
 export const communityPulse = [
@@ -708,13 +702,13 @@ export const consumerFAQ = [
     id: 'faq10',
     category: 'getting-started' as const,
     question: 'I\'m new to biohacking. Where do I start?',
-    answer: 'Follow the 5-step path in the Learn Center: (1) Run Defense Scan, (2) Review biomarkers, (3) Build your stack, (4) Check safety, (5) Track over 90 days. You do not need to understand NRF2 on day one — the tools guide you.',
+    answer: 'Follow the 5-step path in the Learn hub (/learn): (1) Run Defense Scan, (2) Review biomarkers, (3) Build your stack, (4) Check safety, (5) Track over 90 days. You do not need to understand NRF2 on day one — the tools guide you.',
   },
   {
     id: 'faq11',
     category: 'safety' as const,
     question: 'What red flags should I watch for in supplement brands?',
-    answer: 'Proprietary blends hiding doses, lifespan claims without PubMed links, racemic ALA marketed as premium, NMN without purity certificates, and mega-stacks of 20+ ingredients. TNiC lists all six red flags in the Learn Center with specific actions to take.',
+    answer: 'Proprietary blends hiding doses, lifespan claims without PubMed links, racemic ALA marketed as premium, NMN without purity certificates, and mega-stacks of 20+ ingredients. TNiC lists all red flags in the Learn hub (/learn) with specific actions to take.',
   },
   {
     id: 'faq12',

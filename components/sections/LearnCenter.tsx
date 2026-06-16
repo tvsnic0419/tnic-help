@@ -31,9 +31,9 @@ const faqCategories = [
   { id: 'products', label: 'Products' },
 ] as const;
 
-export function LearnCenter() {
+export function LearnCenter({ defaultTab }: { defaultTab?: TabId }) {
   const { checklist, toggleChecklist } = usePlatform();
-  const [tab, setTab] = useState<TabId>('start');
+  const [tab, setTab] = useState<TabId>(defaultTab ?? 'start');
   const [faqFilter, setFaqFilter] = useState<string>('all');
   const [openFaq, setOpenFaq] = useState<string | null>(consumerFAQ[0].id);
   const [openTerm, setOpenTerm] = useState<string | null>(glossary[0].term);
@@ -49,7 +49,7 @@ export function LearnCenter() {
       theme="cyan"
       badge="Consumer Intelligence"
       title="Learn Before You Stack"
-      subtitle="Intelligent consumers ask hard questions. TNiC answers them openly — from first-time basics to supplement industry red flags."
+      subtitle="Intelligent consumers ask hard questions. TNiC answers them openly — from first-time basics to supplement industry red flags. Quick answers also live at /faq."
       className="bg-background"
     >
       <div className="flex flex-wrap gap-2 mb-10">

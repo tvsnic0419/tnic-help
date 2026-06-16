@@ -12,6 +12,8 @@ export default function sitemap(): MetadataRoute.Sitemap {
   const coreRoutes: MetadataRoute.Sitemap = [
     { url: base, lastModified: BUILD_DATE, changeFrequency: 'weekly', priority: 1 },
     { url: `${base}/library`, lastModified: BUILD_DATE, changeFrequency: 'weekly', priority: 0.95 },
+    { url: `${base}/learn`, lastModified: BUILD_DATE, changeFrequency: 'weekly', priority: 0.88 },
+    { url: `${base}/faq`, lastModified: BUILD_DATE, changeFrequency: 'monthly', priority: 0.85 },
     { url: `${base}/stacks`, lastModified: BUILD_DATE, changeFrequency: 'weekly', priority: 0.9 },
     { url: `${base}/labs`, lastModified: BUILD_DATE, changeFrequency: 'weekly', priority: 0.9 },
     { url: `${base}/tools`, lastModified: BUILD_DATE, changeFrequency: 'weekly', priority: 0.9 },
