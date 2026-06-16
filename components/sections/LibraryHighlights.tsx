@@ -1,5 +1,6 @@
 'use client';
 
+import Link from 'next/link';
 import { motion } from 'framer-motion';
 import { Layers, FlaskConical, ArrowRight, ExternalLink } from 'lucide-react';
 import { featuredStacks, latestResearch } from '@/lib/homepage';
@@ -25,12 +26,12 @@ export function LibraryHighlights() {
               Not a supplement catalog — an evidence library. Every stack is graded, every study linked to actionable compounds.
             </p>
           </div>
-          <a
-            href="#research"
+          <Link
+            href="/library"
             className="inline-flex items-center gap-2 text-sm font-semibold text-accent-cyan hover:text-accent-emerald transition shrink-0"
           >
-            Full research feed <ArrowRight className="w-4 h-4" />
-          </a>
+            Full library <ArrowRight className="w-4 h-4" />
+          </Link>
         </div>
 
         <div className="grid lg:grid-cols-2 gap-10">
@@ -85,7 +86,7 @@ export function LibraryHighlights() {
               {latestResearch.map((article, i) => (
                 <motion.a
                   key={article.id}
-                  href="#research"
+                  href="/trust/updates"
                   initial={{ opacity: 0, y: 16 }}
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}

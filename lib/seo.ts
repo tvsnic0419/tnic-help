@@ -128,13 +128,39 @@ export function buildSoftwareApplicationSchema() {
   return {
     '@context': 'https://schema.org',
     '@type': 'SoftwareApplication',
-    name: 'TNiC Longevity Tools',
+    name: 'TNiC Longevity OS',
     applicationCategory: 'HealthApplication',
     operatingSystem: 'Web',
     offers: { '@type': 'Offer', price: '0', priceCurrency: 'USD' },
     description:
-      'Interactive longevity tools: stack simulator, protocol customizer, biomarker impact calculator, and healthspan estimator.',
-    url: `${SITE.url}/tools`,
+      'Privacy-first longevity operating system: personal dashboard, stack architect, local lab hub, searchable anti-aging library, and six evidence-graded tools.',
+    url: SITE.url,
+    featureList: [
+      'Stack synergy simulator',
+      'Protocol recommendation engine',
+      'Biomarker trend dashboard',
+      'Intervention impact ranking',
+      'Healthspan and defense scan',
+      'Local-only data with export kit',
+    ],
+  };
+}
+
+export function buildCollectionPageSchema(input: {
+  name: string;
+  description: string;
+  path: string;
+  itemCount: number;
+}) {
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'CollectionPage',
+    name: input.name,
+    description: input.description,
+    url: `${SITE.url}${input.path}`,
+    numberOfItems: input.itemCount,
+    isAccessibleForFree: true,
+    inLanguage: 'en-US',
   };
 }
 

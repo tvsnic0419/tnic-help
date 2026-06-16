@@ -28,7 +28,7 @@ function getNextAction(input: {
     return { message: 'No protocol yet', href: '/stacks', label: 'Build stack' };
   }
   if (!scanned) {
-    return { message: 'Personalize your OS', href: '/#calculator', label: 'Defense scan' };
+    return { message: 'Personalize your OS', href: '/tools?tab=healthspan', label: 'Defense scan' };
   }
   if (labsCount === 0) {
     return { message: 'Log baseline labs', href: '/labs', label: 'Open Labs' };

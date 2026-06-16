@@ -65,13 +65,13 @@ export function Nav() {
         <div className="hidden md:flex items-center gap-3 shrink-0">
           <ThemeToggle compact />
           <SiteSearch />
-          <a
-            href="#learn"
-            className="focus-ring interactive flex items-center gap-2 bg-foreground text-background px-5 py-2.5 min-h-[var(--space-touch)] rounded-full text-sm font-semibold hover:bg-accent-cyan hover:text-primary-foreground"
+          <Link
+            href="/dashboard"
+            className="focus-ring interactive flex items-center gap-2 bg-foreground text-background px-5 py-2.5 min-h-[var(--space-touch)] rounded-full text-sm font-semibold hover:bg-accent-emerald hover:text-primary-foreground"
           >
-            Start Learning
+            Open OS
             <ArrowRight className="w-4 h-4" aria-hidden="true" />
-          </a>
+          </Link>
         </div>
 
         <div className="flex items-center gap-1 md:hidden">
@@ -123,13 +123,13 @@ export function Nav() {
                   </a>
                 ),
               )}
-              <a
-                href="#calculator"
+              <Link
+                href="/dashboard"
                 onClick={() => setMobileOpen(false)}
-                className="focus-ring interactive bg-accent-cyan text-primary-foreground px-5 py-3.5 min-h-[var(--space-touch)] rounded-xl text-sm font-semibold text-center mt-3"
+                className="focus-ring interactive bg-accent-emerald text-primary-foreground px-5 py-3.5 min-h-[var(--space-touch)] rounded-xl text-sm font-semibold text-center mt-3"
               >
-                Run Defense Scan
-              </a>
+                Open Longevity OS
+              </Link>
             </div>
           </motion.div>
         )}

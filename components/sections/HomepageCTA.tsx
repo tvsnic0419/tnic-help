@@ -1,28 +1,29 @@
 'use client';
 
+import Link from 'next/link';
 import { ArrowRight, Scan, BookOpen, LayoutDashboard } from 'lucide-react';
 
 const paths = [
   {
     icon: BookOpen,
-    title: 'Learn the fundamentals',
-    desc: 'Glossary, FAQ, red flags, and realistic outcome timelines — before you buy anything.',
-    href: '#learn',
-    cta: 'Open Learn Center',
+    title: 'Search the library',
+    desc: 'Hallmarks, compounds, synergies — full-text search with evidence tiers.',
+    href: '/library',
+    cta: 'Open Library',
     accent: 'cyan',
   },
   {
     icon: Scan,
-    title: 'Run your defense scan',
-    desc: 'Estimate biological age from lifestyle inputs. Get a pathway-prioritized stack recommendation.',
-    href: '#calculator',
-    cta: 'Calculate Bio Age',
+    title: 'Run defense scan',
+    desc: 'Estimate biological age from lifestyle inputs. Sets your OS profile locally.',
+    href: '/tools?tab=healthspan',
+    cta: 'Defense Scan',
     accent: 'rose',
   },
   {
     icon: LayoutDashboard,
-    title: 'Launch your command center',
-    desc: 'Stack, labs, checklist, and bio age — unified in one personal dashboard. Data stays local.',
+    title: 'Launch command center',
+    desc: 'Stack, labs, milestones, hallmark grid — unified dashboard. Data stays local.',
     href: '/dashboard',
     cta: 'Open Dashboard',
     accent: 'emerald',
@@ -42,17 +43,16 @@ export function HomepageCTA() {
       <div className="relative max-w-7xl mx-auto px-6">
         <div className="text-center mb-12">
           <h2 className="text-3xl md:text-4xl font-bold tracking-tight mb-4">
-            Start where you are.<br />
-            <span className="shimmer-text">Go as deep as you want.</span>
+            Three steps into your OS.
           </h2>
           <p className="text-muted-foreground max-w-xl mx-auto">
-            The definitive longevity library — free, cited, and built to guide you from curiosity to protocol.
+            Learn → scan → command center. Every path leads to the same local-first Longevity OS.
           </p>
         </div>
 
         <div className="grid md:grid-cols-3 gap-6 mb-12">
           {paths.map((path) => (
-            <a
+            <Link
               key={path.title}
               href={path.href}
               className={`glass glass-hover rounded-2xl p-7 group transition-all ${accentMap[path.accent as keyof typeof accentMap]}`}
@@ -61,17 +61,18 @@ export function HomepageCTA() {
               <h3 className="font-bold mb-2">{path.title}</h3>
               <p className="text-sm text-muted-foreground mb-5 leading-relaxed">{path.desc}</p>
               <span className="inline-flex items-center gap-2 text-sm font-semibold transition">
-                {path.cta} <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+                {path.cta}{' '}
+                <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
               </span>
-            </a>
+            </Link>
           ))}
         </div>
 
         <div className="gradient-border p-8 md:p-10 text-center max-w-3xl mx-auto">
           <p className="font-mono text-[10px] text-accent-violet tracking-widest mb-3">READY TO BUILD?</p>
-          <h3 className="text-2xl font-bold mb-3">Your first stack takes 60 seconds</h3>
+          <h3 className="text-2xl font-bold mb-3">Your stack takes 60 seconds</h3>
           <p className="text-sm text-muted-foreground mb-6">
-            Take the starter quiz above, or jump straight into Stack Architect with evidence-graded presets.
+            Take the starter quiz in the hero, or jump into Stack Architect with evidence-graded presets.
           </p>
           <div className="flex flex-col sm:flex-row gap-3 justify-center">
             <a
@@ -80,12 +81,12 @@ export function HomepageCTA() {
             >
               Retake Starter Quiz
             </a>
-            <a
-              href="#stacks"
+            <Link
+              href="/stacks"
               className="glass px-8 py-3.5 rounded-xl font-semibold text-sm hover:border-accent-violet/40 transition-all flex items-center justify-center gap-2"
             >
-              Open Stack Architect <ArrowRight className="w-4 h-4" />
-            </a>
+              Stack Architect <ArrowRight className="w-4 h-4" />
+            </Link>
           </div>
         </div>
       </div>

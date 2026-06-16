@@ -10,7 +10,8 @@ import {
   type LibraryModuleCategory,
 } from '@/lib/library-modules';
 import { loadMdx } from '@/lib/mdx';
-import { buildPageMetadata, buildArticleSchema, buildBreadcrumbSchema } from '@/lib/seo';
+import { buildArticleSchema, buildBreadcrumbSchema } from '@/lib/seo';
+import { seoRoutes } from '@/lib/seo-routes';
 
 const VALID_CATEGORIES = Object.keys(libraryCategoryMeta) as LibraryModuleCategory[];
 
@@ -28,11 +29,11 @@ export async function generateMetadata({
   const mod = getModuleBySlug(category as LibraryModuleCategory, slug);
   if (!mod) return { title: 'Not Found' };
   const path = getModulePath(mod);
-  return buildPageMetadata({
-    title: `${mod.title} — ${libraryCategoryMeta[mod.category].label}`,
-    description: mod.summary,
+  return seoRoutes.module({
+    title: mod.title,
+    summary: mod.summary,
     path,
-    keywords: [mod.title, mod.tagline, libraryCategoryMeta[mod.category].label],
+    categoryLabel: libraryCategoryMeta[mod.category].label,
   });
 }
 

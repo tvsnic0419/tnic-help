@@ -1,13 +1,10 @@
-import type { Metadata } from 'next';
 import { Eye } from 'lucide-react';
 import { TrustPageTemplate } from '@/components/trust/TrustPageTemplate';
 import { DisclaimerBanner } from '@/components/trust/DisclaimerBanner';
 import { disclaimers } from '@/lib/trust';
+import { seoRoutes } from '@/lib/seo-routes';
 
-export const metadata: Metadata = {
-  title: 'Disclaimers — Legal & Educational Notices | TNiC Trust',
-  description: 'Medical advice disclaimer, modeled projections notice, N=1 labeling, Rx educational only, and data privacy policies.',
-};
+export const metadata = seoRoutes.trustDisclaimers();
 
 export default function DisclaimersPage() {
   return (

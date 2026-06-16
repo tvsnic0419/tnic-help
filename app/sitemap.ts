@@ -1,6 +1,7 @@
 import type { MetadataRoute } from 'next';
 import { hallmarkLibrary } from '@/lib/hallmarks-library';
 import { getAllModuleParams } from '@/lib/library-modules';
+import { toolsRegistry } from '@/lib/registry';
 import { SITE } from '@/lib/site';
 
 const BUILD_DATE = new Date('2026-06-16');
@@ -36,5 +37,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: 0.88,
   }));
 
-  return [...coreRoutes, ...hallmarkRoutes, ...moduleRoutes];
+  const toolTabRoutes = toolsRegistry.map((t) => ({
+    url: `${base}${t.href}`,
+    lastModified: BUILD_DATE,
+    changeFrequency: 'weekly' as const,
+    priority: 0.82,
+  }));
+
+  return [...coreRoutes, ...toolTabRoutes, ...hallmarkRoutes, ...moduleRoutes];
 }

@@ -1,6 +1,7 @@
 'use client';
 
 import { useState } from 'react';
+import Link from 'next/link';
 import { motion, AnimatePresence } from 'framer-motion';
 import { BookOpen, Shield, Zap, Layers, ArrowRight, RotateCcw, Check } from 'lucide-react';
 import { quizSteps, getQuizResult, type QuizAnswers } from '@/lib/homepage';
@@ -136,12 +137,12 @@ export function StarterQuiz() {
               >
                 Load Stack in Architect <ArrowRight className="w-4 h-4" />
               </button>
-              <a
+              <Link
                 href={result.primary.href}
                 className="flex items-center justify-center gap-1 glass py-2.5 rounded-xl text-xs font-semibold hover:border-accent-cyan/30 transition"
               >
                 {result.primary.cta}
-              </a>
+              </Link>
               <button
                 onClick={reset}
                 className="flex items-center justify-center gap-1 glass py-2.5 rounded-xl text-xs text-muted-foreground hover:text-foreground transition"

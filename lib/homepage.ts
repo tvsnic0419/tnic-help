@@ -2,9 +2,9 @@ import { stackPresets } from './presets';
 import { researchFeed, platformStats } from './data';
 
 export const heroValueProps = [
-  '12 Hallmarks of Aging — fully mapped',
-  '6 evidence-graded compounds with PubMed links',
-  'Free interactive tools — no paywall',
+  'Personal Longevity OS — dashboard, milestones, export kit',
+  '12 Hallmarks + searchable evidence library',
+  'Six interactive tools — local-first, no paywall',
 ];
 
 export const quizSteps = [
@@ -53,9 +53,9 @@ export function getQuizResult(answers: QuizAnswers) {
           : 'starter';
 
   const paths = {
-    learn: { title: 'Start with the Learn Center', href: '#learn', cta: 'Open Learn Center' },
-    defense: { title: 'Run your Defense Scan', href: '#calculator', cta: 'Calculate Bio Age' },
-    energy: { title: 'Explore mitochondrial pathways', href: '#science', cta: 'View Science' },
+    learn: { title: 'Search the library', href: '/library', cta: 'Open Library' },
+    defense: { title: 'Run your Defense Scan', href: '/tools?tab=healthspan', cta: 'Defense Scan' },
+    energy: { title: 'Explore mitochondrial pathways', href: '/library?q=mitochondrial', cta: 'View Science' },
     full: { title: 'Open your Personal Dashboard', href: '/dashboard', cta: 'Go to Dashboard' },
   };
 
@@ -86,22 +86,22 @@ export const trustPillars = [
   {
     title: 'Evidence-Graded',
     desc: 'Every compound rated Tier A/B/C based on human trial data — never hidden behind marketing.',
-    href: '#compounds',
+    href: '/library/compounds/glynac',
   },
   {
     title: 'Modeled vs. Lab',
-    desc: 'Projections are clearly labeled. Log real bloodwork in Lab Tracker to compare against models.',
+    desc: 'Projections are clearly labeled. Log real bloodwork in Lab Hub to compare against models.',
     href: '/labs',
   },
   {
     title: 'Safety First',
     desc: 'Contraindications, red flags, and physician-export protocols in the Trust Center.',
-    href: '/trust',
+    href: '/trust/disclaimers',
   },
   {
     title: 'Radical Transparency',
     desc: 'No affiliate pressure on recommendations. Methodology, limitations, and sources are open.',
-    href: '#about',
+    href: '/trust/methodology',
   },
 ];
 

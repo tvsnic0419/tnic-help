@@ -1,5 +1,6 @@
 'use client';
 
+import Link from 'next/link';
 import { BookOpen, Wrench, Shield, ArrowRight } from 'lucide-react';
 
 const paths = [
@@ -9,22 +10,22 @@ const paths = [
     color: 'text-accent-cyan',
     bg: 'bg-accent-cyan/10',
     steps: [
-      { label: 'Start Here guide', href: '#learn' },
-      { label: '12 Hallmarks', href: '#science' },
-      { label: 'Research Intel', href: '#research' },
-      { label: 'Glossary', href: '#learn' },
+      { label: 'Search library', href: '/library' },
+      { label: '12 Hallmarks', href: '/library' },
+      { label: 'Compound deep-dives', href: '/library/compounds/glynac' },
+      { label: 'Synergy guides', href: '/library/synergies/glynac-nrf2-triad' },
     ],
   },
   {
     icon: Wrench,
-    title: 'Use the Tools',
+    title: 'Use the OS',
     color: 'text-accent-violet',
     bg: 'bg-accent-violet/10',
     steps: [
-      { label: 'Lab tracker (local)', href: '/labs' },
-      { label: 'Stack Architect + share', href: '#stacks' },
-      { label: 'Bio Age calculator', href: '#calculator' },
-      { label: 'Synced daily protocol', href: '#protocol' },
+      { label: 'Personal dashboard', href: '/dashboard' },
+      { label: 'Stack Architect', href: '/stacks' },
+      { label: 'Defense scan', href: '/tools?tab=healthspan' },
+      { label: 'Lab hub (local)', href: '/labs' },
     ],
   },
   {
@@ -33,10 +34,10 @@ const paths = [
     color: 'text-accent-emerald',
     bg: 'bg-accent-emerald/10',
     steps: [
-      { label: 'Evidence standards', href: '/trust' },
-      { label: 'Safety center', href: '/trust/disclaimers' },
-      { label: 'FAQ', href: '#learn' },
-      { label: 'Red flags guide', href: '#learn' },
+      { label: 'Evidence standards', href: '/trust/methodology' },
+      { label: 'Safety & disclaimers', href: '/trust/disclaimers' },
+      { label: 'Founder journey', href: '/trust/journey' },
+      { label: 'Platform updates', href: '/trust/updates' },
     ],
   },
 ];
@@ -48,11 +49,10 @@ export function SiteGuide() {
         <p className="text-center text-[10px] font-mono text-muted-foreground uppercase tracking-widest mb-2">
           How to use this site
         </p>
-        <h2 className="text-center text-2xl md:text-3xl font-bold mb-3">
-          Three Paths Through TNiC
-        </h2>
+        <h2 className="text-center text-2xl md:text-3xl font-bold mb-3">Three paths through TNiC</h2>
         <p className="text-center text-sm text-muted-foreground max-w-xl mx-auto mb-10">
-          New to longevity science? Start with Learn. Ready to build? Jump to Tools. Skeptical? Trust comes first.
+          New to longevity science? Start with the library. Ready to build? Open your OS. Skeptical? Trust
+          comes first.
         </p>
 
         <div className="grid md:grid-cols-3 gap-6">
@@ -65,13 +65,13 @@ export function SiteGuide() {
               <ul className="space-y-2">
                 {path.steps.map((step) => (
                   <li key={step.label}>
-                    <a
+                    <Link
                       href={step.href}
                       className="flex items-center justify-between text-sm text-muted-foreground hover:text-foreground transition group py-1"
                     >
                       {step.label}
                       <ArrowRight className="w-3.5 h-3.5 opacity-0 group-hover:opacity-100 transition-opacity" />
-                    </a>
+                    </Link>
                   </li>
                 ))}
               </ul>

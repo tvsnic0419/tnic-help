@@ -1,27 +1,26 @@
 'use client';
 
 import { useState, useEffect } from 'react';
+import Link from 'next/link';
 import { motion, AnimatePresence } from 'framer-motion';
 import {
   LayoutDashboard,
-  Activity,
   FlaskConical,
   Layers,
   Scan,
-  Calendar,
+  Library,
   Calculator,
   ChevronUp,
 } from 'lucide-react';
 import { usePlatform } from '@/context/PlatformContext';
 
 const tools = [
-  { href: '/dashboard', label: 'Dashboard', icon: LayoutDashboard },
-  { href: '#biomarkers', label: 'Biomarkers', icon: Activity },
+  { href: '/dashboard', label: 'OS', icon: LayoutDashboard },
+  { href: '/stacks', label: 'Stack', icon: Layers },
   { href: '/labs', label: 'Labs', icon: FlaskConical },
+  { href: '/library', label: 'Library', icon: Library },
+  { href: '/tools?tab=healthspan', label: 'Scan', icon: Scan },
   { href: '/tools', label: 'Tools', icon: Calculator },
-  { href: '#stacks', label: 'Stack', icon: Layers },
-  { href: '#calculator', label: 'Bio Age', icon: Scan },
-  { href: '#protocol', label: 'Protocol', icon: Calendar },
 ] as const;
 
 export function ToolsDock() {
@@ -52,14 +51,16 @@ export function ToolsDock() {
               aria-expanded={expanded}
             >
               <div className="flex items-center gap-2">
-                <span className="text-[10px] font-mono text-accent-emerald">TOOLS</span>
+                <span className="text-[10px] font-mono text-accent-emerald">LONGEVITY OS</span>
                 {selected.length > 0 && (
                   <span className="text-[10px] font-mono bg-accent-violet/20 text-violet-300 px-2 py-0.5 rounded-full">
                     {selected.length} · {score}
                   </span>
                 )}
               </div>
-              <ChevronUp className={`w-4 h-4 text-muted-foreground ml-auto transition-transform ${expanded ? 'rotate-180' : ''}`} />
+              <ChevronUp
+                className={`w-4 h-4 text-muted-foreground ml-auto transition-transform ${expanded ? 'rotate-180' : ''}`}
+              />
             </button>
 
             <AnimatePresence>
@@ -72,7 +73,7 @@ export function ToolsDock() {
                 >
                   <div className="flex flex-wrap justify-center gap-1 px-2 pb-2">
                     {tools.map((t) => (
-                      <a
+                      <Link
                         key={t.href}
                         href={t.href}
                         onClick={() => setExpanded(false)}
@@ -80,7 +81,7 @@ export function ToolsDock() {
                       >
                         <t.icon className="w-4 h-4" />
                         {t.label}
-                      </a>
+                      </Link>
                     ))}
                   </div>
                 </motion.div>

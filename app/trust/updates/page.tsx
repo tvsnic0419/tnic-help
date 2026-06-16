@@ -1,13 +1,10 @@
-import type { Metadata } from 'next';
 import { History } from 'lucide-react';
 import { TrustPageTemplate } from '@/components/trust/TrustPageTemplate';
 import { UpdateHistoryList } from '@/components/trust/UpdateHistoryList';
 import { updateHistory } from '@/lib/trust';
+import { seoRoutes } from '@/lib/seo-routes';
 
-export const metadata: Metadata = {
-  title: 'Update History — Platform Changelog | TNiC Trust',
-  description: 'Public changelog of TNiC features, evidence updates, safety revisions, and content changes.',
-};
+export const metadata = seoRoutes.trustUpdates();
 
 export default function UpdatesPage() {
   return (

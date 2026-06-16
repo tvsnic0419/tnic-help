@@ -10,7 +10,7 @@ import {
   ResponsiveContainer,
   CartesianGrid,
 } from 'recharts';
-import { TrendingUp, TrendingDown, Activity } from 'lucide-react';
+import { TrendingUp, TrendingDown, Activity, Scan } from 'lucide-react';
 import Link from 'next/link';
 import { usePlatform } from '@/context/PlatformContext';
 import { estimateHealthspan } from '@/lib/tools/healthspan-estimator';
@@ -18,10 +18,11 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/com
 import { Slider } from '@/components/ui/Slider';
 import { Badge } from '@/components/ui/Badge';
 import { Progress } from '@/components/ui/Progress';
+import { Button } from '@/components/ui/Button';
 import { ToolDisclaimer } from './ToolDisclaimer';
 
 export function HealthspanEstimatorTool() {
-  const { profile, setProfile, selected, labs } = usePlatform();
+  const { profile, setProfile, selected, labs, defenseProfile } = usePlatform();
 
   const estimate = useMemo(
     () =>
@@ -70,7 +71,21 @@ export function HealthspanEstimatorTool() {
                 <p className="text-muted-foreground">
                   Confidence: <span className="text-accent-emerald">{estimate.dataConfidence}%</span>
                 </p>
+                {profile.scanned && (
+                  <p className="text-muted-foreground">
+                    Bio age:{' '}
+                    <span className="text-accent-rose font-mono">{defenseProfile.biologicalAge}</span>
+                  </p>
+                )}
               </div>
+              <Button
+                theme="rose"
+                icon={Scan}
+                fullWidth
+                onClick={() => setProfile({ scanned: true })}
+              >
+                {profile.scanned ? 'Defense scan complete' : 'Execute defense scan'}
+              </Button>
             </CardContent>
           </Card>
 

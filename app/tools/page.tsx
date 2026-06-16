@@ -1,21 +1,9 @@
 import { Suspense } from 'react';
 import { ToolsHub } from '@/components/tools/ToolsHub';
 import { SectionSkeleton } from '@/components/ui/SectionSkeleton';
-import { buildPageMetadata } from '@/lib/seo';
+import { seoRoutes } from '@/lib/seo-routes';
 
-export const metadata = buildPageMetadata({
-  title: 'Longevity Tools — Protocol Engine, Stack Network & Biomarker Dashboard',
-  description:
-    'Six interactive longevity tools: stack simulator, visual conflict network, rule-based protocol engine, biomarker trend dashboard, intervention impact ranking, and healthspan estimator. Evidence-graded, educational only.',
-  path: '/tools',
-  keywords: [
-    'longevity calculator',
-    'supplement interaction graph',
-    'protocol recommendation engine',
-    'biomarker trend forecast',
-    'healthspan estimator',
-  ],
-});
+export const metadata = seoRoutes.tools();
 
 export default function ToolsPage() {
   return (

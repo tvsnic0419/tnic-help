@@ -15,14 +15,11 @@ import {
 import type { Compound, Hallmark, PathwayNode, RoadmapItem } from './types';
 
 export const navLinks = [
-  { href: '#about', label: 'About', mod: 'MOD-ABT-00' },
   { href: '/dashboard', label: 'Dashboard', mod: 'MOD-DSH-12' },
-  { href: '#learn', label: 'Learn', mod: 'MOD-LRN-09' },
   { href: '/library', label: 'Library', mod: 'MOD-LIB-13' },
-  { href: '/tools', label: 'Tools', mod: 'MOD-TOL-14' },
-  { href: '#science', label: 'Science', mod: 'MOD-SCI-02' },
-  { href: '/labs', label: 'Labs', mod: 'MOD-LAB-11' },
   { href: '/stacks', label: 'Stacks', mod: 'MOD-ARC-04' },
+  { href: '/labs', label: 'Labs', mod: 'MOD-LAB-11' },
+  { href: '/tools', label: 'Tools', mod: 'MOD-TOL-14' },
   { href: '/trust', label: 'Trust', mod: 'MOD-TRU-08' },
 ];
 

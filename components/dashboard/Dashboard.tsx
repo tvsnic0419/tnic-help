@@ -141,7 +141,7 @@ export function Dashboard() {
               </Link>
               {!profile.scanned && (
                 <Link
-                  href="/#calculator"
+                  href="/tools?tab=healthspan"
                   className="focus-ring interactive inline-flex items-center justify-center gap-2 rounded-xl font-semibold text-muted-foreground hover:text-accent-cyan px-3 py-2 text-xs w-full"
                 >
                   Run defense scan

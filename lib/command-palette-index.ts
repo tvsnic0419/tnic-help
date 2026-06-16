@@ -131,7 +131,7 @@ const faqItems: PaletteItem[] = consumerFAQ.map((f, i) => ({
   kind: 'faq' as const,
   title: f.question,
   subtitle: 'FAQ',
-  href: '/#learn',
+  href: '/library',
   keywords: [f.question.toLowerCase(), 'faq', 'learn'],
 }));
 
@@ -140,11 +140,19 @@ const glossaryItems: PaletteItem[] = glossary.map((g) => ({
   kind: 'glossary' as const,
   title: g.term,
   subtitle: g.simple.slice(0, 80),
-  href: '/#learn',
+  href: '/library',
   keywords: [g.term.toLowerCase(), 'glossary', g.simple.toLowerCase()],
 }));
 
 const actionItems: PaletteItem[] = [
+  {
+    id: 'action-library-search',
+    kind: 'action',
+    title: 'Search library',
+    subtitle: 'Hallmarks, compounds, synergies',
+    href: '/library',
+    keywords: ['search', 'library', 'find', 'hallmark', 'compound'],
+  },
   {
     id: 'action-export-kit',
     kind: 'action',
@@ -166,7 +174,7 @@ const actionItems: PaletteItem[] = [
     kind: 'action',
     title: 'Run Defense Scan',
     subtitle: 'Biological age and pathway priority',
-    href: '/#calculator',
+    href: '/tools?tab=healthspan',
     keywords: ['calculator', 'bio age', 'defense', 'scan'],
   },
 ];
