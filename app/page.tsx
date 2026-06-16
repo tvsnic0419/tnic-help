@@ -5,6 +5,9 @@ import { SiteGuide } from '@/components/SiteGuide';
 import { TrustBanner } from '@/components/TrustBanner';
 import { ToolsDock } from '@/components/ToolsDock';
 import { HeroSection } from '@/components/sections/HeroSection';
+import { LibraryHighlights } from '@/components/sections/LibraryHighlights';
+import { HomepageTrust } from '@/components/sections/HomepageTrust';
+import { HomepageCTA } from '@/components/sections/HomepageCTA';
 import { AboutSection } from '@/components/sections/AboutSection';
 import { JourneySection } from '@/components/sections/JourneySection';
 import { PersonalDashboard } from '@/components/sections/PersonalDashboard';
@@ -32,6 +35,9 @@ export default function TNiC() {
       <main id="main-content">
         <HeroSection />
         <TrustBanner />
+        <LibraryHighlights />
+        <HomepageTrust />
+        <HomepageCTA />
         <SiteGuide />
         <AboutSection />
         <JourneySection />
