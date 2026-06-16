@@ -232,22 +232,34 @@ function renderMarkdownBlock(content: string, blockKey: number) {
 
     if (trimmed.startsWith('|')) {
       const rows = trimmed.split('\n').filter((r) => !r.match(/^\|[\s-|]+\|$/));
+      const headerCells = rows[0]?.split('|').filter(Boolean).map((c) => c.trim()) ?? [];
       elements.push(
-        <div key={key} className="overflow-x-auto my-4">
+        <div key={key} className="overflow-x-auto my-4" role="region" aria-label="Data table">
           <table className="w-full text-sm border-collapse">
+            {rows.length > 0 && (
+              <thead>
+                <tr className="border-b border-white/[0.06]">
+                  {headerCells.map((cell, ci) => (
+                    <th
+                      key={ci}
+                      scope="col"
+                      className="py-2 px-3 text-left text-[10px] font-mono text-zinc-500 uppercase"
+                    >
+                      {cell}
+                    </th>
+                  ))}
+                </tr>
+              </thead>
+            )}
             <tbody>
-              {rows.map((row, ri) => {
+              {rows.slice(1).map((row, ri) => {
                 const cells = row.split('|').filter(Boolean).map((c) => c.trim());
-                const Tag = ri === 0 ? 'th' : 'td';
                 return (
                   <tr key={ri} className="border-b border-white/[0.06]">
                     {cells.map((cell, ci) => (
-                      <Tag
-                        key={ci}
-                        className={`py-2 px-3 text-left ${ri === 0 ? 'text-[10px] font-mono text-zinc-500 uppercase' : 'text-zinc-400'}`}
-                      >
+                      <td key={ci} className="py-2 px-3 text-left text-zinc-400">
                         {cell}
-                      </Tag>
+                      </td>
                     ))}
                   </tr>
                 );

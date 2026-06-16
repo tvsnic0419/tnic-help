@@ -1,4 +1,5 @@
 import { biomarkers } from './data';
+import { STORAGE_KEYS } from './privacy';
 
 export interface LabEntry {
   id: string;
@@ -7,7 +8,8 @@ export interface LabEntry {
   date: string;
 }
 
-export const LABS_STORAGE_KEY = 'tnic-labs';
+/** @deprecated Use STORAGE_KEYS.labs from lib/privacy */
+export const LABS_STORAGE_KEY = STORAGE_KEYS.labs;
 
 export function getLabStatus(markerId: string, value: number): 'optimal' | 'watch' | 'critical' {
   if (markerId === 'hscrp') {

@@ -1,5 +1,6 @@
 import fs from 'fs';
 import path from 'path';
+import { cache } from 'react';
 import type { LibraryModuleCategory } from './library-modules';
 
 export interface MdxDocument {
@@ -31,13 +32,16 @@ function resolveMdxPath(slug: string, category: LibraryModuleCategory | 'hallmar
   return filePath;
 }
 
-export function loadMdx(slug: string, category: LibraryModuleCategory | 'hallmarks' = 'hallmarks'): MdxDocument | null {
-  const filePath = resolveMdxPath(slug, category);
-  if (!filePath) return null;
-  const raw = fs.readFileSync(filePath, 'utf8');
-  const { frontmatter, body } = parseMdx(raw);
-  return { slug, category, frontmatter, body };
-}
+/** Cached per-request/build — avoids re-reading MDX files during SSG */
+export const loadMdx = cache(
+  (slug: string, category: LibraryModuleCategory | 'hallmarks' = 'hallmarks'): MdxDocument | null => {
+    const filePath = resolveMdxPath(slug, category);
+    if (!filePath) return null;
+    const raw = fs.readFileSync(filePath, 'utf8');
+    const { frontmatter, body } = parseMdx(raw);
+    return { slug, category, frontmatter, body };
+  },
+);
 
 export function listMdxSlugs(category: LibraryModuleCategory | 'hallmarks' = 'hallmarks'): string[] {
   const dir = path.join(process.cwd(), 'content', category);

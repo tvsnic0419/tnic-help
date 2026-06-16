@@ -1,13 +1,16 @@
 import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 import { LibraryModuleDetail } from '@/components/library/LibraryModuleDetail';
+import { StructuredData } from '@/components/seo/StructuredData';
 import {
   getAllModuleParams,
   getModuleBySlug,
+  getModulePath,
   libraryCategoryMeta,
   type LibraryModuleCategory,
 } from '@/lib/library-modules';
 import { loadMdx } from '@/lib/mdx';
+import { buildPageMetadata, buildArticleSchema, buildBreadcrumbSchema } from '@/lib/seo';
 
 const VALID_CATEGORIES = Object.keys(libraryCategoryMeta) as LibraryModuleCategory[];
 
@@ -24,10 +27,13 @@ export async function generateMetadata({
   if (!VALID_CATEGORIES.includes(category as LibraryModuleCategory)) return { title: 'Not Found' };
   const mod = getModuleBySlug(category as LibraryModuleCategory, slug);
   if (!mod) return { title: 'Not Found' };
-  return {
-    title: `${mod.title} — ${libraryCategoryMeta[mod.category].label} | TNiC Library`,
+  const path = getModulePath(mod);
+  return buildPageMetadata({
+    title: `${mod.title} — ${libraryCategoryMeta[mod.category].label}`,
     description: mod.summary,
-  };
+    path,
+    keywords: [mod.title, mod.tagline, libraryCategoryMeta[mod.category].label],
+  });
 }
 
 export default async function LibraryModulePage({
@@ -42,6 +48,27 @@ export default async function LibraryModulePage({
   if (!mod) notFound();
 
   const mdx = loadMdx(mod.mdxSlug, mod.category);
+  const path = getModulePath(mod);
 
-  return <LibraryModuleDetail module={mod} mdxBody={mdx?.body ?? null} />;
+  const schemas = [
+    buildArticleSchema({
+      title: mod.title,
+      description: mod.summary,
+      path,
+      dateModified: mdx?.frontmatter.last_updated,
+      evidenceTier: mod.evidenceTier,
+    }),
+    buildBreadcrumbSchema([
+      { name: 'Library', path: '/library' },
+      { name: libraryCategoryMeta[mod.category].label, path: `/library#content-modules` },
+      { name: mod.title, path },
+    ]),
+  ];
+
+  return (
+    <>
+      <StructuredData schemas={schemas} />
+      <LibraryModuleDetail module={mod} mdxBody={mdx?.body ?? null} />
+    </>
+  );
 }

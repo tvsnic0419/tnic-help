@@ -11,17 +11,24 @@ import {
 } from 'react';
 import { compounds, synergyScore, calculateDefenseProfile } from '@/lib/data';
 import { stackPresets, type PresetKey } from '@/lib/presets';
-import { LABS_STORAGE_KEY, exportLabsCsv as labsToCsv, type LabEntry } from '@/lib/labs';
+import { exportLabsCsv as labsToCsv, type LabEntry } from '@/lib/labs';
 import {
-  HALLMARK_NOTES_KEY,
   type HallmarkNotesMap,
   type HallmarkPersonalEntry,
   DEFAULT_HALLMARK_ENTRY,
 } from '@/lib/hallmark-notes';
-
-const STACK_KEY = 'tnic-stack';
-const PROFILE_KEY = 'tnic-profile';
-const CHECKLIST_KEY = 'tnic-checklist';
+import {
+  STORAGE_KEYS,
+  getPrivacyMode,
+  setPrivacyMode as persistPrivacyMode,
+  readStorageItem,
+  writeStorageItem,
+  purgeAllHealthData,
+  sanitizeLabEntries,
+  hasPrivacyConsent,
+  setPrivacyConsent,
+  type PrivacyStorageMode,
+} from '@/lib/privacy';
 const DEFAULT_STACK = stackPresets.starter.ids;
 
 export interface Profile {
@@ -57,6 +64,11 @@ interface PlatformContextValue {
   setHallmarkNote: (hallmarkId: string, patch: Partial<HallmarkPersonalEntry>) => void;
   exportAll: () => string;
   importAll: (json: string) => boolean;
+  privacyMode: PrivacyStorageMode;
+  setPrivacyMode: (mode: PrivacyStorageMode) => void;
+  purgeAllHealthData: () => void;
+  privacyConsent: boolean;
+  acceptPrivacyConsent: () => void;
 }
 
 const PlatformContext = createContext<PlatformContextValue | null>(null);
@@ -85,26 +97,29 @@ export function PlatformProvider({ children }: { children: ReactNode }) {
   const [labs, setLabs] = useState<LabEntry[]>([]);
   const [checklist, setChecklist] = useState<string[]>([]);
   const [hallmarkNotes, setHallmarkNotesState] = useState<HallmarkNotesMap>({});
+  const [privacyMode, setPrivacyModeState] = useState<PrivacyStorageMode>('local');
+  const [privacyConsent, setPrivacyConsentState] = useState(false);
 
   useEffect(() => {
     const fromUrl = readStackFromUrl();
-    try {
-      const stackRaw = localStorage.getItem(STACK_KEY);
-      const profileRaw = localStorage.getItem(PROFILE_KEY);
-      const labsRaw = localStorage.getItem(LABS_STORAGE_KEY);
-      const checklistRaw = localStorage.getItem(CHECKLIST_KEY);
-      const hallmarkNotesRaw = localStorage.getItem(HALLMARK_NOTES_KEY);
+    const mode = getPrivacyMode();
+    setPrivacyModeState(mode);
 
-      if (fromUrl) setSelectedState(fromUrl);
-      else if (stackRaw) {
-        const ids = JSON.parse(stackRaw) as string[];
-        setSelectedState(ids.filter((id) => compounds.some((c) => c.id === id)));
-      }
-      if (profileRaw) setProfileState({ ...DEFAULT_PROFILE, ...JSON.parse(profileRaw) });
-      if (labsRaw) setLabs(JSON.parse(labsRaw));
-      if (checklistRaw) setChecklist(JSON.parse(checklistRaw));
-      if (hallmarkNotesRaw) setHallmarkNotesState(JSON.parse(hallmarkNotesRaw));
-    } catch { /* empty */ }
+    const stackRaw = readStorageItem<string[]>(STORAGE_KEYS.stack, [], mode);
+    const profileRaw = readStorageItem<Profile | null>(STORAGE_KEYS.profile, null, mode);
+    const labsRaw = readStorageItem<LabEntry[]>(STORAGE_KEYS.labs, [], mode);
+    const checklistRaw = readStorageItem<string[]>(STORAGE_KEYS.checklist, [], mode);
+    const notesRaw = readStorageItem<HallmarkNotesMap>(STORAGE_KEYS.hallmarkNotes, {}, mode);
+
+    if (fromUrl) setSelectedState(fromUrl);
+    else if (stackRaw.length) {
+      setSelectedState(stackRaw.filter((id) => compounds.some((c) => c.id === id)));
+    }
+    if (profileRaw) setProfileState({ ...DEFAULT_PROFILE, ...profileRaw });
+    setLabs(sanitizeLabEntries(labsRaw));
+    if (checklistRaw.length) setChecklist(checklistRaw);
+    if (Object.keys(notesRaw).length) setHallmarkNotesState(notesRaw);
+    setPrivacyConsentState(hasPrivacyConsent());
     setHydrated(true);
   }, []);
 
@@ -115,20 +130,23 @@ export function PlatformProvider({ children }: { children: ReactNode }) {
     window.history.replaceState({}, '', url.toString());
   }, []);
 
-  const persistLabs = useCallback((next: LabEntry[]) => {
-    setLabs(next);
-    localStorage.setItem(LABS_STORAGE_KEY, JSON.stringify(next));
-  }, []);
+  const persistLabs = useCallback(
+    (next: LabEntry[]) => {
+      setLabs(next);
+      writeStorageItem(STORAGE_KEYS.labs, next, privacyMode);
+    },
+    [privacyMode],
+  );
 
   const setSelected = useCallback(
     (ids: string[]) => {
       setSelectedState(ids);
       if (hydrated) {
         syncUrl(ids);
-        localStorage.setItem(STACK_KEY, JSON.stringify(ids));
+        writeStorageItem(STORAGE_KEYS.stack, ids, privacyMode);
       }
     },
-    [hydrated, syncUrl],
+    [hydrated, syncUrl, privacyMode],
   );
 
   const toggle = useCallback(
@@ -144,19 +162,22 @@ export function PlatformProvider({ children }: { children: ReactNode }) {
   );
 
   const saveStack = useCallback(() => {
-    localStorage.setItem(STACK_KEY, JSON.stringify(selected));
+    writeStorageItem(STORAGE_KEYS.stack, selected, privacyMode);
     syncUrl(selected);
     setSaved(true);
     setTimeout(() => setSaved(false), 2500);
-  }, [selected, syncUrl]);
+  }, [selected, syncUrl, privacyMode]);
 
-  const setProfile = useCallback((patch: Partial<Profile>) => {
-    setProfileState((prev) => {
-      const next = { ...prev, ...patch };
-      localStorage.setItem(PROFILE_KEY, JSON.stringify(next));
-      return next;
-    });
-  }, []);
+  const setProfile = useCallback(
+    (patch: Partial<Profile>) => {
+      setProfileState((prev) => {
+        const next = { ...prev, ...patch };
+        writeStorageItem(STORAGE_KEYS.profile, next, privacyMode);
+        return next;
+      });
+    },
+    [privacyMode],
+  );
 
   const addLab = useCallback(
     (markerId: string, value: number, date: string) => {
@@ -199,18 +220,21 @@ export function PlatformProvider({ children }: { children: ReactNode }) {
           updatedAt: new Date().toISOString(),
         },
       };
-      localStorage.setItem(HALLMARK_NOTES_KEY, JSON.stringify(next));
+      writeStorageItem(STORAGE_KEYS.hallmarkNotes, next, privacyMode);
       return next;
     });
-  }, []);
+  }, [privacyMode]);
 
-  const toggleChecklist = useCallback((step: string) => {
-    setChecklist((prev) => {
-      const next = prev.includes(step) ? prev.filter((s) => s !== step) : [...prev, step];
-      localStorage.setItem(CHECKLIST_KEY, JSON.stringify(next));
-      return next;
-    });
-  }, []);
+  const toggleChecklist = useCallback(
+    (step: string) => {
+      setChecklist((prev) => {
+        const next = prev.includes(step) ? prev.filter((s) => s !== step) : [...prev, step];
+        writeStorageItem(STORAGE_KEYS.checklist, next, privacyMode);
+        return next;
+      });
+    },
+    [privacyMode],
+  );
 
   const exportAll = useCallback(
     () => JSON.stringify({ stack: selected, profile, labs, checklist, hallmarkNotes, exportedAt: new Date().toISOString() }, null, 2),
@@ -224,22 +248,46 @@ export function PlatformProvider({ children }: { children: ReactNode }) {
       if (data.profile) {
         const next = { ...DEFAULT_PROFILE, ...data.profile };
         setProfileState(next);
-        localStorage.setItem(PROFILE_KEY, JSON.stringify(next));
+        writeStorageItem(STORAGE_KEYS.profile, next, privacyMode);
       }
-      if (data.labs) persistLabs(data.labs);
+      if (Array.isArray(data.labs)) persistLabs(sanitizeLabEntries(data.labs));
       if (data.checklist) {
         setChecklist(data.checklist);
-        localStorage.setItem(CHECKLIST_KEY, JSON.stringify(data.checklist));
+        writeStorageItem(STORAGE_KEYS.checklist, data.checklist, privacyMode);
       }
       if (data.hallmarkNotes) {
         setHallmarkNotesState(data.hallmarkNotes);
-        localStorage.setItem(HALLMARK_NOTES_KEY, JSON.stringify(data.hallmarkNotes));
+        writeStorageItem(STORAGE_KEYS.hallmarkNotes, data.hallmarkNotes, privacyMode);
       }
       return true;
     } catch {
       return false;
     }
-  }, [setSelected, persistLabs]);
+  }, [setSelected, persistLabs, privacyMode]);
+
+  const setPrivacyMode = useCallback((mode: PrivacyStorageMode) => {
+    persistPrivacyMode(mode);
+    setPrivacyModeState(mode);
+  }, []);
+
+  const handlePurgeAll = useCallback(() => {
+    purgeAllHealthData();
+    setSelectedState([...DEFAULT_STACK]);
+    setProfileState(DEFAULT_PROFILE);
+    setLabs([]);
+    setChecklist([]);
+    setHallmarkNotesState({});
+    if (typeof window !== 'undefined') {
+      const url = new URL(window.location.href);
+      url.searchParams.delete('stack');
+      window.history.replaceState({}, '', url.toString());
+    }
+  }, []);
+
+  const acceptPrivacyConsent = useCallback(() => {
+    setPrivacyConsent(true);
+    setPrivacyConsentState(true);
+  }, []);
 
   const defenseProfile = useMemo(
     () => calculateDefenseProfile(profile.age, profile.stress, profile.sleep, profile.exercise),
@@ -283,6 +331,11 @@ export function PlatformProvider({ children }: { children: ReactNode }) {
     setHallmarkNote,
     exportAll,
     importAll,
+    privacyMode,
+    setPrivacyMode,
+    purgeAllHealthData: handlePurgeAll,
+    privacyConsent,
+    acceptPrivacyConsent,
   };
 
   return <PlatformContext.Provider value={value}>{children}</PlatformContext.Provider>;

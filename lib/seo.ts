@@ -1,0 +1,145 @@
+import type { Metadata } from 'next';
+import { consumerFAQ } from './data';
+import { SITE, LONGEVITY_KEYWORDS } from './site';
+
+export function buildPageMetadata({
+  title,
+  description,
+  path = '',
+  keywords = [],
+  noIndex = false,
+}: {
+  title: string;
+  description: string;
+  path?: string;
+  keywords?: string[];
+  noIndex?: boolean;
+}): Metadata {
+  const url = `${SITE.url}${path}`;
+  return {
+    title,
+    description,
+    keywords: [...LONGEVITY_KEYWORDS, ...keywords],
+    alternates: { canonical: url },
+    openGraph: {
+      title,
+      description,
+      url,
+      siteName: SITE.fullName,
+      locale: SITE.locale,
+      type: 'website',
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title,
+      description,
+    },
+    robots: noIndex ? { index: false, follow: false } : { index: true, follow: true },
+  };
+}
+
+export function buildWebSiteSchema() {
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'WebSite',
+    name: SITE.fullName,
+    alternateName: SITE.name,
+    description:
+      'Evidence-based longevity education with hallmarks library, supplement stack tools, biomarker tracking, and PubMed-cited protocols.',
+    url: SITE.url,
+    inLanguage: 'en-US',
+    potentialAction: {
+      '@type': 'SearchAction',
+      target: `${SITE.url}/library?q={search_term_string}`,
+      'query-input': 'required name=search_term_string',
+    },
+  };
+}
+
+export function buildOrganizationSchema() {
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'Organization',
+    name: SITE.name,
+    url: SITE.url,
+    description: 'Independent educational longevity platform — not a medical provider or supplement retailer.',
+    sameAs: [],
+  };
+}
+
+export function buildFaqSchema() {
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'FAQPage',
+    mainEntity: consumerFAQ.slice(0, 8).map((f) => ({
+      '@type': 'Question',
+      name: f.question,
+      acceptedAnswer: { '@type': 'Answer', text: f.answer },
+    })),
+  };
+}
+
+export function buildArticleSchema({
+  title,
+  description,
+  path,
+  dateModified,
+  evidenceTier,
+}: {
+  title: string;
+  description: string;
+  path: string;
+  dateModified?: string;
+  evidenceTier?: string;
+}) {
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'Article',
+    headline: title,
+    description,
+    url: `${SITE.url}${path}`,
+    dateModified: dateModified ?? new Date().toISOString().split('T')[0],
+    author: { '@type': 'Organization', name: SITE.name },
+    publisher: { '@type': 'Organization', name: SITE.name, url: SITE.url },
+    about: {
+      '@type': 'Thing',
+      name: 'Longevity Science',
+      description: evidenceTier ? `Evidence tier ${evidenceTier}` : undefined,
+    },
+    isAccessibleForFree: true,
+    educationalUse: 'Longevity education — not medical advice',
+  };
+}
+
+export function buildBreadcrumbSchema(items: { name: string; path: string }[]) {
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    itemListElement: items.map((item, i) => ({
+      '@type': 'ListItem',
+      position: i + 1,
+      name: item.name,
+      item: `${SITE.url}${item.path}`,
+    })),
+  };
+}
+
+export function buildSoftwareApplicationSchema() {
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'SoftwareApplication',
+    name: 'TNiC Longevity Tools',
+    applicationCategory: 'HealthApplication',
+    operatingSystem: 'Web',
+    offers: { '@type': 'Offer', price: '0', priceCurrency: 'USD' },
+    description:
+      'Interactive longevity tools: stack simulator, protocol customizer, biomarker impact calculator, and healthspan estimator.',
+    url: `${SITE.url}/tools`,
+  };
+}
+
+export function serializeJsonLd(...schemas: object[]) {
+  return schemas.map((schema, i) => (
+    { key: i, schema }
+  ));
+}

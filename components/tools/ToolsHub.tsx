@@ -1,5 +1,6 @@
 'use client';
 
+import dynamic from 'next/dynamic';
 import { useCallback, useEffect, useState } from 'react';
 import { useSearchParams } from 'next/navigation';
 import {
@@ -11,52 +12,63 @@ import {
 } from 'lucide-react';
 import { PageHeader } from '@/components/ui/PageHeader';
 import { TabBar } from '@/components/ui/TabBar';
+import { SectionSkeleton } from '@/components/ui/SectionSkeleton';
 import { EvidenceTagLegend } from '@/components/trust/EvidenceTag';
-import { StackSimulatorTool } from './StackSimulatorTool';
-import { ProtocolCustomizerTool } from './ProtocolCustomizerTool';
-import { BiomarkerImpactTool } from './BiomarkerImpactTool';
-import { HealthspanEstimatorTool } from './HealthspanEstimatorTool';
+import { toolsRegistry, type ToolId } from '@/lib/registry';
 import { ToolDisclaimer } from './ToolDisclaimer';
 
-type ToolTab = 'simulator' | 'protocol' | 'biomarker' | 'healthspan';
+const StackSimulatorTool = dynamic(
+  () => import('./StackSimulatorTool').then((m) => ({ default: m.StackSimulatorTool })),
+  { loading: () => <SectionSkeleton height="lg" /> },
+);
+const ProtocolCustomizerTool = dynamic(
+  () => import('./ProtocolCustomizerTool').then((m) => ({ default: m.ProtocolCustomizerTool })),
+  { loading: () => <SectionSkeleton height="lg" /> },
+);
+const BiomarkerImpactTool = dynamic(
+  () => import('./BiomarkerImpactTool').then((m) => ({ default: m.BiomarkerImpactTool })),
+  { loading: () => <SectionSkeleton height="lg" /> },
+);
+const HealthspanEstimatorTool = dynamic(
+  () => import('./HealthspanEstimatorTool').then((m) => ({ default: m.HealthspanEstimatorTool })),
+  { loading: () => <SectionSkeleton height="lg" /> },
+);
 
-const tabs = [
-  { id: 'simulator' as const, label: 'Stack Simulator', icon: Layers, badge: 'Advanced' },
-  { id: 'protocol' as const, label: 'Protocol Builder', icon: Wand2 },
-  { id: 'biomarker' as const, label: 'Biomarker Impact', icon: FlaskConical },
-  { id: 'healthspan' as const, label: 'Healthspan Estimator', icon: TrendingUp },
-];
+const tabIcons = {
+  simulator: Layers,
+  protocol: Wand2,
+  biomarker: FlaskConical,
+  healthspan: TrendingUp,
+} as const;
 
-const tabDescriptions: Record<ToolTab, string> = {
-  simulator:
-    'Real-time synergy scoring, pair-level interaction checks, age-adjusted dosing, and side-effect risk index with hallmark radar chart.',
-  protocol:
-    'Input age, goals, lifestyle, and logged labs → get a tailored multi-hallmark protocol with AM/PM schedule, lifestyle pillars, and monitoring panel.',
-  biomarker:
-    'Select any TNiC biomarker to see ranked compound and lifestyle interventions by evidence-weighted impact score.',
-  healthspan:
-    'Project healthspan score and biological age improvements over 12–24 weeks based on your profile, stack, and lab data.',
-};
+const tabs = toolsRegistry.map((t) => ({
+  id: t.id,
+  label: t.label,
+  icon: tabIcons[t.id],
+  badge: t.id === 'simulator' ? 'Advanced' : undefined,
+}));
 
 export function ToolsHub() {
   const searchParams = useSearchParams();
-  const tabParam = searchParams.get('tab') as ToolTab | null;
-  const [active, setActive] = useState<ToolTab>(
-    tabParam && tabs.some((t) => t.id === tabParam) ? tabParam : 'simulator',
+  const tabParam = searchParams.get('tab') as ToolId | null;
+  const [active, setActive] = useState<ToolId>(
+    tabParam && toolsRegistry.some((t) => t.id === tabParam) ? tabParam : 'simulator',
   );
 
   useEffect(() => {
-    if (tabParam && tabs.some((t) => t.id === tabParam)) {
+    if (tabParam && toolsRegistry.some((t) => t.id === tabParam)) {
       setActive(tabParam);
     }
   }, [tabParam]);
 
-  const onTabChange = useCallback((id: ToolTab) => {
+  const onTabChange = useCallback((id: ToolId) => {
     setActive(id);
     const url = new URL(window.location.href);
     url.searchParams.set('tab', id);
     window.history.replaceState({}, '', url.toString());
   }, []);
+
+  const activeTool = toolsRegistry.find((t) => t.id === active)!;
 
   return (
     <section className="bg-[#030712] min-h-screen pt-24 pb-20">
@@ -83,7 +95,8 @@ export function ToolsHub() {
           className="mb-6"
         />
 
-        <p className="text-body-sm text-zinc-500 mb-8 max-w-3xl">{tabDescriptions[active]}</p>
+        <p className="text-body-sm text-zinc-500 mb-2 max-w-3xl">{activeTool.description}</p>
+        <p className="text-caption text-zinc-600 mb-8 max-w-3xl">{activeTool.evidenceNote}</p>
 
         <div role="tabpanel" id={`panel-${active}`} aria-labelledby={`tab-${active}`}>
           {active === 'simulator' && <StackSimulatorTool />}
