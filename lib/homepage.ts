@@ -91,7 +91,7 @@ export const trustPillars = [
   {
     title: 'Modeled vs. Lab',
     desc: 'Projections are clearly labeled. Log real bloodwork in Lab Tracker to compare against models.',
-    href: '#labs',
+    href: '/labs',
   },
   {
     title: 'Safety First',

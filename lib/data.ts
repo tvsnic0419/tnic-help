@@ -20,7 +20,7 @@ export const navLinks = [
   { href: '#learn', label: 'Learn', mod: 'MOD-LRN-09' },
   { href: '/library', label: 'Library', mod: 'MOD-LIB-13' },
   { href: '#science', label: 'Science', mod: 'MOD-SCI-02' },
-  { href: '#labs', label: 'Labs', mod: 'MOD-LAB-11' },
+  { href: '/labs', label: 'Labs', mod: 'MOD-LAB-11' },
   { href: '/stacks', label: 'Stacks', mod: 'MOD-ARC-04' },
   { href: '#trust', label: 'Trust', mod: 'MOD-TRU-08' },
 ];

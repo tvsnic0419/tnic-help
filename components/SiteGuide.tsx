@@ -21,7 +21,7 @@ const paths = [
     color: 'text-violet-400',
     bg: 'bg-violet-400/10',
     steps: [
-      { label: 'Lab tracker (local)', href: '#labs' },
+      { label: 'Lab tracker (local)', href: '/labs' },
       { label: 'Stack Architect + share', href: '#stacks' },
       { label: 'Bio Age calculator', href: '#calculator' },
       { label: 'Synced daily protocol', href: '#protocol' },

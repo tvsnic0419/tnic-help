@@ -79,7 +79,7 @@ export function HallmarkNotesPanel({ hallmark }: { hallmark: HallmarkLibraryEntr
         <p className="text-[10px] text-zinc-600 mt-2">
           Biomarkers: {hallmark.biomarkers.join(' · ')}
           {' — '}
-          <a href="/#labs" className="text-rose-400 hover:underline">Log in Lab Tracker</a>
+          <a href="/labs" className="text-rose-400 hover:underline">Log in Lab Hub</a>
         </p>
       </div>
     </div>

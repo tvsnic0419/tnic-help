@@ -89,7 +89,7 @@ export function PersonalDashboard() {
       sub: labs.length > 0 ? `${labOptimal} optimal · ${labs.length} readings` : 'No entries yet',
       icon: FlaskConical,
       color: 'text-cyan-400',
-      href: '#labs',
+      href: '/labs',
     },
     {
       label: 'Journey Progress',

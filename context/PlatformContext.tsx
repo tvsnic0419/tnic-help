@@ -47,6 +47,7 @@ interface PlatformContextValue {
   defenseProfile: ReturnType<typeof calculateDefenseProfile>;
   labs: LabEntry[];
   addLab: (markerId: string, value: number, date: string) => void;
+  importLabs: (rows: { markerId: string; value: number; date: string }[]) => number;
   removeLab: (id: string) => void;
   clearLabs: () => void;
   exportLabsCsv: () => string;
@@ -164,6 +165,20 @@ export function PlatformProvider({ children }: { children: ReactNode }) {
     [labs, persistLabs],
   );
 
+  const importLabs = useCallback(
+    (rows: { markerId: string; value: number; date: string }[]) => {
+      const newEntries = rows.map((r) => ({
+        id: crypto.randomUUID(),
+        markerId: r.markerId,
+        value: r.value,
+        date: r.date,
+      }));
+      persistLabs([...labs, ...newEntries]);
+      return newEntries.length;
+    },
+    [labs, persistLabs],
+  );
+
   const removeLab = useCallback(
     (id: string) => persistLabs(labs.filter((e) => e.id !== id)),
     [labs, persistLabs],
@@ -258,6 +273,7 @@ export function PlatformProvider({ children }: { children: ReactNode }) {
     defenseProfile,
     labs,
     addLab,
+    importLabs,
     removeLab,
     clearLabs,
     exportLabsCsv,
