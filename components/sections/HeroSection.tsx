@@ -70,8 +70,8 @@ export function HeroSection() {
               transition={{ delay: 0.3 }}
               className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start"
             >
-              <a
-                href="#starter-quiz"
+              <Link
+                href="/quiz"
                 className="focus-ring interactive group bg-white text-black px-6 md:px-8 py-4 min-h-[var(--space-touch)] rounded-2xl font-semibold flex items-center justify-center gap-3 hover:bg-accent-cyan hover:text-black"
               >
                 <ClipboardList className="w-5 h-5" aria-hidden="true" />
@@ -80,7 +80,7 @@ export function HeroSection() {
                   className="w-5 h-5 group-hover:translate-x-1 transition-transform"
                   aria-hidden="true"
                 />
-              </a>
+              </Link>
               <Link
                 href="/dashboard"
                 className="focus-ring interactive glass px-6 md:px-8 py-4 min-h-[var(--space-touch)] rounded-2xl font-medium hover:border-accent-emerald/30 flex items-center justify-center gap-2"

@@ -14,6 +14,7 @@ import { citationRegistry } from '@/lib/trust';
 
 const hubLinks = [
   { href: '/dashboard', label: 'My Longevity OS', icon: LayoutDashboard },
+  { href: '/quiz', label: '3-Min Quiz', icon: HelpCircle },
   { href: '/library', label: 'Anti-Aging Library', icon: Library },
   { href: '/learn', label: 'Learn Hub', icon: GraduationCap },
   { href: '/stacks', label: 'Stacks & Protocols', icon: Layers },

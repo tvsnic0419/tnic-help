@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 import Link from 'next/link';
+import { useRouter } from 'next/navigation';
 import { motion, AnimatePresence } from 'framer-motion';
 import { BookOpen, Shield, Zap, Layers, ArrowRight, RotateCcw, Check } from 'lucide-react';
 import { quizSteps, getQuizResult, type QuizAnswers } from '@/lib/homepage';
@@ -16,7 +17,8 @@ const goalIcons = {
   layers: Layers,
 };
 
-export function StarterQuiz() {
+export function StarterQuiz({ variant = 'embedded' }: { variant?: 'embedded' | 'page' }) {
+  const router = useRouter();
   const { applyPreset } = useStack();
   const [step, setStep] = useState(0);
   const [answers, setAnswers] = useState<QuizAnswers>({});
@@ -46,19 +48,37 @@ export function StarterQuiz() {
   const result = done ? getQuizResult(answers) : null;
 
   const loadStack = () => {
-    if (result) applyPreset(result.preset as PresetKey);
+    if (!result) return;
+    applyPreset(result.preset as PresetKey);
+    router.push('/stacks?from=quiz');
   };
 
   return (
-    <div className="gradient-border p-6 md:p-8">
+    <div
+      className={`gradient-border p-6 md:p-8 ${variant === 'page' ? 'shadow-lg shadow-accent-emerald/5' : ''}`}
+      role="form"
+      aria-label="3-minute starter quiz"
+    >
       <div className="flex items-center justify-between mb-5">
         <div>
-          <p className="font-mono text-[10px] text-accent-cyan tracking-widest mb-1">STARTER QUIZ</p>
-          <h3 className="text-lg font-bold">Find Your Entry Point</h3>
+          <p className="font-mono text-[10px] text-accent-cyan tracking-widest mb-1">3-MIN QUIZ</p>
+          <h3 className="text-lg font-bold">
+            {variant === 'page' ? 'Your personalized path' : 'Find Your Entry Point'}
+          </h3>
         </div>
-        <span className="text-[10px] font-mono text-muted-foreground">
-          {done ? 'Complete' : `Step ${step + 1}/${quizSteps.length}`}
-        </span>
+        <div className="flex items-center gap-3">
+          {variant === 'embedded' && (
+            <Link
+              href="/quiz"
+              className="focus-ring text-[10px] font-mono text-accent-cyan hover:underline rounded"
+            >
+              Full screen
+            </Link>
+          )}
+          <span className="text-[10px] font-mono text-muted-foreground">
+            {done ? 'Complete' : `Step ${step + 1}/${quizSteps.length}`}
+          </span>
+        </div>
       </div>
 
       <div className="h-1 bg-muted rounded-full mb-6 overflow-hidden">
@@ -84,8 +104,9 @@ export function StarterQuiz() {
                 return (
                   <button
                     key={opt.id}
+                    type="button"
                     onClick={() => select(opt.id)}
-                    className="w-full text-left glass glass-hover rounded-xl px-4 py-3 flex items-center gap-3 transition-all hover:border-accent-cyan/30"
+                    className="focus-ring w-full text-left glass glass-hover rounded-xl px-4 py-3 flex items-center gap-3 transition-all hover:border-accent-cyan/30"
                   >
                     {Icon && <Icon className="w-4 h-4 text-accent-cyan shrink-0" />}
                     <div>
@@ -132,10 +153,11 @@ export function StarterQuiz() {
 
             <div className="grid grid-cols-2 gap-2">
               <button
+                type="button"
                 onClick={loadStack}
-                className="col-span-2 flex items-center justify-center gap-2 bg-accent-cyan text-black py-3 rounded-xl text-sm font-semibold hover:bg-accent-emerald transition-all"
+                className="focus-ring col-span-2 flex items-center justify-center gap-2 bg-accent-cyan text-black py-3 rounded-xl text-sm font-semibold hover:bg-accent-emerald transition-all"
               >
-                Load Stack in Architect <ArrowRight className="w-4 h-4" />
+                Load stack &amp; open Architect <ArrowRight className="w-4 h-4" aria-hidden="true" />
               </button>
               <Link
                 href={result.primary.href}

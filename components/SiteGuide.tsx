@@ -10,7 +10,8 @@ const paths = [
     color: 'text-accent-cyan',
     bg: 'bg-accent-cyan/10',
     steps: [
-      { label: 'Learn hub (start here)', href: '/learn' },
+      { label: '3-Min starter quiz', href: '/quiz' },
+      { label: 'Learn hub', href: '/learn' },
       { label: 'FAQ — 12 answers', href: '/faq' },
       { label: 'Search library', href: '/library' },
       { label: 'Compound deep-dives', href: '/library/compounds/glynac' },

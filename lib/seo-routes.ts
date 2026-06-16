@@ -30,6 +30,15 @@ export const seoRoutes = {
       keywords: ['longevity dashboard', 'personal health OS', 'stack tracker'],
     }),
 
+  quiz: () =>
+    buildPageMetadata({
+      title: '3-Min Starter Quiz — Personalized Longevity Entry Point',
+      description:
+        'Three quick questions: your goal, age range, and experience. Get an evidence-graded stack preset and your next step in the TNiC Longevity OS.',
+      path: '/quiz',
+      keywords: ['longevity quiz', 'starter protocol', 'NMN stack quiz', 'personalized supplement stack'],
+    }),
+
   learn: () =>
     buildPageMetadata({
       title: 'Learn Hub — Getting Started, Glossary & Red Flags',

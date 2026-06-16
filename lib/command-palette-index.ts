@@ -41,6 +41,14 @@ const hubPages: PaletteItem[] = [
     keywords: ['dashboard', 'os', 'command center', 'status'],
   },
   {
+    id: 'page-quiz',
+    kind: 'page',
+    title: '3-Min Starter Quiz',
+    subtitle: 'Personalized stack recommendation',
+    href: '/quiz',
+    keywords: ['quiz', 'starter', 'beginner', 'onboarding', '3 min', 'entry'],
+  },
+  {
     id: 'page-library',
     kind: 'page',
     title: 'Anti-Aging Library',
