@@ -7,13 +7,13 @@ import { StarterQuiz } from '@/components/sections/StarterQuiz';
 
 export function HeroSection() {
   return (
-    <section id="hero" className="relative hero-mesh noise min-h-[92vh] flex items-center pt-24 pb-16">
+    <section id="hero" className="relative hero-mesh noise min-h-[85vh] md:min-h-[92vh] flex items-center pt-20 md:pt-24 pb-12 md:pb-16">
       <div className="orb orb-1" />
       <div className="orb orb-2" />
       <div className="orb orb-3" />
       <div className="absolute inset-0 grid-overlay" />
 
-      <div className="relative max-w-7xl mx-auto px-6 w-full">
+      <div className="relative container-page w-full">
         <div className="grid lg:grid-cols-12 gap-10 lg:gap-14 items-center">
           {/* Value proposition */}
           <div className="lg:col-span-7 text-center lg:text-left">
@@ -43,7 +43,7 @@ export function HeroSection() {
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ delay: 0.2 }}
-              className="text-lg text-zinc-300 max-w-xl mb-6 leading-relaxed mx-auto lg:mx-0"
+              className="text-body max-w-xl mb-6 mx-auto lg:mx-0"
             >
               TNiC is the free longevity library for health-optimized adults — hallmarks of aging,
               evidence-graded stacks, PubMed-linked research, and interactive tools that rival platforms
@@ -57,7 +57,7 @@ export function HeroSection() {
               className="space-y-2 mb-8 max-w-md mx-auto lg:mx-0"
             >
               {heroValueProps.map((item) => (
-                <li key={item} className="flex items-center gap-2 text-sm text-zinc-400">
+                <li key={item} className="flex items-center gap-2 text-body-sm">
                   <CheckCircle2 className="w-4 h-4 text-emerald-400 shrink-0" />
                   {item}
                 </li>
@@ -71,15 +71,15 @@ export function HeroSection() {
               className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start"
             >
               <a
-                href="#library"
-                className="group bg-white text-black px-8 py-4 rounded-2xl font-semibold flex items-center justify-center gap-3 hover:bg-cyan-400 transition-all duration-300"
+                href="/library"
+                className="focus-ring interactive group bg-white text-black px-6 md:px-8 py-4 min-h-[var(--space-touch)] rounded-2xl font-semibold flex items-center justify-center gap-3 hover:bg-cyan-400"
               >
                 Explore the Library
-                <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
+                <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" aria-hidden="true" />
               </a>
               <a
                 href="#learn"
-                className="glass px-8 py-4 rounded-2xl font-medium hover:border-cyan-400/30 transition-all text-center"
+                className="focus-ring interactive glass px-6 md:px-8 py-4 min-h-[var(--space-touch)] rounded-2xl font-medium hover:border-cyan-400/30 text-center"
               >
                 Start Learning Free
               </a>

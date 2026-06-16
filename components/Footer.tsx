@@ -1,64 +1,89 @@
-import { Dna, Shield, BookOpen, HelpCircle } from 'lucide-react';
+import Link from 'next/link';
+import { Dna, Shield, BookOpen, Layers, FlaskConical, Library } from 'lucide-react';
 
-const footerLinks = [
+const hubLinks = [
+  { href: '/library', label: 'Anti-Aging Library', icon: Library },
+  { href: '/stacks', label: 'Stacks & Protocols', icon: Layers },
+  { href: '/labs', label: 'Lab Analysis Hub', icon: FlaskConical },
+];
+
+const resourceLinks = [
   { href: '#trust', label: 'Trust & Standards', icon: Shield },
   { href: '#learn', label: 'Consumer Guide', icon: BookOpen },
-  { href: '#learn', label: 'FAQ', icon: HelpCircle },
 ];
 
 export function Footer() {
   return (
-    <footer className="border-t border-white/[0.06] py-12">
-      <div className="max-w-7xl mx-auto px-6">
-        <div className="grid md:grid-cols-3 gap-8 mb-10">
-          <div>
-            <div className="flex items-center gap-2 mb-4">
-              <div className="w-7 h-7 rounded-md bg-gradient-to-br from-cyan-400 to-emerald-400 flex items-center justify-center">
-                <Dna className="w-3.5 h-3.5 text-black" />
+    <footer className="border-t border-white/[0.06] py-12 md:py-16" role="contentinfo">
+      <div className="container-page">
+        <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-10 mb-10">
+          <div className="sm:col-span-2 lg:col-span-1">
+            <Link href="/" className="focus-ring inline-flex items-center gap-2 mb-4 rounded-lg">
+              <div className="w-8 h-8 rounded-md bg-gradient-to-br from-cyan-400 to-emerald-400 flex items-center justify-center">
+                <Dna className="w-4 h-4 text-black" aria-hidden="true" />
               </div>
-              <span className="font-bold">
+              <span className="font-bold text-lg">
                 TN<span className="text-cyan-400">i</span>C
               </span>
-            </div>
-            <p className="text-sm text-zinc-500 leading-relaxed">
+            </Link>
+            <p className="text-body-sm max-w-xs">
               Independent longevity intelligence. Evidence-graded compounds,
               transparent methodology, and consumer safety at the center of every recommendation.
             </p>
           </div>
 
           <div>
-            <p className="text-[10px] font-mono text-zinc-500 uppercase tracking-wider mb-4">Consumer Resources</p>
-            <div className="space-y-3">
-              {footerLinks.map((link) => (
-                <a
-                  key={link.label}
-                  href={link.href}
-                  className="flex items-center gap-2 text-sm text-zinc-400 hover:text-cyan-400 transition-colors"
-                >
-                  <link.icon className="w-3.5 h-3.5" />
-                  {link.label}
-                </a>
+            <p className="text-label mb-4">Hubs</p>
+            <ul className="space-y-3">
+              {hubLinks.map((link) => (
+                <li key={link.href}>
+                  <Link
+                    href={link.href}
+                    className="focus-ring interactive flex items-center gap-2 text-body-sm hover:text-cyan-400 rounded-md"
+                  >
+                    <link.icon className="w-4 h-4 shrink-0" aria-hidden="true" />
+                    {link.label}
+                  </Link>
+                </li>
               ))}
-            </div>
+            </ul>
           </div>
 
           <div>
-            <p className="text-[10px] font-mono text-zinc-500 uppercase tracking-wider mb-4">Important Notice</p>
-            <p className="text-sm text-zinc-500 leading-relaxed mb-3">
-              TNiC is an educational platform, not a medical provider. Biological age
-              and biomarker projections are modeled estimates — not laboratory diagnostics.
+            <p className="text-label mb-4">Resources</p>
+            <ul className="space-y-3">
+              {resourceLinks.map((link) => (
+                <li key={link.label}>
+                  <a
+                    href={link.href}
+                    className="focus-ring interactive flex items-center gap-2 text-body-sm hover:text-cyan-400 rounded-md"
+                  >
+                    <link.icon className="w-4 h-4 shrink-0" aria-hidden="true" />
+                    {link.label}
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          <div>
+            <p className="text-label mb-4">Important Notice</p>
+            <p className="text-body-sm mb-3">
+              TNiC is educational — not a medical provider. Biological age
+              and biomarker projections are modeled estimates, not lab diagnostics.
             </p>
-            <p className="text-sm text-zinc-600">
-              Consult a qualified physician before starting any supplement protocol.
-              Some links are affiliate partnerships — disclosed in our{' '}
-              <a href="#trust" className="text-cyan-400/70 hover:text-cyan-400">Transparency Pledge</a>.
+            <p className="text-caption">
+              Consult a physician before starting any protocol.{' '}
+              <a href="#trust" className="text-cyan-400 hover:underline focus-ring rounded">
+                Transparency Pledge
+              </a>
             </p>
           </div>
         </div>
 
-        <div className="border-t border-white/[0.06] pt-6 flex flex-col md:flex-row justify-between items-center gap-4">
-          <p className="text-zinc-600 text-sm font-mono">© 2026 TNiC · Independent · Evidence-First</p>
-          <div className="flex gap-4 text-[10px] font-mono text-zinc-600">
+        <div className="border-t border-white/[0.06] pt-6 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
+          <p className="text-caption font-mono">© 2026 TNiC · Independent · Evidence-First</p>
+          <div className="flex flex-wrap gap-x-4 gap-y-1 text-caption font-mono">
             <span>Tier A: 4 compounds</span>
             <span>Tier B: 2 compounds</span>
             <span>847 citations</span>

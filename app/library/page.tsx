@@ -8,9 +8,5 @@ export const metadata: Metadata = {
 };
 
 export default function LibraryPage() {
-  return (
-    <div className="pt-8">
-      <AntiAgingLibrary />
-    </div>
-  );
+  return <AntiAgingLibrary asPageTitle />;
 }

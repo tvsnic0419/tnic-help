@@ -3,6 +3,7 @@
 import { useMemo, useState } from 'react';
 import { motion } from 'framer-motion';
 import { Filter, ArrowUpDown } from 'lucide-react';
+import { DataTable } from '@/components/ui/DataTable';
 import { compounds } from '@/lib/data';
 import {
   eliteStacks,
@@ -70,7 +71,8 @@ export function StackComparisonTable() {
         <select
           value={goalFilter}
           onChange={(e) => setGoalFilter(e.target.value as StackGoal | 'all')}
-          className="glass rounded-lg px-3 py-2 text-xs outline-none focus:border-violet-400/50"
+          aria-label="Filter by goal"
+          className="input-base !min-h-10 !py-2 text-xs w-auto"
         >
           <option value="all">All Goals</option>
           {allGoals.map((g) => (
@@ -80,7 +82,8 @@ export function StackComparisonTable() {
         <select
           value={costFilter}
           onChange={(e) => setCostFilter(e.target.value as CostTier | 'all')}
-          className="glass rounded-lg px-3 py-2 text-xs outline-none focus:border-violet-400/50"
+          aria-label="Filter by cost"
+          className="input-base !min-h-10 !py-2 text-xs w-auto"
         >
           <option value="all">All Costs</option>
           {allCosts.map((c) => (
@@ -90,7 +93,8 @@ export function StackComparisonTable() {
         <select
           value={simplicityFilter}
           onChange={(e) => setSimplicityFilter(e.target.value as SimplicityTier | 'all')}
-          className="glass rounded-lg px-3 py-2 text-xs outline-none focus:border-violet-400/50"
+          aria-label="Filter by complexity"
+          className="input-base !min-h-10 !py-2 text-xs w-auto"
         >
           <option value="all">All Complexity</option>
           {allSimplicity.map((s) => (
@@ -102,30 +106,29 @@ export function StackComparisonTable() {
         </span>
       </div>
 
-      <div className="overflow-x-auto rounded-2xl border border-white/[0.06]">
-        <table className="w-full text-sm">
+      <DataTable caption="Elite stack comparison with filters and sorting">
           <thead>
-            <tr className="bg-white/[0.03] text-left">
-              <th className="px-4 py-3 text-[10px] font-mono text-zinc-500 uppercase">Stack</th>
-              <th className="px-4 py-3 text-[10px] font-mono text-zinc-500 uppercase">Goal</th>
-              <th className="px-4 py-3 text-[10px] font-mono text-zinc-500 uppercase">Compounds</th>
-              <th className="px-4 py-3">
-                <button onClick={() => toggleSort('synergy')} className="flex items-center gap-1 text-[10px] font-mono text-zinc-500 uppercase hover:text-violet-400">
-                  Synergy <ArrowUpDown className="w-3 h-3" />
+            <tr>
+              <th scope="col">Stack</th>
+              <th scope="col">Goal</th>
+              <th scope="col">Compounds</th>
+              <th scope="col">
+                <button onClick={() => toggleSort('synergy')} className="focus-ring flex items-center gap-1 hover:text-violet-400 uppercase">
+                  Synergy <ArrowUpDown className="w-3 h-3" aria-hidden="true" />
                 </button>
               </th>
-              <th className="px-4 py-3">
-                <button onClick={() => toggleSort('cost')} className="flex items-center gap-1 text-[10px] font-mono text-zinc-500 uppercase hover:text-violet-400">
-                  Cost/mo <ArrowUpDown className="w-3 h-3" />
+              <th scope="col">
+                <button onClick={() => toggleSort('cost')} className="focus-ring flex items-center gap-1 hover:text-violet-400 uppercase">
+                  Cost/mo <ArrowUpDown className="w-3 h-3" aria-hidden="true" />
                 </button>
               </th>
-              <th className="px-4 py-3">
-                <button onClick={() => toggleSort('simplicity')} className="flex items-center gap-1 text-[10px] font-mono text-zinc-500 uppercase hover:text-violet-400">
-                  Simplicity <ArrowUpDown className="w-3 h-3" />
+              <th scope="col">
+                <button onClick={() => toggleSort('simplicity')} className="focus-ring flex items-center gap-1 hover:text-violet-400 uppercase">
+                  Simplicity <ArrowUpDown className="w-3 h-3" aria-hidden="true" />
                 </button>
               </th>
-              <th className="px-4 py-3 text-[10px] font-mono text-zinc-500 uppercase">Evidence</th>
-              <th className="px-4 py-3 text-[10px] font-mono text-zinc-500 uppercase">Action</th>
+              <th scope="col">Evidence</th>
+              <th scope="col">Action</th>
             </tr>
           </thead>
           <tbody>
@@ -179,8 +182,7 @@ export function StackComparisonTable() {
               </motion.tr>
             ))}
           </tbody>
-        </table>
-      </div>
+      </DataTable>
     </div>
   );
 }

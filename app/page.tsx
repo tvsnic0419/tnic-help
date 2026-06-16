@@ -33,7 +33,7 @@ export default function TNiC() {
     <div className="min-h-screen bg-[#030712] text-white overflow-x-hidden">
       <ScrollProgress />
       <Nav />
-      <main id="main-content">
+      <main id="main-content" tabIndex={-1}>
         <HeroSection />
         <TrustBanner />
         <LibraryHighlights />

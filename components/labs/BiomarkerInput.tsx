@@ -112,7 +112,7 @@ export function BiomarkerInput() {
             <select
               value={markerId}
               onChange={(e) => setMarkerId(e.target.value)}
-              className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-sm outline-none focus:border-rose-400/50"
+              className="input-base"
             >
               {biomarkers.map((b) => (
                 <option key={b.id} value={b.id} className="bg-zinc-900">
@@ -130,7 +130,7 @@ export function BiomarkerInput() {
                 value={value}
                 onChange={(e) => setValue(e.target.value)}
                 placeholder="e.g. 1.2"
-                className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-sm outline-none focus:border-rose-400/50"
+                className="input-base"
               />
             </div>
             <div>
@@ -139,7 +139,7 @@ export function BiomarkerInput() {
                 type="date"
                 value={date}
                 onChange={(e) => setDate(e.target.value)}
-                className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-sm outline-none focus:border-rose-400/50"
+                className="input-base"
               />
             </div>
           </div>
@@ -164,7 +164,7 @@ export function BiomarkerInput() {
               type="date"
               value={panelDate}
               onChange={(e) => setPanelDate(e.target.value)}
-              className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-sm outline-none focus:border-rose-400/50"
+              className="input-base"
             />
           </div>
           <p className="text-[10px] font-mono text-rose-400 uppercase">Enter values from your blood panel (leave blank to skip)</p>
@@ -179,7 +179,7 @@ export function BiomarkerInput() {
                     value={panelValues[b.id] ?? ''}
                     onChange={(e) => setPanelValues((prev) => ({ ...prev, [b.id]: e.target.value }))}
                     placeholder={b.optimal}
-                    className="flex-1 bg-white/5 border border-white/10 rounded-lg px-3 py-2 text-sm outline-none focus:border-rose-400/50"
+                    className="input-base flex-1 !min-h-10"
                   />
                   <span className="text-[10px] text-zinc-600 shrink-0">{b.unit}</span>
                 </div>
@@ -232,7 +232,7 @@ export function BiomarkerInput() {
               onChange={(e) => setPasteText(e.target.value)}
               placeholder={LABS_CSV_TEMPLATE.split('\n')[0]}
               rows={4}
-              className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-xs font-mono outline-none focus:border-rose-400/50 resize-none"
+              className="input-base font-mono text-xs resize-none !min-h-[6rem]"
             />
             <button
               onClick={() => pasteText && handleCsv(pasteText)}

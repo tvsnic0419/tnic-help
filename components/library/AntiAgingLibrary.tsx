@@ -5,12 +5,18 @@ import { motion, AnimatePresence } from 'framer-motion';
 import Link from 'next/link';
 import { Search, ArrowRight, Library } from 'lucide-react';
 import { hallmarkLibrary } from '@/lib/hallmarks-library';
+import { PageHeader } from '@/components/ui/PageHeader';
 import { HallmarkVisual } from './HallmarkVisual';
 import { InterventionExplorer } from './InterventionExplorer';
 import { HallmarkNotesPanel } from './HallmarkNotesPanel';
 import { usePlatform } from '@/context/PlatformContext';
 
-export function AntiAgingLibrary() {
+interface AntiAgingLibraryProps {
+  /** Use h1 when rendered as dedicated /library page */
+  asPageTitle?: boolean;
+}
+
+export function AntiAgingLibrary({ asPageTitle = false }: AntiAgingLibraryProps) {
   const [selected, setSelected] = useState(hallmarkLibrary[0].id);
   const [query, setQuery] = useState('');
   const { hallmarkNotes } = usePlatform();
@@ -30,70 +36,77 @@ export function AntiAgingLibrary() {
   const notedCount = Object.keys(hallmarkNotes).filter((k) => hallmarkNotes[k]?.notes).length;
 
   return (
-    <section id="anti-aging-library" className="py-20 md:py-28 bg-[#030712] border-b border-white/[0.06]">
-      <div className="max-w-7xl mx-auto px-6">
-        {/* Header */}
-        <div className="text-center mb-12">
-          <div className="inline-flex items-center gap-2 glass rounded-full px-5 py-2 mb-6 text-sm text-zinc-300">
-            <Library className="w-4 h-4 text-cyan-400" />
-            Anti-Aging Library
-          </div>
-          <h2 className="text-3xl md:text-5xl font-bold tracking-tight mb-4">
-            The 12 Hallmarks of Aging
-          </h2>
-          <p className="text-zinc-400 max-w-2xl mx-auto leading-relaxed">
-            The definitive reference — each hallmark explained with visuals, evidence-ranked interventions,
-            PubMed citations, and personal notes integration. Click any hallmark to explore.
-          </p>
-          {notedCount > 0 && (
-            <p className="text-[10px] font-mono text-emerald-400 mt-3">
-              {notedCount} hallmark{notedCount > 1 ? 's' : ''} with personal notes saved locally
-            </p>
-          )}
-        </div>
+    <section
+      id="anti-aging-library"
+      aria-labelledby="library-heading"
+      className="py-16 md:py-24 lg:py-28 bg-[#030712] border-b border-white/[0.06]"
+    >
+      <div className="container-page">
+        <PageHeader
+          id="library-heading"
+          icon={Library}
+          eyebrow="Anti-Aging Library"
+          title="The 12 Hallmarks of Aging"
+          description="Each hallmark explained with visuals, evidence-ranked interventions, PubMed citations, and personal notes. Select a hallmark to explore."
+          meta={notedCount > 0 ? `${notedCount} hallmark${notedCount > 1 ? 's' : ''} with personal notes saved locally` : undefined}
+          theme="cyan"
+          as={asPageTitle ? 'h1' : 'h2'}
+        />
 
-        {/* Search */}
-        <div className="relative max-w-md mx-auto mb-10">
-          <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-zinc-500" />
+        <div className="relative max-w-lg mx-auto mb-8 md:mb-10">
+          <label htmlFor="hallmark-search" className="sr-only">
+            Search hallmarks or interventions
+          </label>
+          <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-zinc-500 pointer-events-none" aria-hidden="true" />
           <input
+            id="hallmark-search"
             type="search"
             placeholder="Search hallmarks or interventions…"
             value={query}
             onChange={(e) => setQuery(e.target.value)}
-            className="w-full glass rounded-xl pl-11 pr-4 py-3 text-sm outline-none focus:border-cyan-400/50"
+            className="input-base pl-11"
           />
         </div>
 
-        <div className="grid lg:grid-cols-12 gap-8">
-          {/* Hallmark grid */}
-          <div className="lg:col-span-4">
-            <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-2 gap-2 max-h-[520px] overflow-y-auto pr-1">
+        <div className="grid lg:grid-cols-12 gap-6 lg:gap-8">
+          {/* Hallmark selector */}
+          <nav className="lg:col-span-4" aria-label="Hallmark list">
+            <p className="text-label text-cyan-400 mb-3 hidden lg:block">Select hallmark</p>
+            <div
+              className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 gap-2 max-h-none lg:max-h-[32rem] lg:overflow-y-auto lg:pr-1 scroll-region"
+              role="list"
+            >
               {filtered.map((h) => {
                 const hasNotes = !!hallmarkNotes[h.id]?.notes;
+                const isActive = selected === h.id;
                 return (
                   <button
                     key={h.id}
+                    role="listitem"
+                    aria-current={isActive ? 'true' : undefined}
                     onClick={() => setSelected(h.id)}
-                    className={`text-left p-3 rounded-xl transition-all ${
-                      selected === h.id
+                    className={`focus-ring interactive text-left p-4 min-h-[var(--space-touch)] rounded-xl ${
+                      isActive
                         ? 'bg-cyan-400/10 border border-cyan-400/30'
                         : 'glass glass-hover'
                     }`}
                   >
-                    <span className="text-[10px] font-mono text-zinc-600">#{h.number}</span>
-                    <h4 className="font-semibold text-xs mt-0.5 leading-tight">{h.title}</h4>
-                    <div className="flex items-center justify-between mt-1">
-                      <span className="text-[10px] font-mono text-cyan-400">{h.coverage}%</span>
-                      {hasNotes && <span className="w-1.5 h-1.5 rounded-full bg-emerald-400" />}
+                    <span className="text-label">#{h.number}</span>
+                    <h3 className="heading-card mt-1 leading-snug">{h.title}</h3>
+                    <div className="flex items-center justify-between mt-2">
+                      <span className="text-label text-cyan-400">{h.coverage}% coverage</span>
+                      {hasNotes && (
+                        <span className="w-2 h-2 rounded-full bg-emerald-400" title="Has personal notes" />
+                      )}
                     </div>
                   </button>
                 );
               })}
             </div>
-          </div>
+          </nav>
 
           {/* Detail panel */}
-          <div className="lg:col-span-8">
+          <article className="lg:col-span-8" aria-live="polite">
             <AnimatePresence mode="wait">
               <motion.div
                 key={active.id}
@@ -102,32 +115,34 @@ export function AntiAgingLibrary() {
                 exit={{ opacity: 0, y: -10 }}
                 className="space-y-8"
               >
-                <div className="grid md:grid-cols-2 gap-6">
-                  <div>
-                    <p className="font-mono text-[10px] text-cyan-400 mb-1">HALLMARK {active.number}</p>
-                    <h3 className="text-2xl font-bold mb-2">{active.title}</h3>
-                    <p className="text-sm text-zinc-400 mb-4">{active.tagline}</p>
-                    <p className="text-sm text-zinc-500 leading-relaxed">{active.summary}</p>
-                    <Link
-                      href={`/library/${active.slug}`}
-                      className="inline-flex items-center gap-2 mt-5 text-sm font-semibold text-cyan-400 hover:text-emerald-400 transition"
-                    >
-                      Full deep dive + MDX <ArrowRight className="w-4 h-4" />
-                    </Link>
+                <div className="card-elevated p-6 md:p-8">
+                  <div className="grid md:grid-cols-2 gap-6 md:gap-8">
+                    <div>
+                      <p className="text-label text-cyan-400 mb-2">Hallmark {active.number}</p>
+                      <h3 className="heading-section text-2xl md:text-3xl mb-3">
+                        {active.title}
+                      </h3>
+                      <p className="text-body-sm mb-4">{active.tagline}</p>
+                      <p className="text-body-sm text-zinc-500">{active.summary}</p>
+                      <Link
+                        href={`/library/${active.slug}`}
+                        className="focus-ring interactive inline-flex items-center gap-2 mt-6 text-sm font-semibold text-cyan-400 hover:text-emerald-400 rounded-md"
+                      >
+                        Full deep dive + MDX <ArrowRight className="w-4 h-4" aria-hidden="true" />
+                      </Link>
+                    </div>
+                    <HallmarkVisual
+                      visual={active.visual}
+                      coverage={active.coverage}
+                      number={active.number}
+                    />
                   </div>
-                  <HallmarkVisual
-                    visual={active.visual}
-                    coverage={active.coverage}
-                    number={active.number}
-                  />
                 </div>
 
                 <HallmarkNotesPanel hallmark={active} />
 
                 <div>
-                  <p className="text-[10px] font-mono text-emerald-400 uppercase tracking-wider mb-4">
-                    Intervention Explorer
-                  </p>
+                  <p className="text-label text-emerald-400 mb-4">Intervention Explorer</p>
                   <InterventionExplorer
                     interventions={active.interventions}
                     hallmarkTitle={active.title}
@@ -135,7 +150,7 @@ export function AntiAgingLibrary() {
                 </div>
               </motion.div>
             </AnimatePresence>
-          </div>
+          </article>
         </div>
       </div>
     </section>
