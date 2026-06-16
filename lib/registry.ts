@@ -11,6 +11,7 @@ export type ToolId =
   | 'network'
   | 'protocol'
   | 'biomarker'
+  | 'impact'
   | 'healthspan';
 
 export interface ToolRegistryEntry {
@@ -72,6 +73,18 @@ export const toolsRegistry: ToolRegistryEntry[] = [
     keywords: ['biomarker optimization', 'lab trend analysis', 'intervention forecast'],
     evidenceNote: 'Forecasts are illustrative models from published effect sizes — not clinical predictions.',
     badge: 'Advanced',
+  },
+  {
+    id: 'impact',
+    slug: 'impact',
+    label: 'Biomarker Impact',
+    shortLabel: 'Intervention ranking',
+    description:
+      'Rank supplements and lifestyle levers by modeled impact on each biomarker — with hallmark pathway mapping.',
+    href: '/tools?tab=impact',
+    keywords: ['biomarker impact', 'intervention ranking', 'supplement effect size'],
+    evidenceNote: 'Effect sizes from published trials — illustrative, not predictive.',
+    badge: 'New',
   },
   {
     id: 'healthspan',

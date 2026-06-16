@@ -9,10 +9,12 @@ import { journeyMilestones } from '@/lib/journey';
 import type { EvidenceLevel } from '@/lib/types';
 import StackBuilder from '@/components/stacks/StackBuilder';
 import { HallmarkCoverageGrid } from '@/components/os/HallmarkCoverageGrid';
+import { UserMilestonesPanel } from '@/components/dashboard/UserMilestonesPanel';
 import EvidenceBadge from '@/components/trust/EvidenceBadge';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/Card';
 import { PageShell } from '@/components/ui/PageShell';
 import { cn } from '@/lib/utils';
+import { EXPORT_KIT_EVENT } from '@/components/os/ExportKitModal';
 
 function formatDaysAgo(dateStr: string): string {
   const days = Math.floor(
@@ -51,14 +53,9 @@ export function Dashboard() {
       : null;
 
   const dashboardInsights =
-    labs.length > 0
-      ? runBiomarkerDashboard(labs, selected, 'gsh', 24)
-      : null;
+    labs.length > 0 ? runBiomarkerDashboard(labs, selected, 'gsh', 24) : null;
 
-  const personalHighlights = journeyMilestones
-    .filter((m) => m.personal)
-    .slice(-3)
-    .reverse();
+  const founderHighlights = journeyMilestones.filter((m) => !m.personal).slice(-2).reverse();
 
   const dynamicHighlight =
     dashboardInsights?.topWin
@@ -77,13 +74,22 @@ export function Dashboard() {
 
   return (
     <PageShell>
-      <header className="mb-10">
-        <p className="text-label text-accent-emerald mb-2">Personal command center</p>
-        <h1 className="heading-page">My Longevity OS</h1>
-        <p className="text-body text-muted-foreground mt-2 max-w-2xl">
-          Your anti-aging operating system — stack, labs, and journey in one place. Data stays
-          local unless you export it.
-        </p>
+      <header className="mb-10 flex flex-wrap items-end justify-between gap-4">
+        <div>
+          <p className="text-label text-accent-emerald mb-2">Personal command center</p>
+          <h1 className="heading-page">My Longevity OS</h1>
+          <p className="text-body text-muted-foreground mt-2 max-w-2xl">
+            Your anti-aging operating system — stack, labs, and journey in one place. Data stays
+            local unless you export it.
+          </p>
+        </div>
+        <button
+          type="button"
+          onClick={() => window.dispatchEvent(new Event(EXPORT_KIT_EVENT))}
+          className="focus-ring interactive inline-flex items-center gap-2 rounded-xl font-semibold border border-border px-3 py-2 text-xs hover:border-accent-cyan/40"
+        >
+          Export kit
+        </button>
       </header>
 
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 lg:gap-8">
@@ -161,12 +167,28 @@ export function Dashboard() {
           <HallmarkCoverageGrid coveredIds={analysis.hallmarkCoverage} />
         </div>
 
+        {dynamicHighlight && (
+          <Card variant="default" className="lg:col-span-3">
+            <CardContent className="pt-6">
+              <div className={cn('border-l-4 pl-5', dynamicHighlight.accent)}>
+                <EvidenceBadge level={dynamicHighlight.evidence} size="sm" />
+                <p className="font-medium mt-3 text-sm leading-relaxed">{dynamicHighlight.text}</p>
+                <p className="text-caption text-muted-foreground mt-2">Live insight from your data</p>
+              </div>
+            </CardContent>
+          </Card>
+        )}
+
+        <div className="lg:col-span-3">
+          <UserMilestonesPanel />
+        </div>
+
         <Card variant="default" className="lg:col-span-3">
           <CardHeader className="flex flex-row items-center justify-between gap-4">
             <div>
-              <CardTitle>My journey highlights</CardTitle>
+              <CardTitle>Founder journey (TNiC platform)</CardTitle>
               <p className="text-body-sm text-muted-foreground mt-1">
-                N=1 milestones — personal transparency, not clinical outcomes.
+                Public N=1 transparency from the TNiC build — not your personal milestones.
               </p>
             </div>
             <Link
@@ -178,15 +200,8 @@ export function Dashboard() {
             </Link>
           </CardHeader>
           <CardContent>
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-              {dynamicHighlight && (
-                <div className={cn('border-l-4 pl-5', dynamicHighlight.accent)}>
-                  <EvidenceBadge level={dynamicHighlight.evidence} size="sm" />
-                  <p className="font-medium mt-3 text-sm leading-relaxed">{dynamicHighlight.text}</p>
-                  <p className="text-caption text-muted-foreground mt-2">From your logged data</p>
-                </div>
-              )}
-              {personalHighlights.map((m) => (
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              {founderHighlights.map((m) => (
                 <div
                   key={`${m.date}-${m.title}`}
                   className={cn('border-l-4 pl-5', highlightAccent[m.type] ?? 'border-accent-emerald')}

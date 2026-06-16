@@ -20,7 +20,7 @@ export interface PaletteItem {
   subtitle?: string;
   href?: string;
   keywords: string[];
-  actionId?: 'export-json' | 'purge-data';
+  actionId?: 'export-json' | 'export-kit' | 'purge-data';
 }
 
 const hubPages: PaletteItem[] = [
@@ -146,9 +146,17 @@ const glossaryItems: PaletteItem[] = glossary.map((g) => ({
 
 const actionItems: PaletteItem[] = [
   {
+    id: 'action-export-kit',
+    kind: 'action',
+    title: 'Open export kit',
+    subtitle: 'JSON, CSV, stack text, physician summary',
+    keywords: ['export', 'download', 'backup', 'csv', 'physician', 'kit'],
+    actionId: 'export-kit',
+  },
+  {
     id: 'action-export',
     kind: 'action',
-    title: 'Export platform data (JSON)',
+    title: 'Quick export (JSON)',
     subtitle: 'Download stack, labs, and profile',
     keywords: ['export', 'download', 'backup', 'json'],
     actionId: 'export-json',

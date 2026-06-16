@@ -10,6 +10,7 @@ import {
   type PaletteItem,
 } from '@/lib/command-palette-index';
 import { cn } from '@/lib/utils';
+import { EXPORT_KIT_EVENT } from './ExportKitModal';
 
 export const COMMAND_PALETTE_EVENT = 'tnic:command-palette-open';
 
@@ -33,6 +34,10 @@ export function CommandPalette() {
   const runItem = useCallback(
     (item: PaletteItem) => {
       close();
+      if (item.actionId === 'export-kit') {
+        window.dispatchEvent(new Event(EXPORT_KIT_EVENT));
+        return;
+      }
       if (item.actionId === 'export-json') {
         const blob = new Blob([exportAll()], { type: 'application/json' });
         const url = URL.createObjectURL(blob);

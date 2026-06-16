@@ -6,7 +6,7 @@ import { buildPageMetadata } from '@/lib/seo';
 export const metadata = buildPageMetadata({
   title: 'Longevity Tools — Protocol Engine, Stack Network & Biomarker Dashboard',
   description:
-    'Five interactive longevity tools: stack simulator, visual conflict network, rule-based protocol engine, biomarker trend dashboard with forecasts, and healthspan estimator. Evidence-graded, educational only.',
+    'Six interactive longevity tools: stack simulator, visual conflict network, rule-based protocol engine, biomarker trend dashboard, intervention impact ranking, and healthspan estimator. Evidence-graded, educational only.',
   path: '/tools',
   keywords: [
     'longevity calculator',

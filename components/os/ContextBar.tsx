@@ -2,7 +2,8 @@
 
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { ArrowRight, Layers, FlaskConical, Activity } from 'lucide-react';
+import { ArrowRight, Layers, FlaskConical, Activity, Download } from 'lucide-react';
+import { EXPORT_KIT_EVENT } from './ExportKitModal';
 import { usePlatform } from '@/context/PlatformContext';
 import { analyzeStack } from '@/lib/stack-analysis';
 import { HallmarkCoverageRing } from './HallmarkCoverageRing';
@@ -115,6 +116,15 @@ export function ContextBar() {
         )}
 
         <div className="ml-auto flex items-center gap-2 min-w-0">
+          <button
+            type="button"
+            onClick={() => window.dispatchEvent(new Event(EXPORT_KIT_EVENT))}
+            className="focus-ring interactive hidden sm:inline-flex items-center gap-1 rounded-lg border border-border px-2 py-1.5 text-caption font-semibold text-muted-foreground hover:text-accent-cyan hover:border-accent-cyan/30 shrink-0"
+            aria-label="Open export kit"
+          >
+            <Download className="w-3.5 h-3.5" aria-hidden="true" />
+            Export
+          </button>
           <span className="text-caption text-muted-foreground truncate hidden md:inline max-w-[140px] lg:max-w-none">
             {next.message}
           </span>

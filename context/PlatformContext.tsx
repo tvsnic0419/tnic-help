@@ -29,6 +29,10 @@ import {
   setPrivacyConsent,
   type PrivacyStorageMode,
 } from '@/lib/privacy';
+import {
+  detectNewMilestones,
+  type UserMilestone,
+} from '@/lib/milestone-engine';
 const DEFAULT_STACK = stackPresets.starter.ids;
 
 export interface Profile {
@@ -64,6 +68,8 @@ interface PlatformContextValue {
   setHallmarkNote: (hallmarkId: string, patch: Partial<HallmarkPersonalEntry>) => void;
   exportAll: () => string;
   importAll: (json: string) => boolean;
+  milestones: UserMilestone[];
+  addMilestone: (milestone: UserMilestone) => void;
   privacyMode: PrivacyStorageMode;
   setPrivacyMode: (mode: PrivacyStorageMode) => void;
   purgeAllHealthData: () => void;
@@ -97,8 +103,10 @@ export function PlatformProvider({ children }: { children: ReactNode }) {
   const [labs, setLabs] = useState<LabEntry[]>([]);
   const [checklist, setChecklist] = useState<string[]>([]);
   const [hallmarkNotes, setHallmarkNotesState] = useState<HallmarkNotesMap>({});
+  const [milestones, setMilestones] = useState<UserMilestone[]>([]);
   const [privacyMode, setPrivacyModeState] = useState<PrivacyStorageMode>('local');
   const [privacyConsent, setPrivacyConsentState] = useState(false);
+  const [prevLabsCount, setPrevLabsCount] = useState(0);
 
   useEffect(() => {
     const fromUrl = readStackFromUrl();
@@ -110,6 +118,7 @@ export function PlatformProvider({ children }: { children: ReactNode }) {
     const labsRaw = readStorageItem<LabEntry[]>(STORAGE_KEYS.labs, [], mode);
     const checklistRaw = readStorageItem<string[]>(STORAGE_KEYS.checklist, [], mode);
     const notesRaw = readStorageItem<HallmarkNotesMap>(STORAGE_KEYS.hallmarkNotes, {}, mode);
+    const milestonesRaw = readStorageItem<UserMilestone[]>(STORAGE_KEYS.milestones, [], mode);
 
     if (fromUrl) setSelectedState(fromUrl);
     else if (stackRaw.length) {
@@ -119,9 +128,54 @@ export function PlatformProvider({ children }: { children: ReactNode }) {
     setLabs(sanitizeLabEntries(labsRaw));
     if (checklistRaw.length) setChecklist(checklistRaw);
     if (Object.keys(notesRaw).length) setHallmarkNotesState(notesRaw);
+    if (milestonesRaw.length) setMilestones(milestonesRaw);
+    setPrevLabsCount(sanitizeLabEntries(labsRaw).length);
     setPrivacyConsentState(hasPrivacyConsent());
     setHydrated(true);
   }, []);
+
+  const persistMilestones = useCallback(
+    (next: UserMilestone[]) => {
+      setMilestones(next);
+      writeStorageItem(STORAGE_KEYS.milestones, next, privacyMode);
+    },
+    [privacyMode],
+  );
+
+  const addMilestone = useCallback(
+    (milestone: UserMilestone) => {
+      setMilestones((prev) => {
+        if (prev.some((m) => m.kind === milestone.kind)) return prev;
+        const next = [...prev, milestone];
+        writeStorageItem(STORAGE_KEYS.milestones, next, privacyMode);
+        return next;
+      });
+    },
+    [privacyMode],
+  );
+
+  const runMilestoneDetection = useCallback(
+    (stack: string[], prof: Profile, labList: LabEntry[], labsBefore: number) => {
+      if (!hydrated) return;
+      setMilestones((prev) => {
+        const earned = detectNewMilestones({
+          selected: stack,
+          profile: prof,
+          labs: labList,
+          prevLabsCount: labsBefore,
+          existing: prev,
+        });
+        if (earned.length === 0) return prev;
+        const kinds = new Set(prev.map((m) => m.kind));
+        const fresh = earned.filter((m) => !kinds.has(m.kind));
+        if (fresh.length === 0) return prev;
+        const next = [...prev, ...fresh];
+        writeStorageItem(STORAGE_KEYS.milestones, next, privacyMode);
+        return next;
+      });
+    },
+    [hydrated, privacyMode],
+  );
 
   const syncUrl = useCallback((ids: string[]) => {
     if (typeof window === 'undefined') return;
@@ -144,9 +198,10 @@ export function PlatformProvider({ children }: { children: ReactNode }) {
       if (hydrated) {
         syncUrl(ids);
         writeStorageItem(STORAGE_KEYS.stack, ids, privacyMode);
+        queueMicrotask(() => runMilestoneDetection(ids, profile, labs, prevLabsCount));
       }
     },
-    [hydrated, syncUrl, privacyMode],
+    [hydrated, syncUrl, privacyMode, profile, labs, prevLabsCount, runMilestoneDetection],
   );
 
   const toggle = useCallback(
@@ -173,31 +228,42 @@ export function PlatformProvider({ children }: { children: ReactNode }) {
       setProfileState((prev) => {
         const next = { ...prev, ...patch };
         writeStorageItem(STORAGE_KEYS.profile, next, privacyMode);
+        if (patch.scanned) {
+          queueMicrotask(() => runMilestoneDetection(selected, next, labs, prevLabsCount));
+        }
         return next;
       });
     },
-    [privacyMode],
+    [privacyMode, selected, labs, prevLabsCount, runMilestoneDetection],
   );
 
   const addLab = useCallback(
     (markerId: string, value: number, date: string) => {
-      persistLabs([...labs, { id: crypto.randomUUID(), markerId, value, date }]);
+      const before = labs.length;
+      const next = [...labs, { id: crypto.randomUUID(), markerId, value, date }];
+      persistLabs(next);
+      setPrevLabsCount(before);
+      runMilestoneDetection(selected, profile, next, before);
     },
-    [labs, persistLabs],
+    [labs, persistLabs, selected, profile, runMilestoneDetection],
   );
 
   const importLabs = useCallback(
     (rows: { markerId: string; value: number; date: string }[]) => {
+      const before = labs.length;
       const newEntries = rows.map((r) => ({
         id: crypto.randomUUID(),
         markerId: r.markerId,
         value: r.value,
         date: r.date,
       }));
-      persistLabs([...labs, ...newEntries]);
+      const next = [...labs, ...newEntries];
+      persistLabs(next);
+      setPrevLabsCount(before);
+      runMilestoneDetection(selected, profile, next, before);
       return newEntries.length;
     },
-    [labs, persistLabs],
+    [labs, persistLabs, selected, profile, runMilestoneDetection],
   );
 
   const removeLab = useCallback(
@@ -237,8 +303,21 @@ export function PlatformProvider({ children }: { children: ReactNode }) {
   );
 
   const exportAll = useCallback(
-    () => JSON.stringify({ stack: selected, profile, labs, checklist, hallmarkNotes, exportedAt: new Date().toISOString() }, null, 2),
-    [selected, profile, labs, checklist, hallmarkNotes],
+    () =>
+      JSON.stringify(
+        {
+          stack: selected,
+          profile,
+          labs,
+          checklist,
+          hallmarkNotes,
+          milestones,
+          exportedAt: new Date().toISOString(),
+        },
+        null,
+        2,
+      ),
+    [selected, profile, labs, checklist, hallmarkNotes, milestones],
   );
 
   const importAll = useCallback((json: string) => {
@@ -259,11 +338,14 @@ export function PlatformProvider({ children }: { children: ReactNode }) {
         setHallmarkNotesState(data.hallmarkNotes);
         writeStorageItem(STORAGE_KEYS.hallmarkNotes, data.hallmarkNotes, privacyMode);
       }
+      if (Array.isArray(data.milestones)) {
+        persistMilestones(data.milestones);
+      }
       return true;
     } catch {
       return false;
     }
-  }, [setSelected, persistLabs, privacyMode]);
+  }, [setSelected, persistLabs, persistMilestones, privacyMode]);
 
   const setPrivacyMode = useCallback((mode: PrivacyStorageMode) => {
     persistPrivacyMode(mode);
@@ -277,6 +359,8 @@ export function PlatformProvider({ children }: { children: ReactNode }) {
     setLabs([]);
     setChecklist([]);
     setHallmarkNotesState({});
+    setMilestones([]);
+    setPrevLabsCount(0);
     if (typeof window !== 'undefined') {
       const url = new URL(window.location.href);
       url.searchParams.delete('stack');
@@ -331,6 +415,8 @@ export function PlatformProvider({ children }: { children: ReactNode }) {
     setHallmarkNote,
     exportAll,
     importAll,
+    milestones,
+    addMilestone,
     privacyMode,
     setPrivacyMode,
     purgeAllHealthData: handlePurgeAll,

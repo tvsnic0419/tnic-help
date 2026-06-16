@@ -10,6 +10,7 @@ import {
   TrendingUp,
   Calculator,
   Network,
+  BarChart3,
 } from 'lucide-react';
 import { PageHeader } from '@/components/ui/PageHeader';
 import { TabBar } from '@/components/ui/TabBar';
@@ -38,12 +39,17 @@ const HealthspanEstimatorTool = dynamic(
   () => import('./HealthspanEstimatorTool').then((m) => ({ default: m.HealthspanEstimatorTool })),
   { loading: () => <SectionSkeleton height="lg" /> },
 );
+const BiomarkerImpactTool = dynamic(
+  () => import('./BiomarkerImpactTool').then((m) => ({ default: m.BiomarkerImpactTool })),
+  { loading: () => <SectionSkeleton height="lg" /> },
+);
 
 const tabIcons = {
   simulator: Layers,
   network: Network,
   protocol: Wand2,
   biomarker: FlaskConical,
+  impact: BarChart3,
   healthspan: TrendingUp,
 } as const;
 
@@ -83,7 +89,7 @@ export function ToolsHub() {
           icon={Calculator}
           eyebrow="Interactive Tools"
           title="Longevity Decision Engine"
-          description="Five evidence-graded tools that turn library knowledge into actionable protocols. Rule-based engines with transparent reasoning — not generative AI."
+          description="Six evidence-graded tools that turn library knowledge into actionable protocols. Rule-based engines with transparent reasoning — not generative AI."
           theme="violet"
           as="h1"
         />
@@ -109,6 +115,7 @@ export function ToolsHub() {
           {active === 'network' && <StackNetworkTool />}
           {active === 'protocol' && <ProtocolEngineTool />}
           {active === 'biomarker' && <BiomarkerDashboardTool />}
+          {active === 'impact' && <BiomarkerImpactTool />}
           {active === 'healthspan' && <HealthspanEstimatorTool />}
         </div>
 
