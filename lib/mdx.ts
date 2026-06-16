@@ -1,8 +1,10 @@
 import fs from 'fs';
 import path from 'path';
+import type { LibraryModuleCategory } from './library-modules';
 
 export interface MdxDocument {
   slug: string;
+  category?: LibraryModuleCategory | 'hallmarks';
   frontmatter: Record<string, string>;
   body: string;
 }
@@ -23,16 +25,22 @@ export function parseMdx(raw: string): { frontmatter: Record<string, string>; bo
   return { frontmatter, body: match[2].trim() };
 }
 
-export function loadMdx(slug: string): MdxDocument | null {
-  const filePath = path.join(process.cwd(), 'content', 'hallmarks', `${slug}.mdx`);
+function resolveMdxPath(slug: string, category: LibraryModuleCategory | 'hallmarks' = 'hallmarks'): string | null {
+  const filePath = path.join(process.cwd(), 'content', category, `${slug}.mdx`);
   if (!fs.existsSync(filePath)) return null;
-  const raw = fs.readFileSync(filePath, 'utf8');
-  const { frontmatter, body } = parseMdx(raw);
-  return { slug, frontmatter, body };
+  return filePath;
 }
 
-export function listMdxSlugs(): string[] {
-  const dir = path.join(process.cwd(), 'content', 'hallmarks');
+export function loadMdx(slug: string, category: LibraryModuleCategory | 'hallmarks' = 'hallmarks'): MdxDocument | null {
+  const filePath = resolveMdxPath(slug, category);
+  if (!filePath) return null;
+  const raw = fs.readFileSync(filePath, 'utf8');
+  const { frontmatter, body } = parseMdx(raw);
+  return { slug, category, frontmatter, body };
+}
+
+export function listMdxSlugs(category: LibraryModuleCategory | 'hallmarks' = 'hallmarks'): string[] {
+  const dir = path.join(process.cwd(), 'content', category);
   if (!fs.existsSync(dir)) return [];
   return fs
     .readdirSync(dir)

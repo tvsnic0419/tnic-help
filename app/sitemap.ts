@@ -1,4 +1,6 @@
 import type { MetadataRoute } from 'next';
+import { hallmarkLibrary } from '@/lib/hallmarks-library';
+import { getAllModuleParams } from '@/lib/library-modules';
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const base = 'https://tnic.help';
@@ -22,6 +24,18 @@ export default function sitemap(): MetadataRoute.Sitemap {
       lastModified: new Date(),
       changeFrequency: 'weekly' as const,
       priority: 0.8,
+    })),
+    ...hallmarkLibrary.map((h) => ({
+      url: `${base}/library/${h.slug}`,
+      lastModified: new Date(),
+      changeFrequency: 'monthly' as const,
+      priority: 0.85,
+    })),
+    ...getAllModuleParams().map(({ category, slug }) => ({
+      url: `${base}/library/${category}/${slug}`,
+      lastModified: new Date(),
+      changeFrequency: 'monthly' as const,
+      priority: 0.85,
     })),
   ];
 }
