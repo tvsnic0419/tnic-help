@@ -2,6 +2,7 @@ import type { Metadata, Viewport } from 'next';
 import { Geist, Geist_Mono } from 'next/font/google';
 import { JsonLd } from '@/components/JsonLd';
 import { SkipLink } from '@/components/SkipLink';
+import ErrorBoundary from '@/components/ErrorBoundary';
 import { PlatformProviderWrapper } from '@/components/PlatformProviderWrapper';
 import { ThemeScript } from '@/components/theme/ThemeScript';
 import { SITE, LONGEVITY_KEYWORDS } from '@/lib/site';
@@ -74,7 +75,9 @@ export default function RootLayout({
       </head>
       <body className="min-h-full">
         <SkipLink />
-        <PlatformProviderWrapper>{children}</PlatformProviderWrapper>
+        <ErrorBoundary fallbackMessage="The Longevity OS encountered an issue loading this section.">
+          <PlatformProviderWrapper>{children}</PlatformProviderWrapper>
+        </ErrorBoundary>
       </body>
     </html>
   );
