@@ -1,9 +1,11 @@
 'use client';
 
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+import { useSearchParams } from 'next/navigation';
 import { motion } from 'framer-motion';
 import { Layers, Wrench, Table2, BookOpen } from 'lucide-react';
 import { eliteStacks } from '@/lib/stacks-library';
+import { stackPresets, type PresetKey } from '@/lib/presets';
 import { PageShell } from '@/components/ui/PageShell';
 import { PageHeader } from '@/components/ui/PageHeader';
 import { TabBar } from '@/components/ui/TabBar';
@@ -11,6 +13,7 @@ import { DynamicStackBuilder } from './DynamicStackBuilder';
 import { EliteStackCard } from './EliteStackCard';
 import { StackComparisonTable } from './StackComparisonTable';
 import { ToolsPromoStrip } from '@/components/tools/ToolsPromoStrip';
+import { QuizStacksBanner } from './QuizStacksBanner';
 
 type Tab = 'catalog' | 'builder' | 'compare';
 
@@ -20,8 +23,25 @@ const tabs = [
   { id: 'compare' as const, label: 'Compare', icon: Table2 },
 ];
 
+function isPresetKey(value: string | null): value is PresetKey {
+  return value !== null && value in stackPresets;
+}
+
 export function StacksLibrary() {
-  const [tab, setTab] = useState<Tab>('catalog');
+  const searchParams = useSearchParams();
+  const fromQuiz = searchParams.get('from') === 'quiz';
+  const presetParam = searchParams.get('preset');
+  const quizPreset = isPresetKey(presetParam) ? presetParam : null;
+
+  const [tab, setTab] = useState<Tab>(fromQuiz ? 'builder' : 'catalog');
+
+  useEffect(() => {
+    if (fromQuiz) {
+      requestAnimationFrame(() => {
+        document.getElementById('stack-builder')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      });
+    }
+  }, [fromQuiz]);
 
   return (
     <PageShell>
@@ -35,6 +55,8 @@ export function StacksLibrary() {
       />
 
       <ToolsPromoStrip headline="Advanced Stack Simulator — age-adjusted dosing, risk index, hallmark radar" className="mb-8" />
+
+      {fromQuiz && quizPreset && <QuizStacksBanner preset={quizPreset} />}
 
       <TabBar
         tabs={tabs}

@@ -2,13 +2,10 @@
 
 import { useState } from 'react';
 import Link from 'next/link';
-import { useRouter } from 'next/navigation';
 import { motion, AnimatePresence } from 'framer-motion';
-import { BookOpen, Shield, Zap, Layers, ArrowRight, RotateCcw, Check } from 'lucide-react';
+import { BookOpen, Shield, Zap, Layers } from 'lucide-react';
 import { quizSteps, getQuizResult, type QuizAnswers } from '@/lib/homepage';
-import { compounds } from '@/lib/data';
-import { useStack } from '@/context/PlatformContext';
-import type { PresetKey } from '@/lib/presets';
+import { QuizResultPanel } from '@/components/quiz/QuizResultPanel';
 
 const goalIcons = {
   book: BookOpen,
@@ -18,8 +15,6 @@ const goalIcons = {
 };
 
 export function StarterQuiz({ variant = 'embedded' }: { variant?: 'embedded' | 'page' }) {
-  const router = useRouter();
-  const { applyPreset } = useStack();
   const [step, setStep] = useState(0);
   const [answers, setAnswers] = useState<QuizAnswers>({});
   const [done, setDone] = useState(false);
@@ -46,12 +41,6 @@ export function StarterQuiz({ variant = 'embedded' }: { variant?: 'embedded' | '
   };
 
   const result = done ? getQuizResult(answers) : null;
-
-  const loadStack = () => {
-    if (!result) return;
-    applyPreset(result.preset as PresetKey);
-    router.push('/stacks?from=quiz');
-  };
 
   return (
     <div
@@ -119,60 +108,7 @@ export function StarterQuiz({ variant = 'embedded' }: { variant?: 'embedded' | '
             </div>
           </motion.div>
         ) : result && (
-          <motion.div
-            key="result"
-            initial={{ opacity: 0, y: 10 }}
-            animate={{ opacity: 1, y: 0 }}
-          >
-            <div className="flex items-start gap-3 mb-4">
-              <div className="w-8 h-8 rounded-lg bg-accent-emerald/20 flex items-center justify-center shrink-0">
-                <Check className="w-4 h-4 text-accent-emerald" />
-              </div>
-              <div>
-                <p className="text-sm font-bold text-accent-emerald mb-1">Your personalized path</p>
-                <p className="text-xs text-muted-foreground leading-relaxed">{result.insight}</p>
-              </div>
-            </div>
-
-            <div className="glass rounded-xl p-4 mb-4">
-              <p className="text-[10px] font-mono text-accent-violet uppercase mb-2">
-                Recommended: {result.stack.label} Stack
-              </p>
-              <div className="flex flex-wrap gap-1.5 mb-3">
-                {result.stack.ids.map((id) => {
-                  const c = compounds.find((x) => x.id === id);
-                  return c ? (
-                    <span key={id} className="text-[10px] bg-accent-violet/10 text-violet-300 px-2 py-0.5 rounded font-semibold">
-                      {c.name}
-                    </span>
-                  ) : null;
-                })}
-              </div>
-              <p className="text-[10px] text-muted-foreground">{result.stack.desc}</p>
-            </div>
-
-            <div className="grid grid-cols-2 gap-2">
-              <button
-                type="button"
-                onClick={loadStack}
-                className="focus-ring col-span-2 flex items-center justify-center gap-2 bg-accent-cyan text-black py-3 rounded-xl text-sm font-semibold hover:bg-accent-emerald transition-all"
-              >
-                Load stack &amp; open Architect <ArrowRight className="w-4 h-4" aria-hidden="true" />
-              </button>
-              <Link
-                href={result.primary.href}
-                className="flex items-center justify-center gap-1 glass py-2.5 rounded-xl text-xs font-semibold hover:border-accent-cyan/30 transition"
-              >
-                {result.primary.cta}
-              </Link>
-              <button
-                onClick={reset}
-                className="flex items-center justify-center gap-1 glass py-2.5 rounded-xl text-xs text-muted-foreground hover:text-foreground transition"
-              >
-                <RotateCcw className="w-3 h-3" /> Retake
-              </button>
-            </div>
-          </motion.div>
+          <QuizResultPanel result={result} answers={answers} onRetake={reset} />
         )}
       </AnimatePresence>
     </div>
