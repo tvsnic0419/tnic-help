@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 import { AntiAgingLibrary } from '@/components/library/AntiAgingLibrary';
 import { LibraryModulesHub } from '@/components/library/LibraryModulesHub';
+import { ToolsPromoStrip } from '@/components/tools/ToolsPromoStrip';
 
 export const metadata: Metadata = {
   title: 'Anti-Aging Library — Hallmarks, Compounds & Protocols | TNiC',
@@ -12,6 +13,9 @@ export default function LibraryPage() {
   return (
     <>
       <AntiAgingLibrary asPageTitle />
+      <div className="container-page py-8">
+        <ToolsPromoStrip headline="Simulate stacks, build protocols, and project healthspan from library modules" />
+      </div>
       <LibraryModulesHub />
     </>
   );

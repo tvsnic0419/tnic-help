@@ -10,6 +10,7 @@ import { TabBar } from '@/components/ui/TabBar';
 import { DynamicStackBuilder } from './DynamicStackBuilder';
 import { EliteStackCard } from './EliteStackCard';
 import { StackComparisonTable } from './StackComparisonTable';
+import { ToolsPromoStrip } from '@/components/tools/ToolsPromoStrip';
 
 type Tab = 'catalog' | 'builder' | 'compare';
 
@@ -32,6 +33,8 @@ export function StacksLibrary() {
         meta={`${eliteStacks.length} elite stacks · 6 evidence-graded compounds · Educational only`}
         theme="violet"
       />
+
+      <ToolsPromoStrip headline="Advanced Stack Simulator — age-adjusted dosing, risk index, hallmark radar" className="mb-8" />
 
       <TabBar
         tabs={tabs}

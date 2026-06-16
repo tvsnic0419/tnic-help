@@ -16,6 +16,7 @@ import { LabTrendDashboard } from './LabTrendDashboard';
 import { HallmarkRiskPanel } from './HallmarkRiskPanel';
 import { LabRecommendations } from './LabRecommendations';
 import { PrivacyPanel } from './PrivacyPanel';
+import { ToolsPromoStrip } from '@/components/tools/ToolsPromoStrip';
 
 type Tab = 'input' | 'trends' | 'risk' | 'insights' | 'privacy';
 
@@ -64,6 +65,8 @@ export function LabHub() {
           ]}
         />
       )}
+
+      <ToolsPromoStrip headline="Biomarker Impact Calculator — which interventions move your labs most" className="mb-8" />
 
       <UserFlowGuide currentStep={tabs.findIndex((t) => t.id === tab) + 1} />
 

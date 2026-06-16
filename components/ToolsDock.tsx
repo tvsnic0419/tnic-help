@@ -9,6 +9,7 @@ import {
   Layers,
   Scan,
   Calendar,
+  Calculator,
   ChevronUp,
 } from 'lucide-react';
 import { usePlatform } from '@/context/PlatformContext';
@@ -17,6 +18,7 @@ const tools = [
   { href: '#dashboard', label: 'Dashboard', icon: LayoutDashboard },
   { href: '#biomarkers', label: 'Biomarkers', icon: Activity },
   { href: '/labs', label: 'Labs', icon: FlaskConical },
+  { href: '/tools', label: 'Tools', icon: Calculator },
   { href: '#stacks', label: 'Stack', icon: Layers },
   { href: '#calculator', label: 'Bio Age', icon: Scan },
   { href: '#protocol', label: 'Protocol', icon: Calendar },
