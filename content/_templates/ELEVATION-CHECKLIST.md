@@ -60,23 +60,26 @@ Use this when rewriting any MDX module to Examine.com-tier quality with TNiC OS 
 | `hallmarks/chronic-inflammation.mdx` | ✅ Elevated |
 | `hallmarks/cellular-senescence.mdx` | ✅ Elevated |
 | `hallmarks/loss-of-proteostasis.mdx` | ✅ Elevated |
-| `hallmarks/telomere-attrition.mdx` | ⬜ Thin — elevate next |
-| `hallmarks/epigenetic-alterations.mdx` | ⬜ Thin |
-| `hallmarks/disabled-autophagy.mdx` | ⬜ Thin |
-| `hallmarks/disabled-macroautophagy.mdx` | ⬜ Thin (merge?) |
-| `hallmarks/stem-cell-exhaustion.mdx` | ⬜ Thin |
-| `hallmarks/altered-intercellular-communication.mdx` | ⬜ Thin |
-| `hallmarks/dysbiosis.mdx` | ⬜ Thin |
+| `hallmarks/telomere-attrition.mdx` | ✅ Elevated |
+| `hallmarks/epigenetic-alterations.mdx` | ✅ Elevated |
+| `hallmarks/disabled-autophagy.mdx` | ✅ Elevated (cross-links H12) |
+| `hallmarks/disabled-macroautophagy.mdx` | ✅ Elevated (cross-links H5) |
+| `hallmarks/stem-cell-exhaustion.mdx` | ✅ Elevated |
+| `hallmarks/altered-intercellular-communication.mdx` | ✅ Elevated |
+| `hallmarks/dysbiosis.mdx` | ✅ Elevated |
 | `compounds/glynac.mdx` | ✅ Flagship |
 | `compounds/nmn.mdx` | ✅ Elevated |
-| `compounds/sulforaphane.mdx` | ⬜ Partial |
-| `compounds/resveratrol.mdx` | ⬜ Partial |
+| `compounds/sulforaphane.mdx` | ✅ Elevated |
+| `compounds/resveratrol.mdx` | ✅ Elevated |
 | `compounds/rapamycin.mdx` | ⬜ Needs Rx disclaimer pass |
 | `compounds/tudca.mdx` | ⬜ Partial |
 | `synergies/glynac-nrf2-triad.mdx` | ✅ Flagship |
 | `synergies/nad-mito-stack.mdx` | ✅ Elevated |
-| `synergies/nmn-resveratrol-sirt1.mdx` | ⬜ Partial |
-| `lifestyle/*` | ⬜ Template pass pending |
+| `synergies/nmn-resveratrol-sirt1.mdx` | ✅ Elevated |
+| `lifestyle/sleep.mdx` | ✅ Elevated |
+| `lifestyle/exercise.mdx` | ✅ Elevated |
+| `lifestyle/nutrition.mdx` | ✅ Elevated |
+| `lifestyle/stress.mdx` | ✅ Elevated |
 | `guides/testing-and-monitoring.mdx` | ⬜ Template pass pending |
 
 ## Rewrite workflow (per file)
