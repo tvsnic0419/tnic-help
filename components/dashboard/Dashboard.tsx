@@ -8,6 +8,7 @@ import { runBiomarkerDashboard } from '@/lib/tools/biomarker-dashboard';
 import { journeyMilestones } from '@/lib/journey';
 import type { EvidenceLevel } from '@/lib/types';
 import StackBuilder from '@/components/stacks/StackBuilder';
+import { HallmarkCoverageGrid } from '@/components/os/HallmarkCoverageGrid';
 import EvidenceBadge from '@/components/trust/EvidenceBadge';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/Card';
 import { PageShell } from '@/components/ui/PageShell';
@@ -155,6 +156,10 @@ export function Dashboard() {
             <StackBuilder compact />
           </CardContent>
         </Card>
+
+        <div className="lg:col-span-3">
+          <HallmarkCoverageGrid coveredIds={analysis.hallmarkCoverage} />
+        </div>
 
         <Card variant="default" className="lg:col-span-3">
           <CardHeader className="flex flex-row items-center justify-between gap-4">

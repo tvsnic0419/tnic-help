@@ -3,6 +3,7 @@
 import { useState, useMemo, useRef, useEffect } from 'react';
 import { Search, X } from 'lucide-react';
 import { consumerFAQ, glossary, compounds } from '@/lib/data';
+import { COMMAND_PALETTE_EVENT } from '@/components/os/CommandPalette';
 
 type Result = { type: string; title: string; excerpt: string; href: string };
 
@@ -71,13 +72,15 @@ export function SiteSearch() {
   return (
     <div className="relative">
       <button
-        onClick={() => setOpen(!open)}
-        className="p-2 text-muted-foreground hover:text-foreground transition flex items-center gap-1"
-        aria-label="Search site (press /)"
-        title="Search (/)"
+        onClick={() => window.dispatchEvent(new CustomEvent(COMMAND_PALETTE_EVENT))}
+        className="focus-ring interactive p-2 text-muted-foreground hover:text-foreground transition flex items-center gap-1 rounded-lg"
+        aria-label="Open command palette (Ctrl+K or /)"
+        title="Command palette (⌘K)"
       >
         <Search className="w-5 h-5" />
-        <span className="hidden xl:inline text-[10px] font-mono text-caption border border-border px-1.5 py-0.5 rounded">/</span>
+        <span className="hidden xl:inline text-[10px] font-mono text-caption border border-border px-1.5 py-0.5 rounded">
+          ⌘K
+        </span>
       </button>
 
       {open && (

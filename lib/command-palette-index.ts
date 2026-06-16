@@ -1,0 +1,211 @@
+import { consumerFAQ, glossary, compounds } from './data';
+import { hallmarkLibrary } from './hallmarks-library';
+import { libraryModules, getModulePath } from './library-modules';
+import { toolsRegistry } from './registry';
+
+export type PaletteItemKind =
+  | 'page'
+  | 'tool'
+  | 'hallmark'
+  | 'module'
+  | 'compound'
+  | 'faq'
+  | 'glossary'
+  | 'action';
+
+export interface PaletteItem {
+  id: string;
+  kind: PaletteItemKind;
+  title: string;
+  subtitle?: string;
+  href?: string;
+  keywords: string[];
+  actionId?: 'export-json' | 'purge-data';
+}
+
+const hubPages: PaletteItem[] = [
+  {
+    id: 'page-home',
+    kind: 'page',
+    title: 'Homepage',
+    subtitle: 'Overview and getting started',
+    href: '/',
+    keywords: ['home', 'start', 'landing'],
+  },
+  {
+    id: 'page-dashboard',
+    kind: 'page',
+    title: 'My Longevity OS',
+    subtitle: 'Personal command center',
+    href: '/dashboard',
+    keywords: ['dashboard', 'os', 'command center', 'status'],
+  },
+  {
+    id: 'page-library',
+    kind: 'page',
+    title: 'Anti-Aging Library',
+    subtitle: '12 hallmarks and deep guides',
+    href: '/library',
+    keywords: ['library', 'hallmarks', 'learn', 'science'],
+  },
+  {
+    id: 'page-stacks',
+    kind: 'page',
+    title: 'Stack Architect',
+    subtitle: 'Build and compare protocols',
+    href: '/stacks',
+    keywords: ['stack', 'builder', 'protocol', 'synergy'],
+  },
+  {
+    id: 'page-labs',
+    kind: 'page',
+    title: 'Lab Hub',
+    subtitle: 'Track biomarkers locally',
+    href: '/labs',
+    keywords: ['labs', 'biomarker', 'gsh', 'nad', 'crp'],
+  },
+  {
+    id: 'page-tools',
+    kind: 'page',
+    title: 'Longevity Tools',
+    subtitle: 'Simulator, protocol engine, forecasts',
+    href: '/tools',
+    keywords: ['tools', 'calculator', 'simulator'],
+  },
+  {
+    id: 'page-trust',
+    kind: 'page',
+    title: 'Trust Hub',
+    subtitle: 'Evidence methodology and journey',
+    href: '/trust',
+    keywords: ['trust', 'evidence', 'methodology', 'disclaimer'],
+  },
+  {
+    id: 'page-journey',
+    kind: 'page',
+    title: 'Personal Journey',
+    subtitle: 'N=1 timeline template',
+    href: '/trust/journey',
+    keywords: ['journey', 'n=1', 'milestones'],
+  },
+];
+
+const toolItems: PaletteItem[] = toolsRegistry.map((t) => ({
+  id: `tool-${t.id}`,
+  kind: 'tool' as const,
+  title: t.label,
+  subtitle: t.shortLabel,
+  href: t.href,
+  keywords: [t.label.toLowerCase(), ...t.keywords, t.id],
+}));
+
+const hallmarkItems: PaletteItem[] = hallmarkLibrary.map((h) => ({
+  id: `hallmark-${h.id}`,
+  kind: 'hallmark' as const,
+  title: h.title,
+  subtitle: `Hallmark ${h.number}`,
+  href: `/library/${h.slug}`,
+  keywords: [h.title.toLowerCase(), h.tagline.toLowerCase(), h.id, h.slug],
+}));
+
+const moduleItems: PaletteItem[] = libraryModules.map((m) => ({
+  id: `module-${m.slug}`,
+  kind: 'module' as const,
+  title: m.title,
+  subtitle: m.tagline,
+  href: getModulePath(m),
+  keywords: [m.title.toLowerCase(), m.category, m.slug, ...m.relatedHallmarkIds],
+}));
+
+const compoundItems: PaletteItem[] = compounds.map((c) => ({
+  id: `compound-${c.id}`,
+  kind: 'compound' as const,
+  title: c.name,
+  subtitle: c.pathway,
+  href: `/library/compounds/${c.id}`,
+  keywords: [c.name.toLowerCase(), c.id, c.pathway.toLowerCase(), c.badge],
+}));
+
+const faqItems: PaletteItem[] = consumerFAQ.map((f, i) => ({
+  id: `faq-${i}`,
+  kind: 'faq' as const,
+  title: f.question,
+  subtitle: 'FAQ',
+  href: '/#learn',
+  keywords: [f.question.toLowerCase(), 'faq', 'learn'],
+}));
+
+const glossaryItems: PaletteItem[] = glossary.map((g) => ({
+  id: `glossary-${g.term}`,
+  kind: 'glossary' as const,
+  title: g.term,
+  subtitle: g.simple.slice(0, 80),
+  href: '/#learn',
+  keywords: [g.term.toLowerCase(), 'glossary', g.simple.toLowerCase()],
+}));
+
+const actionItems: PaletteItem[] = [
+  {
+    id: 'action-export',
+    kind: 'action',
+    title: 'Export platform data (JSON)',
+    subtitle: 'Download stack, labs, and profile',
+    keywords: ['export', 'download', 'backup', 'json'],
+    actionId: 'export-json',
+  },
+  {
+    id: 'action-calculator',
+    kind: 'action',
+    title: 'Run Defense Scan',
+    subtitle: 'Biological age and pathway priority',
+    href: '/#calculator',
+    keywords: ['calculator', 'bio age', 'defense', 'scan'],
+  },
+];
+
+export const paletteIndex: PaletteItem[] = [
+  ...hubPages,
+  ...toolItems,
+  ...hallmarkItems,
+  ...moduleItems,
+  ...compoundItems,
+  ...faqItems,
+  ...glossaryItems,
+  ...actionItems,
+];
+
+export function searchPalette(query: string, limit = 12): PaletteItem[] {
+  const q = query.trim().toLowerCase();
+  if (!q) {
+    return [...hubPages, ...toolItems.slice(0, 3), ...actionItems].slice(0, limit);
+  }
+
+  const scored = paletteIndex
+    .map((item) => {
+      const title = item.title.toLowerCase();
+      const subtitle = (item.subtitle ?? '').toLowerCase();
+      let score = 0;
+      if (title === q) score += 100;
+      else if (title.startsWith(q)) score += 50;
+      else if (title.includes(q)) score += 30;
+      if (subtitle.includes(q)) score += 10;
+      if (item.keywords.some((k) => k.includes(q))) score += 8;
+      if (item.kind === 'page' || item.kind === 'tool') score += 2;
+      return { item, score };
+    })
+    .filter((x) => x.score > 0)
+    .sort((a, b) => b.score - a.score);
+
+  return scored.slice(0, limit).map((x) => x.item);
+}
+
+export const paletteKindLabels: Record<PaletteItemKind, string> = {
+  page: 'Page',
+  tool: 'Tool',
+  hallmark: 'Hallmark',
+  module: 'Guide',
+  compound: 'Compound',
+  faq: 'FAQ',
+  glossary: 'Glossary',
+  action: 'Action',
+};
