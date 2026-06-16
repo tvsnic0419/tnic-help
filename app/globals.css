@@ -1,0 +1,8 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+body { font-family: 'Inter', system-ui, sans-serif; }
+.hero-bg { background: linear-gradient(135deg, #0f172a 0%, #1e2937 100%); background-image: radial-gradient(circle at 50% 30%, rgba(34, 211, 238, 0.15) 0%, transparent 70%); }
+.card-hover { transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1); }
+.card-hover:hover { transform: translateY(-8px) scale(1.02); box-shadow: 0 25px 50px -12px rgb(0 0 0 / 0.4); }
+.nrf2-glow { box-shadow: 0 0 30px rgba(34, 211, 238, 0.5); }
