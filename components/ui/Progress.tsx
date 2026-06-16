@@ -1,6 +1,7 @@
 'use client';
 
 import { motion } from 'framer-motion';
+import { cn } from '@/lib/utils';
 
 interface ProgressProps {
   value: number;
@@ -11,11 +12,11 @@ interface ProgressProps {
 }
 
 const colorMap = {
-  cyan: 'from-cyan-400 to-emerald-400',
-  emerald: 'from-emerald-400 to-cyan-400',
-  violet: 'from-violet-400 to-cyan-400',
-  amber: 'from-amber-400 to-orange-400',
-  rose: 'from-rose-400 to-amber-400',
+  cyan: 'from-accent-cyan to-accent-emerald',
+  emerald: 'from-accent-emerald to-accent-cyan',
+  violet: 'from-accent-violet to-accent-cyan',
+  amber: 'from-accent-amber to-accent-rose',
+  rose: 'from-accent-rose to-accent-amber',
 };
 
 export function Progress({ value, max = 100, label, color = 'cyan', showValue = true }: ProgressProps) {
@@ -25,13 +26,13 @@ export function Progress({ value, max = 100, label, color = 'cyan', showValue = 
     <div>
       {(label || showValue) && (
         <div className="flex justify-between mb-1.5">
-          {label && <span className="text-xs text-zinc-500">{label}</span>}
-          {showValue && <span className="text-xs font-mono text-zinc-400">{Math.round(pct)}%</span>}
+          {label && <span className="text-xs text-muted-foreground">{label}</span>}
+          {showValue && <span className="text-xs font-mono text-muted-foreground">{Math.round(pct)}%</span>}
         </div>
       )}
-      <div className="h-2 bg-zinc-800 rounded-full overflow-hidden">
+      <div className="h-2 bg-muted rounded-full overflow-hidden">
         <motion.div
-          className={`h-full bg-gradient-to-r ${colorMap[color]} rounded-full`}
+          className={cn('h-full bg-gradient-to-r rounded-full', colorMap[color])}
           initial={{ width: 0 }}
           animate={{ width: `${pct}%` }}
           transition={{ duration: 0.4 }}

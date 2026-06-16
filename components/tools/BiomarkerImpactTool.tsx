@@ -73,8 +73,8 @@ export function BiomarkerImpactTool() {
               />
               <div className="mt-4 space-y-2 text-sm">
                 <p>
-                  <span className="text-zinc-500">Optimal:</span>{' '}
-                  <span className="text-emerald-400 font-mono">{result.optimal}</span>{' '}
+                  <span className="text-muted-foreground">Optimal:</span>{' '}
+                  <span className="text-accent-emerald font-mono">{result.optimal}</span>{' '}
                   {result.unit}
                 </p>
                 <p className="text-body-sm">{result.desc}</p>
@@ -88,16 +88,16 @@ export function BiomarkerImpactTool() {
           </Card>
 
           {result.topPick && (
-            <Card className="border-emerald-400/20">
+            <Card className="border-accent-emerald/20">
               <CardHeader>
                 <CardTitle className="text-base">Top intervention</CardTitle>
               </CardHeader>
               <CardContent>
                 <div className="flex items-center gap-2 mb-2">
                   {result.topPick.category === 'compound' ? (
-                    <Pill className="w-4 h-4 text-emerald-400" />
+                    <Pill className="w-4 h-4 text-accent-emerald" />
                   ) : (
-                    <HeartPulse className="w-4 h-4 text-cyan-400" />
+                    <HeartPulse className="w-4 h-4 text-accent-cyan" />
                   )}
                   <span className="font-semibold">{result.topPick.name}</span>
                   <EvidenceTag tier={result.topPick.evidence} size="sm" />
@@ -113,7 +113,7 @@ export function BiomarkerImpactTool() {
                 {result.topPick.compoundId && (
                   <Link
                     href={`/library/compounds/${result.topPick.compoundId}`}
-                    className="inline-flex items-center gap-1 text-xs text-cyan-400 mt-3 hover:text-emerald-400"
+                    className="inline-flex items-center gap-1 text-xs text-accent-cyan mt-3 hover:text-accent-emerald"
                   >
                     Compound deep dive <ArrowRight className="w-3 h-3" />
                   </Link>
@@ -175,13 +175,13 @@ export function BiomarkerImpactTool() {
             <Card>
               <CardHeader>
                 <CardTitle className="text-base flex items-center gap-2">
-                  <Pill className="w-4 h-4 text-violet-400" /> Compounds
+                  <Pill className="w-4 h-4 text-accent-violet" /> Compounds
                 </CardTitle>
               </CardHeader>
               <CardContent>
                 <ul className="space-y-3">
                   {result.interventions.map((i) => (
-                    <li key={i.id} className="text-sm border-b border-white/[0.04] pb-2 last:border-0">
+                    <li key={i.id} className="text-sm border-b border-border pb-2 last:border-0">
                       <div className="flex items-center justify-between gap-2">
                         <span className="font-semibold">{i.name}</span>
                         <div className="flex items-center gap-2">
@@ -191,7 +191,7 @@ export function BiomarkerImpactTool() {
                           <EvidenceTag tier={i.evidence} size="sm" />
                         </div>
                       </div>
-                      <p className="text-caption text-zinc-500 mt-1">{i.mechanism.slice(0, 100)}…</p>
+                      <p className="text-caption text-muted-foreground mt-1">{i.mechanism.slice(0, 100)}…</p>
                     </li>
                   ))}
                 </ul>
@@ -201,7 +201,7 @@ export function BiomarkerImpactTool() {
             <Card>
               <CardHeader>
                 <CardTitle className="text-base flex items-center gap-2">
-                  <HeartPulse className="w-4 h-4 text-cyan-400" /> Lifestyle
+                  <HeartPulse className="w-4 h-4 text-accent-cyan" /> Lifestyle
                 </CardTitle>
               </CardHeader>
               <CardContent>
@@ -210,12 +210,12 @@ export function BiomarkerImpactTool() {
                 ) : (
                   <ul className="space-y-3">
                     {result.lifestyleModifiers.map((i) => (
-                      <li key={i.id} className="text-sm border-b border-white/[0.04] pb-2 last:border-0">
+                      <li key={i.id} className="text-sm border-b border-border pb-2 last:border-0">
                         <div className="flex items-center justify-between gap-2">
                           <span className="font-semibold">{i.name}</span>
                           <Badge variant="info">{i.impactScore}</Badge>
                         </div>
-                        <p className="text-caption text-zinc-500 mt-1">{i.mechanism}</p>
+                        <p className="text-caption text-muted-foreground mt-1">{i.mechanism}</p>
                       </li>
                     ))}
                   </ul>
@@ -226,12 +226,12 @@ export function BiomarkerImpactTool() {
 
           <div className="flex flex-wrap gap-3">
             <Link href="/labs">
-              <span className="focus-ring interactive inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-cyan-400/10 border border-cyan-400/30 text-sm font-semibold text-cyan-400">
+              <span className="focus-ring interactive inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-accent-cyan/10 border border-accent-cyan/30 text-sm font-semibold text-accent-cyan">
                 Log this marker in Labs hub
               </span>
             </Link>
             <Link href="/library/guides/testing-and-monitoring">
-              <span className="focus-ring interactive inline-flex items-center gap-2 px-4 py-2 rounded-lg glass text-sm font-semibold text-zinc-300">
+              <span className="focus-ring interactive inline-flex items-center gap-2 px-4 py-2 rounded-lg glass text-sm font-semibold text-foreground/80">
                 Full testing guide
               </span>
             </Link>

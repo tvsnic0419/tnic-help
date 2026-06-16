@@ -71,7 +71,7 @@ export function ToolsHub() {
   const activeTool = toolsRegistry.find((t) => t.id === active)!;
 
   return (
-    <section className="bg-[#030712] min-h-screen pt-24 pb-20">
+    <section className="bg-background min-h-screen pt-24 pb-20">
       <div className="container-page">
         <PageHeader
           icon={Calculator}
@@ -95,8 +95,8 @@ export function ToolsHub() {
           className="mb-6"
         />
 
-        <p className="text-body-sm text-zinc-500 mb-2 max-w-3xl">{activeTool.description}</p>
-        <p className="text-caption text-zinc-600 mb-8 max-w-3xl">{activeTool.evidenceNote}</p>
+        <p className="text-body-sm text-muted-foreground mb-2 max-w-3xl">{activeTool.description}</p>
+        <p className="text-caption text-caption mb-8 max-w-3xl">{activeTool.evidenceNote}</p>
 
         <div role="tabpanel" id={`panel-${active}`} aria-labelledby={`tab-${active}`}>
           {active === 'simulator' && <StackSimulatorTool />}

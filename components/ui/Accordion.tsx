@@ -12,11 +12,11 @@ interface AccordionProps {
 }
 
 const badgeColors = {
-  cyan: 'text-cyan-400',
-  violet: 'text-violet-400',
-  rose: 'text-rose-400',
-  amber: 'text-amber-400',
-  emerald: 'text-emerald-400',
+  cyan: 'text-accent-cyan',
+  violet: 'text-accent-violet',
+  rose: 'text-accent-rose',
+  amber: 'text-accent-amber',
+  emerald: 'text-accent-emerald',
 };
 
 export function Accordion({
@@ -37,7 +37,7 @@ export function Accordion({
         aria-expanded={open}
         aria-controls={panelId}
         onClick={() => setOpen(!open)}
-        className="focus-ring w-full flex items-center justify-between gap-4 p-5 text-left interactive hover:bg-white/[0.02]"
+        className="focus-ring w-full flex items-center justify-between gap-4 p-5 text-left interactive hover:bg-muted/30"
       >
         <div className="min-w-0">
           <h3 className="heading-card">{title}</h3>
@@ -46,7 +46,7 @@ export function Accordion({
           )}
         </div>
         <ChevronDown
-          className={`w-5 h-5 text-zinc-500 shrink-0 transition-transform ${open ? 'rotate-180' : ''}`}
+          className={`w-5 h-5 text-muted-foreground shrink-0 transition-transform ${open ? 'rotate-180' : ''}`}
           aria-hidden="true"
         />
       </button>
@@ -55,7 +55,7 @@ export function Accordion({
         role="region"
         aria-labelledby={headerId}
         hidden={!open}
-        className="px-5 pb-5 border-t border-white/[0.06]"
+        className="px-5 pb-5 border-t border-border"
       >
         <div className="pt-5 text-body-sm">{children}</div>
       </div>

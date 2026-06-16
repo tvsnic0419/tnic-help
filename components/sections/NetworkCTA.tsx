@@ -32,9 +32,9 @@ export function NetworkCTA() {
           animate={{ opacity: 1, scale: 1 }}
           className="max-w-lg mx-auto px-6 text-center"
         >
-          <CheckCircle2 className="w-16 h-16 text-emerald-400 mx-auto mb-6" />
+          <CheckCircle2 className="w-16 h-16 text-accent-emerald mx-auto mb-6" />
           <h2 className="text-3xl font-bold mb-3">You&apos;re In The Network</h2>
-          <p className="text-zinc-400">
+          <p className="text-muted-foreground">
             Defense protocols and intelligence briefs will arrive at {email}.
             Your first stack recommendation is being calibrated.
           </p>
@@ -48,11 +48,11 @@ export function NetworkCTA() {
       <div className="section-divider absolute top-0 left-0 right-0" />
       <div className="max-w-xl mx-auto px-6">
         <div className="text-center mb-10">
-          <p className="font-mono text-[10px] text-cyan-400 tracking-widest mb-3">MOD-NET-07</p>
+          <p className="font-mono text-[10px] text-accent-cyan tracking-widest mb-3">MOD-NET-07</p>
           <h2 className="text-3xl md:text-4xl font-bold tracking-tight mb-3">
             Join The Defense Network
           </h2>
-          <p className="text-zinc-400 text-sm">
+          <p className="text-muted-foreground text-sm">
             Step {step + 1} of 2 — tell us what intelligence you need.
           </p>
           <div className="flex gap-2 justify-center mt-4">
@@ -60,7 +60,7 @@ export function NetworkCTA() {
               <div
                 key={s}
                 className={`h-1 rounded-full transition-all duration-300 ${
-                  s <= step ? 'w-8 bg-cyan-400' : 'w-4 bg-zinc-700'
+                  s <= step ? 'w-8 bg-accent-cyan' : 'w-4 bg-zinc-700'
                 }`}
               />
             ))}
@@ -73,7 +73,7 @@ export function NetworkCTA() {
               initial={{ opacity: 0, x: 20 }}
               animate={{ opacity: 1, x: 0 }}
             >
-              <p className="text-sm text-zinc-400 mb-6">Select your intelligence interests:</p>
+              <p className="text-sm text-muted-foreground mb-6">Select your intelligence interests:</p>
               <div className="grid grid-cols-2 gap-3 mb-8">
                 {interests.map((item) => (
                   <button
@@ -81,8 +81,8 @@ export function NetworkCTA() {
                     onClick={() => toggle(item.id)}
                     className={`p-4 rounded-xl text-sm font-semibold transition-all ${
                       selected.includes(item.id)
-                        ? 'bg-cyan-400/10 border border-cyan-400/30 text-cyan-400'
-                        : 'glass text-zinc-400 hover:text-white'
+                        ? 'bg-accent-cyan/10 border border-accent-cyan/30 text-accent-cyan'
+                        : 'glass text-muted-foreground hover:text-foreground'
                     }`}
                   >
                     {item.label}
@@ -92,7 +92,7 @@ export function NetworkCTA() {
               <button
                 onClick={() => setStep(1)}
                 disabled={selected.length === 0}
-                className="w-full flex items-center justify-center gap-2 bg-white text-black py-4 rounded-2xl font-semibold hover:bg-cyan-400 transition-all disabled:opacity-30"
+                className="w-full flex items-center justify-center gap-2 bg-white text-black py-4 rounded-2xl font-semibold hover:bg-accent-cyan transition-all disabled:opacity-30"
               >
                 Continue <ArrowRight className="w-4 h-4" />
               </button>
@@ -102,12 +102,12 @@ export function NetworkCTA() {
               initial={{ opacity: 0, x: 20 }}
               animate={{ opacity: 1, x: 0 }}
             >
-              <p className="text-sm text-zinc-400 mb-4">
+              <p className="text-sm text-muted-foreground mb-4">
                 Receiving {selected.length} intelligence stream{selected.length > 1 ? 's' : ''}:
               </p>
               <div className="flex flex-wrap gap-2 mb-6">
                 {selected.map((id) => (
-                  <span key={id} className="text-xs bg-cyan-400/10 text-cyan-400 px-3 py-1 rounded-full">
+                  <span key={id} className="text-xs bg-accent-cyan/10 text-accent-cyan px-3 py-1 rounded-full">
                     {interests.find((i) => i.id === id)?.label}
                   </span>
                 ))}
@@ -117,18 +117,18 @@ export function NetworkCTA() {
                 placeholder="your@email.com"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
-                className="w-full bg-white/5 border border-white/10 rounded-xl px-5 py-4 text-sm placeholder:text-zinc-600 focus:outline-none focus:border-cyan-400/50 transition mb-4"
+                className="w-full bg-muted/50 border border-border rounded-xl px-5 py-4 text-sm placeholder:text-caption focus:outline-none focus:border-accent-cyan/50 transition mb-4"
               />
               <button
                 onClick={() => email.includes('@') && setDone(true)}
                 disabled={!email.includes('@')}
-                className="w-full bg-cyan-400 text-black py-4 rounded-2xl font-bold hover:bg-emerald-400 transition-all disabled:opacity-30"
+                className="w-full bg-accent-cyan text-black py-4 rounded-2xl font-bold hover:bg-accent-emerald transition-all disabled:opacity-30"
               >
                 Activate Network Access
               </button>
               <button
                 onClick={() => setStep(0)}
-                className="w-full text-xs text-zinc-500 hover:text-zinc-300 mt-3 py-2 transition"
+                className="w-full text-xs text-muted-foreground hover:text-foreground/80 mt-3 py-2 transition"
               >
                 ← Back
               </button>

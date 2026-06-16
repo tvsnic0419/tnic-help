@@ -34,7 +34,7 @@ export function PageHeader({
         className={`inline-flex items-center gap-2 glass rounded-full px-4 py-2 mb-5 text-body-sm ${align === 'center' ? '' : ''}`}
       >
         <Icon className={`w-4 h-4 ${t.text}`} aria-hidden="true" />
-        <span className="text-zinc-300">{eyebrow}</span>
+        <span className="text-foreground/90">{eyebrow}</span>
       </div>
       <Tag id={id} className="heading-page mb-4">{title}</Tag>
       <p className="text-body max-w-2xl mx-auto">{description}</p>

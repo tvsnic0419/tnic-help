@@ -57,11 +57,11 @@ export function LabHub() {
       {analysis.markersTracked > 0 && (
         <StatStrip
           stats={[
-            { label: 'Healthspan Score', value: analysis.healthspanScore, color: 'text-rose-400' },
-            { label: 'Markers Tracked', value: analysis.markersTracked, color: 'text-cyan-400' },
-            { label: 'Optimal', value: analysis.markersOptimal, color: 'text-emerald-400' },
-            { label: 'Watch', value: analysis.markersWatch, color: 'text-amber-400' },
-            { label: 'Panel Coverage', value: `${analysis.dataCompleteness}%`, color: 'text-violet-400' },
+            { label: 'Healthspan Score', value: analysis.healthspanScore, color: 'text-accent-rose' },
+            { label: 'Markers Tracked', value: analysis.markersTracked, color: 'text-accent-cyan' },
+            { label: 'Optimal', value: analysis.markersOptimal, color: 'text-accent-emerald' },
+            { label: 'Watch', value: analysis.markersWatch, color: 'text-accent-amber' },
+            { label: 'Panel Coverage', value: `${analysis.dataCompleteness}%`, color: 'text-accent-violet' },
           ]}
         />
       )}
@@ -80,9 +80,9 @@ export function LabHub() {
       </div>
 
       {analysis.topConcern && (
-        <div className="card-base px-4 py-3 mb-6 border-amber-400/20 text-body-sm" role="status">
+        <div className="card-base px-4 py-3 mb-6 border-accent-amber/20 text-body-sm" role="status">
           <strong className="text-amber-300">Top concern:</strong> {analysis.topConcern}
-          {analysis.topWin && <span className="text-zinc-500"> · Win: {analysis.topWin}</span>}
+          {analysis.topWin && <span className="text-muted-foreground"> · Win: {analysis.topWin}</span>}
         </div>
       )}
 
@@ -117,7 +117,7 @@ export function LabHub() {
 
         {tab === 'insights' && (
           <div className="max-w-2xl mx-auto">
-            <p className="text-label text-rose-400 mb-4">Personalized recommendations · synced with active stack</p>
+            <p className="text-label text-accent-rose mb-4">Personalized recommendations · synced with active stack</p>
             <LabRecommendations recommendations={analysis.recommendations} />
           </div>
         )}

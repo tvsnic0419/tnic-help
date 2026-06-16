@@ -17,7 +17,7 @@ export function MarkerChart({ markerId, entries, height = 120 }: MarkerChartProp
 
   if (sorted.length < 2 || !b) {
     return (
-      <div className="h-[120px] flex items-center justify-center text-xs text-zinc-600">
+      <div className="h-[120px] flex items-center justify-center text-xs text-caption">
         Log 2+ readings to see trend
       </div>
     );

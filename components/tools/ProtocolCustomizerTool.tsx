@@ -74,7 +74,7 @@ export function ProtocolCustomizerTool() {
               <Slider label="Exercise level" value={profile.exercise} onChange={(v) => setProfile({ exercise: v })} min={0} max={100} unit="%" />
               <Slider label="Stress load" value={profile.stress} onChange={(v) => setProfile({ stress: v })} min={0} max={100} unit="%" />
               {labs.length > 0 && (
-                <p className="text-xs text-emerald-400">
+                <p className="text-xs text-accent-emerald">
                   ✓ {labs.length} lab entries integrated from Labs hub
                 </p>
               )}
@@ -93,11 +93,11 @@ export function ProtocolCustomizerTool() {
                     key={g.id}
                     onClick={() => toggleGoal(g.id)}
                     className={`focus-ring interactive text-left p-3 rounded-xl text-sm ${
-                      active ? 'bg-emerald-400/10 border border-emerald-400/30' : 'glass glass-hover'
+                      active ? 'bg-accent-emerald/10 border border-accent-emerald/30' : 'glass glass-hover'
                     }`}
                   >
                     <span className="font-semibold">{g.label}</span>
-                    <p className="text-caption text-zinc-500 mt-0.5">{g.desc}</p>
+                    <p className="text-caption text-muted-foreground mt-0.5">{g.desc}</p>
                   </button>
                 );
               })}
@@ -119,7 +119,7 @@ export function ProtocolCustomizerTool() {
               </CardHeader>
               <CardContent>
                 <div className="mb-6">
-                  <p className="text-label text-cyan-400 mb-3 flex items-center gap-2">
+                  <p className="text-label text-accent-cyan mb-3 flex items-center gap-2">
                     <Target className="w-4 h-4" /> Hallmark priorities
                   </p>
                   <ResponsiveContainer width="100%" height={160}>
@@ -141,20 +141,20 @@ export function ProtocolCustomizerTool() {
 
                 <div className="grid md:grid-cols-2 gap-4 mb-6">
                   <div>
-                    <p className="text-label text-amber-400 mb-2 flex items-center gap-2">
+                    <p className="text-label text-accent-amber mb-2 flex items-center gap-2">
                       <Sun className="w-4 h-4" /> AM schedule
                     </p>
-                    <ul className="space-y-1 text-sm text-zinc-400">
+                    <ul className="space-y-1 text-sm text-muted-foreground">
                       {protocol.amSchedule.map((s) => (
                         <li key={s}>• {s}</li>
                       ))}
                     </ul>
                   </div>
                   <div>
-                    <p className="text-label text-violet-400 mb-2 flex items-center gap-2">
+                    <p className="text-label text-accent-violet mb-2 flex items-center gap-2">
                       <Moon className="w-4 h-4" /> PM schedule
                     </p>
-                    <ul className="space-y-1 text-sm text-zinc-400">
+                    <ul className="space-y-1 text-sm text-muted-foreground">
                       {protocol.pmSchedule.map((s) => (
                         <li key={s}>• {s}</li>
                       ))}
@@ -162,23 +162,23 @@ export function ProtocolCustomizerTool() {
                   </div>
                 </div>
 
-                <p className="text-label text-emerald-400 mb-2">Recommended compounds</p>
+                <p className="text-label text-accent-emerald mb-2">Recommended compounds</p>
                 <div className="space-y-2 mb-6">
                   {protocol.compounds.map((c) => (
                     <div key={c.compoundId} className="glass rounded-lg p-3 flex gap-3">
-                      <span className="text-cyan-400 font-mono text-xs shrink-0">#{c.priority}</span>
+                      <span className="text-accent-cyan font-mono text-xs shrink-0">#{c.priority}</span>
                       <div className="flex-1 min-w-0">
                         <div className="flex items-center gap-2 flex-wrap">
                           <span className="font-semibold text-sm">{c.name}</span>
                           <EvidenceTag tier={c.evidence} size="sm" />
                         </div>
-                        <p className="text-caption text-zinc-500 mt-1">{c.rationale}</p>
+                        <p className="text-caption text-muted-foreground mt-1">{c.rationale}</p>
                       </div>
                     </div>
                   ))}
                 </div>
 
-                <p className="text-label text-violet-400 mb-2 flex items-center gap-2">
+                <p className="text-label text-accent-violet mb-2 flex items-center gap-2">
                   <HeartPulse className="w-4 h-4" /> Lifestyle pillars
                 </p>
                 <div className="grid sm:grid-cols-2 gap-2 mb-6">
@@ -188,7 +188,7 @@ export function ProtocolCustomizerTool() {
                         <span className="text-sm font-semibold">{l.pillar}</span>
                         <EvidenceTag tier={l.evidence} size="sm" />
                       </div>
-                      <ul className="text-caption text-zinc-500 space-y-0.5">
+                      <ul className="text-caption text-muted-foreground space-y-0.5">
                         {l.actions.map((a) => (
                           <li key={a}>• {a}</li>
                         ))}
@@ -198,10 +198,10 @@ export function ProtocolCustomizerTool() {
                 </div>
 
                 <div className="flex items-start gap-2 glass rounded-lg p-3 mb-6">
-                  <FlaskConical className="w-4 h-4 text-cyan-400 shrink-0 mt-0.5" />
+                  <FlaskConical className="w-4 h-4 text-accent-cyan shrink-0 mt-0.5" />
                   <div className="text-sm">
-                    <p className="text-zinc-300">Monitoring: {protocol.monitoringPanel.join(' · ')}</p>
-                    <p className="text-caption text-zinc-500 mt-1">{protocol.retestCadence}</p>
+                    <p className="text-foreground/80">Monitoring: {protocol.monitoringPanel.join(' · ')}</p>
+                    <p className="text-caption text-muted-foreground mt-1">{protocol.retestCadence}</p>
                   </div>
                 </div>
 

@@ -45,21 +45,21 @@ export function ToolsDock() {
           exit={{ opacity: 0, y: 20 }}
           className="fixed bottom-6 left-1/2 -translate-x-1/2 z-40"
         >
-          <div className="glass rounded-2xl border border-white/10 shadow-2xl overflow-hidden">
+          <div className="glass rounded-2xl border border-border shadow-2xl overflow-hidden">
             <button
               onClick={() => setExpanded(!expanded)}
-              className="flex items-center gap-3 px-4 py-3 w-full text-left hover:bg-white/5 transition"
+              className="flex items-center gap-3 px-4 py-3 w-full text-left hover:bg-muted/50 transition"
               aria-expanded={expanded}
             >
               <div className="flex items-center gap-2">
-                <span className="text-[10px] font-mono text-emerald-400">TOOLS</span>
+                <span className="text-[10px] font-mono text-accent-emerald">TOOLS</span>
                 {selected.length > 0 && (
-                  <span className="text-[10px] font-mono bg-violet-400/20 text-violet-300 px-2 py-0.5 rounded-full">
+                  <span className="text-[10px] font-mono bg-accent-violet/20 text-violet-300 px-2 py-0.5 rounded-full">
                     {selected.length} · {score}
                   </span>
                 )}
               </div>
-              <ChevronUp className={`w-4 h-4 text-zinc-500 ml-auto transition-transform ${expanded ? 'rotate-180' : ''}`} />
+              <ChevronUp className={`w-4 h-4 text-muted-foreground ml-auto transition-transform ${expanded ? 'rotate-180' : ''}`} />
             </button>
 
             <AnimatePresence>
@@ -76,7 +76,7 @@ export function ToolsDock() {
                         key={t.href}
                         href={t.href}
                         onClick={() => setExpanded(false)}
-                        className="flex flex-col items-center gap-1 px-3 py-2 rounded-xl text-[10px] font-semibold text-zinc-400 hover:text-emerald-400 hover:bg-white/5 transition min-w-[64px]"
+                        className="flex flex-col items-center gap-1 px-3 py-2 rounded-xl text-[10px] font-semibold text-muted-foreground hover:text-accent-emerald hover:bg-muted/50 transition min-w-[64px]"
                       >
                         <t.icon className="w-4 h-4" />
                         {t.label}

@@ -13,9 +13,9 @@ const periodIcon = {
 };
 
 const periodColor = {
-  AM: 'text-amber-400 bg-amber-400/10 border-amber-400/20',
-  PM: 'text-violet-400 bg-violet-400/10 border-violet-400/20',
-  Weekly: 'text-cyan-400 bg-cyan-400/10 border-cyan-400/20',
+  AM: 'text-accent-amber bg-accent-amber/10 border-accent-amber/20',
+  PM: 'text-accent-violet bg-accent-violet/10 border-accent-violet/20',
+  Weekly: 'text-accent-cyan bg-accent-cyan/10 border-accent-cyan/20',
 };
 
 export function ProtocolTimeline() {
@@ -32,7 +32,7 @@ export function ProtocolTimeline() {
       className="bg-[#0a0f1a]/60"
     >
       <div className="relative max-w-3xl mx-auto">
-        <div className="absolute left-8 md:left-1/2 top-0 bottom-0 w-px bg-gradient-to-b from-amber-400/40 via-violet-400/30 to-cyan-400/20 md:-translate-x-px" />
+        <div className="absolute left-8 md:left-1/2 top-0 bottom-0 w-px bg-gradient-to-b from-accent-amber/40 via-violet-400/30 to-accent-cyan/20 md:-translate-x-px" />
 
         {protocolSchedule.map((block, i) => {
           const Icon = periodIcon[block.period];
@@ -55,7 +55,7 @@ export function ProtocolTimeline() {
               </div>
 
               <div className={`w-4 h-4 rounded-full shrink-0 mt-3 z-10 border-2 ${
-                block.compounds.length > 0 ? 'bg-violet-400 border-violet-400' : 'bg-zinc-800 border-zinc-600'
+                block.compounds.length > 0 ? 'bg-accent-violet border-accent-violet' : 'bg-muted border-zinc-600'
               }`} />
 
               <div className="flex-1">
@@ -95,10 +95,10 @@ function TimelineCard({
           <Icon className="w-3 h-3" />
           {block.period}
         </span>
-        <span className="font-mono text-xs text-zinc-500">{block.time}</span>
+        <span className="font-mono text-xs text-muted-foreground">{block.time}</span>
       </div>
       <h4 className="font-bold mb-2">{block.action}</h4>
-      <p className="text-xs text-zinc-500 mb-3">{block.rationale}</p>
+      <p className="text-xs text-muted-foreground mb-3">{block.rationale}</p>
       {block.compounds.length > 0 && (
         <div className="flex flex-wrap gap-1.5">
           {block.compounds.map((cid) => {
@@ -108,8 +108,8 @@ function TimelineCard({
                 key={cid}
                 className={`text-[10px] px-2 py-0.5 rounded font-semibold ${
                   activeStack.includes(cid)
-                    ? 'bg-violet-400/20 text-violet-300 border border-violet-400/40'
-                    : 'bg-zinc-800 text-zinc-600 line-through'
+                    ? 'bg-accent-violet/20 text-violet-300 border border-accent-violet/40'
+                    : 'bg-muted text-caption line-through'
                 }`}
               >
                 {c.name}

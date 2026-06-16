@@ -63,21 +63,21 @@ export function PrivacyPanel() {
 
   return (
     <div className="space-y-6">
-      <div className="glass rounded-2xl p-6 border border-emerald-400/20">
+      <div className="glass rounded-2xl p-6 border border-accent-emerald/20">
         <div className="flex items-center gap-3 mb-4">
-          <div className="p-2 rounded-lg bg-emerald-400/10">
-            <Shield className="w-5 h-5 text-emerald-400" aria-hidden="true" />
+          <div className="p-2 rounded-lg bg-accent-emerald/10">
+            <Shield className="w-5 h-5 text-accent-emerald" aria-hidden="true" />
           </div>
           <div>
             <h3 className="font-bold text-sm">Privacy-First Architecture</h3>
-            <p className="text-xs text-zinc-500">Your health-adjacent data never touches TNiC servers.</p>
+            <p className="text-xs text-muted-foreground">Your health-adjacent data never touches TNiC servers.</p>
           </div>
         </div>
 
         <ul className="space-y-2 mb-6">
           {PRIVACY_PRINCIPLES.map((p) => (
-            <li key={p} className="text-xs text-zinc-500 flex gap-2">
-              <span className="text-emerald-400 shrink-0">✓</span> {p}
+            <li key={p} className="text-xs text-muted-foreground flex gap-2">
+              <span className="text-accent-emerald shrink-0">✓</span> {p}
             </li>
           ))}
         </ul>
@@ -87,9 +87,9 @@ export function PrivacyPanel() {
             const Icon = p.icon;
             return (
               <div key={p.title} className="glass rounded-xl p-4">
-                <Icon className="w-4 h-4 text-emerald-400 mb-2" aria-hidden="true" />
+                <Icon className="w-4 h-4 text-accent-emerald mb-2" aria-hidden="true" />
                 <h4 className="font-semibold text-xs mb-1">{p.title}</h4>
-                <p className="text-[11px] text-zinc-500 leading-relaxed">{p.desc}</p>
+                <p className="text-[11px] text-muted-foreground leading-relaxed">{p.desc}</p>
               </div>
             );
           })}
@@ -97,14 +97,14 @@ export function PrivacyPanel() {
       </div>
 
       <div className="glass rounded-xl p-5">
-        <p className="text-[10px] font-mono text-zinc-500 uppercase mb-3">Storage mode</p>
+        <p className="text-[10px] font-mono text-muted-foreground uppercase mb-3">Storage mode</p>
         <div className="flex flex-wrap gap-2 mb-4">
           <button
             onClick={() => setPrivacyMode('local')}
             className={`focus-ring interactive px-4 py-2 rounded-lg text-xs font-semibold ${
               privacyMode === 'local'
-                ? 'bg-emerald-400/20 text-emerald-400 border border-emerald-400/30'
-                : 'glass text-zinc-400'
+                ? 'bg-accent-emerald/20 text-accent-emerald border border-accent-emerald/30'
+                : 'glass text-muted-foreground'
             }`}
             aria-pressed={privacyMode === 'local'}
           >
@@ -115,8 +115,8 @@ export function PrivacyPanel() {
             onClick={() => setPrivacyMode('session')}
             className={`focus-ring interactive px-4 py-2 rounded-lg text-xs font-semibold ${
               privacyMode === 'session'
-                ? 'bg-cyan-400/20 text-cyan-400 border border-cyan-400/30'
-                : 'glass text-zinc-400'
+                ? 'bg-accent-cyan/20 text-accent-cyan border border-accent-cyan/30'
+                : 'glass text-muted-foreground'
             }`}
             aria-pressed={privacyMode === 'session'}
           >
@@ -132,18 +132,18 @@ export function PrivacyPanel() {
       </div>
 
       <div className="glass rounded-xl p-5">
-        <p className="text-[10px] font-mono text-zinc-500 uppercase mb-3">Data controls</p>
+        <p className="text-[10px] font-mono text-muted-foreground uppercase mb-3">Data controls</p>
         <div className="flex flex-wrap gap-3">
           <button
             onClick={downloadCsv}
             disabled={labs.length === 0}
-            className="focus-ring flex items-center gap-2 text-xs font-semibold text-emerald-400 hover:text-cyan-400 transition disabled:opacity-40"
+            className="focus-ring flex items-center gap-2 text-xs font-semibold text-accent-emerald hover:text-accent-cyan transition disabled:opacity-40"
           >
             <Download className="w-3.5 h-3.5" aria-hidden="true" /> Export labs CSV ({labs.length})
           </button>
           <button
             onClick={downloadAll}
-            className="focus-ring flex items-center gap-2 text-xs font-semibold text-cyan-400 hover:text-emerald-400 transition"
+            className="focus-ring flex items-center gap-2 text-xs font-semibold text-accent-cyan hover:text-accent-emerald transition"
           >
             <Download className="w-3.5 h-3.5" aria-hidden="true" /> Export full JSON
           </button>
@@ -154,7 +154,7 @@ export function PrivacyPanel() {
               }
             }}
             disabled={labs.length === 0}
-            className="focus-ring flex items-center gap-2 text-xs font-semibold text-zinc-500 hover:text-rose-400 transition disabled:opacity-40"
+            className="focus-ring flex items-center gap-2 text-xs font-semibold text-muted-foreground hover:text-accent-rose transition disabled:opacity-40"
           >
             <Trash2 className="w-3.5 h-3.5" aria-hidden="true" /> Delete labs only
           </button>
@@ -164,7 +164,7 @@ export function PrivacyPanel() {
                 purgeAllHealthData();
               }
             }}
-            className="focus-ring flex items-center gap-2 text-xs font-semibold text-rose-400/80 hover:text-rose-400 transition"
+            className="focus-ring flex items-center gap-2 text-xs font-semibold text-accent-rose/80 hover:text-accent-rose transition"
           >
             <Trash2 className="w-3.5 h-3.5" aria-hidden="true" /> Purge everything
           </button>

@@ -12,7 +12,7 @@ export const metadata = buildPageMetadata({
 
 export default function ToolsPage() {
   return (
-    <Suspense fallback={<div className="min-h-screen bg-[#030712] pt-24 text-center text-zinc-500">Loading tools…</div>}>
+    <Suspense fallback={<div className="min-h-screen bg-background pt-24 text-center text-muted-foreground">Loading tools…</div>}>
       <ToolsHub />
     </Suspense>
   );

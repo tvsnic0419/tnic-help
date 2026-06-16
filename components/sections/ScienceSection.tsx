@@ -87,7 +87,7 @@ export function ScienceSection() {
       <div className="mb-8 text-center">
         <a
           href="/library"
-          className="inline-flex items-center gap-2 bg-emerald-400 text-black px-6 py-3 rounded-xl text-sm font-semibold hover:bg-cyan-400 transition"
+          className="inline-flex items-center gap-2 bg-accent-emerald text-black px-6 py-3 rounded-xl text-sm font-semibold hover:bg-accent-cyan transition"
         >
           Open Full Anti-Aging Library →
         </a>
@@ -96,8 +96,8 @@ export function ScienceSection() {
         <div className="lg:col-span-4 glass rounded-3xl p-8 flex flex-col items-center justify-center">
           <RadarChart coverage={hallmarks.map((h) => h.coverage)} />
           <p className="text-center mt-4">
-            <span className="text-3xl font-bold text-emerald-400">{avgCoverage}%</span>
-            <span className="block text-xs text-zinc-500 mt-1">Average Hallmark Coverage</span>
+            <span className="text-3xl font-bold text-accent-emerald">{avgCoverage}%</span>
+            <span className="block text-xs text-muted-foreground mt-1">Average Hallmark Coverage</span>
           </p>
         </div>
 
@@ -109,13 +109,13 @@ export function ScienceSection() {
                 onClick={() => setSelected(h.id)}
                 className={`text-left p-4 rounded-xl transition-all duration-300 ${
                   selected === h.id
-                    ? 'bg-emerald-400/10 border border-emerald-400/30'
+                    ? 'bg-accent-emerald/10 border border-accent-emerald/30'
                     : 'glass glass-hover'
                 }`}
               >
                 <div className="flex items-center gap-2 mb-2">
-                  <h.icon className={`w-4 h-4 ${selected === h.id ? 'text-emerald-400' : 'text-zinc-500'}`} />
-                  <span className="text-xs font-mono text-zinc-500">{h.coverage}%</span>
+                  <h.icon className={`w-4 h-4 ${selected === h.id ? 'text-accent-emerald' : 'text-muted-foreground'}`} />
+                  <span className="text-xs font-mono text-muted-foreground">{h.coverage}%</span>
                 </div>
                 <h4 className="font-semibold text-sm">{h.title}</h4>
               </button>
@@ -131,26 +131,26 @@ export function ScienceSection() {
               className="gradient-border p-8"
             >
               <div className="flex items-start gap-4">
-                <div className="w-12 h-12 rounded-xl bg-emerald-400/10 flex items-center justify-center shrink-0">
-                  <active.icon className="w-6 h-6 text-emerald-400" />
+                <div className="w-12 h-12 rounded-xl bg-accent-emerald/10 flex items-center justify-center shrink-0">
+                  <active.icon className="w-6 h-6 text-accent-emerald" />
                 </div>
                 <div className="flex-1">
                   <div className="flex items-center gap-3 mb-2">
                     <h3 className="text-2xl font-bold">{active.title}</h3>
-                    <div className="h-1.5 flex-1 max-w-[120px] bg-zinc-800 rounded-full overflow-hidden">
+                    <div className="h-1.5 flex-1 max-w-[120px] bg-muted rounded-full overflow-hidden">
                       <div
-                        className="h-full bg-emerald-400 rounded-full"
+                        className="h-full bg-accent-emerald rounded-full"
                         style={{ width: `${active.coverage}%` }}
                       />
                     </div>
-                    <span className="font-mono text-emerald-400 text-sm">{active.coverage}%</span>
+                    <span className="font-mono text-accent-emerald text-sm">{active.coverage}%</span>
                   </div>
-                  <p className="text-zinc-400 mb-6">{active.desc}</p>
+                  <p className="text-muted-foreground mb-6">{active.desc}</p>
                   <div className="glass rounded-xl p-4">
-                    <p className="text-[10px] font-mono text-emerald-400 uppercase tracking-wider mb-2">
+                    <p className="text-[10px] font-mono text-accent-emerald uppercase tracking-wider mb-2">
                       TNiC Intervention Protocol
                     </p>
-                    <p className="text-sm text-zinc-300 font-mono">{active.intervention}</p>
+                    <p className="text-sm text-foreground/80 font-mono">{active.intervention}</p>
                   </div>
                 </div>
               </div>

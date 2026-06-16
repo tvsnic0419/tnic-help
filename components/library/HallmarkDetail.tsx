@@ -17,11 +17,11 @@ export function HallmarkDetail({
   mdxBody: string | null;
 }) {
   return (
-    <div className="min-h-screen bg-[#030712] text-white pt-24 pb-20">
+    <div className="min-h-screen bg-background text-foreground pt-24 pb-20">
       <div className="max-w-7xl mx-auto px-6">
         <Link
           href="/library"
-          className="inline-flex items-center gap-2 text-sm text-zinc-500 hover:text-cyan-400 transition mb-8"
+          className="inline-flex items-center gap-2 text-sm text-muted-foreground hover:text-accent-cyan transition mb-8"
         >
           <ArrowLeft className="w-4 h-4" /> Back to Anti-Aging Library
         </Link>
@@ -38,34 +38,34 @@ export function HallmarkDetail({
 
           <div className="lg:col-span-8 space-y-10">
             <motion.div initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }}>
-              <p className="font-mono text-[10px] text-cyan-400 tracking-widest mb-2">
+              <p className="font-mono text-[10px] text-accent-cyan tracking-widest mb-2">
                 HALLMARK {hallmark.number} OF 12
               </p>
               <h1 className="text-3xl md:text-4xl font-bold tracking-tight mb-2">{hallmark.title}</h1>
-              <p className="text-lg text-zinc-400 mb-6">{hallmark.tagline}</p>
-              <p className="text-sm text-zinc-400 leading-relaxed mb-4">{hallmark.summary}</p>
+              <p className="text-lg text-muted-foreground mb-6">{hallmark.tagline}</p>
+              <p className="text-sm text-muted-foreground leading-relaxed mb-4">{hallmark.summary}</p>
               <div className="glass rounded-xl p-5 mb-4">
-                <p className="text-[10px] font-mono text-violet-400 uppercase mb-2">Mechanism</p>
-                <p className="text-sm text-zinc-300 leading-relaxed">{hallmark.mechanism}</p>
+                <p className="text-[10px] font-mono text-accent-violet uppercase mb-2">Mechanism</p>
+                <p className="text-sm text-foreground/80 leading-relaxed">{hallmark.mechanism}</p>
               </div>
               <div className="glass rounded-xl p-5">
-                <p className="text-[10px] font-mono text-amber-400 uppercase mb-2">Why it matters</p>
-                <p className="text-sm text-zinc-300 leading-relaxed">{hallmark.whyItMatters}</p>
+                <p className="text-[10px] font-mono text-accent-amber uppercase mb-2">Why it matters</p>
+                <p className="text-sm text-foreground/80 leading-relaxed">{hallmark.whyItMatters}</p>
               </div>
             </motion.div>
 
             {mdxBody && (
               <div className="gradient-border p-6 md:p-8">
                 <div className="flex items-center gap-2 mb-4">
-                  <BookOpen className="w-4 h-4 text-cyan-400" />
-                  <p className="text-[10px] font-mono text-cyan-400 uppercase">Deep dive (MDX)</p>
+                  <BookOpen className="w-4 h-4 text-accent-cyan" />
+                  <p className="text-[10px] font-mono text-accent-cyan uppercase">Deep dive (MDX)</p>
                 </div>
                 <MdxRenderer content={mdxBody} />
               </div>
             )}
 
             <div>
-              <p className="text-[10px] font-mono text-emerald-400 uppercase tracking-wider mb-4">
+              <p className="text-[10px] font-mono text-accent-emerald uppercase tracking-wider mb-4">
                 Intervention Explorer — ranked by evidence
               </p>
               <InterventionExplorer

@@ -20,7 +20,7 @@ const allGoals = [...new Set(eliteStacks.map((s) => s.goal))] as StackGoal[];
 const allCosts = [...new Set(eliteStacks.map((s) => s.costTier))] as CostTier[];
 const allSimplicity = [...new Set(eliteStacks.map((s) => s.simplicity))] as SimplicityTier[];
 
-const tierColor = { A: 'text-emerald-400', B: 'text-cyan-400', C: 'text-amber-400' };
+const tierColor = { A: 'text-accent-emerald', B: 'text-accent-cyan', C: 'text-accent-amber' };
 
 export function StackComparisonTable() {
   const { setSelected } = useStack();
@@ -65,7 +65,7 @@ export function StackComparisonTable() {
   return (
     <div>
       <div className="flex flex-wrap items-center gap-3 mb-6">
-        <div className="flex items-center gap-2 text-[10px] font-mono text-violet-400 uppercase">
+        <div className="flex items-center gap-2 text-[10px] font-mono text-accent-violet uppercase">
           <Filter className="w-3.5 h-3.5" /> Filters
         </div>
         <select
@@ -101,7 +101,7 @@ export function StackComparisonTable() {
             <option key={s} value={s}>{simplicityLabels[s]}</option>
           ))}
         </select>
-        <span className="text-[10px] font-mono text-zinc-600 ml-auto">
+        <span className="text-[10px] font-mono text-caption ml-auto">
           {filtered.length} stack{filtered.length !== 1 ? 's' : ''}
         </span>
       </div>
@@ -113,17 +113,17 @@ export function StackComparisonTable() {
               <th scope="col">Goal</th>
               <th scope="col">Compounds</th>
               <th scope="col">
-                <button onClick={() => toggleSort('synergy')} className="focus-ring flex items-center gap-1 hover:text-violet-400 uppercase">
+                <button onClick={() => toggleSort('synergy')} className="focus-ring flex items-center gap-1 hover:text-accent-violet uppercase">
                   Synergy <ArrowUpDown className="w-3 h-3" aria-hidden="true" />
                 </button>
               </th>
               <th scope="col">
-                <button onClick={() => toggleSort('cost')} className="focus-ring flex items-center gap-1 hover:text-violet-400 uppercase">
+                <button onClick={() => toggleSort('cost')} className="focus-ring flex items-center gap-1 hover:text-accent-violet uppercase">
                   Cost/mo <ArrowUpDown className="w-3 h-3" aria-hidden="true" />
                 </button>
               </th>
               <th scope="col">
-                <button onClick={() => toggleSort('simplicity')} className="focus-ring flex items-center gap-1 hover:text-violet-400 uppercase">
+                <button onClick={() => toggleSort('simplicity')} className="focus-ring flex items-center gap-1 hover:text-accent-violet uppercase">
                   Simplicity <ArrowUpDown className="w-3 h-3" aria-hidden="true" />
                 </button>
               </th>
@@ -138,31 +138,31 @@ export function StackComparisonTable() {
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 transition={{ delay: i * 0.03 }}
-                className="border-t border-white/[0.04] hover:bg-white/[0.02] transition"
+                className="border-t border-border hover:bg-muted/30 transition"
               >
                 <td className="px-4 py-3">
                   <p className="font-semibold text-sm">{stack.name}</p>
                   {stack.rxCompounds && (
-                    <span className="text-[9px] font-mono text-rose-400">Rx</span>
+                    <span className="text-[9px] font-mono text-accent-rose">Rx</span>
                   )}
                 </td>
-                <td className="px-4 py-3 text-xs text-zinc-400">{goalLabels[stack.goal]}</td>
+                <td className="px-4 py-3 text-xs text-muted-foreground">{goalLabels[stack.goal]}</td>
                 <td className="px-4 py-3">
                   <div className="flex flex-wrap gap-1 max-w-[200px]">
                     {stack.compoundIds.map((id) => (
-                      <span key={id} className="text-[9px] font-mono bg-violet-400/10 text-violet-300 px-1.5 py-0.5 rounded">
+                      <span key={id} className="text-[9px] font-mono bg-accent-violet/10 text-violet-300 px-1.5 py-0.5 rounded">
                         {compounds.find((c) => c.id === id)?.name.split(' ')[0] ?? id}
                       </span>
                     ))}
                   </div>
                 </td>
                 <td className="px-4 py-3">
-                  <span className="font-bold text-emerald-400">{stack.synergyRating}</span>
+                  <span className="font-bold text-accent-emerald">{stack.synergyRating}</span>
                 </td>
-                <td className="px-4 py-3 text-xs font-mono text-zinc-400">
+                <td className="px-4 py-3 text-xs font-mono text-muted-foreground">
                   ${stack.costMonthlyUsd.low}–{stack.costMonthlyUsd.high}
                 </td>
-                <td className="px-4 py-3 text-xs text-zinc-400">{simplicityLabels[stack.simplicity]}</td>
+                <td className="px-4 py-3 text-xs text-muted-foreground">{simplicityLabels[stack.simplicity]}</td>
                 <td className="px-4 py-3">
                   <span className={`text-xs font-bold ${tierColor[stack.evidenceTier]}`}>
                     Tier {stack.evidenceTier}
@@ -174,7 +174,7 @@ export function StackComparisonTable() {
                       setSelected([...stack.compoundIds]);
                       document.getElementById('stack-builder')?.scrollIntoView({ behavior: 'smooth' });
                     }}
-                    className="text-xs font-semibold text-violet-400 hover:text-cyan-400 transition whitespace-nowrap"
+                    className="text-xs font-semibold text-accent-violet hover:text-accent-cyan transition whitespace-nowrap"
                   >
                     Load →
                   </button>

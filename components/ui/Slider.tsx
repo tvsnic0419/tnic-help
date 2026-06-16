@@ -15,8 +15,8 @@ export function Slider({ label, value, onChange, min, max, step = 1, unit = '', 
   return (
     <div>
       <div className="flex justify-between items-baseline mb-2">
-        <label className="text-sm text-zinc-400">{label}</label>
-        <span className="font-mono text-sm text-white tabular-nums">
+        <label className="text-sm text-muted-foreground">{label}</label>
+        <span className="font-mono text-sm text-foreground tabular-nums">
           {value}{unit}
         </span>
       </div>
@@ -32,7 +32,7 @@ export function Slider({ label, value, onChange, min, max, step = 1, unit = '', 
         aria-valuemax={max}
         aria-valuenow={value}
       />
-      {hint && <p className="text-caption text-zinc-600 mt-1">{hint}</p>}
+      {hint && <p className="text-caption text-caption mt-1">{hint}</p>}
     </div>
   );
 }

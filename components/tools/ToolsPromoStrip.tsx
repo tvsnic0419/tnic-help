@@ -16,11 +16,11 @@ export function ToolsPromoStrip({
       <div className="flex flex-col md:flex-row md:items-center gap-6">
         <div className="flex-1">
           <div className="flex items-center gap-2 mb-2">
-            <Calculator className="w-5 h-5 text-violet-400" aria-hidden="true" />
-            <p className="text-label text-violet-400">Interactive Tools</p>
+            <Calculator className="w-5 h-5 text-accent-violet" aria-hidden="true" />
+            <p className="text-label text-accent-violet">Interactive Tools</p>
           </div>
           <h3 className="heading-section text-xl mb-2">{headline}</h3>
-          <p className="text-body-sm text-zinc-500">
+          <p className="text-body-sm text-muted-foreground">
             Evidence-graded simulators with disclaimers. Educational only — not medical advice.
           </p>
         </div>
@@ -31,16 +31,16 @@ export function ToolsPromoStrip({
               href={t.href}
               className="focus-ring interactive glass glass-hover rounded-xl p-3 text-center group"
             >
-              <p className="text-xs font-semibold text-zinc-300 group-hover:text-cyan-400 transition-colors">
+              <p className="text-xs font-semibold text-foreground/80 group-hover:text-accent-cyan transition-colors">
                 {t.label}
               </p>
-              <p className="text-[10px] text-zinc-600 mt-0.5">{t.shortLabel}</p>
+              <p className="text-[10px] text-caption mt-0.5">{t.shortLabel}</p>
             </Link>
           ))}
         </div>
         <Link
           href="/tools"
-          className="focus-ring interactive inline-flex items-center gap-2 shrink-0 text-sm font-semibold text-violet-400 hover:text-emerald-400"
+          className="focus-ring interactive inline-flex items-center gap-2 shrink-0 text-sm font-semibold text-accent-violet hover:text-accent-emerald"
         >
           All tools <ArrowRight className="w-4 h-4" aria-hidden="true" />
         </Link>

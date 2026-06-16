@@ -18,29 +18,29 @@ export function PrivacyConsentBanner() {
       aria-describedby="privacy-banner-desc"
       className="fixed bottom-0 inset-x-0 z-50 p-4 md:p-6"
     >
-      <div className="container-page max-w-3xl mx-auto glass border border-emerald-400/20 rounded-xl p-4 md:p-5 shadow-2xl">
+      <div className="container-page max-w-3xl mx-auto glass border border-accent-emerald/20 rounded-xl p-4 md:p-5 shadow-2xl">
         <div className="flex gap-3">
-          <Shield className="w-5 h-5 text-emerald-400 shrink-0 mt-0.5" aria-hidden="true" />
+          <Shield className="w-5 h-5 text-accent-emerald shrink-0 mt-0.5" aria-hidden="true" />
           <div className="flex-1 min-w-0">
-            <p id="privacy-banner-title" className="text-sm font-semibold text-white mb-1">
+            <p id="privacy-banner-title" className="text-sm font-semibold text-foreground mb-1">
               Local-only health data
             </p>
-            <p id="privacy-banner-desc" className="text-xs text-zinc-500 leading-relaxed">
+            <p id="privacy-banner-desc" className="text-xs text-muted-foreground leading-relaxed">
               Labs, stacks, and notes stay in your browser — never on TNiC servers. You control export and deletion.{' '}
-              <Link href="/labs" className="text-cyan-400 hover:text-emerald-400">
+              <Link href="/labs" className="text-accent-cyan hover:text-accent-emerald">
                 Privacy panel
               </Link>
             </p>
             <div className="flex flex-wrap gap-2 mt-3">
               <button
                 onClick={acceptPrivacyConsent}
-                className="focus-ring interactive px-4 py-2 rounded-lg bg-emerald-400/20 text-emerald-400 text-xs font-semibold border border-emerald-400/30"
+                className="focus-ring interactive px-4 py-2 rounded-lg bg-accent-emerald/20 text-accent-emerald text-xs font-semibold border border-accent-emerald/30"
               >
                 Got it
               </button>
               <button
                 onClick={() => setDismissed(true)}
-                className="focus-ring interactive px-4 py-2 rounded-lg text-xs font-semibold text-zinc-500 hover:text-zinc-300"
+                className="focus-ring interactive px-4 py-2 rounded-lg text-xs font-semibold text-muted-foreground hover:text-foreground/80"
               >
                 Dismiss
               </button>

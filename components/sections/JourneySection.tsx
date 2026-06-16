@@ -17,14 +17,14 @@ export function JourneySection() {
       className="bg-[#0a0f1a]/60"
     >
       <div className="grid md:grid-cols-2 gap-4 mb-8">
-        <div className="card-base p-6 border-amber-400/20">
-          <p className="text-label text-amber-400 mb-2">Personal (N=1)</p>
+        <div className="card-base p-6 border-accent-amber/20">
+          <p className="text-label text-accent-amber mb-2">Personal (N=1)</p>
           <p className="text-body-sm">
             Founder lab values and subjective outcomes. Sample size = 1. Your results will differ.
           </p>
         </div>
         <div className="card-base p-6">
-          <p className="text-label text-emerald-400 mb-2">Population Science</p>
+          <p className="text-label text-accent-emerald mb-2">Population Science</p>
           <p className="text-body-sm">
             PubMed-cited mechanisms with Tier A/B/C evidence on every surface.
           </p>
@@ -35,7 +35,7 @@ export function JourneySection() {
 
       <Link
         href="/trust/journey"
-        className="focus-ring interactive inline-flex items-center gap-2 mt-8 text-sm font-semibold text-amber-400 hover:text-cyan-400 rounded"
+        className="focus-ring interactive inline-flex items-center gap-2 mt-8 text-sm font-semibold text-accent-amber hover:text-accent-cyan rounded"
       >
         Full journey + your personal timeline <ArrowRight className="w-4 h-4" aria-hidden="true" />
       </Link>

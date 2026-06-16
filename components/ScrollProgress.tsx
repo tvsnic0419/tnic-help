@@ -37,7 +37,7 @@ export function ScrollProgress() {
     <>
       <div className="fixed top-0 left-0 right-0 h-[2px] z-[60] bg-transparent">
         <div
-          className="h-full bg-gradient-to-r from-cyan-400 via-emerald-400 to-violet-400 transition-all duration-150"
+          className="h-full bg-gradient-to-r from-accent-cyan via-emerald-400 to-violet-400 transition-all duration-150"
           style={{ width: `${progress}%` }}
         />
       </div>
@@ -55,7 +55,7 @@ export function ScrollProgress() {
             >
               <span
                 className={`text-[10px] font-mono transition-all duration-300 ${
-                  isActive ? 'text-cyan-400 opacity-100' : 'text-zinc-600 opacity-0 group-hover:opacity-100'
+                  isActive ? 'text-accent-cyan opacity-100' : 'text-caption opacity-0 group-hover:opacity-100'
                 }`}
               >
                 {link.mod}
@@ -63,7 +63,7 @@ export function ScrollProgress() {
               <span
                 className={`w-2 h-2 rounded-full transition-all duration-300 ${
                   isActive
-                    ? 'bg-cyan-400 scale-150 shadow-[0_0_12px_rgba(34,211,238,0.6)]'
+                    ? 'bg-accent-cyan scale-150 shadow-[0_0_12px_rgba(34,211,238,0.6)]'
                     : 'bg-zinc-700 group-hover:bg-zinc-500'
                 }`}
               />

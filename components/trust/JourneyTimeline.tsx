@@ -11,10 +11,10 @@ const typeStyle: Record<
   JourneyMilestoneType,
   { icon: typeof User; color: string; bg: string; label: string }
 > = {
-  personal: { icon: User, color: 'text-cyan-400', bg: 'bg-cyan-400/10', label: 'Personal (N=1)' },
-  experiment: { icon: FlaskConical, color: 'text-amber-400', bg: 'bg-amber-400/10', label: 'Experiment' },
-  protocol: { icon: Layers, color: 'text-violet-400', bg: 'bg-violet-400/10', label: 'Protocol' },
-  platform: { icon: Rocket, color: 'text-emerald-400', bg: 'bg-emerald-400/10', label: 'Platform' },
+  personal: { icon: User, color: 'text-accent-cyan', bg: 'bg-accent-cyan/10', label: 'Personal (N=1)' },
+  experiment: { icon: FlaskConical, color: 'text-accent-amber', bg: 'bg-accent-amber/10', label: 'Experiment' },
+  protocol: { icon: Layers, color: 'text-accent-violet', bg: 'bg-accent-violet/10', label: 'Protocol' },
+  platform: { icon: Rocket, color: 'text-accent-emerald', bg: 'bg-accent-emerald/10', label: 'Platform' },
 };
 
 interface JourneyTimelineProps {
@@ -25,7 +25,7 @@ interface JourneyTimelineProps {
 export function JourneyTimeline({ milestones, showCitations = true }: JourneyTimelineProps) {
   return (
     <div className="relative max-w-3xl" role="list" aria-label="Journey timeline">
-      <div className="absolute left-4 top-0 bottom-0 w-px bg-gradient-to-b from-amber-400/40 to-transparent" aria-hidden="true" />
+      <div className="absolute left-4 top-0 bottom-0 w-px bg-gradient-to-b from-accent-amber/40 to-transparent" aria-hidden="true" />
       {milestones.map((m, i) => {
         const style = typeStyle[m.type];
         const Icon = style.icon;
@@ -40,7 +40,7 @@ export function JourneyTimeline({ milestones, showCitations = true }: JourneyTim
             className="relative pl-12 pb-8 last:pb-0"
           >
             <div
-              className={`absolute left-2.5 w-3 h-3 rounded-full ${style.bg} border-2 border-amber-400/50`}
+              className={`absolute left-2.5 w-3 h-3 rounded-full ${style.bg} border-2 border-accent-amber/50`}
               aria-hidden="true"
             />
             <div className="card-elevated p-5 md:p-6">
@@ -50,7 +50,7 @@ export function JourneyTimeline({ milestones, showCitations = true }: JourneyTim
                   {style.label}
                 </span>
                 {m.personal && (
-                  <span className="text-label text-amber-400/80">N=1 · not population data</span>
+                  <span className="text-label text-accent-amber/80">N=1 · not population data</span>
                 )}
                 <time className="font-mono text-caption">{m.date}</time>
                 {m.evidenceTier && <EvidenceTag tier={m.evidenceTier} size="sm" />}
@@ -58,10 +58,10 @@ export function JourneyTimeline({ milestones, showCitations = true }: JourneyTim
               <h3 className="heading-card text-base md:text-lg mb-1">{m.title}</h3>
               <p className="text-body-sm">{m.desc}</p>
               {m.metric && (
-                <p className="text-caption font-mono text-amber-400/90 mt-2">{m.metric}</p>
+                <p className="text-caption font-mono text-accent-amber/90 mt-2">{m.metric}</p>
               )}
               {showCitations && m.citationIds && m.citationIds.length > 0 && (
-                <div className="flex flex-wrap gap-3 mt-3 pt-3 border-t border-white/[0.06]">
+                <div className="flex flex-wrap gap-3 mt-3 pt-3 border-t border-border">
                   {m.citationIds.map((id) => {
                     const cite = getCitationById(id);
                     return cite?.pmid ? (

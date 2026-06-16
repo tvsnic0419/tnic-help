@@ -25,9 +25,9 @@ const tabs = [
 type TabId = (typeof tabs)[number]['id'];
 
 const tierBorder: Record<EvidenceTier, string> = {
-  A: 'border-emerald-400/30',
-  B: 'border-cyan-400/30',
-  C: 'border-amber-400/30',
+  A: 'border-accent-emerald/30',
+  B: 'border-accent-cyan/30',
+  C: 'border-accent-amber/30',
 };
 
 export function TrustCenter() {
@@ -54,7 +54,7 @@ export function TrustCenter() {
               key={t.id}
               onClick={() => setTab(t.id)}
               className={`focus-ring interactive flex items-center gap-2 px-5 py-3 min-h-[var(--space-touch)] rounded-xl text-sm font-semibold ${
-                tab === t.id ? 'bg-emerald-400 text-black' : 'glass text-zinc-400 hover:text-white'
+                tab === t.id ? 'bg-accent-emerald text-black' : 'glass text-muted-foreground hover:text-foreground'
               }`}
             >
               <t.icon className="w-4 h-4" aria-hidden="true" />
@@ -64,7 +64,7 @@ export function TrustCenter() {
         </div>
         <Link
           href="/trust"
-          className="focus-ring interactive text-sm font-semibold text-emerald-400 hover:text-cyan-400 inline-flex items-center gap-1 shrink-0"
+          className="focus-ring interactive text-sm font-semibold text-accent-emerald hover:text-accent-cyan inline-flex items-center gap-1 shrink-0"
         >
           Full Trust Hub <ArrowRight className="w-4 h-4" aria-hidden="true" />
         </Link>
@@ -89,28 +89,28 @@ export function TrustCenter() {
                     <ul className="space-y-2 mb-4">
                       {std.criteria.map((c: string) => (
                         <li key={c} className="flex items-start gap-2 text-body-sm">
-                          <CheckCircle2 className="w-3.5 h-3.5 text-emerald-400 shrink-0 mt-0.5" aria-hidden="true" />
+                          <CheckCircle2 className="w-3.5 h-3.5 text-accent-emerald shrink-0 mt-0.5" aria-hidden="true" />
                           {c}
                         </li>
                       ))}
                     </ul>
-                    <p className="text-caption border-t border-white/[0.06] pt-3">
-                      <span className="text-emerald-400">Example: </span>{std.example}
+                    <p className="text-caption border-t border-border pt-3">
+                      <span className="text-accent-emerald">Example: </span>{std.example}
                     </p>
                   </div>
                 );
               })}
             </div>
 
-            <p className="text-[10px] font-mono text-emerald-400 uppercase tracking-wider mb-4">
+            <p className="text-[10px] font-mono text-accent-emerald uppercase tracking-wider mb-4">
               5-Step Compound Selection Process
             </p>
             <div className="grid sm:grid-cols-2 lg:grid-cols-5 gap-4">
               {selectionCriteria.map((c) => (
                 <div key={c.step} className="glass rounded-xl p-5">
-                  <span className="font-mono text-emerald-400 text-xs">{c.step}</span>
+                  <span className="font-mono text-accent-emerald text-xs">{c.step}</span>
                   <h4 className="font-bold text-sm mt-2 mb-2">{c.title}</h4>
-                  <p className="text-xs text-zinc-500 leading-relaxed">{c.desc}</p>
+                  <p className="text-xs text-muted-foreground leading-relaxed">{c.desc}</p>
                 </div>
               ))}
             </div>
@@ -124,15 +124,15 @@ export function TrustCenter() {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -10 }}
           >
-            <div className="gradient-border p-6 mb-8 border border-amber-400/20 bg-amber-400/5">
+            <div className="gradient-border p-6 mb-8 border border-accent-amber/20 bg-accent-amber/5">
               <div className="flex items-start gap-3">
-                <AlertTriangle className="w-5 h-5 text-amber-400 shrink-0 mt-0.5" />
+                <AlertTriangle className="w-5 h-5 text-accent-amber shrink-0 mt-0.5" />
                 <div>
                   <h3 className="font-bold mb-2">General Safety Protocol</h3>
                   <ul className="space-y-2">
                     {generalSafetyGuidance.map((g) => (
-                      <li key={g} className="text-sm text-zinc-400 flex items-start gap-2">
-                        <span className="text-amber-400 shrink-0">•</span> {g}
+                      <li key={g} className="text-sm text-muted-foreground flex items-start gap-2">
+                        <span className="text-accent-amber shrink-0">•</span> {g}
                       </li>
                     ))}
                   </ul>
@@ -147,8 +147,8 @@ export function TrustCenter() {
                   onClick={() => setSelectedSafety(c.id)}
                   className={`px-4 py-2 rounded-xl text-xs font-semibold transition-all ${
                     selectedSafety === c.id
-                      ? 'bg-emerald-400/20 text-emerald-400 border border-emerald-400/30'
-                      : 'glass text-zinc-400'
+                      ? 'bg-accent-emerald/20 text-accent-emerald border border-accent-emerald/30'
+                      : 'glass text-muted-foreground'
                   }`}
                 >
                   {c.name}
@@ -158,30 +158,30 @@ export function TrustCenter() {
 
             <div className="gradient-border p-8">
               <h3 className="text-xl font-bold mb-1">{compound.name}</h3>
-              <p className="text-xs text-zinc-500 mb-6">{compound.dose} · Evidence Tier {compound.evidence}</p>
+              <p className="text-xs text-muted-foreground mb-6">{compound.dose} · Evidence Tier {compound.evidence}</p>
 
               <div className="grid md:grid-cols-3 gap-6">
                 <div>
-                  <p className="text-[10px] font-mono text-amber-400 uppercase mb-3">Cautions</p>
+                  <p className="text-[10px] font-mono text-accent-amber uppercase mb-3">Cautions</p>
                   {safety.cautions.map((c) => (
-                    <p key={c} className="text-sm text-zinc-400 mb-2 flex items-start gap-2">
-                      <AlertTriangle className="w-3.5 h-3.5 text-amber-400 shrink-0 mt-0.5" /> {c}
+                    <p key={c} className="text-sm text-muted-foreground mb-2 flex items-start gap-2">
+                      <AlertTriangle className="w-3.5 h-3.5 text-accent-amber shrink-0 mt-0.5" /> {c}
                     </p>
                   ))}
                 </div>
                 <div>
-                  <p className="text-[10px] font-mono text-rose-400 uppercase mb-3">Avoid If</p>
+                  <p className="text-[10px] font-mono text-accent-rose uppercase mb-3">Avoid If</p>
                   {safety.avoidIf.length > 0 ? safety.avoidIf.map((a) => (
-                    <p key={a} className="text-sm text-zinc-400 mb-2">{a}</p>
+                    <p key={a} className="text-sm text-muted-foreground mb-2">{a}</p>
                   )) : (
-                    <p className="text-sm text-zinc-600">No absolute contraindications listed</p>
+                    <p className="text-sm text-caption">No absolute contraindications listed</p>
                   )}
                 </div>
                 <div>
-                  <p className="text-[10px] font-mono text-cyan-400 uppercase mb-3">Consult Physician If</p>
+                  <p className="text-[10px] font-mono text-accent-cyan uppercase mb-3">Consult Physician If</p>
                   {safety.consultIf.map((c) => (
-                    <p key={c} className="text-sm text-zinc-400 mb-2 flex items-start gap-2">
-                      <FileText className="w-3.5 h-3.5 text-cyan-400 shrink-0 mt-0.5" /> {c}
+                    <p key={c} className="text-sm text-muted-foreground mb-2 flex items-start gap-2">
+                      <FileText className="w-3.5 h-3.5 text-accent-cyan shrink-0 mt-0.5" /> {c}
                     </p>
                   ))}
                 </div>
@@ -200,14 +200,14 @@ export function TrustCenter() {
           >
             {transparencyPledge.map((item, i) => (
               <div key={item.title} className="glass rounded-2xl p-6 flex items-start gap-4">
-                <div className="w-10 h-10 rounded-xl bg-emerald-400/10 flex items-center justify-center shrink-0">
-                  <Eye className="w-5 h-5 text-emerald-400" />
+                <div className="w-10 h-10 rounded-xl bg-accent-emerald/10 flex items-center justify-center shrink-0">
+                  <Eye className="w-5 h-5 text-accent-emerald" />
                 </div>
                 <div>
                   <h3 className="font-bold mb-1">{item.title}</h3>
-                  <p className="text-sm text-zinc-400 leading-relaxed">{item.desc}</p>
+                  <p className="text-sm text-muted-foreground leading-relaxed">{item.desc}</p>
                 </div>
-                <span className="font-mono text-[10px] text-zinc-600 shrink-0">0{i + 1}</span>
+                <span className="font-mono text-[10px] text-caption shrink-0">0{i + 1}</span>
               </div>
             ))}
           </motion.div>

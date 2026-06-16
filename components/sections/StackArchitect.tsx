@@ -16,7 +16,7 @@ export function StackArchitect() {
   const amDose = selectedCompounds.filter((c) => c.timing === 'AM' || c.timing === 'AM/PM');
   const pmDose = selectedCompounds.filter((c) => c.timing === 'PM' || c.timing === 'AM/PM');
 
-  const scoreColor = score >= 75 ? 'text-emerald-400' : score >= 50 ? 'text-cyan-400' : score >= 25 ? 'text-amber-400' : 'text-zinc-500';
+  const scoreColor = score >= 75 ? 'text-accent-emerald' : score >= 50 ? 'text-accent-cyan' : score >= 25 ? 'text-accent-amber' : 'text-muted-foreground';
 
   const exportStack = async () => {
     const lines = [
@@ -60,7 +60,7 @@ export function StackArchitect() {
       className="bg-[#0a0f1a]/60"
     >
       <div className="mb-8">
-        <p className="text-[10px] font-mono text-violet-400 uppercase tracking-wider mb-3 flex items-center gap-2">
+        <p className="text-[10px] font-mono text-accent-violet uppercase tracking-wider mb-3 flex items-center gap-2">
           <Sparkles className="w-3.5 h-3.5" /> Evidence-Graded Presets
         </p>
         <div className="flex flex-wrap gap-2">
@@ -73,12 +73,12 @@ export function StackArchitect() {
                 onClick={() => applyPreset(key)}
                 className={`px-4 py-2.5 rounded-xl text-xs font-semibold transition-all text-left ${
                   isActive
-                    ? 'bg-violet-400 text-black'
-                    : 'glass text-zinc-400 hover:text-white hover:border-violet-400/30'
+                    ? 'bg-accent-violet text-black'
+                    : 'glass text-muted-foreground hover:text-foreground hover:border-accent-violet/30'
                 }`}
               >
                 <span className="block">{p.label}</span>
-                <span className={`block text-[10px] font-normal ${isActive ? 'text-black/70' : 'text-zinc-600'}`}>
+                <span className={`block text-[10px] font-normal ${isActive ? 'text-black/70' : 'text-caption'}`}>
                   {p.desc}
                 </span>
               </button>
@@ -98,20 +98,20 @@ export function StackArchitect() {
                   onClick={() => toggle(c.id)}
                   className={`text-left p-5 rounded-2xl transition-all duration-300 ${
                     isOn
-                      ? 'bg-violet-400/10 border border-violet-400/40'
+                      ? 'bg-accent-violet/10 border border-accent-violet/40'
                       : 'glass glass-hover opacity-60 hover:opacity-100'
                   }`}
                 >
                   <div className="flex items-center justify-between mb-3">
                     <span className={`w-5 h-5 rounded-md flex items-center justify-center ${
-                      isOn ? 'bg-violet-400 text-black' : 'border border-zinc-600'
+                      isOn ? 'bg-accent-violet text-black' : 'border border-zinc-600'
                     }`}>
                       {isOn && <Check className="w-3 h-3" />}
                     </span>
                     <EvidenceTag tier={c.evidence} size="sm" />
                   </div>
                   <h4 className="font-bold text-sm mb-1">{c.name}</h4>
-                  <p className="text-xs text-zinc-500">{c.dose}</p>
+                  <p className="text-xs text-muted-foreground">{c.dose}</p>
                 </button>
               );
             })}
@@ -120,7 +120,7 @@ export function StackArchitect() {
 
         <div className="lg:col-span-5 space-y-6">
           <div className="gradient-border p-8 text-center">
-            <p className="text-[10px] font-mono text-violet-400 uppercase tracking-wider mb-2">Synergy Score</p>
+            <p className="text-[10px] font-mono text-accent-violet uppercase tracking-wider mb-2">Synergy Score</p>
             <motion.p
               key={score}
               initial={{ scale: 0.8, opacity: 0 }}
@@ -129,9 +129,9 @@ export function StackArchitect() {
             >
               {score}
             </motion.p>
-            <div className="h-2 bg-zinc-800 rounded-full mt-4 overflow-hidden">
+            <div className="h-2 bg-muted rounded-full mt-4 overflow-hidden">
               <motion.div
-                className="h-full bg-gradient-to-r from-violet-400 to-cyan-400 rounded-full"
+                className="h-full bg-gradient-to-r from-accent-violet to-accent-cyan rounded-full"
                 animate={{ width: `${score}%` }}
                 transition={{ duration: 0.6 }}
               />
@@ -146,30 +146,30 @@ export function StackArchitect() {
                 exit={{ opacity: 0 }}
                 className="glass rounded-2xl p-6"
               >
-                <p className="text-[10px] font-mono text-zinc-500 uppercase tracking-wider mb-4">Dosing Protocol</p>
+                <p className="text-[10px] font-mono text-muted-foreground uppercase tracking-wider mb-4">Dosing Protocol</p>
                 <div className="space-y-4">
                   {amDose.length > 0 && (
                     <div>
-                      <div className="flex items-center gap-2 text-amber-400 text-xs font-semibold mb-2">
+                      <div className="flex items-center gap-2 text-accent-amber text-xs font-semibold mb-2">
                         <Sun className="w-3.5 h-3.5" /> AM Stack
                       </div>
                       {amDose.map((c) => (
-                        <div key={c.id} className="flex justify-between text-sm py-1.5 border-b border-white/[0.04] last:border-0">
-                          <span className="text-zinc-300">{c.name}</span>
-                          <span className="font-mono text-xs text-zinc-500">{c.dose}</span>
+                        <div key={c.id} className="flex justify-between text-sm py-1.5 border-b border-border last:border-0">
+                          <span className="text-foreground/80">{c.name}</span>
+                          <span className="font-mono text-xs text-muted-foreground">{c.dose}</span>
                         </div>
                       ))}
                     </div>
                   )}
                   {pmDose.filter((c) => c.timing === 'PM').length > 0 && (
                     <div>
-                      <div className="flex items-center gap-2 text-violet-400 text-xs font-semibold mb-2">
+                      <div className="flex items-center gap-2 text-accent-violet text-xs font-semibold mb-2">
                         <Moon className="w-3.5 h-3.5" /> PM Stack
                       </div>
                       {pmDose.filter((c) => c.timing === 'PM').map((c) => (
-                        <div key={c.id} className="flex justify-between text-sm py-1.5 border-b border-white/[0.04] last:border-0">
-                          <span className="text-zinc-300">{c.name}</span>
-                          <span className="font-mono text-xs text-zinc-500">{c.dose}</span>
+                        <div key={c.id} className="flex justify-between text-sm py-1.5 border-b border-border last:border-0">
+                          <span className="text-foreground/80">{c.name}</span>
+                          <span className="font-mono text-xs text-muted-foreground">{c.dose}</span>
                         </div>
                       ))}
                     </div>
@@ -179,21 +179,21 @@ export function StackArchitect() {
                 <div className="mt-6 grid grid-cols-3 gap-2">
                   <button
                     onClick={saveStack}
-                    className="flex flex-col items-center gap-1 glass py-3 rounded-xl text-xs font-semibold hover:border-violet-400/30 transition-all"
+                    className="flex flex-col items-center gap-1 glass py-3 rounded-xl text-xs font-semibold hover:border-accent-violet/30 transition-all"
                   >
-                    <Bookmark className={`w-4 h-4 ${saved ? 'text-emerald-400' : ''}`} />
+                    <Bookmark className={`w-4 h-4 ${saved ? 'text-accent-emerald' : ''}`} />
                     {saved ? 'Saved!' : 'Save'}
                   </button>
                   <button
                     onClick={exportStack}
-                    className="flex flex-col items-center gap-1 glass py-3 rounded-xl text-xs font-semibold hover:border-violet-400/30 transition-all"
+                    className="flex flex-col items-center gap-1 glass py-3 rounded-xl text-xs font-semibold hover:border-accent-violet/30 transition-all"
                   >
-                    {copied ? <CheckCheck className="w-4 h-4 text-emerald-400" /> : <Copy className="w-4 h-4" />}
+                    {copied ? <CheckCheck className="w-4 h-4 text-accent-emerald" /> : <Copy className="w-4 h-4" />}
                     Copy
                   </button>
                   <button
                     onClick={shareStack}
-                    className="flex flex-col items-center gap-1 bg-violet-400 text-black py-3 rounded-xl text-xs font-semibold hover:bg-cyan-400 transition-all"
+                    className="flex flex-col items-center gap-1 bg-accent-violet text-black py-3 rounded-xl text-xs font-semibold hover:bg-accent-cyan transition-all"
                   >
                     <Share2 className="w-4 h-4" /> Share
                   </button>

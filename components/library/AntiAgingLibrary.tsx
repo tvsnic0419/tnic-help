@@ -39,7 +39,7 @@ export function AntiAgingLibrary({ asPageTitle = false }: AntiAgingLibraryProps)
     <section
       id="anti-aging-library"
       aria-labelledby="library-heading"
-      className="py-16 md:py-24 lg:py-28 bg-[#030712] border-b border-white/[0.06]"
+      className="py-16 md:py-24 lg:py-28 bg-background border-b border-border"
     >
       <div className="container-page">
         <PageHeader
@@ -57,7 +57,7 @@ export function AntiAgingLibrary({ asPageTitle = false }: AntiAgingLibraryProps)
           <label htmlFor="hallmark-search" className="sr-only">
             Search hallmarks or interventions
           </label>
-          <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-zinc-500 pointer-events-none" aria-hidden="true" />
+          <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground pointer-events-none" aria-hidden="true" />
           <input
             id="hallmark-search"
             type="search"
@@ -71,7 +71,7 @@ export function AntiAgingLibrary({ asPageTitle = false }: AntiAgingLibraryProps)
         <div className="grid lg:grid-cols-12 gap-6 lg:gap-8">
           {/* Hallmark selector */}
           <nav className="lg:col-span-4" aria-label="Hallmark list">
-            <p className="text-label text-cyan-400 mb-3 hidden lg:block">Select hallmark</p>
+            <p className="text-label text-accent-cyan mb-3 hidden lg:block">Select hallmark</p>
             <div
               className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 gap-2 max-h-none lg:max-h-[32rem] lg:overflow-y-auto lg:pr-1 scroll-region"
               role="list"
@@ -87,16 +87,16 @@ export function AntiAgingLibrary({ asPageTitle = false }: AntiAgingLibraryProps)
                     onClick={() => setSelected(h.id)}
                     className={`focus-ring interactive text-left p-4 min-h-[var(--space-touch)] rounded-xl ${
                       isActive
-                        ? 'bg-cyan-400/10 border border-cyan-400/30'
+                        ? 'bg-accent-cyan/10 border border-accent-cyan/30'
                         : 'glass glass-hover'
                     }`}
                   >
                     <span className="text-label">#{h.number}</span>
                     <h3 className="heading-card mt-1 leading-snug">{h.title}</h3>
                     <div className="flex items-center justify-between mt-2">
-                      <span className="text-label text-cyan-400">{h.coverage}% coverage</span>
+                      <span className="text-label text-accent-cyan">{h.coverage}% coverage</span>
                       {hasNotes && (
-                        <span className="w-2 h-2 rounded-full bg-emerald-400" title="Has personal notes" />
+                        <span className="w-2 h-2 rounded-full bg-accent-emerald" title="Has personal notes" />
                       )}
                     </div>
                   </button>
@@ -118,15 +118,15 @@ export function AntiAgingLibrary({ asPageTitle = false }: AntiAgingLibraryProps)
                 <div className="card-elevated p-6 md:p-8">
                   <div className="grid md:grid-cols-2 gap-6 md:gap-8">
                     <div>
-                      <p className="text-label text-cyan-400 mb-2">Hallmark {active.number}</p>
+                      <p className="text-label text-accent-cyan mb-2">Hallmark {active.number}</p>
                       <h3 className="heading-section text-2xl md:text-3xl mb-3">
                         {active.title}
                       </h3>
                       <p className="text-body-sm mb-4">{active.tagline}</p>
-                      <p className="text-body-sm text-zinc-500">{active.summary}</p>
+                      <p className="text-body-sm text-muted-foreground">{active.summary}</p>
                       <Link
                         href={`/library/${active.slug}`}
-                        className="focus-ring interactive inline-flex items-center gap-2 mt-6 text-sm font-semibold text-cyan-400 hover:text-emerald-400 rounded-md"
+                        className="focus-ring interactive inline-flex items-center gap-2 mt-6 text-sm font-semibold text-accent-cyan hover:text-accent-emerald rounded-md"
                       >
                         Full deep dive + MDX <ArrowRight className="w-4 h-4" aria-hidden="true" />
                       </Link>
@@ -142,7 +142,7 @@ export function AntiAgingLibrary({ asPageTitle = false }: AntiAgingLibraryProps)
                 <HallmarkNotesPanel hallmark={active} />
 
                 <div>
-                  <p className="text-label text-emerald-400 mb-4">Intervention Explorer</p>
+                  <p className="text-label text-accent-emerald mb-4">Intervention Explorer</p>
                   <InterventionExplorer
                     interventions={active.interventions}
                     hallmarkTitle={active.title}

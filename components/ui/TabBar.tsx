@@ -3,6 +3,7 @@
 import type { LucideIcon } from 'lucide-react';
 import type { ThemeAccent } from '@/lib/design-system';
 import { themes } from '@/lib/design-system';
+import { cn } from '@/lib/utils';
 
 export interface TabItem<T extends string> {
   id: T;
@@ -34,7 +35,7 @@ export function TabBar<T extends string>({
     <div
       role="tablist"
       aria-label={ariaLabel}
-      className={`flex gap-2 overflow-x-auto scroll-region pb-1 -mx-1 px-1 ${className}`}
+      className={cn('flex gap-2 overflow-x-auto scroll-region pb-1 -mx-1 px-1', className)}
     >
       {tabs.map((tab) => {
         const isActive = active === tab.id;
@@ -47,11 +48,12 @@ export function TabBar<T extends string>({
             aria-selected={isActive}
             aria-controls={`panel-${tab.id}`}
             onClick={() => onChange(tab.id)}
-            className={`focus-ring interactive shrink-0 flex items-center gap-2 px-4 py-3 min-h-[var(--space-touch)] rounded-xl text-sm font-semibold ${
+            className={cn(
+              'focus-ring interactive shrink-0 flex items-center gap-2 px-4 py-3 min-h-[var(--space-touch)] rounded-xl text-sm font-semibold',
               isActive
-                ? `${t.bgSolid} text-black`
-                : 'glass text-zinc-400 hover:text-white'
-            }`}
+                ? `${t.bgSolid} text-primary-foreground`
+                : 'glass text-muted-foreground hover:text-foreground',
+            )}
           >
             {Icon && <Icon className="w-4 h-4" aria-hidden="true" />}
             <span>{tab.label}</span>

@@ -2,9 +2,9 @@ import { AlertTriangle, Info, Scale } from 'lucide-react';
 import type { DisclaimerBlock } from '@/lib/types';
 
 const severityStyle = {
-  info: { icon: Info, border: 'border-cyan-400/20', bg: 'bg-cyan-400/5', text: 'text-cyan-300' },
-  warning: { icon: AlertTriangle, border: 'border-amber-400/25', bg: 'bg-amber-400/5', text: 'text-amber-300' },
-  legal: { icon: Scale, border: 'border-rose-400/25', bg: 'bg-rose-400/5', text: 'text-rose-300' },
+  info: { icon: Info, border: 'border-accent-cyan/20', bg: 'bg-accent-cyan/5', text: 'text-cyan-300' },
+  warning: { icon: AlertTriangle, border: 'border-accent-amber/25', bg: 'bg-accent-amber/5', text: 'text-amber-300' },
+  legal: { icon: Scale, border: 'border-accent-rose/25', bg: 'bg-accent-rose/5', text: 'text-rose-300' },
 };
 
 interface DisclaimerBannerProps {
@@ -41,7 +41,7 @@ export function DisclaimerBanner({ disclaimer, showAppliesTo = false }: Disclaim
 /** Compact inline disclaimer for exports and footers */
 export function DisclaimerInline({ text }: { text: string }) {
   return (
-    <p className="text-caption font-mono border-t border-white/[0.06] pt-3 mt-4" role="note">
+    <p className="text-caption font-mono border-t border-border pt-3 mt-4" role="note">
       {text}
     </p>
   );

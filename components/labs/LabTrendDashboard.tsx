@@ -11,16 +11,16 @@ import type { LabEntry } from '@/lib/labs';
 import { usePlatform } from '@/context/PlatformContext';
 
 const statusColor = {
-  optimal: 'text-emerald-400 bg-emerald-400/10',
-  watch: 'text-amber-400 bg-amber-400/10',
-  critical: 'text-rose-400 bg-rose-400/10',
+  optimal: 'text-accent-emerald bg-accent-emerald/10',
+  watch: 'text-accent-amber bg-accent-amber/10',
+  critical: 'text-accent-rose bg-accent-rose/10',
 };
 
 const trendIcon = {
-  improving: { icon: TrendingUp, color: 'text-emerald-400' },
-  declining: { icon: TrendingDown, color: 'text-rose-400' },
-  stable: { icon: Minus, color: 'text-zinc-500' },
-  unknown: { icon: Minus, color: 'text-zinc-600' },
+  improving: { icon: TrendingUp, color: 'text-accent-emerald' },
+  declining: { icon: TrendingDown, color: 'text-accent-rose' },
+  stable: { icon: Minus, color: 'text-muted-foreground' },
+  unknown: { icon: Minus, color: 'text-caption' },
 };
 
 interface LabTrendDashboardProps {
@@ -41,7 +41,7 @@ export function LabTrendDashboard({ snapshots }: LabTrendDashboardProps) {
     <div className="space-y-6">
       {/* Overview sparkline grid */}
       <div>
-        <p className="text-[10px] font-mono text-rose-400 uppercase tracking-wider mb-3 flex items-center gap-2">
+        <p className="text-[10px] font-mono text-accent-rose uppercase tracking-wider mb-3 flex items-center gap-2">
           <BarChart3 className="w-3.5 h-3.5" /> Marker Overview
         </p>
         <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-3">
@@ -54,7 +54,7 @@ export function LabTrendDashboard({ snapshots }: LabTrendDashboardProps) {
                 layout
                 onClick={() => setSelected(snap.markerId)}
                 className={`glass rounded-xl p-4 text-left transition-all ${
-                  isActive ? 'ring-1 ring-rose-400/40 bg-rose-400/5' : 'hover:border-white/10'
+                  isActive ? 'ring-1 ring-rose-400/40 bg-accent-rose/5' : 'hover:border-border'
                 }`}
               >
                 <div className="flex justify-between items-start mb-2">
@@ -66,7 +66,7 @@ export function LabTrendDashboard({ snapshots }: LabTrendDashboardProps) {
                 <div className="flex items-end justify-between">
                   <div>
                     <p className="text-2xl font-bold font-mono">{snap.value}</p>
-                    <p className="text-[9px] text-zinc-600">{snap.date}</p>
+                    <p className="text-[9px] text-caption">{snap.date}</p>
                   </div>
                   <TrendIco className={`w-4 h-4 ${trendIcon[snap.trend].color}`} />
                 </div>
@@ -87,13 +87,13 @@ export function LabTrendDashboard({ snapshots }: LabTrendDashboardProps) {
           <div className="flex flex-wrap items-start justify-between gap-4 mb-4">
             <div>
               <h3 className="text-lg font-bold">{activeBiomarker.name}</h3>
-              <p className="text-xs text-zinc-500">
+              <p className="text-xs text-muted-foreground">
                 Optimal: {activeBiomarker.optimal} {activeBiomarker.unit} · Critical: {activeBiomarker.critical}
               </p>
             </div>
             <div className="text-right">
               <p className="text-3xl font-bold font-mono">{activeSnapshot.value}</p>
-              <p className="text-[10px] text-zinc-600">{activeSnapshot.readingCount} readings</p>
+              <p className="text-[10px] text-caption">{activeSnapshot.readingCount} readings</p>
             </div>
           </div>
 
@@ -105,7 +105,7 @@ export function LabTrendDashboard({ snapshots }: LabTrendDashboardProps) {
                   .sort((a, b) => a.date.localeCompare(b.date))
                   .map((e: LabEntry) => (
                     <div key={e.id} className="glass rounded-lg py-2 px-1">
-                      <p className="text-[9px] text-zinc-600">{e.date}</p>
+                      <p className="text-[9px] text-caption">{e.date}</p>
                       <p className="text-sm font-mono font-bold">{e.value}</p>
                       <p className={`text-[9px] ${statusColor[getLabStatus(e.markerId, e.value)].split(' ')[0]}`}>
                         {getLabStatus(e.markerId, e.value)}
@@ -115,7 +115,7 @@ export function LabTrendDashboard({ snapshots }: LabTrendDashboardProps) {
               </div>
             </>
           ) : (
-            <div className="h-40 flex items-center justify-center text-sm text-zinc-500">
+            <div className="h-40 flex items-center justify-center text-sm text-muted-foreground">
               Log 2+ readings for {activeBiomarker.name} to visualize trends
             </div>
           )}
@@ -123,7 +123,7 @@ export function LabTrendDashboard({ snapshots }: LabTrendDashboardProps) {
       )}
 
       {markersWithTrends.length === 0 && snapshots.length > 0 && (
-        <p className="text-xs text-zinc-600 text-center">
+        <p className="text-xs text-caption text-center">
           Add repeat tests over time to unlock trend analysis and trajectory insights.
         </p>
       )}

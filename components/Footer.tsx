@@ -16,16 +16,16 @@ const resourceLinks = [
 
 export function Footer() {
   return (
-    <footer className="border-t border-white/[0.06] py-12 md:py-16" role="contentinfo">
+    <footer className="border-t border-border py-12 md:py-16" role="contentinfo">
       <div className="container-page">
         <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-10 mb-10">
           <div className="sm:col-span-2 lg:col-span-1">
             <Link href="/" className="focus-ring inline-flex items-center gap-2 mb-4 rounded-lg">
-              <div className="w-8 h-8 rounded-md bg-gradient-to-br from-cyan-400 to-emerald-400 flex items-center justify-center">
+              <div className="w-8 h-8 rounded-md bg-gradient-to-br from-accent-cyan to-accent-emerald flex items-center justify-center">
                 <Dna className="w-4 h-4 text-black" aria-hidden="true" />
               </div>
               <span className="font-bold text-lg">
-                TN<span className="text-cyan-400">i</span>C
+                TN<span className="text-accent-cyan">i</span>C
               </span>
             </Link>
             <p className="text-body-sm max-w-xs">
@@ -41,7 +41,7 @@ export function Footer() {
                 <li key={link.href}>
                   <Link
                     href={link.href}
-                    className="focus-ring interactive flex items-center gap-2 text-body-sm hover:text-cyan-400 rounded-md"
+                    className="focus-ring interactive flex items-center gap-2 text-body-sm hover:text-accent-cyan rounded-md"
                   >
                     <link.icon className="w-4 h-4 shrink-0" aria-hidden="true" />
                     {link.label}
@@ -58,7 +58,7 @@ export function Footer() {
                 <li key={link.label}>
                   <a
                     href={link.href}
-                    className="focus-ring interactive flex items-center gap-2 text-body-sm hover:text-cyan-400 rounded-md"
+                    className="focus-ring interactive flex items-center gap-2 text-body-sm hover:text-accent-cyan rounded-md"
                   >
                     <link.icon className="w-4 h-4 shrink-0" aria-hidden="true" />
                     {link.label}
@@ -76,14 +76,14 @@ export function Footer() {
             </p>
             <p className="text-caption">
               Consult a physician before starting any protocol.{' '}
-              <a href="/trust/disclaimers" className="text-cyan-400 hover:underline focus-ring rounded">
+              <a href="/trust/disclaimers" className="text-accent-cyan hover:underline focus-ring rounded">
                 Transparency Pledge
               </a>
             </p>
           </div>
         </div>
 
-        <div className="border-t border-white/[0.06] pt-6 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
+        <div className="border-t border-border pt-6 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
           <p className="text-caption font-mono">© 2026 TNiC · Independent · Evidence-First</p>
           <div className="flex flex-wrap gap-x-4 gap-y-1 text-caption font-mono">
             <span>Tier A: 4 compounds</span>

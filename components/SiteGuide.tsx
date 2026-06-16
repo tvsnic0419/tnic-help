@@ -6,8 +6,8 @@ const paths = [
   {
     icon: BookOpen,
     title: 'Learn the Science',
-    color: 'text-cyan-400',
-    bg: 'bg-cyan-400/10',
+    color: 'text-accent-cyan',
+    bg: 'bg-accent-cyan/10',
     steps: [
       { label: 'Start Here guide', href: '#learn' },
       { label: '12 Hallmarks', href: '#science' },
@@ -18,8 +18,8 @@ const paths = [
   {
     icon: Wrench,
     title: 'Use the Tools',
-    color: 'text-violet-400',
-    bg: 'bg-violet-400/10',
+    color: 'text-accent-violet',
+    bg: 'bg-accent-violet/10',
     steps: [
       { label: 'Lab tracker (local)', href: '/labs' },
       { label: 'Stack Architect + share', href: '#stacks' },
@@ -30,8 +30,8 @@ const paths = [
   {
     icon: Shield,
     title: 'Verify & Trust',
-    color: 'text-emerald-400',
-    bg: 'bg-emerald-400/10',
+    color: 'text-accent-emerald',
+    bg: 'bg-accent-emerald/10',
     steps: [
       { label: 'Evidence standards', href: '/trust' },
       { label: 'Safety center', href: '/trust/disclaimers' },
@@ -43,15 +43,15 @@ const paths = [
 
 export function SiteGuide() {
   return (
-    <section className="py-16 border-b border-white/[0.06] bg-[#0a0f1a]/40">
+    <section className="py-16 border-b border-border bg-[#0a0f1a]/40">
       <div className="max-w-7xl mx-auto px-6">
-        <p className="text-center text-[10px] font-mono text-zinc-500 uppercase tracking-widest mb-2">
+        <p className="text-center text-[10px] font-mono text-muted-foreground uppercase tracking-widest mb-2">
           How to use this site
         </p>
         <h2 className="text-center text-2xl md:text-3xl font-bold mb-3">
           Three Paths Through TNiC
         </h2>
-        <p className="text-center text-sm text-zinc-500 max-w-xl mx-auto mb-10">
+        <p className="text-center text-sm text-muted-foreground max-w-xl mx-auto mb-10">
           New to longevity science? Start with Learn. Ready to build? Jump to Tools. Skeptical? Trust comes first.
         </p>
 
@@ -67,7 +67,7 @@ export function SiteGuide() {
                   <li key={step.label}>
                     <a
                       href={step.href}
-                      className="flex items-center justify-between text-sm text-zinc-400 hover:text-white transition group py-1"
+                      className="flex items-center justify-between text-sm text-muted-foreground hover:text-foreground transition group py-1"
                     >
                       {step.label}
                       <ArrowRight className="w-3.5 h-3.5 opacity-0 group-hover:opacity-100 transition-opacity" />

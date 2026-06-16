@@ -41,7 +41,7 @@ export function AboutSection() {
       badge="About TNiC"
       title="An Educational Longevity Platform"
       subtitle="TNiC is not a supplement store or a personal health blog. It is a structured, science-backed resource for adults optimizing healthspan — with interactive tools to turn research into actionable protocols."
-      className="bg-[#030712]"
+      className="bg-background"
     >
       <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-12">
         {pillars.map((p, i) => (
@@ -53,40 +53,40 @@ export function AboutSection() {
             transition={{ delay: i * 0.08 }}
             className="glass rounded-2xl p-6"
           >
-            <p.icon className="w-6 h-6 text-cyan-400 mb-4" />
+            <p.icon className="w-6 h-6 text-accent-cyan mb-4" />
             <h3 className="font-bold mb-2">{p.title}</h3>
-            <p className="text-sm text-zinc-400 leading-relaxed">{p.desc}</p>
+            <p className="text-sm text-muted-foreground leading-relaxed">{p.desc}</p>
           </motion.div>
         ))}
       </div>
 
       <div className="grid md:grid-cols-2 gap-6">
         <div className="gradient-border p-6">
-          <p className="text-[10px] font-mono text-emerald-400 uppercase tracking-wider mb-3">Currently Covered</p>
+          <p className="text-[10px] font-mono text-accent-emerald uppercase tracking-wider mb-3">Currently Covered</p>
           <ul className="space-y-2">
             {scopeNote.covered.map((item) => (
-              <li key={item} className="text-sm text-zinc-300 flex items-start gap-2">
-                <span className="text-emerald-400 shrink-0">✓</span> {item}
+              <li key={item} className="text-sm text-foreground/80 flex items-start gap-2">
+                <span className="text-accent-emerald shrink-0">✓</span> {item}
               </li>
             ))}
           </ul>
         </div>
         <div className="gradient-border p-6">
-          <p className="text-[10px] font-mono text-amber-400 uppercase tracking-wider mb-3">Planned / Advanced (Roadmap)</p>
+          <p className="text-[10px] font-mono text-accent-amber uppercase tracking-wider mb-3">Planned / Advanced (Roadmap)</p>
           <ul className="space-y-2">
             {scopeNote.planned.map((item) => (
-              <li key={item} className="text-sm text-zinc-400 flex items-start gap-2">
-                <span className="text-amber-400 shrink-0">○</span> {item}
+              <li key={item} className="text-sm text-muted-foreground flex items-start gap-2">
+                <span className="text-accent-amber shrink-0">○</span> {item}
               </li>
             ))}
           </ul>
-          <p className="text-xs text-zinc-600 mt-4 border-t border-white/[0.06] pt-3">
+          <p className="text-xs text-caption mt-4 border-t border-border pt-3">
             Advanced interventions like rapamycin require physician supervision. TNiC will document evidence and risks — never promote unsupervised use.
           </p>
         </div>
       </div>
 
-      <p className="text-xs text-zinc-600 text-center mt-8 font-mono">
+      <p className="text-xs text-caption text-center mt-8 font-mono">
         Last reviewed: June 2026 · Content version 1.2 · Evidence tiers re-evaluated quarterly
       </p>
     </SectionShell>

@@ -33,7 +33,7 @@ export function TrustPageTemplate({
       {showBackLink && (
         <Link
           href="/trust"
-          className="focus-ring interactive inline-flex items-center gap-2 text-body-sm text-zinc-400 hover:text-cyan-400 mb-6 rounded-md"
+          className="focus-ring interactive inline-flex items-center gap-2 text-body-sm text-muted-foreground hover:text-accent-cyan mb-6 rounded-md"
         >
           <ArrowLeft className="w-4 h-4" aria-hidden="true" />
           Trust Hub

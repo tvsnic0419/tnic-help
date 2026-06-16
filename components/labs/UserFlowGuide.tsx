@@ -47,7 +47,7 @@ interface UserFlowGuideProps {
 export function UserFlowGuide({ currentStep }: UserFlowGuideProps) {
   return (
     <div className="glass rounded-2xl p-5 mb-8">
-      <p className="text-[10px] font-mono text-rose-400 uppercase tracking-wider mb-4">User Flow</p>
+      <p className="text-[10px] font-mono text-accent-rose uppercase tracking-wider mb-4">User Flow</p>
       <div className="grid sm:grid-cols-5 gap-3">
         {steps.map((s) => {
           const Icon = s.icon;
@@ -56,17 +56,17 @@ export function UserFlowGuide({ currentStep }: UserFlowGuideProps) {
             <div
               key={s.step}
               className={`rounded-xl p-3 transition-all ${
-                isCurrent ? 'bg-rose-400/10 border border-rose-400/30' : 'bg-white/[0.02]'
+                isCurrent ? 'bg-accent-rose/10 border border-accent-rose/30' : 'bg-muted/30'
               }`}
             >
               <div className="flex items-center gap-2 mb-2">
-                <span className={`text-[10px] font-mono ${isCurrent ? 'text-rose-400' : 'text-zinc-600'}`}>
+                <span className={`text-[10px] font-mono ${isCurrent ? 'text-accent-rose' : 'text-caption'}`}>
                   0{s.step}
                 </span>
-                <Icon className={`w-3.5 h-3.5 ${isCurrent ? 'text-rose-400' : 'text-zinc-500'}`} />
+                <Icon className={`w-3.5 h-3.5 ${isCurrent ? 'text-accent-rose' : 'text-muted-foreground'}`} />
               </div>
               <h4 className="font-semibold text-xs mb-1">{s.title}</h4>
-              <p className="text-[10px] text-zinc-600 leading-relaxed">{s.desc}</p>
+              <p className="text-[10px] text-caption leading-relaxed">{s.desc}</p>
             </div>
           );
         })}

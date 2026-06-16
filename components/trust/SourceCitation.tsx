@@ -24,7 +24,7 @@ export function SourceCitation({ citation, compact = false, showType = true, evi
         href={link}
         target="_blank"
         rel="noopener noreferrer"
-        className="focus-ring interactive text-caption text-cyan-400 hover:text-emerald-400 inline-flex items-center gap-1 rounded"
+        className="focus-ring interactive text-caption text-accent-cyan hover:text-accent-emerald inline-flex items-center gap-1 rounded"
       >
         {formatCitationShort(citation)}
         <ExternalLink className="w-3 h-3 shrink-0" aria-hidden="true" />
@@ -38,7 +38,7 @@ export function SourceCitation({ citation, compact = false, showType = true, evi
       <div className="flex flex-wrap items-start gap-2 mb-2">
         {evidenceTier && <EvidenceTag tier={evidenceTier} size="sm" />}
         {showType && (
-          <span className="text-label text-zinc-500">{citationTypeLabels[citation.type]}</span>
+          <span className="text-label text-muted-foreground">{citationTypeLabels[citation.type]}</span>
         )}
       </div>
       <h4 className="heading-card mb-1 leading-snug">{citation.title}</h4>
@@ -54,7 +54,7 @@ export function SourceCitation({ citation, compact = false, showType = true, evi
           href={link}
           target="_blank"
           rel="noopener noreferrer"
-          className="focus-ring interactive text-sm font-semibold text-cyan-400 hover:text-emerald-400 inline-flex items-center gap-1.5 rounded"
+          className="focus-ring interactive text-sm font-semibold text-accent-cyan hover:text-accent-emerald inline-flex items-center gap-1.5 rounded"
         >
           {citation.pmid ? `PubMed ${citation.pmid}` : 'View source'}
           <ExternalLink className="w-3.5 h-3.5" aria-hidden="true" />
@@ -71,7 +71,7 @@ export function PmidLink({ pmid, label }: { pmid: string; label?: string }) {
       href={pubmedUrl(pmid)}
       target="_blank"
       rel="noopener noreferrer"
-      className="focus-ring interactive text-caption text-cyan-400 hover:text-emerald-400 inline-flex items-center gap-1 rounded"
+      className="focus-ring interactive text-caption text-accent-cyan hover:text-accent-emerald inline-flex items-center gap-1 rounded"
     >
       {label ?? `PMID: ${pmid}`}
       <ExternalLink className="w-3 h-3" aria-hidden="true" />

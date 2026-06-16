@@ -7,9 +7,9 @@ import { SectionShell } from '@/components/SectionShell';
 import { researchFeed } from '@/lib/data';
 
 const impactStyles = {
-  breakthrough: { icon: Zap, color: 'text-amber-400 bg-amber-400/10', label: 'Breakthrough' },
-  clinical: { icon: FlaskConical, color: 'text-emerald-400 bg-emerald-400/10', label: 'Clinical Trial' },
-  preclinical: { icon: BookOpen, color: 'text-cyan-400 bg-cyan-400/10', label: 'Preclinical' },
+  breakthrough: { icon: Zap, color: 'text-accent-amber bg-accent-amber/10', label: 'Breakthrough' },
+  clinical: { icon: FlaskConical, color: 'text-accent-emerald bg-accent-emerald/10', label: 'Clinical Trial' },
+  preclinical: { icon: BookOpen, color: 'text-accent-cyan bg-accent-cyan/10', label: 'Preclinical' },
 };
 
 const tags = ['All', ...Array.from(new Set(researchFeed.map((r) => r.tag)))];
@@ -36,7 +36,7 @@ export function ResearchIntel() {
             key={tag}
             onClick={() => setFilter(tag)}
             className={`px-4 py-2 rounded-xl text-xs font-semibold transition-all ${
-              filter === tag ? 'bg-emerald-400 text-black' : 'glass text-zinc-400 hover:text-white'
+              filter === tag ? 'bg-accent-emerald text-black' : 'glass text-muted-foreground hover:text-foreground'
             }`}
           >
             {tag}
@@ -69,11 +69,11 @@ export function ResearchIntel() {
                     <span className={`text-[10px] font-semibold px-2 py-0.5 rounded-full ${style.color}`}>
                       {style.label}
                     </span>
-                    <span className="text-[10px] font-mono text-zinc-600">{article.date}</span>
-                    <span className="text-[10px] text-emerald-400/70">{article.tag}</span>
+                    <span className="text-[10px] font-mono text-caption">{article.date}</span>
+                    <span className="text-[10px] text-accent-emerald/70">{article.tag}</span>
                   </div>
                   <h3 className="font-bold text-base md:text-lg">{article.title}</h3>
-                  <p className="text-xs text-zinc-500 mt-1">{article.source}</p>
+                  <p className="text-xs text-muted-foreground mt-1">{article.source}</p>
                 </div>
               </button>
 
@@ -85,13 +85,13 @@ export function ResearchIntel() {
                     exit={{ height: 0, opacity: 0 }}
                     className="overflow-hidden"
                   >
-                    <div className="px-6 pb-6 pt-0 border-t border-white/[0.06] mx-6">
-                      <p className="text-sm text-zinc-400 leading-relaxed mb-4 pt-4">{article.summary}</p>
+                    <div className="px-6 pb-6 pt-0 border-t border-border mx-6">
+                      <p className="text-sm text-muted-foreground leading-relaxed mb-4 pt-4">{article.summary}</p>
                       <a
                         href={`https://pubmed.ncbi.nlm.nih.gov/${article.pmid}/`}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="inline-flex items-center gap-2 text-xs text-emerald-400 hover:text-cyan-400 transition-colors font-mono"
+                        className="inline-flex items-center gap-2 text-xs text-accent-emerald hover:text-accent-cyan transition-colors font-mono"
                       >
                         PubMed: {article.pmid} <ExternalLink className="w-3 h-3" />
                       </a>

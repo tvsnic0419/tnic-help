@@ -7,13 +7,13 @@ import { SectionShell } from '@/components/SectionShell';
 import { compounds } from '@/lib/data';
 import type { Compound } from '@/lib/types';
 
-const evidenceColors = { A: 'text-emerald-400 bg-emerald-400/10', B: 'text-cyan-400 bg-cyan-400/10', C: 'text-amber-400 bg-amber-400/10' };
+const evidenceColors = { A: 'text-accent-emerald bg-accent-emerald/10', B: 'text-accent-cyan bg-accent-cyan/10', C: 'text-accent-amber bg-accent-amber/10' };
 
 function CompoundPanel({ compound, compare }: { compound: Compound; compare?: boolean }) {
   return (
     <div className={`gradient-border p-6 ${compare ? 'h-full' : ''}`}>
       <div className="flex items-center justify-between mb-4">
-        <span className="text-xs font-medium text-cyan-400 bg-cyan-400/10 px-3 py-1 rounded-full">
+        <span className="text-xs font-medium text-accent-cyan bg-accent-cyan/10 px-3 py-1 rounded-full">
           {compound.badge.toUpperCase()}
         </span>
         <span className={`text-xs font-mono font-bold px-2 py-0.5 rounded ${evidenceColors[compound.evidence]}`}>
@@ -21,55 +21,55 @@ function CompoundPanel({ compound, compare }: { compound: Compound; compare?: bo
         </span>
       </div>
       <h3 className="text-xl font-bold mb-1">{compound.name}</h3>
-      <p className="text-xs text-zinc-500 mb-4">{compound.brand}</p>
+      <p className="text-xs text-muted-foreground mb-4">{compound.brand}</p>
 
       <div className="mb-4">
         <div className="flex justify-between text-xs mb-1">
-          <span className="text-zinc-500">Bioavailability</span>
-          <span className="font-mono text-cyan-400">{compound.bioavailability}%</span>
+          <span className="text-muted-foreground">Bioavailability</span>
+          <span className="font-mono text-accent-cyan">{compound.bioavailability}%</span>
         </div>
-        <div className="h-1 bg-zinc-800 rounded-full overflow-hidden">
-          <div className="h-full bg-cyan-400 rounded-full" style={{ width: `${compound.bioavailability}%` }} />
+        <div className="h-1 bg-muted rounded-full overflow-hidden">
+          <div className="h-full bg-accent-cyan rounded-full" style={{ width: `${compound.bioavailability}%` }} />
         </div>
       </div>
 
-      <p className="text-xs text-emerald-400/80 font-mono mb-3">{compound.pathway}</p>
-      <p className="text-sm text-zinc-300 mb-4 leading-relaxed">{compound.mechanism}</p>
+      <p className="text-xs text-accent-emerald/80 font-mono mb-3">{compound.pathway}</p>
+      <p className="text-sm text-foreground/80 mb-4 leading-relaxed">{compound.mechanism}</p>
 
       <div className="grid grid-cols-2 gap-3 text-xs mb-4">
         <div className="glass rounded-lg p-3">
-          <span className="text-zinc-500 block mb-1">Dose</span>
-          <span className="font-mono text-zinc-300">{compound.dose}</span>
+          <span className="text-muted-foreground block mb-1">Dose</span>
+          <span className="font-mono text-foreground/80">{compound.dose}</span>
         </div>
         <div className="glass rounded-lg p-3">
-          <span className="text-zinc-500 block mb-1">Timing</span>
-          <span className="font-mono text-zinc-300">{compound.timing}</span>
+          <span className="text-muted-foreground block mb-1">Timing</span>
+          <span className="font-mono text-foreground/80">{compound.timing}</span>
         </div>
       </div>
 
       <div className="flex flex-wrap gap-1.5 mb-4">
         {compound.hallmarks.map((h) => (
-          <span key={h} className="text-[10px] font-mono bg-violet-400/10 text-violet-400 px-2 py-0.5 rounded">
+          <span key={h} className="text-[10px] font-mono bg-accent-violet/10 text-accent-violet px-2 py-0.5 rounded">
             {h}
           </span>
         ))}
       </div>
 
       {compound.studies.length > 0 && (
-        <div className="mb-4 border-t border-white/[0.06] pt-4">
-          <p className="text-[10px] font-mono text-amber-400 uppercase tracking-wider mb-2">PubMed Evidence</p>
+        <div className="mb-4 border-t border-border pt-4">
+          <p className="text-[10px] font-mono text-accent-amber uppercase tracking-wider mb-2">PubMed Evidence</p>
           {compound.studies.map((s) => (
             <a
               key={s.pmid}
               href={`https://pubmed.ncbi.nlm.nih.gov/${s.pmid}/`}
               target="_blank"
               rel="noopener noreferrer"
-              className="flex items-start gap-2 text-xs text-zinc-400 hover:text-cyan-400 transition-colors mb-2 group"
+              className="flex items-start gap-2 text-xs text-muted-foreground hover:text-accent-cyan transition-colors mb-2 group"
             >
               <ExternalLink className="w-3 h-3 shrink-0 mt-0.5 opacity-50 group-hover:opacity-100" />
               <span>
-                <span className="text-zinc-300">{s.title}</span>
-                <span className="text-zinc-600 block font-mono">{s.journal} · {s.year}</span>
+                <span className="text-foreground/80">{s.title}</span>
+                <span className="text-caption block font-mono">{s.journal} · {s.year}</span>
               </span>
             </a>
           ))}
@@ -81,7 +81,7 @@ function CompoundPanel({ compound, compare }: { compound: Compound; compare?: bo
           href="https://amazon.com"
           target="_blank"
           rel="noopener noreferrer"
-          className="inline-flex items-center gap-2 text-sm text-zinc-300 hover:text-cyan-400 transition-colors"
+          className="inline-flex items-center gap-2 text-sm text-foreground/80 hover:text-accent-cyan transition-colors"
         >
           Shop Now <ChevronRight className="w-4 h-4" />
         </a>
@@ -109,13 +109,13 @@ export function CompoundLab() {
       badge="Molecule Intelligence Lab"
       title="Compound Deep Analysis"
       subtitle="Evidence tiers, bioavailability scores, mechanistic pathways, and hallmark targeting — not a catalog, a research instrument."
-      className="bg-[#030712]"
+      className="bg-background"
     >
       <div className="flex flex-wrap gap-3 mb-8">
         <button
           onClick={() => setViewMode('single')}
           className={`px-5 py-2.5 rounded-xl text-sm font-semibold transition-all ${
-            viewMode === 'single' ? 'bg-amber-400 text-black' : 'glass text-zinc-400'
+            viewMode === 'single' ? 'bg-accent-amber text-black' : 'glass text-muted-foreground'
           }`}
         >
           Single Analysis
@@ -123,7 +123,7 @@ export function CompoundLab() {
         <button
           onClick={() => setViewMode('compare')}
           className={`px-5 py-2.5 rounded-xl text-sm font-semibold transition-all flex items-center gap-2 ${
-            viewMode === 'compare' ? 'bg-amber-400 text-black' : 'glass text-zinc-400'
+            viewMode === 'compare' ? 'bg-accent-amber text-black' : 'glass text-muted-foreground'
           }`}
         >
           <GitCompareArrows className="w-4 h-4" />
@@ -132,7 +132,7 @@ export function CompoundLab() {
         <button
           onClick={() => setViewMode('matrix')}
           className={`px-5 py-2.5 rounded-xl text-sm font-semibold transition-all flex items-center gap-2 ${
-            viewMode === 'matrix' ? 'bg-amber-400 text-black' : 'glass text-zinc-400'
+            viewMode === 'matrix' ? 'bg-accent-amber text-black' : 'glass text-muted-foreground'
           }`}
         >
           <Table2 className="w-4 h-4" />
@@ -148,8 +148,8 @@ export function CompoundLab() {
               onClick={() => setSelected(c.id)}
               className={`px-4 py-2 rounded-xl text-xs font-semibold transition-all ${
                 selected === c.id && viewMode === 'single'
-                  ? 'bg-amber-400/20 text-amber-400 border border-amber-400/30'
-                  : 'glass text-zinc-400 hover:text-white'
+                  ? 'bg-accent-amber/20 text-accent-amber border border-accent-amber/30'
+                  : 'glass text-muted-foreground hover:text-foreground'
               }`}
             >
               {c.name}
@@ -169,7 +169,7 @@ export function CompoundLab() {
           >
             <CompoundPanel compound={active} />
             <div className="mt-6 glass rounded-xl p-5">
-              <p className="text-[10px] font-mono text-amber-400 uppercase tracking-wider mb-3">Synergy Partners</p>
+              <p className="text-[10px] font-mono text-accent-amber uppercase tracking-wider mb-3">Synergy Partners</p>
               <div className="flex flex-wrap gap-2">
                 {active.synergies.map((s) => {
                   const partner = compounds.find((c) => c.id === s);
@@ -177,7 +177,7 @@ export function CompoundLab() {
                     <button
                       key={s}
                       onClick={() => { setCompareB(s); setViewMode('compare'); }}
-                      className="text-xs glass px-3 py-2 rounded-lg hover:border-amber-400/30 transition-all"
+                      className="text-xs glass px-3 py-2 rounded-lg hover:border-accent-amber/30 transition-all"
                     >
                       + {partner.name}
                     </button>
@@ -194,15 +194,15 @@ export function CompoundLab() {
             exit={{ opacity: 0 }}
           >
             <div className="flex flex-wrap gap-2 mb-6">
-              <span className="text-xs text-zinc-500 self-center mr-2">Compare with:</span>
+              <span className="text-xs text-muted-foreground self-center mr-2">Compare with:</span>
               {compounds.filter((c) => c.id !== selected).map((c) => (
                 <button
                   key={c.id}
                   onClick={() => setCompareB(c.id)}
                   className={`px-4 py-2 rounded-xl text-xs font-semibold transition-all ${
                     compareB === c.id
-                      ? 'bg-amber-400/20 text-amber-400 border border-amber-400/30'
-                      : 'glass text-zinc-400'
+                      ? 'bg-accent-amber/20 text-accent-amber border border-accent-amber/30'
+                      : 'glass text-muted-foreground'
                   }`}
                 >
                   {c.name}
@@ -216,7 +216,7 @@ export function CompoundLab() {
 
               {sharedSynergy && (
                 <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 hidden md:flex">
-                  <div className="bg-emerald-400 text-black text-xs font-bold px-4 py-2 rounded-full shadow-[0_0_30px_rgba(52,211,153,0.4)]">
+                  <div className="bg-accent-emerald text-black text-xs font-bold px-4 py-2 rounded-full shadow-[0_0_30px_rgba(52,211,153,0.4)]">
                     SYNERGY DETECTED
                   </div>
                 </div>
@@ -224,7 +224,7 @@ export function CompoundLab() {
             </div>
 
             {sharedSynergy && (
-              <p className="md:hidden text-center text-emerald-400 text-sm font-semibold mt-4">
+              <p className="md:hidden text-center text-accent-emerald text-sm font-semibold mt-4">
                 ✓ Synergy Detected
               </p>
             )}
@@ -239,33 +239,33 @@ export function CompoundLab() {
           >
             <table className="w-full text-sm border-collapse min-w-[720px]">
               <thead>
-                <tr className="border-b border-white/10">
-                  <th className="text-left py-3 px-4 text-[10px] font-mono text-zinc-500 uppercase">Compound</th>
-                  <th className="text-left py-3 px-4 text-[10px] font-mono text-zinc-500 uppercase">Pathway</th>
-                  <th className="text-center py-3 px-4 text-[10px] font-mono text-zinc-500 uppercase">Evidence</th>
-                  <th className="text-center py-3 px-4 text-[10px] font-mono text-zinc-500 uppercase">Bioavail.</th>
-                  <th className="text-left py-3 px-4 text-[10px] font-mono text-zinc-500 uppercase">Dose</th>
-                  <th className="text-center py-3 px-4 text-[10px] font-mono text-zinc-500 uppercase">Timing</th>
-                  <th className="text-left py-3 px-4 text-[10px] font-mono text-zinc-500 uppercase">Hallmarks</th>
+                <tr className="border-b border-border">
+                  <th className="text-left py-3 px-4 text-[10px] font-mono text-muted-foreground uppercase">Compound</th>
+                  <th className="text-left py-3 px-4 text-[10px] font-mono text-muted-foreground uppercase">Pathway</th>
+                  <th className="text-center py-3 px-4 text-[10px] font-mono text-muted-foreground uppercase">Evidence</th>
+                  <th className="text-center py-3 px-4 text-[10px] font-mono text-muted-foreground uppercase">Bioavail.</th>
+                  <th className="text-left py-3 px-4 text-[10px] font-mono text-muted-foreground uppercase">Dose</th>
+                  <th className="text-center py-3 px-4 text-[10px] font-mono text-muted-foreground uppercase">Timing</th>
+                  <th className="text-left py-3 px-4 text-[10px] font-mono text-muted-foreground uppercase">Hallmarks</th>
                 </tr>
               </thead>
               <tbody>
                 {compounds.map((c) => (
-                  <tr key={c.id} className="border-b border-white/[0.04] hover:bg-white/[0.02] transition">
+                  <tr key={c.id} className="border-b border-border hover:bg-muted/30 transition">
                     <td className="py-3 px-4 font-semibold">{c.name}</td>
-                    <td className="py-3 px-4 text-xs text-cyan-400/80">{c.pathway}</td>
+                    <td className="py-3 px-4 text-xs text-accent-cyan/80">{c.pathway}</td>
                     <td className="py-3 px-4 text-center">
                       <span className={`text-xs font-mono font-bold px-2 py-0.5 rounded ${evidenceColors[c.evidence]}`}>
                         {c.evidence}
                       </span>
                     </td>
                     <td className="py-3 px-4 text-center font-mono text-xs">{c.bioavailability}%</td>
-                    <td className="py-3 px-4 text-xs font-mono text-zinc-400">{c.dose}</td>
+                    <td className="py-3 px-4 text-xs font-mono text-muted-foreground">{c.dose}</td>
                     <td className="py-3 px-4 text-center text-xs">{c.timing}</td>
                     <td className="py-3 px-4">
                       <div className="flex flex-wrap gap-1">
                         {c.hallmarks.map((h) => (
-                          <span key={h} className="text-[10px] font-mono bg-violet-400/10 text-violet-400 px-1.5 py-0.5 rounded">
+                          <span key={h} className="text-[10px] font-mono bg-accent-violet/10 text-accent-violet px-1.5 py-0.5 rounded">
                             {h}
                           </span>
                         ))}

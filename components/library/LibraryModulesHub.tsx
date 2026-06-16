@@ -53,7 +53,7 @@ export function LibraryModulesHub() {
     <section
       id="content-modules"
       aria-labelledby="modules-heading"
-      className="py-16 md:py-24 bg-[#030712] border-b border-white/[0.06]"
+      className="py-16 md:py-24 bg-background border-b border-border"
     >
       <div className="container-page">
         <PageHeader
@@ -71,7 +71,7 @@ export function LibraryModulesHub() {
             Search library modules
           </label>
           <Search
-            className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-zinc-500 pointer-events-none"
+            className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground pointer-events-none"
             aria-hidden="true"
           />
           <input
@@ -94,12 +94,12 @@ export function LibraryModulesHub() {
             return (
               <div key={category}>
                 <div className="flex items-start gap-4 mb-6">
-                  <div className="p-3 rounded-xl bg-emerald-400/10 border border-emerald-400/20 shrink-0">
-                    <Icon className="w-5 h-5 text-emerald-400" aria-hidden="true" />
+                  <div className="p-3 rounded-xl bg-accent-emerald/10 border border-accent-emerald/20 shrink-0">
+                    <Icon className="w-5 h-5 text-accent-emerald" aria-hidden="true" />
                   </div>
                   <div>
                     <h3 className="heading-section text-xl md:text-2xl">{meta.label}</h3>
-                    <p className="text-body-sm text-zinc-500 mt-1">{meta.description}</p>
+                    <p className="text-body-sm text-muted-foreground mt-1">{meta.description}</p>
                   </div>
                 </div>
 
@@ -113,15 +113,15 @@ export function LibraryModulesHub() {
                       <div className="flex items-center justify-between gap-2 mb-3">
                         <EvidenceTag tier={mod.evidenceTier} size="sm" />
                         {mod.requiresDisclaimer && (
-                          <span className="text-[10px] font-mono text-amber-400">Rx</span>
+                          <span className="text-[10px] font-mono text-accent-amber">Rx</span>
                         )}
                       </div>
-                      <h4 className="heading-card mb-1 group-hover:text-cyan-400 transition-colors">
+                      <h4 className="heading-card mb-1 group-hover:text-accent-cyan transition-colors">
                         {mod.title}
                       </h4>
-                      <p className="text-xs text-zinc-500 mb-3">{mod.tagline}</p>
+                      <p className="text-xs text-muted-foreground mb-3">{mod.tagline}</p>
                       <p className="text-body-sm flex-1">{mod.summary.slice(0, 120)}…</p>
-                      <span className="inline-flex items-center gap-1 mt-4 text-sm font-semibold text-cyan-400 group-hover:text-emerald-400">
+                      <span className="inline-flex items-center gap-1 mt-4 text-sm font-semibold text-accent-cyan group-hover:text-accent-emerald">
                         Deep dive <ArrowRight className="w-4 h-4" />
                       </span>
                     </Link>

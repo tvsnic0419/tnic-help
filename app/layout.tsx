@@ -3,6 +3,7 @@ import { Geist, Geist_Mono } from 'next/font/google';
 import { JsonLd } from '@/components/JsonLd';
 import { SkipLink } from '@/components/SkipLink';
 import { PlatformProviderWrapper } from '@/components/PlatformProviderWrapper';
+import { ThemeScript } from '@/components/theme/ThemeScript';
 import { SITE, LONGEVITY_KEYWORDS } from '@/lib/site';
 import './globals.css';
 
@@ -48,7 +49,10 @@ export const metadata: Metadata = {
 };
 
 export const viewport: Viewport = {
-  themeColor: '#030712',
+  themeColor: [
+    { media: '(prefers-color-scheme: light)', color: '#f8fafc' },
+    { media: '(prefers-color-scheme: dark)', color: '#030712' },
+  ],
   width: 'device-width',
   initialScale: 1,
 };
@@ -61,9 +65,11 @@ export default function RootLayout({
   return (
     <html
       lang="en"
+      suppressHydrationWarning
       className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
     >
       <head>
+        <ThemeScript />
         <JsonLd />
       </head>
       <body className="min-h-full">

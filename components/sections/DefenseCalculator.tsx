@@ -25,8 +25,8 @@ function SliderControl({
   return (
     <div>
       <div className="flex justify-between mb-2">
-        <label className="text-sm text-zinc-400">{label}</label>
-        <span className="font-mono text-sm text-white">
+        <label className="text-sm text-muted-foreground">{label}</label>
+        <span className="font-mono text-sm text-foreground">
           {value}{unit}
         </span>
       </div>
@@ -49,9 +49,9 @@ const recLabel = {
 };
 
 const recColor = {
-  nrf2: 'text-cyan-400',
-  mito: 'text-violet-400',
-  hybrid: 'text-emerald-400',
+  nrf2: 'text-accent-cyan',
+  mito: 'text-accent-violet',
+  hybrid: 'text-accent-emerald',
 };
 
 const recPreset: Record<string, PresetKey> = {
@@ -79,7 +79,7 @@ export function DefenseCalculator() {
       badge="Biological Age Engine"
       title="Biological Age Calculator"
       subtitle="DoNotAge sells biological age tests for $$$. InsideTracker requires blood draws. TNiC estimates your biological age from lifestyle inputs — then prescribes the stack to reverse it."
-      className="bg-[#030712]"
+      className="bg-background"
     >
       <div className="grid lg:grid-cols-2 gap-10">
         <div className="gradient-border p-8 space-y-6">
@@ -90,7 +90,7 @@ export function DefenseCalculator() {
 
           <button
             onClick={runScan}
-            className="w-full flex items-center justify-center gap-3 bg-rose-400 text-black py-4 rounded-2xl font-bold hover:bg-cyan-400 transition-all duration-300"
+            className="w-full flex items-center justify-center gap-3 bg-accent-rose text-black py-4 rounded-2xl font-bold hover:bg-accent-cyan transition-all duration-300"
           >
             <Scan className="w-5 h-5" />
             Execute Defense Scan
@@ -99,16 +99,16 @@ export function DefenseCalculator() {
 
         <div className="space-y-6">
           <div className="glass rounded-3xl p-8">
-            <p className="text-[10px] font-mono text-rose-400 uppercase tracking-wider mb-4">Priority Matrix</p>
+            <p className="text-[10px] font-mono text-accent-rose uppercase tracking-wider mb-4">Priority Matrix</p>
             <div className="space-y-4">
               <div>
                 <div className="flex justify-between text-sm mb-1">
-                  <span className="text-zinc-400">NRF2 Pathway</span>
-                  <span className="font-mono text-cyan-400">{defenseProfile.nrf2}%</span>
+                  <span className="text-muted-foreground">NRF2 Pathway</span>
+                  <span className="font-mono text-accent-cyan">{defenseProfile.nrf2}%</span>
                 </div>
-                <div className="h-2 bg-zinc-800 rounded-full overflow-hidden">
+                <div className="h-2 bg-muted rounded-full overflow-hidden">
                   <motion.div
-                    className="h-full bg-cyan-400 rounded-full"
+                    className="h-full bg-accent-cyan rounded-full"
                     animate={{ width: scanned ? `${defenseProfile.nrf2}%` : '0%' }}
                     transition={{ duration: 0.8 }}
                   />
@@ -116,12 +116,12 @@ export function DefenseCalculator() {
               </div>
               <div>
                 <div className="flex justify-between text-sm mb-1">
-                  <span className="text-zinc-400">Mitochondrial Pathway</span>
-                  <span className="font-mono text-violet-400">{defenseProfile.mito}%</span>
+                  <span className="text-muted-foreground">Mitochondrial Pathway</span>
+                  <span className="font-mono text-accent-violet">{defenseProfile.mito}%</span>
                 </div>
-                <div className="h-2 bg-zinc-800 rounded-full overflow-hidden">
+                <div className="h-2 bg-muted rounded-full overflow-hidden">
                   <motion.div
-                    className="h-full bg-violet-400 rounded-full"
+                    className="h-full bg-accent-violet rounded-full"
                     animate={{ width: scanned ? `${defenseProfile.mito}%` : '0%' }}
                     transition={{ duration: 0.8, delay: 0.1 }}
                   />
@@ -133,20 +133,20 @@ export function DefenseCalculator() {
               <motion.div
                 initial={{ opacity: 0, y: 10 }}
                 animate={{ opacity: 1, y: 0 }}
-                className="mt-8 pt-6 border-t border-white/[0.06]"
+                className="mt-8 pt-6 border-t border-border"
               >
                 <div className="grid grid-cols-3 gap-4 mb-6">
                   <div className="glass rounded-xl p-4 text-center">
-                    <p className="text-[10px] text-zinc-500 uppercase">Chronological</p>
+                    <p className="text-[10px] text-muted-foreground uppercase">Chronological</p>
                     <p className="text-2xl font-bold font-mono">{age}</p>
                   </div>
-                  <div className="glass rounded-xl p-4 text-center border border-rose-400/20">
-                    <p className="text-[10px] text-rose-400 uppercase">Biological</p>
-                    <p className="text-2xl font-bold font-mono text-rose-400">{defenseProfile.biologicalAge}</p>
+                  <div className="glass rounded-xl p-4 text-center border border-accent-rose/20">
+                    <p className="text-[10px] text-accent-rose uppercase">Biological</p>
+                    <p className="text-2xl font-bold font-mono text-accent-rose">{defenseProfile.biologicalAge}</p>
                   </div>
                   <div className="glass rounded-xl p-4 text-center">
-                    <p className="text-[10px] text-zinc-500 uppercase">Reversal</p>
-                    <p className={`text-2xl font-bold font-mono ${defenseProfile.ageDelta > 0 ? 'text-emerald-400' : 'text-amber-400'}`}>
+                    <p className="text-[10px] text-muted-foreground uppercase">Reversal</p>
+                    <p className={`text-2xl font-bold font-mono ${defenseProfile.ageDelta > 0 ? 'text-accent-emerald' : 'text-accent-amber'}`}>
                       {defenseProfile.ageDelta > 0 ? `-${defenseProfile.ageDelta}` : `+${Math.abs(defenseProfile.ageDelta)}`} yr
                     </p>
                   </div>
@@ -154,18 +154,18 @@ export function DefenseCalculator() {
 
                 <div className="flex items-center justify-between mb-4">
                   <div>
-                    <p className="text-xs text-zinc-500">Defense Index</p>
-                    <p className="text-4xl font-bold stat-glow text-rose-400">{defenseProfile.defenseScore}</p>
+                    <p className="text-xs text-muted-foreground">Defense Index</p>
+                    <p className="text-4xl font-bold stat-glow text-accent-rose">{defenseProfile.defenseScore}</p>
                   </div>
                   <div className="text-right">
-                    <p className="text-xs text-zinc-500">Recommended</p>
+                    <p className="text-xs text-muted-foreground">Recommended</p>
                     <p className={`font-bold ${recColor[defenseProfile.recommendation]}`}>
                       {recLabel[defenseProfile.recommendation]}
                     </p>
                   </div>
                 </div>
 
-                <p className="text-sm text-zinc-400 mb-4">
+                <p className="text-sm text-muted-foreground mb-4">
                   {defenseProfile.recommendation === 'nrf2'
                     ? 'High oxidative load detected. Prioritize NRF2 activation and glutathione restoration before mitochondrial optimization.'
                     : defenseProfile.recommendation === 'mito'
@@ -177,7 +177,7 @@ export function DefenseCalculator() {
                   {recommendedCompounds.map((c) => (
                     <div key={c.id} className="flex items-center justify-between glass rounded-lg px-4 py-3">
                       <span className="text-sm font-semibold">{c.name}</span>
-                      <span className="text-xs font-mono text-zinc-500">{c.dose}</span>
+                      <span className="text-xs font-mono text-muted-foreground">{c.dose}</span>
                     </div>
                   ))}
                 </div>
@@ -185,13 +185,13 @@ export function DefenseCalculator() {
                 <div className="mt-6 flex flex-col sm:flex-row gap-3">
                   <button
                     onClick={() => applyPreset(recPreset[defenseProfile.recommendation])}
-                    className="flex-1 flex items-center justify-center gap-2 bg-rose-400 text-black py-3 rounded-xl text-sm font-semibold hover:bg-cyan-400 transition-all"
+                    className="flex-1 flex items-center justify-center gap-2 bg-accent-rose text-black py-3 rounded-xl text-sm font-semibold hover:bg-accent-cyan transition-all"
                   >
                     Apply Recommended Stack
                   </button>
                   <a
                     href="#stacks"
-                    className="flex-1 flex items-center justify-center gap-2 glass py-3 rounded-xl text-sm text-rose-400 hover:text-cyan-400 transition-colors"
+                    className="flex-1 flex items-center justify-center gap-2 glass py-3 rounded-xl text-sm text-accent-rose hover:text-accent-cyan transition-colors"
                   >
                     Customize in Architect <ArrowRight className="w-4 h-4" />
                   </a>

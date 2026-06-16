@@ -72,29 +72,29 @@ export function SiteSearch() {
     <div className="relative">
       <button
         onClick={() => setOpen(!open)}
-        className="p-2 text-zinc-400 hover:text-white transition flex items-center gap-1"
+        className="p-2 text-muted-foreground hover:text-foreground transition flex items-center gap-1"
         aria-label="Search site (press /)"
         title="Search (/)"
       >
         <Search className="w-5 h-5" />
-        <span className="hidden xl:inline text-[10px] font-mono text-zinc-600 border border-white/10 px-1.5 py-0.5 rounded">/</span>
+        <span className="hidden xl:inline text-[10px] font-mono text-caption border border-border px-1.5 py-0.5 rounded">/</span>
       </button>
 
       {open && (
-        <div className="absolute right-0 top-full mt-2 w-80 md:w-96 glass rounded-2xl p-4 shadow-2xl z-50 border border-white/10">
+        <div className="absolute right-0 top-full mt-2 w-80 md:w-96 glass rounded-2xl p-4 shadow-2xl z-50 border border-border">
           <div className="flex items-center gap-2 mb-3">
-            <Search className="w-4 h-4 text-zinc-500 shrink-0" />
+            <Search className="w-4 h-4 text-muted-foreground shrink-0" />
             <input
               ref={inputRef}
               type="search"
               placeholder="Search FAQ, glossary, compounds…"
               value={query}
               onChange={(e) => setQuery(e.target.value)}
-              className="flex-1 bg-transparent text-sm outline-none placeholder:text-zinc-600"
+              className="flex-1 bg-transparent text-sm outline-none placeholder:text-caption"
               aria-label="Search"
             />
             <button onClick={() => { setOpen(false); setQuery(''); }} aria-label="Close search">
-              <X className="w-4 h-4 text-zinc-500" />
+              <X className="w-4 h-4 text-muted-foreground" />
             </button>
           </div>
           {results.length > 0 ? (
@@ -104,19 +104,19 @@ export function SiteSearch() {
                   <a
                     href={r.href}
                     onClick={() => setOpen(false)}
-                    className="block p-2 rounded-lg hover:bg-white/5 transition text-sm"
+                    className="block p-2 rounded-lg hover:bg-muted/50 transition text-sm"
                   >
-                    <span className="text-[10px] font-mono text-cyan-400">{r.type}</span>
+                    <span className="text-[10px] font-mono text-accent-cyan">{r.type}</span>
                     <p className="font-semibold">{r.title}</p>
-                    <p className="text-xs text-zinc-500 line-clamp-1">{r.excerpt}</p>
+                    <p className="text-xs text-muted-foreground line-clamp-1">{r.excerpt}</p>
                   </a>
                 </li>
               ))}
             </ul>
           ) : query.length >= 2 ? (
-            <p className="text-xs text-zinc-500 py-2">No results. Try NRF2, glutathione, or safety.</p>
+            <p className="text-xs text-muted-foreground py-2">No results. Try NRF2, glutathione, or safety.</p>
           ) : (
-            <p className="text-xs text-zinc-600 py-2">Type 2+ characters. Press Esc to close.</p>
+            <p className="text-xs text-caption py-2">Type 2+ characters. Press Esc to close.</p>
           )}
         </div>
       )}

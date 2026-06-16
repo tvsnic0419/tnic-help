@@ -34,19 +34,19 @@ export function InterventionExplorer({
   return (
     <div>
       <div className="flex flex-wrap items-center gap-3 mb-5">
-        <Filter className="w-4 h-4 text-zinc-500" />
+        <Filter className="w-4 h-4 text-muted-foreground" />
         {(['all', 'compound', 'lifestyle', 'clinical', 'emerging'] as const).map((cat) => (
           <button
             key={cat}
             onClick={() => setFilter(cat)}
             className={`px-3 py-1.5 rounded-lg text-[10px] font-semibold transition ${
-              filter === cat ? 'bg-cyan-400 text-black' : 'glass text-zinc-500 hover:text-white'
+              filter === cat ? 'bg-accent-cyan text-black' : 'glass text-muted-foreground hover:text-foreground'
             }`}
           >
             {cat === 'all' ? 'All' : categoryLabels[cat]}
           </button>
         ))}
-        <label className="flex items-center gap-2 text-[10px] text-zinc-500 ml-auto cursor-pointer">
+        <label className="flex items-center gap-2 text-[10px] text-muted-foreground ml-auto cursor-pointer">
           <input
             type="checkbox"
             checked={tnicOnly}
@@ -61,25 +61,25 @@ export function InterventionExplorer({
         {sorted.map((item) => (
           <div
             key={item.id}
-            className={`glass rounded-xl p-4 flex gap-4 ${item.tnicAvailable ? 'border border-cyan-400/10' : ''}`}
+            className={`glass rounded-xl p-4 flex gap-4 ${item.tnicAvailable ? 'border border-accent-cyan/10' : ''}`}
           >
-            <div className="w-8 h-8 rounded-lg bg-white/5 flex items-center justify-center shrink-0 font-mono text-sm font-bold text-zinc-500">
+            <div className="w-8 h-8 rounded-lg bg-muted/50 flex items-center justify-center shrink-0 font-mono text-sm font-bold text-muted-foreground">
               {item.rank}
             </div>
             <div className="flex-1 min-w-0">
               <div className="flex flex-wrap items-center gap-2 mb-1">
                 <h4 className="font-semibold text-sm">{item.name}</h4>
                 <EvidenceTag tier={item.evidence} size="sm" />
-                <span className="text-[10px] text-zinc-600">{categoryLabels[item.category]}</span>
+                <span className="text-[10px] text-caption">{categoryLabels[item.category]}</span>
                 {item.tnicAvailable && (
-                  <span className="text-[10px] text-cyan-400 font-semibold">IN TNiC STACK</span>
+                  <span className="text-[10px] text-accent-cyan font-semibold">IN TNiC STACK</span>
                 )}
               </div>
-              <p className="text-xs text-zinc-500 leading-relaxed">{item.description}</p>
+              <p className="text-xs text-muted-foreground leading-relaxed">{item.description}</p>
               <div className="flex flex-wrap gap-3 mt-2">
-                <span className="text-[10px] font-mono text-zinc-600">Impact: {item.impact}/10</span>
+                <span className="text-[10px] font-mono text-caption">Impact: {item.impact}/10</span>
                 {item.compoundId && (
-                  <a href={`/#compounds`} className="text-[10px] text-violet-400 hover:underline">
+                  <a href={`/#compounds`} className="text-[10px] text-accent-violet hover:underline">
                     View {compounds.find((c) => c.id === item.compoundId)?.name}
                   </a>
                 )}
@@ -91,7 +91,7 @@ export function InterventionExplorer({
       </div>
 
       {sorted.length === 0 && (
-        <p className="text-sm text-zinc-500 py-6 text-center">
+        <p className="text-sm text-muted-foreground py-6 text-center">
           No interventions match filters for {hallmarkTitle}.
         </p>
       )}

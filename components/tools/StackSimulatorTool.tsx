@@ -21,7 +21,7 @@ import { Progress } from '@/components/ui/Progress';
 import { ToolDisclaimer } from './ToolDisclaimer';
 
 const scoreColor = (s: number) =>
-  s >= 75 ? 'text-emerald-400' : s >= 50 ? 'text-cyan-400' : s >= 25 ? 'text-amber-400' : 'text-zinc-500';
+  s >= 75 ? 'text-accent-emerald' : s >= 50 ? 'text-accent-cyan' : s >= 25 ? 'text-accent-amber' : 'text-muted-foreground';
 
 const riskVariant = (l: string): 'success' | 'warning' | 'danger' | 'info' => {
   if (l === 'low') return 'success';
@@ -69,14 +69,14 @@ export function StackSimulatorTool() {
                       onClick={() => toggle(c.id)}
                       className={`focus-ring interactive text-left p-4 rounded-xl transition-all ${
                         isOn
-                          ? 'bg-violet-400/10 border border-violet-400/40'
+                          ? 'bg-accent-violet/10 border border-accent-violet/40'
                           : 'glass glass-hover opacity-80 hover:opacity-100'
                       }`}
                     >
                       <div className="flex items-center justify-between mb-2">
                         <span
                           className={`w-5 h-5 rounded-md flex items-center justify-center ${
-                            isOn ? 'bg-violet-400 text-black' : 'border border-zinc-600'
+                            isOn ? 'bg-accent-violet text-black' : 'border border-zinc-600'
                           }`}
                         >
                           {isOn && <Check className="w-3 h-3" />}
@@ -84,7 +84,7 @@ export function StackSimulatorTool() {
                         <EvidenceTag tier={c.evidence} size="sm" />
                       </div>
                       <h4 className="font-bold text-sm">{c.name}</h4>
-                      <p className="text-xs text-zinc-500">{c.dose}</p>
+                      <p className="text-xs text-muted-foreground">{c.dose}</p>
                     </button>
                   );
                 })}
@@ -103,19 +103,19 @@ export function StackSimulatorTool() {
                   <CardContent className="space-y-4">
                     <div>
                       <div className="flex items-center gap-2 mb-3">
-                        <Sun className="w-4 h-4 text-amber-400" />
-                        <span className="text-label text-amber-400">AM protocol</span>
+                        <Sun className="w-4 h-4 text-accent-amber" />
+                        <span className="text-label text-accent-amber">AM protocol</span>
                       </div>
                       <ul className="space-y-2">
                         {result.dosingSchedule.am.map((d) => (
                           <li key={d.compoundId} className="glass rounded-lg p-3 text-sm">
                             <div className="flex justify-between gap-2">
-                              <span className="font-semibold text-white">{d.name}</span>
+                              <span className="font-semibold text-foreground">{d.name}</span>
                               <EvidenceTag tier={d.evidence} size="sm" />
                             </div>
-                            <p className="text-cyan-400 font-mono text-xs mt-1">{d.adjustedDose}</p>
+                            <p className="text-accent-cyan font-mono text-xs mt-1">{d.adjustedDose}</p>
                             {d.adjustmentReason && (
-                              <p className="text-caption text-zinc-600 mt-1">{d.adjustmentReason}</p>
+                              <p className="text-caption text-caption mt-1">{d.adjustmentReason}</p>
                             )}
                           </li>
                         ))}
@@ -124,14 +124,14 @@ export function StackSimulatorTool() {
                     {result.dosingSchedule.pm.length > 0 && (
                       <div>
                         <div className="flex items-center gap-2 mb-3">
-                          <Moon className="w-4 h-4 text-violet-400" />
-                          <span className="text-label text-violet-400">PM protocol</span>
+                          <Moon className="w-4 h-4 text-accent-violet" />
+                          <span className="text-label text-accent-violet">PM protocol</span>
                         </div>
                         <ul className="space-y-2">
                           {result.dosingSchedule.pm.map((d) => (
                             <li key={d.compoundId} className="glass rounded-lg p-3 text-sm">
-                              <span className="font-semibold text-white">{d.name}</span>
-                              <p className="text-violet-400 font-mono text-xs mt-1">{d.adjustedDose}</p>
+                              <span className="font-semibold text-foreground">{d.name}</span>
+                              <p className="text-accent-violet font-mono text-xs mt-1">{d.adjustedDose}</p>
                             </li>
                           ))}
                         </ul>
@@ -146,7 +146,7 @@ export function StackSimulatorTool() {
 
         <div className="lg:col-span-5 space-y-5">
           <Card elevated className="text-center">
-            <p className="text-label text-violet-400 mb-1">Synergy score</p>
+            <p className="text-label text-accent-violet mb-1">Synergy score</p>
             <motion.p
               key={result.analysis.score}
               className={`text-5xl font-bold ${scoreColor(result.analysis.score)}`}
@@ -158,18 +158,18 @@ export function StackSimulatorTool() {
             </div>
             <div className="grid grid-cols-3 gap-2 mt-4">
               <div className="glass rounded-lg py-2">
-                <p className="text-lg font-bold text-cyan-400">{result.analysis.hallmarkCount}</p>
-                <p className="text-[9px] font-mono text-zinc-500">HALLMARKS</p>
+                <p className="text-lg font-bold text-accent-cyan">{result.analysis.hallmarkCount}</p>
+                <p className="text-[9px] font-mono text-muted-foreground">HALLMARKS</p>
               </div>
               <div className="glass rounded-lg py-2">
-                <p className="text-lg font-bold text-emerald-400">Tier {result.analysis.evidenceTier}</p>
-                <p className="text-[9px] font-mono text-zinc-500">EVIDENCE</p>
+                <p className="text-lg font-bold text-accent-emerald">Tier {result.analysis.evidenceTier}</p>
+                <p className="text-[9px] font-mono text-muted-foreground">EVIDENCE</p>
               </div>
               <div className="glass rounded-lg py-2">
-                <p className="text-lg font-bold text-amber-400">
+                <p className="text-lg font-bold text-accent-amber">
                   ${result.analysis.monthlyCost.low}–{result.analysis.monthlyCost.high}
                 </p>
-                <p className="text-[9px] font-mono text-zinc-500">/MO</p>
+                <p className="text-[9px] font-mono text-muted-foreground">/MO</p>
               </div>
             </div>
             <p className="text-body-sm mt-4 text-left">{result.summaryVerdict}</p>
@@ -211,19 +211,19 @@ export function StackSimulatorTool() {
               ) : (
                 <ul className="space-y-2 max-h-64 overflow-y-auto scroll-region">
                   {result.sideEffectRisks.slice(0, 12).map((r) => (
-                    <li key={r.id} className="flex gap-2 text-xs p-2 rounded-lg bg-white/[0.02]">
+                    <li key={r.id} className="flex gap-2 text-xs p-2 rounded-lg bg-muted/30">
                       {r.category === 'interaction' ? (
-                        <ShieldAlert className="w-3.5 h-3.5 text-rose-400 shrink-0 mt-0.5" />
+                        <ShieldAlert className="w-3.5 h-3.5 text-accent-rose shrink-0 mt-0.5" />
                       ) : r.severity === 'high' ? (
-                        <AlertTriangle className="w-3.5 h-3.5 text-rose-400 shrink-0 mt-0.5" />
+                        <AlertTriangle className="w-3.5 h-3.5 text-accent-rose shrink-0 mt-0.5" />
                       ) : r.category === 'caution' ? (
-                        <Sparkles className="w-3.5 h-3.5 text-amber-400 shrink-0 mt-0.5" />
+                        <Sparkles className="w-3.5 h-3.5 text-accent-amber shrink-0 mt-0.5" />
                       ) : (
-                        <AlertTriangle className="w-3.5 h-3.5 text-amber-400 shrink-0 mt-0.5" />
+                        <AlertTriangle className="w-3.5 h-3.5 text-accent-amber shrink-0 mt-0.5" />
                       )}
                       <div>
-                        <span className="text-zinc-300">{r.risk}</span>
-                        <p className="text-zinc-600 mt-0.5">{r.compoundName}</p>
+                        <span className="text-foreground/80">{r.risk}</span>
+                        <p className="text-caption mt-0.5">{r.compoundName}</p>
                       </div>
                     </li>
                   ))}
@@ -242,10 +242,10 @@ export function StackSimulatorTool() {
                   {result.analysis.interactions
                     .filter((i) => i.type === 'synergy')
                     .map((i) => (
-                      <li key={i.title} className="text-xs text-zinc-400 flex gap-2">
-                        <Sparkles className="w-3.5 h-3.5 text-emerald-400 shrink-0" />
+                      <li key={i.title} className="text-xs text-muted-foreground flex gap-2">
+                        <Sparkles className="w-3.5 h-3.5 text-accent-emerald shrink-0" />
                         <span>
-                          <strong className="text-emerald-400">{i.title}</strong> — {i.detail}
+                          <strong className="text-accent-emerald">{i.title}</strong> — {i.detail}
                         </span>
                       </li>
                     ))}

@@ -16,7 +16,7 @@ interface SelectProps {
 export function Select({ label, value, onChange, options, hint }: SelectProps) {
   return (
     <div>
-      <label className="text-sm text-zinc-400 block mb-2">{label}</label>
+      <label className="text-sm text-muted-foreground block mb-2">{label}</label>
       <select
         value={value}
         onChange={(e) => onChange(e.target.value)}
@@ -28,7 +28,7 @@ export function Select({ label, value, onChange, options, hint }: SelectProps) {
           </option>
         ))}
       </select>
-      {hint && <p className="text-caption text-zinc-600 mt-1">{hint}</p>}
+      {hint && <p className="text-caption text-caption mt-1">{hint}</p>}
     </div>
   );
 }

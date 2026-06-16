@@ -79,8 +79,8 @@ export function BiomarkerInput() {
             onClick={() => setMode(m.id)}
             className={`px-4 py-2 rounded-xl text-xs font-semibold transition-all ${
               mode === m.id
-                ? 'bg-rose-400 text-black'
-                : 'glass text-zinc-400 hover:text-white'
+                ? 'bg-accent-rose text-black'
+                : 'glass text-muted-foreground hover:text-foreground'
             }`}
           >
             {m.label}
@@ -92,8 +92,8 @@ export function BiomarkerInput() {
         <div
           className={`flex items-center gap-2 text-xs mb-4 px-3 py-2 rounded-lg ${
             uploadMsg.type === 'success'
-              ? 'bg-emerald-400/10 text-emerald-400'
-              : 'bg-rose-400/10 text-rose-400'
+              ? 'bg-accent-emerald/10 text-accent-emerald'
+              : 'bg-accent-rose/10 text-accent-rose'
           }`}
         >
           {uploadMsg.type === 'success' ? (
@@ -108,7 +108,7 @@ export function BiomarkerInput() {
       {mode === 'single' && (
         <div className="space-y-4">
           <div>
-            <label className="text-xs text-zinc-500 block mb-1">Biomarker</label>
+            <label className="text-xs text-muted-foreground block mb-1">Biomarker</label>
             <select
               value={markerId}
               onChange={(e) => setMarkerId(e.target.value)}
@@ -123,7 +123,7 @@ export function BiomarkerInput() {
           </div>
           <div className="grid grid-cols-2 gap-4">
             <div>
-              <label className="text-xs text-zinc-500 block mb-1">Value</label>
+              <label className="text-xs text-muted-foreground block mb-1">Value</label>
               <input
                 type="number"
                 step="0.01"
@@ -134,7 +134,7 @@ export function BiomarkerInput() {
               />
             </div>
             <div>
-              <label className="text-xs text-zinc-500 block mb-1">Test Date</label>
+              <label className="text-xs text-muted-foreground block mb-1">Test Date</label>
               <input
                 type="date"
                 value={date}
@@ -143,13 +143,13 @@ export function BiomarkerInput() {
               />
             </div>
           </div>
-          <p className="text-[10px] text-zinc-600">
+          <p className="text-[10px] text-caption">
             Optimal: {biomarkers.find((b) => b.id === markerId)?.optimal}{' '}
             {biomarkers.find((b) => b.id === markerId)?.unit}
           </p>
           <button
             onClick={addSingle}
-            className="w-full flex items-center justify-center gap-2 bg-rose-400 text-black py-3 rounded-xl font-semibold text-sm hover:bg-cyan-400 transition-all"
+            className="w-full flex items-center justify-center gap-2 bg-accent-rose text-black py-3 rounded-xl font-semibold text-sm hover:bg-accent-cyan transition-all"
           >
             <Plus className="w-4 h-4" /> Log Result
           </button>
@@ -159,7 +159,7 @@ export function BiomarkerInput() {
       {mode === 'panel' && (
         <div className="space-y-4">
           <div>
-            <label className="text-xs text-zinc-500 block mb-1">Panel Date</label>
+            <label className="text-xs text-muted-foreground block mb-1">Panel Date</label>
             <input
               type="date"
               value={panelDate}
@@ -167,11 +167,11 @@ export function BiomarkerInput() {
               className="input-base"
             />
           </div>
-          <p className="text-[10px] font-mono text-rose-400 uppercase">Enter values from your blood panel (leave blank to skip)</p>
+          <p className="text-[10px] font-mono text-accent-rose uppercase">Enter values from your blood panel (leave blank to skip)</p>
           <div className="grid sm:grid-cols-2 gap-3 max-h-[320px] overflow-y-auto pr-1">
             {biomarkers.map((b) => (
               <div key={b.id} className="glass rounded-xl p-3">
-                <label className="text-xs font-semibold text-zinc-300 block mb-1">{b.name}</label>
+                <label className="text-xs font-semibold text-foreground/80 block mb-1">{b.name}</label>
                 <div className="flex items-center gap-2">
                   <input
                     type="number"
@@ -181,14 +181,14 @@ export function BiomarkerInput() {
                     placeholder={b.optimal}
                     className="input-base flex-1 !min-h-10"
                   />
-                  <span className="text-[10px] text-zinc-600 shrink-0">{b.unit}</span>
+                  <span className="text-[10px] text-caption shrink-0">{b.unit}</span>
                 </div>
               </div>
             ))}
           </div>
           <button
             onClick={addPanel}
-            className="w-full flex items-center justify-center gap-2 bg-rose-400 text-black py-3 rounded-xl font-semibold text-sm hover:bg-cyan-400 transition-all"
+            className="w-full flex items-center justify-center gap-2 bg-accent-rose text-black py-3 rounded-xl font-semibold text-sm hover:bg-accent-cyan transition-all"
           >
             <Plus className="w-4 h-4" /> Log Panel
           </button>
@@ -205,11 +205,11 @@ export function BiomarkerInput() {
               const file = e.dataTransfer.files[0];
               if (file) onFile(file);
             }}
-            className="border-2 border-dashed border-white/10 rounded-2xl p-8 text-center cursor-pointer hover:border-rose-400/30 transition"
+            className="border-2 border-dashed border-border rounded-2xl p-8 text-center cursor-pointer hover:border-accent-rose/30 transition"
           >
-            <Upload className="w-8 h-8 text-rose-400 mx-auto mb-3" />
+            <Upload className="w-8 h-8 text-accent-rose mx-auto mb-3" />
             <p className="text-sm font-semibold mb-1">Drop CSV or click to upload</p>
-            <p className="text-xs text-zinc-500">Processed locally — file never leaves your browser</p>
+            <p className="text-xs text-muted-foreground">Processed locally — file never leaves your browser</p>
             <input
               ref={fileRef}
               type="file"
@@ -224,7 +224,7 @@ export function BiomarkerInput() {
           </div>
 
           <div>
-            <label className="text-xs text-zinc-500 block mb-1 flex items-center gap-2">
+            <label className="text-xs text-muted-foreground block mb-1 flex items-center gap-2">
               <ClipboardPaste className="w-3.5 h-3.5" /> Or paste CSV
             </label>
             <textarea
@@ -237,17 +237,17 @@ export function BiomarkerInput() {
             <button
               onClick={() => pasteText && handleCsv(pasteText)}
               disabled={!pasteText.trim()}
-              className="mt-2 text-xs font-semibold text-rose-400 hover:text-cyan-400 transition disabled:opacity-40"
+              className="mt-2 text-xs font-semibold text-accent-rose hover:text-accent-cyan transition disabled:opacity-40"
             >
               Parse & Import
             </button>
           </div>
 
           <details className="glass rounded-xl p-4">
-            <summary className="text-xs font-semibold text-zinc-400 cursor-pointer flex items-center gap-2">
+            <summary className="text-xs font-semibold text-muted-foreground cursor-pointer flex items-center gap-2">
               <FileText className="w-3.5 h-3.5" /> CSV Template Format
             </summary>
-            <pre className="mt-3 text-[10px] font-mono text-zinc-600 overflow-x-auto whitespace-pre">
+            <pre className="mt-3 text-[10px] font-mono text-caption overflow-x-auto whitespace-pre">
               {LABS_CSV_TEMPLATE}
             </pre>
           </details>

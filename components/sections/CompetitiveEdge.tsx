@@ -31,7 +31,7 @@ export function CompetitiveEdge() {
       badge="Competitive Intelligence"
       title="Why TNiC Wins"
       subtitle="We studied Blueprint, DoNotAge, InsideTracker, Lifespan.io, and Function Health — then built what none of them offer alone."
-      className="bg-[#030712]"
+      className="bg-background"
     >
       <div className="flex flex-wrap gap-2 mb-10">
         {competitors.map((c, i) => (
@@ -39,7 +39,7 @@ export function CompetitiveEdge() {
             key={c.name}
             onClick={() => setSelected(i)}
             className={`px-4 py-2.5 rounded-xl text-xs font-semibold transition-all ${
-              selected === i ? 'bg-amber-400 text-black' : 'glass text-zinc-400 hover:text-white'
+              selected === i ? 'bg-accent-amber text-black' : 'glass text-muted-foreground hover:text-foreground'
             }`}
           >
             vs {c.name.split(' ')[0]}
@@ -56,24 +56,24 @@ export function CompetitiveEdge() {
           className="grid lg:grid-cols-2 gap-8 mb-16"
         >
           <div className="gradient-border p-8">
-            <p className="text-[10px] font-mono text-zinc-500 uppercase mb-2">Competitor</p>
+            <p className="text-[10px] font-mono text-muted-foreground uppercase mb-2">Competitor</p>
             <h3 className="text-2xl font-bold mb-2">{comp.name}</h3>
-            <p className="text-sm text-zinc-400 mb-6">{comp.focus}</p>
+            <p className="text-sm text-muted-foreground mb-6">{comp.focus}</p>
 
             <div className="grid sm:grid-cols-2 gap-6">
               <div>
-                <p className="text-[10px] font-mono text-emerald-400 uppercase mb-3">Their Strengths</p>
+                <p className="text-[10px] font-mono text-accent-emerald uppercase mb-3">Their Strengths</p>
                 {comp.strengths.map((s) => (
-                  <div key={s} className="flex items-center gap-2 text-sm text-zinc-300 mb-2">
-                    <Check className="w-3.5 h-3.5 text-emerald-400 shrink-0" /> {s}
+                  <div key={s} className="flex items-center gap-2 text-sm text-foreground/80 mb-2">
+                    <Check className="w-3.5 h-3.5 text-accent-emerald shrink-0" /> {s}
                   </div>
                 ))}
               </div>
               <div>
-                <p className="text-[10px] font-mono text-rose-400 uppercase mb-3">Their Gaps</p>
+                <p className="text-[10px] font-mono text-accent-rose uppercase mb-3">Their Gaps</p>
                 {comp.gaps.map((g) => (
-                  <div key={g} className="flex items-center gap-2 text-sm text-zinc-400 mb-2">
-                    <X className="w-3.5 h-3.5 text-rose-400 shrink-0" /> {g}
+                  <div key={g} className="flex items-center gap-2 text-sm text-muted-foreground mb-2">
+                    <X className="w-3.5 h-3.5 text-accent-rose shrink-0" /> {g}
                   </div>
                 ))}
               </div>
@@ -81,13 +81,13 @@ export function CompetitiveEdge() {
           </div>
 
           <div className="gradient-border p-8 relative overflow-hidden">
-            <div className="absolute top-0 right-0 w-40 h-40 bg-amber-400/5 rounded-full blur-3xl" />
+            <div className="absolute top-0 right-0 w-40 h-40 bg-accent-amber/5 rounded-full blur-3xl" />
             <div className="relative">
               <div className="flex items-center gap-2 mb-4">
-                <Crown className="w-5 h-5 text-amber-400" />
-                <p className="text-[10px] font-mono text-amber-400 uppercase tracking-wider">TNiC Advantage</p>
+                <Crown className="w-5 h-5 text-accent-amber" />
+                <p className="text-[10px] font-mono text-accent-amber uppercase tracking-wider">TNiC Advantage</p>
               </div>
-              <p className="text-lg leading-relaxed text-zinc-200">{comp.tnicAdvantage}</p>
+              <p className="text-lg leading-relaxed text-foreground">{comp.tnicAdvantage}</p>
             </div>
           </div>
         </motion.div>
@@ -96,25 +96,25 @@ export function CompetitiveEdge() {
       <div className="overflow-x-auto">
         <table className="w-full text-sm">
           <thead>
-            <tr className="border-b border-white/[0.06]">
-              <th className="text-left py-4 pr-4 text-zinc-500 font-medium">Capability</th>
-              <th className="py-4 px-3 text-center text-amber-400 font-bold">TNiC</th>
-              <th className="py-4 px-3 text-center text-zinc-500 font-medium">Blueprint</th>
-              <th className="py-4 px-3 text-center text-zinc-500 font-medium">DoNotAge</th>
-              <th className="py-4 px-3 text-center text-zinc-500 font-medium">InsideTracker</th>
-              <th className="py-4 px-3 text-center text-zinc-500 font-medium">Lifespan</th>
+            <tr className="border-b border-border">
+              <th className="text-left py-4 pr-4 text-muted-foreground font-medium">Capability</th>
+              <th className="py-4 px-3 text-center text-accent-amber font-bold">TNiC</th>
+              <th className="py-4 px-3 text-center text-muted-foreground font-medium">Blueprint</th>
+              <th className="py-4 px-3 text-center text-muted-foreground font-medium">DoNotAge</th>
+              <th className="py-4 px-3 text-center text-muted-foreground font-medium">InsideTracker</th>
+              <th className="py-4 px-3 text-center text-muted-foreground font-medium">Lifespan</th>
             </tr>
           </thead>
           <tbody>
             {featureMatrix.map((row) => (
-              <tr key={row.feature} className="border-b border-white/[0.04] hover:bg-white/[0.02] transition">
-                <td className="py-3.5 pr-4 text-zinc-300">{row.feature}</td>
+              <tr key={row.feature} className="border-b border-border hover:bg-muted/30 transition">
+                <td className="py-3.5 pr-4 text-foreground/80">{row.feature}</td>
                 {(['tnic', 'blueprint', 'donotage', 'insidetracker', 'lifespan'] as const).map((key) => (
                   <td key={key} className="py-3.5 px-3 text-center">
                     {row[key] ? (
-                      <Check className={`w-4 h-4 mx-auto ${key === 'tnic' ? 'text-amber-400' : 'text-emerald-400/60'}`} />
+                      <Check className={`w-4 h-4 mx-auto ${key === 'tnic' ? 'text-accent-amber' : 'text-accent-emerald/60'}`} />
                     ) : (
-                      <X className="w-4 h-4 mx-auto text-zinc-700" />
+                      <X className="w-4 h-4 mx-auto text-muted-foreground/50" />
                     )}
                   </td>
                 ))}

@@ -1,13 +1,14 @@
 import type { ReactNode } from 'react';
+import { cn } from '@/lib/utils';
 
 type BadgeVariant = 'default' | 'success' | 'warning' | 'danger' | 'info';
 
 const variants: Record<BadgeVariant, string> = {
-  default: 'bg-white/5 text-zinc-400 border-white/10',
-  success: 'bg-emerald-400/10 text-emerald-400 border-emerald-400/30',
-  warning: 'bg-amber-400/10 text-amber-400 border-amber-400/30',
-  danger: 'bg-rose-400/10 text-rose-400 border-rose-400/30',
-  info: 'bg-cyan-400/10 text-cyan-400 border-cyan-400/30',
+  default: 'bg-muted/50 text-muted-foreground border-border',
+  success: 'badge-optimal',
+  warning: 'badge-watch',
+  danger: 'badge-critical',
+  info: 'text-accent-cyan bg-accent-cyan/10 border-accent-cyan/30',
 };
 
 export function Badge({
@@ -21,7 +22,11 @@ export function Badge({
 }) {
   return (
     <span
-      className={`inline-flex items-center text-[10px] font-mono font-bold uppercase tracking-wider px-2 py-0.5 rounded border ${variants[variant]} ${className}`}
+      className={cn(
+        'inline-flex items-center text-[10px] font-mono font-bold uppercase tracking-wider px-2 py-0.5 rounded border',
+        variants[variant],
+        className,
+      )}
     >
       {children}
     </span>

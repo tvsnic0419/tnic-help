@@ -13,7 +13,7 @@ export function CitationList({ citations, title = 'Sources', compact = false }: 
   return (
     <section aria-labelledby={title ? 'citation-list-heading' : undefined}>
       {title && (
-        <h3 id="citation-list-heading" className="text-label text-emerald-400 mb-4">
+        <h3 id="citation-list-heading" className="text-label text-accent-emerald mb-4">
           {title}
         </h3>
       )}

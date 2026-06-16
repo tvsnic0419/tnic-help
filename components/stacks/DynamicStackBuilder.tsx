@@ -9,12 +9,12 @@ import { analyzeStack } from '@/lib/stack-analysis';
 import { StackExport } from './StackExport';
 
 const scoreColor = (score: number) =>
-  score >= 75 ? 'text-emerald-400' : score >= 50 ? 'text-cyan-400' : score >= 25 ? 'text-amber-400' : 'text-zinc-500';
+  score >= 75 ? 'text-accent-emerald' : score >= 50 ? 'text-accent-cyan' : score >= 25 ? 'text-accent-amber' : 'text-muted-foreground';
 
 const interactionIcon = (type: string) => {
-  if (type === 'synergy') return <Sparkles className="w-3.5 h-3.5 text-emerald-400" />;
-  if (type === 'contraindication') return <ShieldAlert className="w-3.5 h-3.5 text-rose-400" />;
-  return <AlertTriangle className="w-3.5 h-3.5 text-amber-400" />;
+  if (type === 'synergy') return <Sparkles className="w-3.5 h-3.5 text-accent-emerald" />;
+  if (type === 'contraindication') return <ShieldAlert className="w-3.5 h-3.5 text-accent-rose" />;
+  return <AlertTriangle className="w-3.5 h-3.5 text-accent-amber" />;
 };
 
 export function DynamicStackBuilder() {
@@ -31,7 +31,7 @@ export function DynamicStackBuilder() {
     <div className="grid lg:grid-cols-12 gap-8">
       <div className="lg:col-span-7 space-y-6">
         <div>
-          <p className="text-[10px] font-mono text-violet-400 uppercase tracking-wider mb-3">
+          <p className="text-[10px] font-mono text-accent-violet uppercase tracking-wider mb-3">
             Add / Remove Compounds
           </p>
           <div className="grid sm:grid-cols-2 gap-3">
@@ -43,14 +43,14 @@ export function DynamicStackBuilder() {
                   onClick={() => toggle(c.id)}
                   className={`text-left p-4 rounded-2xl transition-all duration-300 ${
                     isOn
-                      ? 'bg-violet-400/10 border border-violet-400/40'
+                      ? 'bg-accent-violet/10 border border-accent-violet/40'
                       : 'glass glass-hover opacity-70 hover:opacity-100'
                   }`}
                 >
                   <div className="flex items-center justify-between mb-2">
                     <span
                       className={`w-5 h-5 rounded-md flex items-center justify-center ${
-                        isOn ? 'bg-violet-400 text-black' : 'border border-zinc-600'
+                        isOn ? 'bg-accent-violet text-black' : 'border border-zinc-600'
                       }`}
                     >
                       {isOn && <Check className="w-3 h-3" />}
@@ -58,8 +58,8 @@ export function DynamicStackBuilder() {
                     <EvidenceTag tier={c.evidence} size="sm" />
                   </div>
                   <h4 className="font-bold text-sm mb-0.5">{c.name}</h4>
-                  <p className="text-xs text-zinc-500">{c.dose}</p>
-                  <p className="text-[10px] text-zinc-600 mt-1 font-mono">{c.pathway}</p>
+                  <p className="text-xs text-muted-foreground">{c.dose}</p>
+                  <p className="text-[10px] text-caption mt-1 font-mono">{c.pathway}</p>
                 </button>
               );
             })}
@@ -81,7 +81,7 @@ export function DynamicStackBuilder() {
 
       <div className="lg:col-span-5 space-y-5">
         <div className="gradient-border p-6 text-center">
-          <p className="text-[10px] font-mono text-violet-400 uppercase tracking-wider mb-1">Live Synergy Score</p>
+          <p className="text-[10px] font-mono text-accent-violet uppercase tracking-wider mb-1">Live Synergy Score</p>
           <motion.p
             key={score}
             initial={{ scale: 0.85, opacity: 0 }}
@@ -90,25 +90,25 @@ export function DynamicStackBuilder() {
           >
             {score}
           </motion.p>
-          <div className="h-1.5 bg-zinc-800 rounded-full mt-3 overflow-hidden">
+          <div className="h-1.5 bg-muted rounded-full mt-3 overflow-hidden">
             <motion.div
-              className="h-full bg-gradient-to-r from-violet-400 to-cyan-400 rounded-full"
+              className="h-full bg-gradient-to-r from-accent-violet to-accent-cyan rounded-full"
               animate={{ width: `${score}%` }}
               transition={{ duration: 0.5 }}
             />
           </div>
           <div className="grid grid-cols-3 gap-2 mt-4 text-center">
             <div className="glass rounded-lg py-2">
-              <p className="text-lg font-bold text-cyan-400">{analysis.hallmarkCount}</p>
-              <p className="text-[9px] font-mono text-zinc-500">HALLMARKS</p>
+              <p className="text-lg font-bold text-accent-cyan">{analysis.hallmarkCount}</p>
+              <p className="text-[9px] font-mono text-muted-foreground">HALLMARKS</p>
             </div>
             <div className="glass rounded-lg py-2">
-              <p className="text-lg font-bold text-emerald-400">Tier {analysis.evidenceTier}</p>
-              <p className="text-[9px] font-mono text-zinc-500">EVIDENCE</p>
+              <p className="text-lg font-bold text-accent-emerald">Tier {analysis.evidenceTier}</p>
+              <p className="text-[9px] font-mono text-muted-foreground">EVIDENCE</p>
             </div>
             <div className="glass rounded-lg py-2">
-              <p className="text-lg font-bold text-amber-400">${analysis.monthlyCost.low}–{analysis.monthlyCost.high}</p>
-              <p className="text-[9px] font-mono text-zinc-500">/MONTH</p>
+              <p className="text-lg font-bold text-accent-amber">${analysis.monthlyCost.low}–{analysis.monthlyCost.high}</p>
+              <p className="text-[9px] font-mono text-muted-foreground">/MONTH</p>
             </div>
           </div>
         </div>
@@ -124,14 +124,14 @@ export function DynamicStackBuilder() {
               {/* Synergies */}
               {(synergyInteractions.length > 0 || analysis.synergies.length > 0) && (
                 <div className="glass rounded-2xl p-5">
-                  <p className="text-[10px] font-mono text-emerald-400 uppercase tracking-wider mb-3 flex items-center gap-2">
+                  <p className="text-[10px] font-mono text-accent-emerald uppercase tracking-wider mb-3 flex items-center gap-2">
                     <Sparkles className="w-3.5 h-3.5" /> Active Synergies
                   </p>
                   <div className="space-y-2">
                     {synergyInteractions.map((i) => (
                       <div key={`${i.compoundIds[0]}-${i.compoundIds[1]}`} className="text-xs">
                         <p className="font-semibold text-emerald-300">{i.title}</p>
-                        <p className="text-zinc-500 mt-0.5">{i.detail}</p>
+                        <p className="text-muted-foreground mt-0.5">{i.detail}</p>
                       </div>
                     ))}
                     {analysis.synergies
@@ -141,8 +141,8 @@ export function DynamicStackBuilder() {
                           (i.compoundIds[0] === s.to && i.compoundIds[1] === s.from),
                       ))
                       .map((s) => (
-                        <div key={`${s.from}-${s.to}`} className="flex items-center gap-2 text-xs text-zinc-400">
-                          <Link2 className="w-3 h-3 text-emerald-400 shrink-0" />
+                        <div key={`${s.from}-${s.to}`} className="flex items-center gap-2 text-xs text-muted-foreground">
+                          <Link2 className="w-3 h-3 text-accent-emerald shrink-0" />
                           {s.label}
                         </div>
                       ))}
@@ -152,8 +152,8 @@ export function DynamicStackBuilder() {
 
               {/* Cautions */}
               {(cautionInteractions.length > 0 || analysis.consultIf.length > 0) && (
-                <div className="glass rounded-2xl p-5 border border-amber-400/20">
-                  <p className="text-[10px] font-mono text-amber-400 uppercase tracking-wider mb-3 flex items-center gap-2">
+                <div className="glass rounded-2xl p-5 border border-accent-amber/20">
+                  <p className="text-[10px] font-mono text-accent-amber uppercase tracking-wider mb-3 flex items-center gap-2">
                     <AlertTriangle className="w-3.5 h-3.5" /> Cautions & Contraindications
                   </p>
                   <div className="space-y-2">
@@ -162,15 +162,15 @@ export function DynamicStackBuilder() {
                         {interactionIcon(i.type)}
                         <div>
                           <p className="font-semibold text-amber-300">{i.title}</p>
-                          <p className="text-zinc-500 mt-0.5">{i.detail}</p>
+                          <p className="text-muted-foreground mt-0.5">{i.detail}</p>
                         </div>
                       </div>
                     ))}
                     {analysis.consultIf.slice(0, 4).map((c) => (
-                      <p key={c} className="text-xs text-zinc-500 pl-5">• {c}</p>
+                      <p key={c} className="text-xs text-muted-foreground pl-5">• {c}</p>
                     ))}
                     {analysis.consultIf.length > 4 && (
-                      <p className="text-[10px] font-mono text-zinc-600 pl-5">
+                      <p className="text-[10px] font-mono text-caption pl-5">
                         +{analysis.consultIf.length - 4} more — export for full list
                       </p>
                     )}
@@ -180,30 +180,30 @@ export function DynamicStackBuilder() {
 
               {/* Dosing */}
               <div className="glass rounded-2xl p-5">
-                <p className="text-[10px] font-mono text-zinc-500 uppercase tracking-wider mb-3">Dosing Protocol</p>
+                <p className="text-[10px] font-mono text-muted-foreground uppercase tracking-wider mb-3">Dosing Protocol</p>
                 <div className="space-y-3">
                   {amDose.length > 0 && (
                     <div>
-                      <div className="flex items-center gap-2 text-amber-400 text-xs font-semibold mb-1.5">
+                      <div className="flex items-center gap-2 text-accent-amber text-xs font-semibold mb-1.5">
                         <Sun className="w-3.5 h-3.5" /> AM
                       </div>
                       {amDose.map((c) => (
-                        <div key={c.id} className="flex justify-between text-sm py-1 border-b border-white/[0.04] last:border-0">
-                          <span className="text-zinc-300">{c.name}</span>
-                          <span className="font-mono text-[10px] text-zinc-500">{c.dose}</span>
+                        <div key={c.id} className="flex justify-between text-sm py-1 border-b border-border last:border-0">
+                          <span className="text-foreground/80">{c.name}</span>
+                          <span className="font-mono text-[10px] text-muted-foreground">{c.dose}</span>
                         </div>
                       ))}
                     </div>
                   )}
                   {pmDose.length > 0 && (
                     <div>
-                      <div className="flex items-center gap-2 text-violet-400 text-xs font-semibold mb-1.5">
+                      <div className="flex items-center gap-2 text-accent-violet text-xs font-semibold mb-1.5">
                         <Moon className="w-3.5 h-3.5" /> PM
                       </div>
                       {pmDose.map((c) => (
-                        <div key={c.id} className="flex justify-between text-sm py-1 border-b border-white/[0.04] last:border-0">
-                          <span className="text-zinc-300">{c.name}</span>
-                          <span className="font-mono text-[10px] text-zinc-500">{c.dose}</span>
+                        <div key={c.id} className="flex justify-between text-sm py-1 border-b border-border last:border-0">
+                          <span className="text-foreground/80">{c.name}</span>
+                          <span className="font-mono text-[10px] text-muted-foreground">{c.dose}</span>
                         </div>
                       ))}
                     </div>
@@ -216,7 +216,7 @@ export function DynamicStackBuilder() {
 
         {selected.length === 0 && (
           <div className="glass rounded-2xl p-8 text-center">
-            <p className="text-zinc-500 text-sm">Toggle compounds to see real-time synergy and safety analysis.</p>
+            <p className="text-muted-foreground text-sm">Toggle compounds to see real-time synergy and safety analysis.</p>
           </div>
         )}
       </div>

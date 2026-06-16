@@ -60,7 +60,7 @@ export function StacksLibrary() {
       >
         {tab === 'catalog' && (
           <div className="space-y-4">
-            <p className="text-label text-violet-400">Pre-built protocols — expand for full breakdown</p>
+            <p className="text-label text-accent-violet">Pre-built protocols — expand for full breakdown</p>
             {eliteStacks.map((stack, i) => (
               <EliteStackCard key={stack.id} stack={stack} expanded={i === 0} />
             ))}
@@ -69,22 +69,22 @@ export function StacksLibrary() {
 
         {tab === 'builder' && (
           <div id="stack-builder">
-            <p className="text-label text-violet-400 mb-6">Dynamic builder — real-time synergy & safety analysis</p>
+            <p className="text-label text-accent-violet mb-6">Dynamic builder — real-time synergy & safety analysis</p>
             <DynamicStackBuilder />
           </div>
         )}
 
         {tab === 'compare' && (
           <div>
-            <p className="text-label text-violet-400 mb-6">Filter by goal, cost, and complexity</p>
+            <p className="text-label text-accent-violet mb-6">Filter by goal, cost, and complexity</p>
             <StackComparisonTable />
           </div>
         )}
       </motion.div>
 
       {tab !== 'builder' && (
-        <section className="mt-16 pt-10 border-t border-white/[0.06]" aria-label="Quick stack builder">
-          <p className="text-label text-violet-400 mb-6 text-center">Quick Stack Builder</p>
+        <section className="mt-16 pt-10 border-t border-border" aria-label="Quick stack builder">
+          <p className="text-label text-accent-violet mb-6 text-center">Quick Stack Builder</p>
           <div id="stack-builder">
             <DynamicStackBuilder />
           </div>

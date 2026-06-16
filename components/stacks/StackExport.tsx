@@ -50,32 +50,32 @@ export function StackExport({ stackName }: StackExportProps) {
 
   return (
     <div className="glass rounded-2xl p-5">
-      <p className="text-[10px] font-mono text-violet-400 uppercase tracking-wider mb-4">Export Protocol</p>
+      <p className="text-[10px] font-mono text-accent-violet uppercase tracking-wider mb-4">Export Protocol</p>
       <div className="grid grid-cols-2 sm:grid-cols-4 gap-2">
         <button
           onClick={copyText}
-          className="flex flex-col items-center gap-1.5 glass py-3 rounded-xl text-xs font-semibold hover:border-violet-400/30 transition-all"
+          className="flex flex-col items-center gap-1.5 glass py-3 rounded-xl text-xs font-semibold hover:border-accent-violet/30 transition-all"
         >
-          {copied === 'text' ? <CheckCheck className="w-4 h-4 text-emerald-400" /> : <Copy className="w-4 h-4" />}
+          {copied === 'text' ? <CheckCheck className="w-4 h-4 text-accent-emerald" /> : <Copy className="w-4 h-4" />}
           {copied === 'text' ? 'Copied!' : 'Copy Text'}
         </button>
         <button
           onClick={copyJson}
-          className="flex flex-col items-center gap-1.5 glass py-3 rounded-xl text-xs font-semibold hover:border-violet-400/30 transition-all"
+          className="flex flex-col items-center gap-1.5 glass py-3 rounded-xl text-xs font-semibold hover:border-accent-violet/30 transition-all"
         >
-          {copied === 'json' ? <CheckCheck className="w-4 h-4 text-emerald-400" /> : <FileJson className="w-4 h-4" />}
+          {copied === 'json' ? <CheckCheck className="w-4 h-4 text-accent-emerald" /> : <FileJson className="w-4 h-4" />}
           {copied === 'json' ? 'Copied!' : 'Copy JSON'}
         </button>
         <button
           onClick={downloadJson}
-          className="flex flex-col items-center gap-1.5 glass py-3 rounded-xl text-xs font-semibold hover:border-violet-400/30 transition-all"
+          className="flex flex-col items-center gap-1.5 glass py-3 rounded-xl text-xs font-semibold hover:border-accent-violet/30 transition-all"
         >
           <Download className="w-4 h-4" />
           Download
         </button>
         <button
           onClick={share}
-          className="flex flex-col items-center gap-1.5 bg-violet-400 text-black py-3 rounded-xl text-xs font-semibold hover:bg-cyan-400 transition-all"
+          className="flex flex-col items-center gap-1.5 bg-accent-violet text-black py-3 rounded-xl text-xs font-semibold hover:bg-accent-cyan transition-all"
         >
           {copied === 'url' ? <CheckCheck className="w-4 h-4" /> : <Share2 className="w-4 h-4" />}
           {copied === 'url' ? 'Copied!' : 'Share'}

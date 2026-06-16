@@ -57,9 +57,9 @@ const deepLinks = [
 ];
 
 const tierBorder: Record<EvidenceTier, string> = {
-  A: 'border-emerald-400/30',
-  B: 'border-cyan-400/30',
-  C: 'border-amber-400/30',
+  A: 'border-accent-emerald/30',
+  B: 'border-accent-cyan/30',
+  C: 'border-accent-amber/30',
 };
 
 export function TrustHub() {
@@ -83,13 +83,13 @@ export function TrustHub() {
             <Link
               key={link.href}
               href={link.href}
-              className="focus-ring interactive card-base p-4 flex items-center justify-between group hover:border-emerald-400/30"
+              className="focus-ring interactive card-base p-4 flex items-center justify-between group hover:border-accent-emerald/30"
             >
-              <span className="flex items-center gap-2 text-sm font-semibold text-zinc-300 group-hover:text-emerald-400">
+              <span className="flex items-center gap-2 text-sm font-semibold text-foreground/80 group-hover:text-accent-emerald">
                 <Icon className="w-4 h-4" aria-hidden="true" />
                 {link.label}
               </span>
-              <ArrowRight className="w-4 h-4 text-zinc-600 group-hover:text-emerald-400" aria-hidden="true" />
+              <ArrowRight className="w-4 h-4 text-caption group-hover:text-accent-emerald" aria-hidden="true" />
             </Link>
           );
         })}
@@ -110,7 +110,7 @@ export function TrustHub() {
             <div className="space-y-4">
               {transparencyPledge.map((item) => (
                 <div key={item.title} className="card-base p-5 flex gap-4">
-                  <Eye className="w-5 h-5 text-emerald-400 shrink-0 mt-0.5" aria-hidden="true" />
+                  <Eye className="w-5 h-5 text-accent-emerald shrink-0 mt-0.5" aria-hidden="true" />
                   <div>
                     <h3 className="heading-card mb-1">{item.title}</h3>
                     <p className="text-body-sm">{item.desc}</p>
@@ -138,13 +138,13 @@ export function TrustHub() {
                     <ul className="space-y-2 mb-4">
                       {std.criteria.map((c) => (
                         <li key={c} className="text-body-sm flex gap-2">
-                          <CheckCircle2 className="w-4 h-4 text-emerald-400 shrink-0 mt-0.5" aria-hidden="true" />
+                          <CheckCircle2 className="w-4 h-4 text-accent-emerald shrink-0 mt-0.5" aria-hidden="true" />
                           {c}
                         </li>
                       ))}
                     </ul>
-                    <p className="text-caption border-t border-white/[0.06] pt-3">
-                      <span className="text-emerald-400">Example: </span>{std.example}
+                    <p className="text-caption border-t border-border pt-3">
+                      <span className="text-accent-emerald">Example: </span>{std.example}
                     </p>
                   </div>
                 );
@@ -167,7 +167,7 @@ export function TrustHub() {
               </div>
             </section>
             <section>
-              <h2 className="text-label text-emerald-400 mb-3">Citation Formats</h2>
+              <h2 className="text-label text-accent-emerald mb-3">Citation Formats</h2>
               <div className="grid sm:grid-cols-3 gap-3">
                 {citationFramework.formats.map((f) => (
                   <div key={f.format} className="card-base p-4">
@@ -187,7 +187,7 @@ export function TrustHub() {
             <div className="grid md:grid-cols-2 gap-4">
               <DisclaimerBanner disclaimer={disclaimers[2]} />
               <div className="card-base p-5">
-                <p className="text-label text-emerald-400 mb-2">Population Science</p>
+                <p className="text-label text-accent-emerald mb-2">Population Science</p>
                 <p className="text-body-sm">
                   PubMed-cited mechanisms and clinical trial doses apply broadly — with evidence tiers shown on every surface.
                 </p>
@@ -209,7 +209,7 @@ export function TrustHub() {
             {methodologySections.map((section) => (
               <MethodologySection key={section.id} {...section} />
             ))}
-            <Link href="/trust/methodology" className="focus-ring inline-flex items-center gap-2 text-sm font-semibold text-emerald-400 hover:text-cyan-400 mt-6 rounded">
+            <Link href="/trust/methodology" className="focus-ring inline-flex items-center gap-2 text-sm font-semibold text-accent-emerald hover:text-accent-cyan mt-6 rounded">
               Full methodology page <ArrowRight className="w-4 h-4" />
             </Link>
           </div>
@@ -226,7 +226,7 @@ export function TrustHub() {
         {tab === 'updates' && (
           <div className="max-w-3xl">
             <UpdateHistoryList entries={updateHistory} />
-            <Link href="/trust/updates" className="focus-ring inline-flex items-center gap-2 text-sm font-semibold text-emerald-400 hover:text-cyan-400 mt-6 rounded">
+            <Link href="/trust/updates" className="focus-ring inline-flex items-center gap-2 text-sm font-semibold text-accent-emerald hover:text-accent-cyan mt-6 rounded">
               Full changelog <ArrowRight className="w-4 h-4" />
             </Link>
           </div>

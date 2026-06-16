@@ -1,10 +1,11 @@
 import type { EvidenceTier } from '@/lib/types';
 import { evidenceTagDefinitions } from '@/lib/trust';
+import { cn } from '@/lib/utils';
 
 const tierStyles: Record<EvidenceTier, string> = {
-  A: 'text-emerald-400 bg-emerald-400/10 border-emerald-400/30',
-  B: 'text-cyan-400 bg-cyan-400/10 border-cyan-400/30',
-  C: 'text-amber-400 bg-amber-400/10 border-amber-400/30',
+  A: 'text-accent-emerald bg-accent-emerald/10 border-accent-emerald/30',
+  B: 'text-accent-cyan bg-accent-cyan/10 border-accent-cyan/30',
+  C: 'text-accent-amber bg-accent-amber/10 border-accent-amber/30',
 };
 
 interface EvidenceTagProps {
@@ -25,7 +26,12 @@ export function EvidenceTag({ tier, size = 'md', showTooltip = true, className =
 
   return (
     <span
-      className={`inline-flex items-center font-mono font-bold rounded border ${tierStyles[tier]} ${sizeStyles[size]} ${className}`}
+      className={cn(
+        'inline-flex items-center font-mono font-bold rounded border',
+        tierStyles[tier],
+        sizeStyles[size],
+        className,
+      )}
       title={showTooltip ? def.description : undefined}
       aria-label={`Evidence tier ${tier}: ${def.label}`}
     >
@@ -39,7 +45,7 @@ export function EvidenceTag({ tier, size = 'md', showTooltip = true, className =
 
 export function EvidenceTagLegend({ className = '' }: { className?: string }) {
   return (
-    <div className={`flex flex-wrap gap-3 ${className}`} role="list" aria-label="Evidence tier legend">
+    <div className={cn('flex flex-wrap gap-3', className)} role="list" aria-label="Evidence tier legend">
       {(['A', 'B', 'C'] as EvidenceTier[]).map((tier) => (
         <div key={tier} role="listitem" className="flex items-center gap-2">
           <EvidenceTag tier={tier} size="sm" showTooltip={false} />

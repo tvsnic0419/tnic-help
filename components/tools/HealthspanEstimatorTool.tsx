@@ -60,15 +60,15 @@ export function HealthspanEstimatorTool() {
               <Slider label="Sleep" value={profile.sleep} onChange={(v) => setProfile({ sleep: v })} min={0} max={100} unit="%" />
               <Slider label="Exercise" value={profile.exercise} onChange={(v) => setProfile({ exercise: v })} min={0} max={100} unit="%" />
               <Slider label="Stress" value={profile.stress} onChange={(v) => setProfile({ stress: v })} min={0} max={100} unit="%" />
-              <div className="text-xs space-y-1 pt-2 border-t border-white/[0.06]">
-                <p className="text-zinc-500">
-                  Stack: <span className="text-violet-400">{selected.length} compounds</span>
+              <div className="text-xs space-y-1 pt-2 border-t border-border">
+                <p className="text-muted-foreground">
+                  Stack: <span className="text-accent-violet">{selected.length} compounds</span>
                 </p>
-                <p className="text-zinc-500">
-                  Labs: <span className="text-cyan-400">{labs.length} entries</span>
+                <p className="text-muted-foreground">
+                  Labs: <span className="text-accent-cyan">{labs.length} entries</span>
                 </p>
-                <p className="text-zinc-500">
-                  Confidence: <span className="text-emerald-400">{estimate.dataConfidence}%</span>
+                <p className="text-muted-foreground">
+                  Confidence: <span className="text-accent-emerald">{estimate.dataConfidence}%</span>
                 </p>
               </div>
             </CardContent>
@@ -82,8 +82,8 @@ export function HealthspanEstimatorTool() {
               {estimate.drivers.map((d) => (
                 <div key={d.label}>
                   <div className="flex justify-between text-xs mb-1">
-                    <span className="text-zinc-400">{d.label}</span>
-                    <span className={d.direction === 'positive' ? 'text-emerald-400' : 'text-amber-400'}>
+                    <span className="text-muted-foreground">{d.label}</span>
+                    <span className={d.direction === 'positive' ? 'text-accent-emerald' : 'text-accent-amber'}>
                       {d.impact}
                     </span>
                   </div>
@@ -101,28 +101,28 @@ export function HealthspanEstimatorTool() {
         <div className="lg:col-span-8 space-y-5">
           <div className="grid sm:grid-cols-3 gap-4">
             <Card elevated className="text-center">
-              <p className="text-label text-cyan-400 mb-1">Healthspan score</p>
-              <p className="text-4xl font-bold text-white">{estimate.currentHealthspanScore}</p>
-              <p className="text-caption text-zinc-500 mt-1">
+              <p className="text-label text-accent-cyan mb-1">Healthspan score</p>
+              <p className="text-4xl font-bold text-foreground">{estimate.currentHealthspanScore}</p>
+              <p className="text-caption text-muted-foreground mt-1">
                 12w → {estimate.projectedHealthspanScore12w} · 24w → {estimate.projectedHealthspanScore24w}
               </p>
             </Card>
             <Card elevated className="text-center">
-              <p className="text-label text-violet-400 mb-1">Biological age</p>
-              <p className="text-4xl font-bold text-white">{estimate.biologicalAge}</p>
-              <p className="text-caption text-zinc-500 mt-1">Chrono {estimate.chronologicalAge}</p>
+              <p className="text-label text-accent-violet mb-1">Biological age</p>
+              <p className="text-4xl font-bold text-foreground">{estimate.biologicalAge}</p>
+              <p className="text-caption text-muted-foreground mt-1">Chrono {estimate.chronologicalAge}</p>
             </Card>
             <Card elevated className="text-center">
-              <p className="text-label text-emerald-400 mb-1">Age delta</p>
-              <p className="text-4xl font-bold text-emerald-400 flex items-center justify-center gap-1">
+              <p className="text-label text-accent-emerald mb-1">Age delta</p>
+              <p className="text-4xl font-bold text-accent-emerald flex items-center justify-center gap-1">
                 {estimate.ageDelta >= 0 ? (
                   <TrendingDown className="w-6 h-6" />
                 ) : (
-                  <TrendingUp className="w-6 h-6 text-amber-400" />
+                  <TrendingUp className="w-6 h-6 text-accent-amber" />
                 )}
                 {Math.abs(estimate.ageDelta)}y
               </p>
-              <p className="text-caption text-zinc-500 mt-1">
+              <p className="text-caption text-muted-foreground mt-1">
                 24w proj. {estimate.projectedAgeDelta24w}y
               </p>
             </Card>
@@ -150,14 +150,14 @@ export function HealthspanEstimatorTool() {
                 </LineChart>
               </ResponsiveContainer>
               <p className="text-body-sm mt-4">{estimate.summary}</p>
-              <p className="text-caption text-zinc-600 mt-2">{estimate.disclaimer}</p>
+              <p className="text-caption text-caption mt-2">{estimate.disclaimer}</p>
             </CardContent>
           </Card>
 
           <Card>
             <CardHeader>
               <CardTitle className="text-base flex items-center gap-2">
-                <Activity className="w-4 h-4 text-cyan-400" /> Improve confidence
+                <Activity className="w-4 h-4 text-accent-cyan" /> Improve confidence
               </CardTitle>
             </CardHeader>
             <CardContent>
@@ -173,10 +173,10 @@ export function HealthspanEstimatorTool() {
                 )}
               </div>
               <div className="flex flex-wrap gap-3 mt-4">
-                <Link href="/labs" className="text-sm text-cyan-400 hover:text-emerald-400">
+                <Link href="/labs" className="text-sm text-accent-cyan hover:text-accent-emerald">
                   Log labs →
                 </Link>
-                <Link href="/tools?tab=protocol" className="text-sm text-cyan-400 hover:text-emerald-400">
+                <Link href="/tools?tab=protocol" className="text-sm text-accent-cyan hover:text-accent-emerald">
                   Customize protocol →
                 </Link>
               </div>

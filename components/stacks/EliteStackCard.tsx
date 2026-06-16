@@ -25,7 +25,7 @@ interface EliteStackCardProps {
 }
 
 
-const costColor = { budget: 'text-emerald-400', moderate: 'text-cyan-400', premium: 'text-violet-400', clinical: 'text-rose-400' };
+const costColor = { budget: 'text-accent-emerald', moderate: 'text-accent-cyan', premium: 'text-accent-violet', clinical: 'text-accent-rose' };
 
 export function EliteStackCard({ stack, expanded: defaultExpanded = false }: EliteStackCardProps) {
   const [open, setOpen] = useState(defaultExpanded);
@@ -42,34 +42,34 @@ export function EliteStackCard({ stack, expanded: defaultExpanded = false }: Eli
     <motion.div layout className="glass rounded-2xl overflow-hidden">
       <button
         onClick={() => setOpen(!open)}
-        className="w-full text-left p-5 hover:bg-white/[0.02] transition"
+        className="w-full text-left p-5 hover:bg-muted/30 transition"
       >
         <div className="flex items-start justify-between gap-4">
           <div className="flex-1 min-w-0">
             <div className="flex flex-wrap items-center gap-2 mb-2">
-              <span className="text-[10px] font-mono text-violet-400">{goalLabels[stack.goal]}</span>
+              <span className="text-[10px] font-mono text-accent-violet">{goalLabels[stack.goal]}</span>
               <EvidenceTag tier={stack.evidenceTier} size="sm" />
               {stack.rxCompounds && (
-                <span className="text-[10px] font-mono text-rose-400 bg-rose-400/10 px-2 py-0.5 rounded-full">
+                <span className="text-[10px] font-mono text-accent-rose bg-accent-rose/10 px-2 py-0.5 rounded-full">
                   Rx Component
                 </span>
               )}
             </div>
             <h3 className="font-bold text-lg mb-1">{stack.name}</h3>
-            <p className="text-sm text-zinc-500">{stack.tagline}</p>
+            <p className="text-sm text-muted-foreground">{stack.tagline}</p>
           </div>
           <div className="flex flex-col items-end gap-2 shrink-0">
-            <div className="flex items-center gap-1 text-emerald-400">
+            <div className="flex items-center gap-1 text-accent-emerald">
               <Zap className="w-3.5 h-3.5" />
               <span className="text-sm font-bold">{stack.synergyRating}</span>
             </div>
-            <ChevronDown className={`w-5 h-5 text-zinc-500 transition-transform ${open ? 'rotate-180' : ''}`} />
+            <ChevronDown className={`w-5 h-5 text-muted-foreground transition-transform ${open ? 'rotate-180' : ''}`} />
           </div>
         </div>
 
         <div className="flex flex-wrap gap-2 mt-3">
           {compoundNames.map((name) => (
-            <span key={name} className="text-[10px] font-mono bg-violet-400/10 text-violet-300 px-2 py-0.5 rounded-full">
+            <span key={name} className="text-[10px] font-mono bg-accent-violet/10 text-violet-300 px-2 py-0.5 rounded-full">
               {name}
             </span>
           ))}
@@ -78,15 +78,15 @@ export function EliteStackCard({ stack, expanded: defaultExpanded = false }: Eli
         <div className="grid grid-cols-3 gap-3 mt-4">
           <div className="text-center">
             <p className={`text-xs font-bold ${costColor[stack.costTier]}`}>{costLabels[stack.costTier]}</p>
-            <p className="text-[9px] font-mono text-zinc-600">${stack.costMonthlyUsd.low}–{stack.costMonthlyUsd.high}/mo</p>
+            <p className="text-[9px] font-mono text-caption">${stack.costMonthlyUsd.low}–{stack.costMonthlyUsd.high}/mo</p>
           </div>
           <div className="text-center">
-            <p className="text-xs font-bold text-cyan-400">{simplicityLabels[stack.simplicity]}</p>
-            <p className="text-[9px] font-mono text-zinc-600">{stack.compoundIds.length} OTC compounds</p>
+            <p className="text-xs font-bold text-accent-cyan">{simplicityLabels[stack.simplicity]}</p>
+            <p className="text-[9px] font-mono text-caption">{stack.compoundIds.length} OTC compounds</p>
           </div>
           <div className="text-center">
-            <p className="text-xs font-bold text-amber-400">{stack.hallmarkCoverage.length} hallmarks</p>
-            <p className="text-[9px] font-mono text-zinc-600">{stack.durationWeeks}</p>
+            <p className="text-xs font-bold text-accent-amber">{stack.hallmarkCoverage.length} hallmarks</p>
+            <p className="text-[9px] font-mono text-caption">{stack.durationWeeks}</p>
           </div>
         </div>
       </button>
@@ -99,13 +99,13 @@ export function EliteStackCard({ stack, expanded: defaultExpanded = false }: Eli
             exit={{ height: 0, opacity: 0 }}
             className="overflow-hidden"
           >
-            <div className="px-5 pb-5 space-y-6 border-t border-white/[0.06] pt-5">
-              <p className="text-sm text-zinc-400 leading-relaxed">{stack.rationale}</p>
-              <p className="text-xs text-zinc-500 italic">{stack.evidenceSummary}</p>
+            <div className="px-5 pb-5 space-y-6 border-t border-border pt-5">
+              <p className="text-sm text-muted-foreground leading-relaxed">{stack.rationale}</p>
+              <p className="text-xs text-muted-foreground italic">{stack.evidenceSummary}</p>
 
               {/* Breakdown */}
               <div>
-                <p className="text-[10px] font-mono text-violet-400 uppercase tracking-wider mb-3 flex items-center gap-2">
+                <p className="text-[10px] font-mono text-accent-violet uppercase tracking-wider mb-3 flex items-center gap-2">
                   <FlaskConical className="w-3.5 h-3.5" /> Compound Breakdown
                 </p>
                 <div className="space-y-3">
@@ -115,10 +115,10 @@ export function EliteStackCard({ stack, expanded: defaultExpanded = false }: Eli
                       <div key={b.compoundId} className="glass rounded-xl p-4">
                         <div className="flex justify-between items-start mb-1">
                           <h4 className="font-semibold text-sm">{compound?.name ?? b.compoundId}</h4>
-                          <span className="text-[10px] font-mono text-zinc-500">{compound?.dose}</span>
+                          <span className="text-[10px] font-mono text-muted-foreground">{compound?.dose}</span>
                         </div>
                         <p className="text-xs text-violet-300 mb-1">{b.role}</p>
-                        <p className="text-xs text-zinc-500">{b.mechanism}</p>
+                        <p className="text-xs text-muted-foreground">{b.mechanism}</p>
                       </div>
                     );
                   })}
@@ -128,14 +128,14 @@ export function EliteStackCard({ stack, expanded: defaultExpanded = false }: Eli
               {/* Rx compounds */}
               {stack.rxCompounds && (
                 <div>
-                  <p className="text-[10px] font-mono text-rose-400 uppercase tracking-wider mb-3 flex items-center gap-2">
+                  <p className="text-[10px] font-mono text-accent-rose uppercase tracking-wider mb-3 flex items-center gap-2">
                     <Pill className="w-3.5 h-3.5" /> Prescription Components (Educational)
                   </p>
                   {stack.rxCompounds.map((rx) => (
-                    <div key={rx.id} className="glass rounded-xl p-4 border border-rose-400/20 mb-2">
+                    <div key={rx.id} className="glass rounded-xl p-4 border border-accent-rose/20 mb-2">
                       <h4 className="font-semibold text-sm text-rose-300">{rx.name}</h4>
-                      <p className="text-xs text-zinc-500 mt-1">{rx.class} — {rx.typicalDose}</p>
-                      <p className="text-xs text-zinc-400 mt-2">{rx.note}</p>
+                      <p className="text-xs text-muted-foreground mt-1">{rx.class} — {rx.typicalDose}</p>
+                      <p className="text-xs text-muted-foreground mt-2">{rx.note}</p>
                     </div>
                   ))}
                 </div>
@@ -143,10 +143,10 @@ export function EliteStackCard({ stack, expanded: defaultExpanded = false }: Eli
 
               {/* Dosing schedule */}
               <div>
-                <p className="text-[10px] font-mono text-amber-400 uppercase tracking-wider mb-3">Dosing Schedule</p>
+                <p className="text-[10px] font-mono text-accent-amber uppercase tracking-wider mb-3">Dosing Schedule</p>
                 {stack.dosingSchedule.map((block, i) => (
                   <div key={i} className="mb-3 last:mb-0">
-                    <p className="text-xs font-semibold text-zinc-300 mb-1">
+                    <p className="text-xs font-semibold text-foreground/80 mb-1">
                       {block.period} {block.time && `· ${block.time}`}
                     </p>
                     {block.items.map((item, j) => {
@@ -155,26 +155,26 @@ export function EliteStackCard({ stack, expanded: defaultExpanded = false }: Eli
                         ? stack.rxCompounds?.find((r) => r.id === item.compoundId)?.name ?? item.compoundId
                         : compounds.find((c) => c.id === item.compoundId)?.name ?? item.compoundId;
                       return (
-                        <div key={j} className="flex justify-between text-xs py-1 border-b border-white/[0.04] last:border-0">
-                          <span className={isRx ? 'text-rose-300' : 'text-zinc-400'}>{name}</span>
-                          <span className="font-mono text-zinc-600">{item.dose}</span>
+                        <div key={j} className="flex justify-between text-xs py-1 border-b border-border last:border-0">
+                          <span className={isRx ? 'text-rose-300' : 'text-muted-foreground'}>{name}</span>
+                          <span className="font-mono text-caption">{item.dose}</span>
                         </div>
                       );
                     })}
-                    <p className="text-[10px] text-zinc-600 mt-1">{block.rationale}</p>
+                    <p className="text-[10px] text-caption mt-1">{block.rationale}</p>
                   </div>
                 ))}
               </div>
 
               {/* Monitoring */}
               <div>
-                <p className="text-[10px] font-mono text-cyan-400 uppercase tracking-wider mb-3 flex items-center gap-2">
+                <p className="text-[10px] font-mono text-accent-cyan uppercase tracking-wider mb-3 flex items-center gap-2">
                   <Activity className="w-3.5 h-3.5" /> Monitoring Recommendations
                 </p>
                 <ul className="space-y-1">
                   {stack.monitoring.map((m) => (
-                    <li key={m} className="text-xs text-zinc-500 flex gap-2">
-                      <span className="text-cyan-400 shrink-0">•</span> {m}
+                    <li key={m} className="text-xs text-muted-foreground flex gap-2">
+                      <span className="text-accent-cyan shrink-0">•</span> {m}
                     </li>
                   ))}
                 </ul>
@@ -182,7 +182,7 @@ export function EliteStackCard({ stack, expanded: defaultExpanded = false }: Eli
 
               {/* Studies */}
               <div>
-                <p className="text-[10px] font-mono text-zinc-500 uppercase tracking-wider mb-2">Key Evidence</p>
+                <p className="text-[10px] font-mono text-muted-foreground uppercase tracking-wider mb-2">Key Evidence</p>
                 {stack.studies.map((s) => (
                   <div key={s.pmid} className="py-1">
                     <p className="text-body-sm mb-0.5">{s.title} ({s.journal}, {s.year})</p>
@@ -193,13 +193,13 @@ export function EliteStackCard({ stack, expanded: defaultExpanded = false }: Eli
 
               {/* Warnings */}
               {stack.warnings.length > 0 && (
-                <div className="glass rounded-xl p-4 border border-amber-400/20">
-                  <p className="text-[10px] font-mono text-amber-400 uppercase tracking-wider mb-2 flex items-center gap-2">
+                <div className="glass rounded-xl p-4 border border-accent-amber/20">
+                  <p className="text-[10px] font-mono text-accent-amber uppercase tracking-wider mb-2 flex items-center gap-2">
                     <AlertTriangle className="w-3.5 h-3.5" /> Warnings
                   </p>
                   <ul className="space-y-1">
                     {stack.warnings.map((w) => (
-                      <li key={w} className="text-xs text-zinc-500">• {w}</li>
+                      <li key={w} className="text-xs text-muted-foreground">• {w}</li>
                     ))}
                   </ul>
                 </div>
@@ -207,7 +207,7 @@ export function EliteStackCard({ stack, expanded: defaultExpanded = false }: Eli
 
               <button
                 onClick={loadStack}
-                className="w-full bg-violet-400 text-black py-3 rounded-xl text-sm font-semibold hover:bg-cyan-400 transition flex items-center justify-center gap-2"
+                className="w-full bg-accent-violet text-black py-3 rounded-xl text-sm font-semibold hover:bg-accent-cyan transition flex items-center justify-center gap-2"
               >
                 <DollarSign className="w-4 h-4" />
                 Load into Stack Builder

@@ -52,17 +52,17 @@ export function StarterQuiz() {
     <div className="gradient-border p-6 md:p-8">
       <div className="flex items-center justify-between mb-5">
         <div>
-          <p className="font-mono text-[10px] text-cyan-400 tracking-widest mb-1">STARTER QUIZ</p>
+          <p className="font-mono text-[10px] text-accent-cyan tracking-widest mb-1">STARTER QUIZ</p>
           <h3 className="text-lg font-bold">Find Your Entry Point</h3>
         </div>
-        <span className="text-[10px] font-mono text-zinc-500">
+        <span className="text-[10px] font-mono text-muted-foreground">
           {done ? 'Complete' : `Step ${step + 1}/${quizSteps.length}`}
         </span>
       </div>
 
-      <div className="h-1 bg-zinc-800 rounded-full mb-6 overflow-hidden">
+      <div className="h-1 bg-muted rounded-full mb-6 overflow-hidden">
         <motion.div
-          className="h-full bg-gradient-to-r from-cyan-400 to-emerald-400 rounded-full"
+          className="h-full bg-gradient-to-r from-accent-cyan to-accent-emerald rounded-full"
           animate={{ width: `${progress}%` }}
           transition={{ duration: 0.4 }}
         />
@@ -84,12 +84,12 @@ export function StarterQuiz() {
                   <button
                     key={opt.id}
                     onClick={() => select(opt.id)}
-                    className="w-full text-left glass glass-hover rounded-xl px-4 py-3 flex items-center gap-3 transition-all hover:border-cyan-400/30"
+                    className="w-full text-left glass glass-hover rounded-xl px-4 py-3 flex items-center gap-3 transition-all hover:border-accent-cyan/30"
                   >
-                    {Icon && <Icon className="w-4 h-4 text-cyan-400 shrink-0" />}
+                    {Icon && <Icon className="w-4 h-4 text-accent-cyan shrink-0" />}
                     <div>
                       <p className="text-sm font-semibold">{opt.label}</p>
-                      {'desc' in opt && <p className="text-[10px] text-zinc-500">{opt.desc}</p>}
+                      {'desc' in opt && <p className="text-[10px] text-muted-foreground">{opt.desc}</p>}
                     </div>
                   </button>
                 );
@@ -103,48 +103,48 @@ export function StarterQuiz() {
             animate={{ opacity: 1, y: 0 }}
           >
             <div className="flex items-start gap-3 mb-4">
-              <div className="w-8 h-8 rounded-lg bg-emerald-400/20 flex items-center justify-center shrink-0">
-                <Check className="w-4 h-4 text-emerald-400" />
+              <div className="w-8 h-8 rounded-lg bg-accent-emerald/20 flex items-center justify-center shrink-0">
+                <Check className="w-4 h-4 text-accent-emerald" />
               </div>
               <div>
-                <p className="text-sm font-bold text-emerald-400 mb-1">Your personalized path</p>
-                <p className="text-xs text-zinc-400 leading-relaxed">{result.insight}</p>
+                <p className="text-sm font-bold text-accent-emerald mb-1">Your personalized path</p>
+                <p className="text-xs text-muted-foreground leading-relaxed">{result.insight}</p>
               </div>
             </div>
 
             <div className="glass rounded-xl p-4 mb-4">
-              <p className="text-[10px] font-mono text-violet-400 uppercase mb-2">
+              <p className="text-[10px] font-mono text-accent-violet uppercase mb-2">
                 Recommended: {result.stack.label} Stack
               </p>
               <div className="flex flex-wrap gap-1.5 mb-3">
                 {result.stack.ids.map((id) => {
                   const c = compounds.find((x) => x.id === id);
                   return c ? (
-                    <span key={id} className="text-[10px] bg-violet-400/10 text-violet-300 px-2 py-0.5 rounded font-semibold">
+                    <span key={id} className="text-[10px] bg-accent-violet/10 text-violet-300 px-2 py-0.5 rounded font-semibold">
                       {c.name}
                     </span>
                   ) : null;
                 })}
               </div>
-              <p className="text-[10px] text-zinc-500">{result.stack.desc}</p>
+              <p className="text-[10px] text-muted-foreground">{result.stack.desc}</p>
             </div>
 
             <div className="grid grid-cols-2 gap-2">
               <button
                 onClick={loadStack}
-                className="col-span-2 flex items-center justify-center gap-2 bg-cyan-400 text-black py-3 rounded-xl text-sm font-semibold hover:bg-emerald-400 transition-all"
+                className="col-span-2 flex items-center justify-center gap-2 bg-accent-cyan text-black py-3 rounded-xl text-sm font-semibold hover:bg-accent-emerald transition-all"
               >
                 Load Stack in Architect <ArrowRight className="w-4 h-4" />
               </button>
               <a
                 href={result.primary.href}
-                className="flex items-center justify-center gap-1 glass py-2.5 rounded-xl text-xs font-semibold hover:border-cyan-400/30 transition"
+                className="flex items-center justify-center gap-1 glass py-2.5 rounded-xl text-xs font-semibold hover:border-accent-cyan/30 transition"
               >
                 {result.primary.cta}
               </a>
               <button
                 onClick={reset}
-                className="flex items-center justify-center gap-1 glass py-2.5 rounded-xl text-xs text-zinc-500 hover:text-white transition"
+                className="flex items-center justify-center gap-1 glass py-2.5 rounded-xl text-xs text-muted-foreground hover:text-foreground transition"
               >
                 <RotateCcw className="w-3 h-3" /> Retake
               </button>

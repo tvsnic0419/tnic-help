@@ -10,9 +10,9 @@ import { getLabStatus, isTrendGood } from '@/lib/labs';
 import { usePlatform } from '@/context/PlatformContext';
 
 const statusColor = {
-  optimal: 'text-emerald-400 bg-emerald-400/10',
-  watch: 'text-amber-400 bg-amber-400/10',
-  critical: 'text-rose-400 bg-rose-400/10',
+  optimal: 'text-accent-emerald bg-accent-emerald/10',
+  watch: 'text-accent-amber bg-accent-amber/10',
+  critical: 'text-accent-rose bg-accent-rose/10',
 };
 
 export function LabTracker() {
@@ -64,18 +64,18 @@ export function LabTracker() {
       badge="Lab Tracker"
       title="Your Lab Data — Stored Locally"
       subtitle="The highest-ROI tool on this platform. Log biomarker values from your bloodwork, track trends over time, and compare against optimal ranges. Data never leaves your browser."
-      className="bg-[#030712]"
+      className="bg-background"
     >
       <div className="grid lg:grid-cols-2 gap-8">
         <div className="gradient-border p-6">
-          <p className="text-[10px] font-mono text-rose-400 uppercase mb-4">Add Lab Result</p>
+          <p className="text-[10px] font-mono text-accent-rose uppercase mb-4">Add Lab Result</p>
           <div className="space-y-4">
             <div>
-              <label className="text-xs text-zinc-500 block mb-1">Marker</label>
+              <label className="text-xs text-muted-foreground block mb-1">Marker</label>
               <select
                 value={markerId}
                 onChange={(e) => setMarkerId(e.target.value)}
-                className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-sm outline-none focus:border-rose-400/50"
+                className="w-full bg-muted/50 border border-border rounded-xl px-4 py-3 text-sm outline-none focus:border-accent-rose/50"
               >
                 {biomarkers.map((b) => (
                   <option key={b.id} value={b.id} className="bg-zinc-900">
@@ -86,41 +86,41 @@ export function LabTracker() {
             </div>
             <div className="grid grid-cols-2 gap-4">
               <div>
-                <label className="text-xs text-zinc-500 block mb-1">Value</label>
+                <label className="text-xs text-muted-foreground block mb-1">Value</label>
                 <input
                   type="number"
                   step="0.1"
                   value={value}
                   onChange={(e) => setValue(e.target.value)}
                   placeholder="e.g. 1.2"
-                  className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-sm outline-none focus:border-rose-400/50"
+                  className="w-full bg-muted/50 border border-border rounded-xl px-4 py-3 text-sm outline-none focus:border-accent-rose/50"
                 />
               </div>
               <div>
-                <label className="text-xs text-zinc-500 block mb-1">Date</label>
+                <label className="text-xs text-muted-foreground block mb-1">Date</label>
                 <input
                   type="date"
                   value={date}
                   onChange={(e) => setDate(e.target.value)}
-                  className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-sm outline-none focus:border-rose-400/50"
+                  className="w-full bg-muted/50 border border-border rounded-xl px-4 py-3 text-sm outline-none focus:border-accent-rose/50"
                 />
               </div>
             </div>
             <button
               onClick={addEntry}
-              className="w-full flex items-center justify-center gap-2 bg-rose-400 text-black py-3 rounded-xl font-semibold text-sm hover:bg-cyan-400 transition-all"
+              className="w-full flex items-center justify-center gap-2 bg-accent-rose text-black py-3 rounded-xl font-semibold text-sm hover:bg-accent-cyan transition-all"
             >
               <Plus className="w-4 h-4" /> Log Result
             </button>
-            <p className="text-[10px] text-zinc-600">
+            <p className="text-[10px] text-caption">
               Optimal range for {biomarkers.find((b) => b.id === markerId)?.name}:{' '}
               {biomarkers.find((b) => b.id === markerId)?.optimal} {biomarkers.find((b) => b.id === markerId)?.unit}
             </p>
           </div>
 
           {activeChart && labs.filter((e) => e.markerId === activeChart).length >= 2 && (
-            <div className="mt-6 pt-6 border-t border-white/[0.06]">
-              <p className="text-[10px] font-mono text-rose-400 uppercase mb-2">
+            <div className="mt-6 pt-6 border-t border-border">
+              <p className="text-[10px] font-mono text-accent-rose uppercase mb-2">
                 Trend — {biomarkers.find((b) => b.id === activeChart)?.name}
               </p>
               <MarkerChart markerId={activeChart} entries={labs} />
@@ -131,8 +131,8 @@ export function LabTracker() {
         <div className="space-y-4">
           {latestByMarker.length === 0 ? (
             <div className="glass rounded-2xl p-8 text-center">
-              <p className="text-zinc-500 text-sm">No lab entries yet.</p>
-              <p className="text-xs text-zinc-600 mt-2">
+              <p className="text-muted-foreground text-sm">No lab entries yet.</p>
+              <p className="text-xs text-caption mt-2">
                 Start with hs-CRP, glutathione index, or NAD+ relative score from your last panel.
               </p>
             </div>
@@ -147,13 +147,13 @@ export function LabTracker() {
                   type="button"
                   onClick={() => setChartMarker(b.id)}
                   className={`glass rounded-2xl p-5 w-full text-left transition-all ${
-                    chartMarker === b.id ? 'ring-1 ring-rose-400/40' : 'hover:border-white/10'
+                    chartMarker === b.id ? 'ring-1 ring-rose-400/40' : 'hover:border-border'
                   }`}
                 >
                   <div className="flex items-start justify-between mb-3">
                     <div>
                       <h3 className="font-semibold text-sm">{b.name}</h3>
-                      <p className="text-[10px] text-zinc-500">{b.optimal} {b.unit} optimal</p>
+                      <p className="text-[10px] text-muted-foreground">{b.optimal} {b.unit} optimal</p>
                     </div>
                     <span className={`text-[10px] font-semibold px-2 py-0.5 rounded-full ${statusColor[status]}`}>
                       {status}
@@ -162,11 +162,11 @@ export function LabTracker() {
                   <div className="flex items-end justify-between">
                     <div>
                       <p className="text-3xl font-bold font-mono">{latest!.value}</p>
-                      <p className="text-[10px] text-zinc-600">{latest!.date} · {count} reading{count > 1 ? 's' : ''}</p>
+                      <p className="text-[10px] text-caption">{latest!.date} · {count} reading{count > 1 ? 's' : ''}</p>
                     </div>
                     {trend && (
                       <span className={`flex items-center gap-1 text-xs ${
-                        trendGood === true ? 'text-emerald-400' : trendGood === false ? 'text-rose-400' : 'text-zinc-500'
+                        trendGood === true ? 'text-accent-emerald' : trendGood === false ? 'text-accent-rose' : 'text-muted-foreground'
                       }`}>
                         {trend === 'up' ? <TrendingUp className="w-4 h-4" /> : trend === 'down' ? <TrendingDown className="w-4 h-4" /> : <Minus className="w-4 h-4" />}
                         vs prior
@@ -182,13 +182,13 @@ export function LabTracker() {
             <div className="flex gap-4">
               <button
                 onClick={downloadCsv}
-                className="text-xs text-zinc-500 hover:text-emerald-400 flex items-center gap-1 transition"
+                className="text-xs text-muted-foreground hover:text-accent-emerald flex items-center gap-1 transition"
               >
                 <Download className="w-3 h-3" /> Export CSV
               </button>
               <button
                 onClick={clearLabs}
-                className="text-xs text-zinc-600 hover:text-rose-400 flex items-center gap-1 transition"
+                className="text-xs text-caption hover:text-accent-rose flex items-center gap-1 transition"
               >
                 <Trash2 className="w-3 h-3" /> Clear all
               </button>
