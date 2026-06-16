@@ -74,6 +74,37 @@ export interface Hallmark {
   intervention: string;
 }
 
+export interface HallmarkIntervention {
+  id: string;
+  name: string;
+  category: 'compound' | 'lifestyle' | 'clinical' | 'emerging';
+  evidence: EvidenceTier;
+  rank: number;
+  impact: number;
+  description: string;
+  compoundId?: string;
+  pmid?: string;
+  tnicAvailable: boolean;
+}
+
+export interface HallmarkLibraryEntry {
+  id: string;
+  slug: string;
+  number: number;
+  title: string;
+  tagline: string;
+  summary: string;
+  mechanism: string;
+  whyItMatters: string;
+  visual: 'dna' | 'telomere' | 'epigenetic' | 'protein' | 'autophagy' | 'mito' | 'senescence' | 'stem' | 'signaling' | 'inflammation' | 'gut' | 'nutrient';
+  coverage: number;
+  biomarkers: string[];
+  interventions: HallmarkIntervention[];
+  personalPrompts: string[];
+  relatedCompoundIds: string[];
+  mdxSlug: string;
+}
+
 export interface PathwayNode {
   id: string;
   label: string;

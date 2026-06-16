@@ -81,9 +81,17 @@ export function ScienceSection() {
       theme="emerald"
       badge="Hallmarks Command"
       title="12 Hallmarks of Aging"
-      subtitle="Every hallmark mapped to TNiC intervention coverage. Click any hallmark to reveal the targeted defense protocol."
+      subtitle="Quick radar overview. For full explanations, evidence-ranked interventions, and personal notes — visit the Anti-Aging Library."
       className="bg-[#0a0f1a]/60"
     >
+      <div className="mb-8 text-center">
+        <a
+          href="/library"
+          className="inline-flex items-center gap-2 bg-emerald-400 text-black px-6 py-3 rounded-xl text-sm font-semibold hover:bg-cyan-400 transition"
+        >
+          Open Full Anti-Aging Library →
+        </a>
+      </div>
       <div className="grid lg:grid-cols-12 gap-8">
         <div className="lg:col-span-4 glass rounded-3xl p-8 flex flex-col items-center justify-center">
           <RadarChart coverage={hallmarks.map((h) => h.coverage)} />

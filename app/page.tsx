@@ -12,6 +12,7 @@ import { AboutSection } from '@/components/sections/AboutSection';
 import { JourneySection } from '@/components/sections/JourneySection';
 import { PersonalDashboard } from '@/components/sections/PersonalDashboard';
 import { LearnCenter } from '@/components/sections/LearnCenter';
+import { AntiAgingLibrary } from '@/components/library/AntiAgingLibrary';
 import { ScienceSection } from '@/components/sections/ScienceSection';
 import { TrustCenter } from '@/components/sections/TrustCenter';
 import { PathwayMap } from '@/components/sections/PathwayMap';
@@ -44,6 +45,7 @@ export default function TNiC() {
 
         <PersonalDashboard />
         <LearnCenter />
+        <AntiAgingLibrary />
         <ScienceSection />
         <PathwayMap />
         <ResearchIntel />

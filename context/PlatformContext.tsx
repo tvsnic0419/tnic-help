@@ -12,6 +12,12 @@ import {
 import { compounds, synergyScore, calculateDefenseProfile } from '@/lib/data';
 import { stackPresets, type PresetKey } from '@/lib/presets';
 import { LABS_STORAGE_KEY, exportLabsCsv as labsToCsv, type LabEntry } from '@/lib/labs';
+import {
+  HALLMARK_NOTES_KEY,
+  type HallmarkNotesMap,
+  type HallmarkPersonalEntry,
+  DEFAULT_HALLMARK_ENTRY,
+} from '@/lib/hallmark-notes';
 
 const STACK_KEY = 'tnic-stack';
 const PROFILE_KEY = 'tnic-profile';
@@ -46,6 +52,8 @@ interface PlatformContextValue {
   exportLabsCsv: () => string;
   checklist: string[];
   toggleChecklist: (step: string) => void;
+  hallmarkNotes: HallmarkNotesMap;
+  setHallmarkNote: (hallmarkId: string, patch: Partial<HallmarkPersonalEntry>) => void;
   exportAll: () => string;
   importAll: (json: string) => boolean;
 }
@@ -75,6 +83,7 @@ export function PlatformProvider({ children }: { children: ReactNode }) {
   const [profile, setProfileState] = useState<Profile>(DEFAULT_PROFILE);
   const [labs, setLabs] = useState<LabEntry[]>([]);
   const [checklist, setChecklist] = useState<string[]>([]);
+  const [hallmarkNotes, setHallmarkNotesState] = useState<HallmarkNotesMap>({});
 
   useEffect(() => {
     const fromUrl = readStackFromUrl();
@@ -83,6 +92,7 @@ export function PlatformProvider({ children }: { children: ReactNode }) {
       const profileRaw = localStorage.getItem(PROFILE_KEY);
       const labsRaw = localStorage.getItem(LABS_STORAGE_KEY);
       const checklistRaw = localStorage.getItem(CHECKLIST_KEY);
+      const hallmarkNotesRaw = localStorage.getItem(HALLMARK_NOTES_KEY);
 
       if (fromUrl) setSelectedState(fromUrl);
       else if (stackRaw) {
@@ -92,6 +102,7 @@ export function PlatformProvider({ children }: { children: ReactNode }) {
       if (profileRaw) setProfileState({ ...DEFAULT_PROFILE, ...JSON.parse(profileRaw) });
       if (labsRaw) setLabs(JSON.parse(labsRaw));
       if (checklistRaw) setChecklist(JSON.parse(checklistRaw));
+      if (hallmarkNotesRaw) setHallmarkNotesState(JSON.parse(hallmarkNotesRaw));
     } catch { /* empty */ }
     setHydrated(true);
   }, []);
@@ -162,6 +173,22 @@ export function PlatformProvider({ children }: { children: ReactNode }) {
 
   const exportLabsCsv = useCallback(() => labsToCsv(labs), [labs]);
 
+  const setHallmarkNote = useCallback((hallmarkId: string, patch: Partial<HallmarkPersonalEntry>) => {
+    setHallmarkNotesState((prev) => {
+      const next = {
+        ...prev,
+        [hallmarkId]: {
+          ...DEFAULT_HALLMARK_ENTRY,
+          ...prev[hallmarkId],
+          ...patch,
+          updatedAt: new Date().toISOString(),
+        },
+      };
+      localStorage.setItem(HALLMARK_NOTES_KEY, JSON.stringify(next));
+      return next;
+    });
+  }, []);
+
   const toggleChecklist = useCallback((step: string) => {
     setChecklist((prev) => {
       const next = prev.includes(step) ? prev.filter((s) => s !== step) : [...prev, step];
@@ -171,8 +198,8 @@ export function PlatformProvider({ children }: { children: ReactNode }) {
   }, []);
 
   const exportAll = useCallback(
-    () => JSON.stringify({ stack: selected, profile, labs, checklist, exportedAt: new Date().toISOString() }, null, 2),
-    [selected, profile, labs, checklist],
+    () => JSON.stringify({ stack: selected, profile, labs, checklist, hallmarkNotes, exportedAt: new Date().toISOString() }, null, 2),
+    [selected, profile, labs, checklist, hallmarkNotes],
   );
 
   const importAll = useCallback((json: string) => {
@@ -188,6 +215,10 @@ export function PlatformProvider({ children }: { children: ReactNode }) {
       if (data.checklist) {
         setChecklist(data.checklist);
         localStorage.setItem(CHECKLIST_KEY, JSON.stringify(data.checklist));
+      }
+      if (data.hallmarkNotes) {
+        setHallmarkNotesState(data.hallmarkNotes);
+        localStorage.setItem(HALLMARK_NOTES_KEY, JSON.stringify(data.hallmarkNotes));
       }
       return true;
     } catch {
@@ -232,6 +263,8 @@ export function PlatformProvider({ children }: { children: ReactNode }) {
     exportLabsCsv,
     checklist,
     toggleChecklist,
+    hallmarkNotes,
+    setHallmarkNote,
     exportAll,
     importAll,
   };
