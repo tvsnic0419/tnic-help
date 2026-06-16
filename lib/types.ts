@@ -8,6 +8,9 @@ export type SimplicityTier = 'minimal' | 'moderate' | 'advanced' | 'clinical';
 
 export type EvidenceTier = 'A' | 'B' | 'C';
 
+/** User-facing evidence labels for content blocks and journey entries */
+export type EvidenceLevel = 'Strong' | 'Moderate' | 'Mechanistic' | 'Personal' | 'Emerging';
+
 export type CitationType = 'clinical' | 'review' | 'preclinical' | 'guideline' | 'meta-analysis';
 
 export type JourneyMilestoneType = 'personal' | 'experiment' | 'protocol' | 'platform';

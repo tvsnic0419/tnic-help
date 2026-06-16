@@ -32,6 +32,131 @@ export interface StackAnalysis {
   monthlyCost: { low: number; high: number };
 }
 
+/** Base compound strength scores (1–10) for live synergy algorithm */
+export const compoundBaseScores: Record<string, number> = {
+  glynac: 9,
+  sulforaphane: 9,
+  nmn: 8,
+  cakg: 8,
+  rala: 7,
+  resveratrol: 7,
+};
+
+/** Pairwise synergy scores (1–10). Higher = stronger complementary effect. */
+export const synergyPairMatrix: Record<string, Record<string, number>> = {
+  glynac: { sulforaphane: 9, rala: 8, nmn: 7 },
+  sulforaphane: { glynac: 9, rala: 8 },
+  rala: { glynac: 8, sulforaphane: 8, nmn: 7, resveratrol: 4 },
+  nmn: { glynac: 7, cakg: 8, resveratrol: 9, rala: 7 },
+  cakg: { nmn: 8, resveratrol: 7 },
+  resveratrol: { nmn: 9, cakg: 7, rala: 4 },
+};
+
+export const hallmarkDisplayNames: Record<string, string> = {
+  mito: 'Mitochondrial',
+  proteostasis: 'Proteostasis',
+  inflammation: 'Inflammation',
+  genomic: 'Genomic stability',
+  epigenetic: 'Epigenetic',
+  senescence: 'Senescence',
+  stem: 'Stem cell',
+};
+
+export interface LiveStackAnalysis {
+  totalScore: number;
+  synergies: string[];
+  warnings: string[];
+  coverage: number;
+  hallmarkLabels: string[];
+}
+
+const DEFAULT_PAIR_SCORE = 5;
+
+function getPairSynergyScore(aId: string, bId: string): number {
+  const fromMatrix = synergyPairMatrix[aId]?.[bId] ?? synergyPairMatrix[bId]?.[aId];
+  if (fromMatrix !== undefined) return fromMatrix;
+
+  const interaction = stackInteractions.find(
+    (i) =>
+      (i.compoundIds[0] === aId && i.compoundIds[1] === bId) ||
+      (i.compoundIds[0] === bId && i.compoundIds[1] === aId),
+  );
+  if (interaction) {
+    if (interaction.type === 'synergy') return interaction.severity === 'low' ? 8 : 7;
+    if (interaction.type === 'caution') return interaction.severity === 'high' ? 2 : 4;
+    return 1;
+  }
+
+  const a = compounds.find((c) => c.id === aId);
+  const b = compounds.find((c) => c.id === bId);
+  if (a?.synergies.includes(bId) || b?.synergies.includes(aId)) return 7;
+
+  return DEFAULT_PAIR_SCORE;
+}
+
+/** Dynamic pairwise synergy scoring — powers Stack Builder live analysis panel */
+export function computeLiveStackAnalysis(selectedIds: string[]): LiveStackAnalysis {
+  if (selectedIds.length === 0) {
+    return { totalScore: 0, synergies: [], warnings: [], coverage: 0, hallmarkLabels: [] };
+  }
+
+  const selected = compounds.filter((c) => selectedIds.includes(c.id));
+  let totalScore = selected.reduce(
+    (sum, c) => sum + (compoundBaseScores[c.id] ?? (c.evidence === 'A' ? 8 : c.evidence === 'B' ? 7 : 6)),
+    0,
+  );
+
+  const synergies: string[] = [];
+  const warnings: string[] = [];
+
+  for (let i = 0; i < selectedIds.length; i++) {
+    for (let j = i + 1; j < selectedIds.length; j++) {
+      const aId = selectedIds[i];
+      const bId = selectedIds[j];
+      const a = compounds.find((c) => c.id === aId);
+      const b = compounds.find((c) => c.id === bId);
+      if (!a || !b) continue;
+
+      const pairScore = getPairSynergyScore(aId, bId);
+
+      if (pairScore >= 8) {
+        synergies.push(`${a.name} + ${b.name}: Strong synergy (${pairScore}/10)`);
+        totalScore += Math.floor(pairScore * 0.6);
+      } else if (pairScore <= 3) {
+        const interaction = stackInteractions.find(
+          (int) =>
+            (int.compoundIds[0] === aId && int.compoundIds[1] === bId) ||
+            (int.compoundIds[0] === bId && int.compoundIds[1] === aId),
+        );
+        warnings.push(
+          interaction
+            ? `Caution: ${interaction.title} — ${a.name} + ${b.name}`
+            : `Caution: Potential interaction between ${a.name} and ${b.name}`,
+        );
+      }
+    }
+  }
+
+  const hallmarkSet = new Set(selected.flatMap((c) => c.hallmarks));
+  const coverageBonus = Math.floor(hallmarkSet.size * 1.5);
+  totalScore += coverageBonus;
+
+  const normalizedScore = Math.min(
+    Math.max(Math.round(totalScore / selected.length), 0),
+    100,
+  );
+
+  const hallmarkLabels = [...hallmarkSet].map((h) => hallmarkDisplayNames[h] ?? h);
+
+  return {
+    totalScore: normalizedScore,
+    synergies,
+    warnings,
+    coverage: hallmarkSet.size,
+    hallmarkLabels,
+  };
+}
+
 export const compoundMonthlyCost: Record<string, { low: number; high: number }> = {
   glynac: { low: 35, high: 55 },
   sulforaphane: { low: 25, high: 45 },

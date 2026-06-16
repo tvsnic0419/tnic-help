@@ -23,7 +23,7 @@ const paths = [
     icon: LayoutDashboard,
     title: 'Launch your command center',
     desc: 'Stack, labs, checklist, and bio age — unified in one personal dashboard. Data stays local.',
-    href: '#dashboard',
+    href: '/dashboard',
     cta: 'Open Dashboard',
     accent: 'emerald',
   },

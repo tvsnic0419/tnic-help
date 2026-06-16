@@ -15,7 +15,7 @@ import {
 import { usePlatform } from '@/context/PlatformContext';
 
 const tools = [
-  { href: '#dashboard', label: 'Dashboard', icon: LayoutDashboard },
+  { href: '/dashboard', label: 'Dashboard', icon: LayoutDashboard },
   { href: '#biomarkers', label: 'Biomarkers', icon: Activity },
   { href: '/labs', label: 'Labs', icon: FlaskConical },
   { href: '/tools', label: 'Tools', icon: Calculator },

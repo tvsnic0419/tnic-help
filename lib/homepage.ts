@@ -56,7 +56,7 @@ export function getQuizResult(answers: QuizAnswers) {
     learn: { title: 'Start with the Learn Center', href: '#learn', cta: 'Open Learn Center' },
     defense: { title: 'Run your Defense Scan', href: '#calculator', cta: 'Calculate Bio Age' },
     energy: { title: 'Explore mitochondrial pathways', href: '#science', cta: 'View Science' },
-    full: { title: 'Open your Personal Dashboard', href: '#dashboard', cta: 'Go to Dashboard' },
+    full: { title: 'Open your Personal Dashboard', href: '/dashboard', cta: 'Go to Dashboard' },
   };
 
   const primary = paths[answers.goal as keyof typeof paths] ?? paths.learn;

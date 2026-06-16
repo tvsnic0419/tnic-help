@@ -52,7 +52,7 @@ export function SiteSearch() {
     });
 
     const sections = [
-      { q: 'dashboard', title: 'Personal Dashboard', href: '#dashboard' },
+      { q: 'dashboard', title: 'Personal Dashboard', href: '/dashboard' },
       { q: 'lab', title: 'Lab Analysis Hub', href: '/labs' },
       { q: 'stack', title: 'Stack Architect', href: '#stacks' },
       { q: 'bio age', title: 'Biological Age Calculator', href: '#calculator' },

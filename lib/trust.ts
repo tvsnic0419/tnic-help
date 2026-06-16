@@ -1,5 +1,6 @@
 import type {
   DisclaimerBlock,
+  EvidenceLevel,
   EvidenceTier,
   SourceCitation,
   UpdateHistoryEntry,
@@ -47,6 +48,50 @@ export const evidenceTagDefinitions: Record<
     color: 'amber',
   },
 };
+
+/** Content-facing evidence labels — maps to tiers where applicable */
+export const evidenceBadgeDefinitions: Record<
+  EvidenceLevel,
+  { label: string; description: string; tier?: EvidenceTier }
+> = {
+  Strong: {
+    label: 'Strong Evidence',
+    description: 'Human RCTs, meta-analyses, or replicated biomarker outcomes.',
+    tier: 'A',
+  },
+  Moderate: {
+    label: 'Moderate Evidence',
+    description: 'Pilot trials, observational cohorts, or consistent emerging human data.',
+    tier: 'B',
+  },
+  Mechanistic: {
+    label: 'Mechanistic Evidence',
+    description: 'Well-characterized pathway biology; preclinical or in-vitro primary data.',
+    tier: 'C',
+  },
+  Personal: {
+    label: 'Personal Evidence',
+    description: 'Founder N=1 log or self-experiment — transparent, not generalizable.',
+  },
+  Emerging: {
+    label: 'Emerging Evidence',
+    description: 'Early human signals, single trials, or active research — hypothesis-generating.',
+    tier: 'B',
+  },
+};
+
+export function evidenceLevelFromTier(tier: EvidenceTier): EvidenceLevel {
+  const map: Record<EvidenceTier, EvidenceLevel> = {
+    A: 'Strong',
+    B: 'Moderate',
+    C: 'Mechanistic',
+  };
+  return map[tier];
+}
+
+export function evidenceTierFromLevel(level: EvidenceLevel): EvidenceTier | undefined {
+  return evidenceBadgeDefinitions[level].tier;
+}
 
 export const citationTypeLabels = {
   clinical: 'Clinical Trial',

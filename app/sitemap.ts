@@ -14,6 +14,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { url: `${base}/stacks`, lastModified: BUILD_DATE, changeFrequency: 'weekly', priority: 0.9 },
     { url: `${base}/labs`, lastModified: BUILD_DATE, changeFrequency: 'weekly', priority: 0.9 },
     { url: `${base}/tools`, lastModified: BUILD_DATE, changeFrequency: 'weekly', priority: 0.9 },
+    { url: `${base}/dashboard`, lastModified: BUILD_DATE, changeFrequency: 'weekly', priority: 0.92 },
     { url: `${base}/trust`, lastModified: BUILD_DATE, changeFrequency: 'weekly', priority: 0.85 },
     { url: `${base}/trust/methodology`, lastModified: BUILD_DATE, changeFrequency: 'monthly', priority: 0.7 },
     { url: `${base}/trust/disclaimers`, lastModified: BUILD_DATE, changeFrequency: 'monthly', priority: 0.7 },

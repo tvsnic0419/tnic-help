@@ -111,6 +111,18 @@ export function PersonalDashboard() {
       subtitle="Stack, labs, bio age, and journey — unified in one dashboard. Everything stays in your browser unless you export it."
       className="bg-gradient-to-b from-accent-emerald/5 to-transparent border-y border-border"
     >
+      <div className="mb-8 flex flex-wrap items-center justify-between gap-4">
+        <p className="text-body-sm text-muted-foreground">
+          Homepage preview — open the full command center for stack builder and journey highlights.
+        </p>
+        <a
+          href="/dashboard"
+          className="focus-ring interactive inline-flex items-center gap-2 rounded-xl bg-accent-emerald px-5 py-3 text-sm font-semibold text-black hover:bg-accent-cyan transition"
+        >
+          Open full dashboard
+          <ArrowRight className="w-4 h-4" aria-hidden="true" />
+        </a>
+      </div>
       <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
         {stats.map((s) => (
           <a

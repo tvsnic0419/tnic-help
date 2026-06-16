@@ -4,13 +4,12 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { Sun, Moon } from 'lucide-react';
 import { useStack } from '@/context/PlatformContext';
 import { analyzeStack } from '@/lib/stack-analysis';
-import { CompoundSelectorGrid } from './CompoundSelectorGrid';
+import { StackBuilder } from './StackBuilder';
 import { SynergyScorePanel } from './SynergyScorePanel';
 import { StackInteractionsPanel } from './StackInteractionsPanel';
-import { StackExport } from './StackExport';
 
 export function DynamicStackBuilder() {
-  const { selected, toggle, score, selectedCompounds } = useStack();
+  const { selected, score, selectedCompounds } = useStack();
   const analysis = analyzeStack(selected);
 
   const amDose = selectedCompounds.filter((c) => c.timing === 'AM' || c.timing === 'AM/PM');
@@ -18,25 +17,8 @@ export function DynamicStackBuilder() {
 
   return (
     <div className="grid lg:grid-cols-12 gap-8">
-      <div className="lg:col-span-7 space-y-6">
-        <div>
-          <p className="text-label text-accent-violet mb-3">Add / remove compounds</p>
-          <CompoundSelectorGrid selected={selected} onToggle={toggle} />
-        </div>
-
-        <AnimatePresence mode="wait">
-          {selected.length > 0 ? (
-            <motion.div
-              key={selected.join(',')}
-              initial={{ opacity: 0, y: 8 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0 }}
-              className="space-y-4"
-            >
-              <StackExport />
-            </motion.div>
-          ) : null}
-        </AnimatePresence>
+      <div className="lg:col-span-7">
+        <StackBuilder title="Build your protocol" />
       </div>
 
       <div className="lg:col-span-5 space-y-5">

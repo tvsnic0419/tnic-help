@@ -16,7 +16,7 @@ import type { Compound, Hallmark, PathwayNode, RoadmapItem } from './types';
 
 export const navLinks = [
   { href: '#about', label: 'About', mod: 'MOD-ABT-00' },
-  { href: '#dashboard', label: 'Dashboard', mod: 'MOD-DSH-12' },
+  { href: '/dashboard', label: 'Dashboard', mod: 'MOD-DSH-12' },
   { href: '#learn', label: 'Learn', mod: 'MOD-LRN-09' },
   { href: '/library', label: 'Library', mod: 'MOD-LIB-13' },
   { href: '/tools', label: 'Tools', mod: 'MOD-TOL-14' },
