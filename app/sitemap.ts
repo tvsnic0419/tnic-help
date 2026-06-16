@@ -9,6 +9,8 @@ export default function sitemap(): MetadataRoute.Sitemap {
 
   return [
     { url: base, lastModified: new Date(), changeFrequency: 'weekly', priority: 1 },
+    { url: `${base}/library`, lastModified: new Date(), changeFrequency: 'weekly', priority: 0.9 },
+    { url: `${base}/stacks`, lastModified: new Date(), changeFrequency: 'weekly', priority: 0.9 },
     ...sections.map((s) => ({
       url: `${base}/#${s}`,
       lastModified: new Date(),

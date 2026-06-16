@@ -1,6 +1,10 @@
 import type { LucideIcon } from 'lucide-react';
 
-export type StackGoal = 'nrf2' | 'mito' | 'hybrid';
+export type StackGoal = 'nrf2' | 'mito' | 'hybrid' | 'sirt1' | 'autophagy' | 'longevity';
+
+export type CostTier = 'budget' | 'moderate' | 'premium' | 'clinical';
+
+export type SimplicityTier = 'minimal' | 'moderate' | 'advanced' | 'clinical';
 
 export type EvidenceTier = 'A' | 'B' | 'C';
 
