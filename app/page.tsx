@@ -1,87 +1,93 @@
 'use client';
 
 import { useState } from 'react';
-import { ArrowRight, Shield } from 'lucide-react';
+import { ArrowRight, Shield, Zap, Users, BookOpen } from 'lucide-react';
 
 export default function TNiC() {
-  const [email, setEmail] = useState('');
   const [stackGoal, setStackGoal] = useState<'nrf2' | 'mito'>('nrf2');
 
-  const handleSubscribe = (e: React.FormEvent) => {
-    e.preventDefault();
-    alert('Thank you! High-signal longevity updates incoming.');
-    setEmail('');
-  };
-
   const recommended = {
-    nrf2: ['GlyNAC ET', 'Sulforaphane', 'R-Alpha Lipoic Acid'],
-    mito: ['Ca-AKG', 'Codeage NMN Platinum', 'Trans-Resveratrol'],
+    nrf2: ['GlyNAC ET by Nutri', 'Sulforaphane', 'R-Alpha Lipoic Acid'],
+    mito: ['Ca-AKG by Do Not Age', 'Codeage NMN Platinum', 'Trans-Resveratrol'],
   };
 
   return (
     <div className="min-h-screen bg-zinc-950 text-white">
-      <nav className="fixed top-0 w-full bg-zinc-950/80 backdrop-blur-lg z-50 border-b border-zinc-800">
+      {/* NAV */}
+      <nav className="fixed top-0 w-full bg-zinc-950/90 backdrop-blur-lg z-50 border-b border-zinc-800">
         <div className="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
-          <div className="text-2xl font-bold tracking-tighter">TNiC</div>
-          <div className="hidden md:flex gap-8 text-sm">
-            <a href="#science" className="hover:text-cyan-400 transition-colors">Science</a>
-            <a href="#compounds" className="hover:text-cyan-400 transition-colors">Compounds</a>
-            <a href="#recommendations" className="hover:text-cyan-400 transition-colors">Stacks</a>
+          <div className="text-3xl font-bold tracking-tighter text-cyan-400">TNiC</div>
+          <div className="flex gap-8 text-sm font-medium">
+            <a href="#science" className="hover:text-cyan-400 transition">Science</a>
+            <a href="#compounds" className="hover:text-cyan-400 transition">Compounds</a>
+            <a href="#stacks" className="hover:text-cyan-400 transition">Stacks</a>
+            <a href="#future" className="hover:text-cyan-400 transition">Future</a>
           </div>
-          <button className="bg-cyan-500 hover:bg-cyan-400 text-black px-6 py-2.5 rounded-full font-medium transition">Join Defense Network</button>
+          <button className="bg-white text-black px-6 py-2 rounded-full font-semibold hover:bg-cyan-400 transition">Join Defense Network</button>
         </div>
       </nav>
 
-      <section className="hero-bg pt-32 pb-24 text-center">
-        <div className="max-w-4xl mx-auto px-6">
-          <div className="inline-flex items-center gap-2 bg-zinc-900 border border-cyan-500/30 rounded-full px-4 py-1 mb-6">
-            <Shield className="w-4 h-4 text-cyan-400" /> Cellular Resilience
+      {/* HERO */}
+      <section className="hero-bg pt-32 pb-32 text-center">
+        <div className="max-w-5xl mx-auto px-6">
+          <div className="inline-flex items-center gap-3 bg-zinc-900/80 border border-cyan-500/30 rounded-3xl px-6 py-2 mb-8">
+            <Shield className="text-cyan-400" /> Premium Cellular Resilience
           </div>
-          <h1 className="text-6xl md:text-7xl font-bold tracking-tighter mb-6 leading-tight">
-            Master Your Cells.<br />Master Longevity.
+          <h1 className="section-title text-6xl md:text-7xl mb-8">
+            Your Cells Are The<br />Operating System of<br />
+            <span className="bg-gradient-to-r from-cyan-400 via-emerald-400 to-cyan-400 bg-clip-text text-transparent">Longevity</span>
           </h1>
-          <p className="text-xl text-zinc-400 mb-10">NRF2 • Glutathione • Mitochondrial Defense</p>
-          
+          <p className="text-2xl text-zinc-400 max-w-3xl mx-auto mb-12">
+            Targeting NRF2, glutathione, mitochondria, and the 12 Hallmarks of Aging.
+          </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <a href="#recommendations" className="bg-white text-black px-10 py-4 rounded-2xl font-semibold flex items-center justify-center gap-3 hover:scale-105 transition">
+            <a href="#stacks" className="bg-white text-black px-10 py-4 rounded-2xl font-semibold flex items-center justify-center gap-3 text-lg hover:scale-105 transition">
               Build Your Stack <ArrowRight />
             </a>
-            <a href="#science" className="border border-white/30 hover:bg-white/5 px-10 py-4 rounded-2xl font-medium transition">Deep Science</a>
+            <a href="#science" className="border-2 border-white/40 hover:bg-white/10 px-10 py-4 rounded-2xl font-medium text-lg transition">Explore The Science</a>
           </div>
         </div>
       </section>
 
-      <section id="recommendations" className="py-24 bg-zinc-900">
-        <div className="max-w-5xl mx-auto px-6 text-center">
-          <h2 className="text-5xl font-bold mb-4">Intelligent Stack Builder</h2>
-          <p className="text-zinc-400 mb-10">Choose your primary goal</p>
+      {/* INTERACTIVE STACKS */}
+      <section id="stacks" className="py-24 bg-zinc-900">
+        <div className="max-w-6xl mx-auto px-6">
+          <h2 className="section-title text-center mb-4">Intelligent Defense Stacks</h2>
+          <p className="text-center text-zinc-400 text-xl mb-12">Click to switch goals</p>
 
-          <div className="flex justify-center gap-4 mb-12 flex-wrap">
-            {(['nrf2', 'mito'] as const).map((g) => (
-              <button
-                key={g}
-                onClick={() => setStackGoal(g)}
-                className={`px-8 py-3 rounded-2xl font-medium transition-all ${stackGoal === g ? 'bg-cyan-500 text-black shadow-lg' : 'bg-zinc-800 hover:bg-zinc-700'}`}
-              >
-                {g === 'nrf2' ? 'NRF2 Activation' : 'Mitochondrial Renewal'}
-              </button>
-            ))}
+          <div className="flex justify-center gap-6 mb-16">
+            <button onClick={() => setStackGoal('nrf2')} className={`px-10 py-4 rounded-3xl text-lg font-medium transition ${stackGoal === 'nrf2' ? 'bg-cyan-500 text-black' : 'bg-zinc-800 hover:bg-zinc-700'}`}>NRF2 Activation</button>
+            <button onClick={() => setStackGoal('mito')} className={`px-10 py-4 rounded-3xl text-lg font-medium transition ${stackGoal === 'mito' ? 'bg-cyan-500 text-black' : 'bg-zinc-800 hover:bg-zinc-700'}`}>Mitochondrial Renewal</button>
           </div>
 
-          <div className="grid md:grid-cols-3 gap-6">
-            {recommended[stackGoal].map((supp, i) => (
-              <div key={i} className="card-hover bg-zinc-950 border border-zinc-800 rounded-3xl p-8 text-left">
-                <div className="h-1.5 w-12 bg-gradient-to-r from-cyan-400 to-emerald-400 rounded mb-6" />
-                <h3 className="text-2xl font-semibold mb-4">{supp}</h3>
-                <p className="text-zinc-400 mb-8">High-bioavailability • Evidence-backed</p>
-                <a href="https://www.amazon.com/s?k=supplement" target="_blank" className="block text-center border border-white/20 hover:bg-white/5 py-3 rounded-2xl text-sm font-medium transition">
-                  Shop on Amazon →
-                </a>
+          <div className="grid md:grid-cols-3 gap-8">
+            {recommended[stackGoal].map((item, i) => (
+              <div key={i} className="card-hover bg-zinc-950 border border-zinc-700 rounded-3xl p-10">
+                <div className="text-cyan-400 mb-6">★ Premium Choice</div>
+                <h3 className="text-3xl font-bold mb-6">{item}</h3>
+                <a href="https://amazon.com" target="_blank" className="inline-block border border-white/30 hover:border-cyan-400 px-8 py-3 rounded-2xl text-sm">Shop Now →</a>
               </div>
             ))}
           </div>
         </div>
       </section>
+
+      {/* Quick Original Content Teaser */}
+      <section id="science" className="py-24 border-t border-zinc-800">
+        <div className="max-w-4xl mx-auto px-6 text-center">
+          <h2 className="section-title mb-8">The Science</h2>
+          <p className="text-xl text-zinc-400">NRF2 is the master regulator of over 200 antioxidant and detoxification genes. Our approach combines cutting-edge research with practical, high-bioavailability formulations.</p>
+          <div className="mt-12 grid grid-cols-1 md:grid-cols-3 gap-8 text-left">
+            <div className="bg-zinc-900 p-8 rounded-3xl">Oxidative Stress &amp; Mitochondrial Decline</div>
+            <div className="bg-zinc-900 p-8 rounded-3xl">Inflammaging &amp; Senescence</div>
+            <div className="bg-zinc-900 p-8 rounded-3xl">Glutathione &amp; NRF2 Collapse</div>
+          </div>
+        </div>
+      </section>
+
+      <footer className="border-t border-zinc-800 py-12 text-center text-zinc-500">
+        TNiC • Not medical advice. Consult professionals. © 2026
+      </footer>
     </div>
   );
 }
