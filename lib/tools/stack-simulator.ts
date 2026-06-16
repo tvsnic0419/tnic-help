@@ -214,4 +214,47 @@ export function simulateStack(
   };
 }
 
+export function formatSimulatorExport(
+  result: StackSimulatorResult,
+  shareUrl: string,
+  age: number,
+): string {
+  const { analysis, dosingSchedule, riskLevel, riskScore } = result;
+  const am = dosingSchedule.am;
+  const pm = dosingSchedule.pm;
+
+  const lines = [
+    '═══════════════════════════════════════',
+    '  TNiC STACK SIMULATOR EXPORT',
+    '  tnic.help/tools — Educational only',
+    '═══════════════════════════════════════',
+    '',
+    `Age (dose adjustment): ${age}`,
+    `Synergy Score: ${analysis.score}/100`,
+    `Risk Index: ${riskScore}/100 (${riskLevel})`,
+    `Evidence Tier: ${analysis.evidenceTier}`,
+    `Hallmark Coverage: ${analysis.hallmarkCount}/12`,
+    `Est. Monthly Cost: $${analysis.monthlyCost.low}–$${analysis.monthlyCost.high}`,
+    `Share URL: ${shareUrl}`,
+    '',
+    '── AM PROTOCOL (age-adjusted) ──',
+    ...(am.length ? am.map((d) => `  • ${d.name} — ${d.adjustedDose}${d.adjustmentReason ? ` (${d.adjustmentReason})` : ''}`) : ['  (none)']),
+    '',
+    '── PM PROTOCOL (age-adjusted) ──',
+    ...(pm.length ? pm.map((d) => `  • ${d.name} — ${d.adjustedDose}`) : ['  (none)']),
+    '',
+    '── TOP RISKS ──',
+    ...(result.sideEffectRisks.slice(0, 8).length
+      ? result.sideEffectRisks.slice(0, 8).map((r) => `  [${r.severity}] ${r.compoundName}: ${r.risk}`)
+      : ['  (none flagged)']),
+    '',
+    result.summaryVerdict,
+    '',
+    'Not medical advice. Consult your physician before starting any protocol.',
+    `Exported: ${new Date().toISOString()}`,
+  ];
+
+  return lines.join('\n');
+}
+
 export { stackInteractions, HALLMARK_LABELS };
