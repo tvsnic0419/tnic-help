@@ -6,7 +6,12 @@
 import type { LibraryModuleCategory } from './library-modules';
 import { libraryModules, libraryCategoryMeta } from './library-modules';
 
-export type ToolId = 'simulator' | 'protocol' | 'biomarker' | 'healthspan';
+export type ToolId =
+  | 'simulator'
+  | 'network'
+  | 'protocol'
+  | 'biomarker'
+  | 'healthspan';
 
 export interface ToolRegistryEntry {
   id: ToolId;
@@ -17,6 +22,7 @@ export interface ToolRegistryEntry {
   href: string;
   keywords: string[];
   evidenceNote: string;
+  badge?: string;
 }
 
 export const toolsRegistry: ToolRegistryEntry[] = [
@@ -32,26 +38,40 @@ export const toolsRegistry: ToolRegistryEntry[] = [
     evidenceNote: 'Uses Tier A/B compound safety database and published trial dose ranges.',
   },
   {
+    id: 'network',
+    slug: 'network',
+    label: 'Stack Network',
+    shortLabel: 'Conflict graph',
+    description:
+      'Visual synergy and conflict network — interactive graph of compound interactions, cautions, and contraindications.',
+    href: '/tools?tab=network',
+    keywords: ['supplement interaction graph', 'stack conflict analyzer', 'synergy network'],
+    evidenceNote: 'Pair-level edges from TNiC interaction database plus documented compound synergies.',
+    badge: 'New',
+  },
+  {
     id: 'protocol',
     slug: 'protocol',
-    label: 'Protocol Builder',
-    shortLabel: 'Age + goals → plan',
+    label: 'Protocol Engine',
+    shortLabel: 'AI-like planner',
     description:
-      'Input age, goals, lifestyle, and labs → tailored multi-hallmark protocol with AM/PM schedule.',
+      'Rule-based recommendation engine: goals, labs, lifestyle → multi-phase, multi-pathway protocol with transparent reasoning chain.',
     href: '/tools?tab=protocol',
     keywords: ['longevity protocol', 'personalized supplement plan', 'hallmarks protocol'],
-    evidenceNote: 'Hallmark prioritization from goals + lifestyle + optional lab integration.',
+    evidenceNote: 'Deterministic rule engine — not generative AI. Full reasoning trace for every recommendation.',
+    badge: 'Advanced',
   },
   {
     id: 'biomarker',
     slug: 'biomarker',
-    label: 'Biomarker Impact',
-    shortLabel: 'Lab interventions',
+    label: 'Biomarker Dashboard',
+    shortLabel: 'Trends + forecast',
     description:
-      'Ranked compound and lifestyle interventions by evidence-weighted impact on each biomarker.',
+      'Dynamic lab trends, intervention impact forecasts, and ranked scenarios — with strong educational disclaimers.',
     href: '/tools?tab=biomarker',
-    keywords: ['biomarker optimization', 'GSH NAD hs-CRP', 'lab interpretation'],
-    evidenceNote: 'Impact scores weight evidence tier and mechanistic relevance — not clinical guarantees.',
+    keywords: ['biomarker optimization', 'lab trend analysis', 'intervention forecast'],
+    evidenceNote: 'Forecasts are illustrative models from published effect sizes — not clinical predictions.',
+    badge: 'Advanced',
   },
   {
     id: 'healthspan',

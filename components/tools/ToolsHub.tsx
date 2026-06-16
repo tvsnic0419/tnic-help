@@ -9,6 +9,7 @@ import {
   FlaskConical,
   TrendingUp,
   Calculator,
+  Network,
 } from 'lucide-react';
 import { PageHeader } from '@/components/ui/PageHeader';
 import { TabBar } from '@/components/ui/TabBar';
@@ -21,12 +22,16 @@ const StackSimulatorTool = dynamic(
   () => import('./StackSimulatorTool').then((m) => ({ default: m.StackSimulatorTool })),
   { loading: () => <SectionSkeleton height="lg" /> },
 );
-const ProtocolCustomizerTool = dynamic(
-  () => import('./ProtocolCustomizerTool').then((m) => ({ default: m.ProtocolCustomizerTool })),
+const StackNetworkTool = dynamic(
+  () => import('./StackNetworkTool').then((m) => ({ default: m.StackNetworkTool })),
   { loading: () => <SectionSkeleton height="lg" /> },
 );
-const BiomarkerImpactTool = dynamic(
-  () => import('./BiomarkerImpactTool').then((m) => ({ default: m.BiomarkerImpactTool })),
+const ProtocolEngineTool = dynamic(
+  () => import('./ProtocolEngineTool').then((m) => ({ default: m.ProtocolEngineTool })),
+  { loading: () => <SectionSkeleton height="lg" /> },
+);
+const BiomarkerDashboardTool = dynamic(
+  () => import('./BiomarkerDashboardTool').then((m) => ({ default: m.BiomarkerDashboardTool })),
   { loading: () => <SectionSkeleton height="lg" /> },
 );
 const HealthspanEstimatorTool = dynamic(
@@ -36,6 +41,7 @@ const HealthspanEstimatorTool = dynamic(
 
 const tabIcons = {
   simulator: Layers,
+  network: Network,
   protocol: Wand2,
   biomarker: FlaskConical,
   healthspan: TrendingUp,
@@ -45,7 +51,7 @@ const tabs = toolsRegistry.map((t) => ({
   id: t.id,
   label: t.label,
   icon: tabIcons[t.id],
-  badge: t.id === 'simulator' ? 'Advanced' : undefined,
+  badge: t.badge,
 }));
 
 export function ToolsHub() {
@@ -77,7 +83,7 @@ export function ToolsHub() {
           icon={Calculator}
           eyebrow="Interactive Tools"
           title="Longevity Decision Engine"
-          description="Four evidence-graded tools that turn library knowledge into actionable protocols. All outputs are educational — not medical advice."
+          description="Five evidence-graded tools that turn library knowledge into actionable protocols. Rule-based engines with transparent reasoning — not generative AI."
           theme="violet"
           as="h1"
         />
@@ -100,8 +106,9 @@ export function ToolsHub() {
 
         <div role="tabpanel" id={`panel-${active}`} aria-labelledby={`tab-${active}`}>
           {active === 'simulator' && <StackSimulatorTool />}
-          {active === 'protocol' && <ProtocolCustomizerTool />}
-          {active === 'biomarker' && <BiomarkerImpactTool />}
+          {active === 'network' && <StackNetworkTool />}
+          {active === 'protocol' && <ProtocolEngineTool />}
+          {active === 'biomarker' && <BiomarkerDashboardTool />}
           {active === 'healthspan' && <HealthspanEstimatorTool />}
         </div>
 
