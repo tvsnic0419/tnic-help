@@ -17,6 +17,7 @@ import { HallmarkRiskPanel } from './HallmarkRiskPanel';
 import { LabRecommendations } from './LabRecommendations';
 import { PrivacyPanel } from './PrivacyPanel';
 import { ToolsPromoStrip } from '@/components/tools/ToolsPromoStrip';
+import { LabPartnerPanel } from './LabPartnerPanel';
 
 type Tab = 'input' | 'trends' | 'risk' | 'insights' | 'privacy';
 
@@ -128,6 +129,8 @@ export function LabHub() {
           </div>
         )}
       </motion.div>
+
+      <LabPartnerPanel />
     </PageShell>
   );
 }

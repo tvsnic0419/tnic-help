@@ -23,6 +23,9 @@ const hubLinks = [
 ];
 
 const resourceLinks = [
+  { href: '/shop', label: 'Protocol Shop', icon: BookOpen },
+  { href: '/brief', label: 'Protocol Brief', icon: BookOpen },
+  { href: '/contact', label: 'Contact', icon: HelpCircle },
   { href: '/library/compare', label: 'Comparisons', icon: BookOpen },
   { href: '/#hallmark-targets', label: 'Hallmark Targets', icon: Dna },
   { href: '/#next-up', label: "What's Next", icon: Rocket },

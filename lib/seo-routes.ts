@@ -66,6 +66,29 @@ export const seoRoutes = {
       keywords: ['hallmarks of aging', 'GlyNAC deep dive', 'longevity library', 'anti-aging education'],
     }),
 
+  shop: () =>
+    buildPageMetadata({
+      title: 'Protocol Shop — Verify Before You Buy',
+      description:
+        'Stack-filtered supplement verification checklists. COA demands, RCT doses, red flags — TNiC earns $0 from products.',
+      path: '/shop',
+      keywords: ['supplement buyer guide', 'protocol shop', 'NMN COA'],
+    }),
+
+  brief: () =>
+    buildPageMetadata({
+      title: 'Protocol Brief — Research Digest',
+      description: 'PMID-curated longevity research drops tied to TNiC library updates.',
+      path: '/brief',
+    }),
+
+  contact: () =>
+    buildPageMetadata({
+      title: 'Contact — Protocol Questions',
+      description: 'Structured channel for stack, lab, and library questions. Educational only.',
+      path: '/contact',
+    }),
+
   libraryCompare: () =>
     buildPageMetadata({
       title: 'Evidence Comparisons — NMN vs NR & Stack vs Stack',

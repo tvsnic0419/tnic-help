@@ -307,6 +307,18 @@ export const disclaimers: DisclaimerBlock[] = [
 export const updateHistory: UpdateHistoryEntry[] = [
   {
     date: '2026-06-16',
+    version: '1.7.0',
+    title: 'Sprint 7 — Shop, Brief, Contact & Lab Waitlist',
+    category: 'feature',
+    changes: [
+      'Protocol Shop at /shop — stack-filtered buyer verification, preset loader, checklist export',
+      'Protocol Brief digest at /brief — six PMID-curated issues linked to library modules',
+      'Contact channel at /contact — categorized protocol questions via structured mailto handoff',
+      'Lab partner waitlist on /labs#lab-partners — Tier 1 panel preview, Q3 2026 API target',
+    ],
+  },
+  {
+    date: '2026-06-16',
     version: '1.6.0',
     title: 'Sprint 6 — Compare, Buyer Guides & Hallmark Tiles',
     category: 'feature',

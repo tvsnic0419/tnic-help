@@ -6,6 +6,7 @@ export const SITE = {
   url: 'https://tnic.help',
   locale: 'en_US',
   twitter: '@tnic_help',
+  contactEmail: 'protocol@tnic.help',
 } as const;
 
 export const LONGEVITY_KEYWORDS = [

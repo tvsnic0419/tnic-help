@@ -3,7 +3,8 @@
 import { useEffect, useState } from 'react';
 import { useSearchParams } from 'next/navigation';
 import { motion } from 'framer-motion';
-import { Layers, Wrench, Table2, BookOpen } from 'lucide-react';
+import Link from 'next/link';
+import { Layers, Wrench, Table2, BookOpen, ShoppingBag } from 'lucide-react';
 import { eliteStacks } from '@/lib/stacks-library';
 import { stackPresets, type PresetKey } from '@/lib/presets';
 import { PageShell } from '@/components/ui/PageShell';
@@ -53,6 +54,16 @@ export function StacksLibrary() {
         meta={`${eliteStacks.length} elite stacks · 6 evidence-graded compounds · Educational only`}
         theme="violet"
       />
+
+      <div className="flex flex-wrap gap-3 mb-6">
+        <Link
+          href="/shop"
+          className="focus-ring interactive inline-flex items-center gap-2 px-4 py-2 rounded-xl glass glass-hover text-sm font-semibold text-accent-amber"
+        >
+          <ShoppingBag className="w-4 h-4" />
+          Protocol Shop — verify before you buy
+        </Link>
+      </div>
 
       <ToolsPromoStrip headline="Advanced Stack Simulator — age-adjusted dosing, risk index, hallmark radar" className="mb-8" />
 

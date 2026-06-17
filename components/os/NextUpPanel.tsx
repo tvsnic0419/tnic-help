@@ -152,12 +152,20 @@ export function NextUpPanel({
             </p>
           )}
         </div>
-        <Link
-          href={changelogHref}
-          className="focus-ring text-xs font-semibold text-accent-cyan hover:underline rounded"
-        >
-          {changelogLabel}
-        </Link>
+        <div className="flex flex-wrap gap-3">
+          <Link
+            href="/brief"
+            className="focus-ring text-xs font-semibold text-accent-violet hover:underline rounded"
+          >
+            Protocol Brief →
+          </Link>
+          <Link
+            href={changelogHref}
+            className="focus-ring text-xs font-semibold text-accent-cyan hover:underline rounded"
+          >
+            {changelogLabel}
+          </Link>
+        </div>
       </div>
 
       {showFilters && (
