@@ -1,12 +1,15 @@
 'use client';
 
-import { useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
+
+export const LABS_PARTNER_TAB_EVENT = 'tnic:labs-partner-tab';
 import { Plus, Upload, FileText, ClipboardPaste, CheckCircle2, AlertCircle } from 'lucide-react';
 import { biomarkers } from '@/lib/data';
 import { LABS_CSV_TEMPLATE, parseLabsCsv } from '@/lib/labs';
 import { usePlatform } from '@/context/PlatformContext';
+import { PartnerImportPanel } from './PartnerImportPanel';
 
-type InputMode = 'single' | 'panel' | 'upload';
+type InputMode = 'single' | 'panel' | 'upload' | 'partner';
 
 export function BiomarkerInput() {
   const { addLab, importLabs } = usePlatform();
@@ -19,6 +22,12 @@ export function BiomarkerInput() {
   const [uploadMsg, setUploadMsg] = useState<{ type: 'success' | 'error'; text: string } | null>(null);
   const [pasteText, setPasteText] = useState('');
   const fileRef = useRef<HTMLInputElement>(null);
+
+  useEffect(() => {
+    const openPartner = () => setMode('partner');
+    window.addEventListener(LABS_PARTNER_TAB_EVENT, openPartner);
+    return () => window.removeEventListener(LABS_PARTNER_TAB_EVENT, openPartner);
+  }, []);
 
   const addSingle = () => {
     const num = parseFloat(value);
@@ -68,6 +77,7 @@ export function BiomarkerInput() {
     { id: 'single', label: 'Single Marker' },
     { id: 'panel', label: 'Full Panel' },
     { id: 'upload', label: 'Upload CSV' },
+    { id: 'partner', label: 'Partner Beta' },
   ];
 
   return (
@@ -253,6 +263,8 @@ export function BiomarkerInput() {
           </details>
         </div>
       )}
+
+      {mode === 'partner' && <PartnerImportPanel />}
     </div>
   );
 }

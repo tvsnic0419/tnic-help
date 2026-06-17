@@ -307,6 +307,17 @@ export const disclaimers: DisclaimerBlock[] = [
 export const updateHistory: UpdateHistoryEntry[] = [
   {
     date: '2026-06-16',
+    version: '1.9.0',
+    title: 'Sprint 9 — Lab Partner Import & Brief Delivery',
+    category: 'feature',
+    changes: [
+      'Lab Partner v1 beta — CSV/JSON import, Partner Beta tab, POST /api/labs/partner-import (stateless normalizer)',
+      'Protocol Brief RSS + JSON feeds at /brief/feed.xml and /brief/feed.json',
+      'POST /api/brief/subscribe with optional BRIEF_SUBSCRIBE_WEBHOOK_URL for email list forwarding',
+    ],
+  },
+  {
+    date: '2026-06-16',
     version: '1.8.0',
     title: 'Sprint 8 — OG Images, Search Index & Brief Subscribe',
     category: 'feature',

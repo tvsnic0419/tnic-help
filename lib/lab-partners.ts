@@ -11,26 +11,26 @@ export const labPartnerPanels: LabPartnerPanel[] = [
   {
     id: 'longevity-baseline',
     name: 'Longevity Baseline Panel',
-    status: 'waitlist',
+    status: 'beta',
     markers: ['GSH', 'hs-CRP', 'NAD+ metabolites', 'oxLDL', 'AKG'],
     description:
-      'At-home or walk-in panel matching TNiC Tier 1 markers — CSV export compatible with Labs hub import format.',
-    eta: 'Q3 2026',
+      'Tier 1 panel — import via Partner Beta tab using TNiC Partner v1 CSV/JSON or POST /api/labs/partner-import.',
+    eta: 'Import live',
   },
   {
     id: 'inflammation-surge',
     name: 'Inflammaging Check',
-    status: 'waitlist',
+    status: 'beta',
     markers: ['hs-CRP', 'IL-6 (optional)', 'GGT'],
-    description: 'Focused panel for NRF2 stack responders — retest at month 3 per testing guide cadence.',
-    eta: 'Q3 2026',
+    description: 'Focused panel for NRF2 stack responders — partner codes HS-CRP, GSH supported.',
+    eta: 'Import live',
   },
   {
     id: 'mito-nad',
     name: 'Mitochondrial + NAD Panel',
     status: 'waitlist',
     markers: ['NAD+ index', 'Fasting glucose', 'Resting HR guidance'],
-    description: 'Week-4 NAD+ check bundle for Mito Stack users with wearable sync instructions.',
+    description: 'Order-at-home bundle — OAuth order flow ships Q4 2026. NAD_INDEX import supported now.',
     eta: 'Q4 2026',
   },
 ];

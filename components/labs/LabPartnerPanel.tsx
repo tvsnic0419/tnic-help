@@ -3,6 +3,7 @@
 import { useState } from 'react';
 import { FlaskConical, Bell, CheckCircle2 } from 'lucide-react';
 import { labPartnerPanels, LAB_PARTNER_WAITLIST_KEY } from '@/lib/lab-partners';
+import { LABS_PARTNER_TAB_EVENT } from './BiomarkerInput';
 import { SITE } from '@/lib/site';
 
 export function LabPartnerPanel() {
@@ -34,15 +35,26 @@ export function LabPartnerPanel() {
     >
       <div className="flex items-center gap-2 mb-2">
         <FlaskConical className="w-4 h-4 text-accent-rose" />
-        <p className="text-label text-accent-rose">Lab partners · Q3 2026</p>
+        <p className="text-label text-accent-rose">Lab partners · Beta import live</p>
       </div>
       <h2 id="lab-partners-heading" className="text-xl font-bold mb-2">
-        Order panels → auto-import to Labs hub
+        Partner export → Labs hub (beta)
       </h2>
-      <p className="text-sm text-muted-foreground mb-6 max-w-2xl">
-        Partner integration in progress. Join the waitlist for at-home panels that export directly into
-        TNiC CSV format — hs-CRP, GSH, NAD+ metabolites, and Tier 1 baseline bundles.
+      <p className="text-sm text-muted-foreground mb-4 max-w-2xl">
+        Import TNiC Partner v1 CSV/JSON in the Input tab → <strong>Partner Beta</strong>, or POST to{' '}
+        <code className="text-accent-cyan text-xs">/api/labs/partner-import</code>. Order-at-home OAuth
+        ships Q3–Q4 2026.
       </p>
+      <button
+        type="button"
+        onClick={() => {
+          window.dispatchEvent(new Event(LABS_PARTNER_TAB_EVENT));
+          document.getElementById('partner-import')?.scrollIntoView({ behavior: 'smooth' });
+        }}
+        className="focus-ring inline-flex text-sm font-semibold text-accent-cyan hover:underline mb-6 rounded"
+      >
+        Open Partner Import →
+      </button>
 
       <div className="grid md:grid-cols-3 gap-4 mb-6">
         {labPartnerPanels.map((panel) => (

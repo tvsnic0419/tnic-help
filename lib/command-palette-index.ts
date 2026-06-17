@@ -83,6 +83,14 @@ const hubPages: PaletteItem[] = [
     keywords: ['brief', 'digest', 'research', 'newsletter', 'pmid'],
   },
   {
+    id: 'page-brief-rss',
+    kind: 'page',
+    title: 'Protocol Brief RSS',
+    subtitle: 'Automated feed delivery',
+    href: '/brief/feed.xml',
+    keywords: ['rss', 'feed', 'brief', 'subscribe'],
+  },
+  {
     id: 'page-contact',
     kind: 'page',
     title: 'Contact TNiC',

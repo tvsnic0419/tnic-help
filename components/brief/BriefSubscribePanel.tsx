@@ -1,7 +1,8 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-import { Mail, Bell, CheckCircle2, X } from 'lucide-react';
+import Link from 'next/link';
+import { Mail, Bell, CheckCircle2, X, Rss } from 'lucide-react';
 import { SITE } from '@/lib/site';
 import {
   getBriefSubscription,
@@ -13,6 +14,8 @@ export function BriefSubscribePanel() {
   const [email, setEmail] = useState('');
   const [subscribed, setSubscribed] = useState(false);
   const [savedEmail, setSavedEmail] = useState<string | null>(null);
+  const [deliveryMode, setDeliveryMode] = useState<'feed' | 'webhook' | null>(null);
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     const record = getBriefSubscription();
@@ -23,26 +26,35 @@ export function BriefSubscribePanel() {
     }
   }, []);
 
-  const subscribe = (e: React.FormEvent) => {
+  const subscribe = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!email.trim()) return;
 
+    setLoading(true);
     saveBriefSubscription(email.trim());
+
+    try {
+      const res = await fetch('/api/brief/subscribe', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email: email.trim() }),
+      });
+      const data = await res.json();
+      if (data.ok) {
+        setDeliveryMode(data.mode === 'webhook' ? 'webhook' : 'feed');
+        setSubscribed(true);
+        setSavedEmail(email.trim());
+        setLoading(false);
+        return;
+      }
+    } catch {
+      /* fallback below */
+    }
+
+    setDeliveryMode('feed');
     setSubscribed(true);
     setSavedEmail(email.trim());
-
-    const subject = encodeURIComponent('Protocol Brief — email subscribe');
-    const body = encodeURIComponent(
-      [
-        'Please add me to the Protocol Brief digest list.',
-        '',
-        `Email: ${email.trim()}`,
-        'Frequency: weekly (when delivery launches)',
-        '',
-        'I understand TNiC is educational only — not medical advice.',
-      ].join('\n'),
-    );
-    window.location.href = `mailto:${SITE.contactEmail}?subject=${subject}&body=${body}`;
+    setLoading(false);
   };
 
   const unsubscribe = () => {
@@ -50,6 +62,7 @@ export function BriefSubscribePanel() {
     setSubscribed(false);
     setSavedEmail(null);
     setEmail('');
+    setDeliveryMode(null);
   };
 
   return (
@@ -62,14 +75,29 @@ export function BriefSubscribePanel() {
         <Bell className="w-5 h-5 text-accent-violet shrink-0 mt-0.5" />
         <div>
           <h2 id="brief-subscribe-heading" className="font-bold text-lg">
-            Get Protocol Brief by email
+            Automated Protocol Brief delivery
           </h2>
           <p className="text-sm text-muted-foreground mt-1 max-w-xl">
-            Optional weekly digest when delivery launches. Your preference is saved locally now;
-            complete the mailto step so we can add you to the list. No backend required today —
-            local-first stays the default.
+            Subscribe by email (webhook when configured) or add the RSS/JSON feed to your reader for
+            hands-free weekly drops — no coupon spam.
           </p>
         </div>
+      </div>
+
+      <div className="flex flex-wrap gap-3 mb-6">
+        <a
+          href="/brief/feed.xml"
+          className="focus-ring interactive inline-flex items-center gap-2 px-3 py-2 rounded-lg glass glass-hover text-xs font-semibold"
+        >
+          <Rss className="w-3.5 h-3.5 text-accent-violet" />
+          RSS feed
+        </a>
+        <a
+          href="/brief/feed.json"
+          className="focus-ring interactive inline-flex items-center gap-2 px-3 py-2 rounded-lg glass glass-hover text-xs font-semibold"
+        >
+          JSON feed
+        </a>
       </div>
 
       {subscribed && savedEmail ? (
@@ -77,14 +105,25 @@ export function BriefSubscribePanel() {
           <div className="flex items-center gap-3">
             <CheckCircle2 className="w-5 h-5 text-accent-emerald shrink-0" />
             <div>
-              <p className="text-sm font-semibold">Subscribed locally</p>
+              <p className="text-sm font-semibold">
+                {deliveryMode === 'webhook' ? 'Email queued via webhook' : 'Subscribed — use feeds'}
+              </p>
               <p className="text-xs text-muted-foreground font-mono">{savedEmail}</p>
+              {deliveryMode === 'feed' && (
+                <p className="text-xs text-muted-foreground mt-1">
+                  Add{' '}
+                  <Link href="/brief/feed.xml" className="text-accent-cyan hover:underline">
+                    {SITE.url}/brief/feed.xml
+                  </Link>{' '}
+                  to Feedly, Apple News, or your reader.
+                </p>
+              )}
             </div>
           </div>
           <button
             type="button"
             onClick={unsubscribe}
-            className="focus-ring inline-flex items-center gap-1 text-xs font-semibold text-muted-foreground hover:text-accent-rose rounded"
+            className="focus-ring inline-flex items-center gap-1 text-xs font-semibold text-muted-foreground hover:text-accent-rose rounded shrink-0"
           >
             <X className="w-3.5 h-3.5" /> Clear preference
           </button>
@@ -105,10 +144,11 @@ export function BriefSubscribePanel() {
           </div>
           <button
             type="submit"
-            className="focus-ring shrink-0 inline-flex items-center justify-center gap-2 bg-accent-violet/20 border border-accent-violet/30 text-accent-violet px-5 py-3 rounded-xl font-semibold text-sm hover:bg-accent-violet/30 transition"
+            disabled={loading}
+            className="focus-ring shrink-0 inline-flex items-center justify-center gap-2 bg-accent-violet/20 border border-accent-violet/30 text-accent-violet px-5 py-3 rounded-xl font-semibold text-sm hover:bg-accent-violet/30 transition disabled:opacity-60"
           >
             <Bell className="w-4 h-4" />
-            Subscribe
+            {loading ? 'Subscribing…' : 'Subscribe'}
           </button>
         </form>
       )}
