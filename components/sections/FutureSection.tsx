@@ -1,6 +1,7 @@
 'use client';
 
 import { useState } from 'react';
+import Link from 'next/link';
 import { motion, AnimatePresence } from 'framer-motion';
 import { ChevronDown, Lock, Unlock } from 'lucide-react';
 import { SectionShell } from '@/components/SectionShell';
@@ -95,9 +96,12 @@ export function FutureSection() {
                           ))}
                         </div>
                         {!item.active && (
-                          <button className="mt-4 text-xs text-accent-violet hover:text-accent-cyan transition-colors font-semibold">
-                            Join waitlist for early access →
-                          </button>
+                          <Link
+                            href="/trust/updates#next-up"
+                            className="mt-4 inline-block text-xs text-accent-violet hover:text-accent-cyan transition-colors font-semibold focus-ring rounded"
+                          >
+                            See what&apos;s next →
+                          </Link>
                         )}
                       </div>
                     </div>

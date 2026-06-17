@@ -176,6 +176,18 @@ export interface RoadmapItem {
   active: boolean;
 }
 
+export type NextUpStatus = 'shipped' | 'in_progress' | 'planned';
+
+export interface NextUpItem {
+  id: string;
+  title: string;
+  desc: string;
+  status: NextUpStatus;
+  sprint?: string;
+  href?: string;
+  tags?: string[];
+}
+
 export interface EvidenceStandard {
   tier: EvidenceTier;
   label: string;

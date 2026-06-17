@@ -75,12 +75,12 @@ export function HomepageCTA() {
             Take the starter quiz in the hero, or jump into Stack Architect with evidence-graded presets.
           </p>
           <div className="flex flex-col sm:flex-row gap-3 justify-center">
-            <a
-              href="#hero"
-              className="bg-white text-black px-8 py-3.5 rounded-xl font-semibold text-sm hover:bg-accent-cyan transition-all"
+            <Link
+              href="/quiz"
+              className="bg-white text-black px-8 py-3.5 rounded-xl font-semibold text-sm hover:bg-accent-cyan transition-all text-center"
             >
-              Retake Starter Quiz
-            </a>
+              Start 3-Min Quiz
+            </Link>
             <Link
               href="/stacks"
               className="glass px-8 py-3.5 rounded-xl font-semibold text-sm hover:border-accent-violet/40 transition-all flex items-center justify-center gap-2"

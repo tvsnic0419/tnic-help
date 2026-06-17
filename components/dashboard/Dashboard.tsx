@@ -15,6 +15,7 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/Card';
 import { PageShell } from '@/components/ui/PageShell';
 import { cn } from '@/lib/utils';
 import { EXPORT_KIT_EVENT } from '@/components/os/ExportKitModal';
+import { NextUpPanel } from '@/components/os/NextUpPanel';
 
 function formatDaysAgo(dateStr: string): string {
   const days = Math.floor(
@@ -182,6 +183,12 @@ export function Dashboard() {
         <div className="lg:col-span-3">
           <UserMilestonesPanel />
         </div>
+
+        <Card variant="default" className="lg:col-span-3">
+          <CardContent className="pt-6">
+            <NextUpPanel compact defaultFilter="in_progress" limit={4} showFilters={false} />
+          </CardContent>
+        </Card>
 
         <Card variant="default" className="lg:col-span-3">
           <CardHeader className="flex flex-row items-center justify-between gap-4">

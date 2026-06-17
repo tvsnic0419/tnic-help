@@ -9,6 +9,7 @@ import { TrustBanner } from '@/components/TrustBanner';
 import { LibraryHighlights } from '@/components/sections/LibraryHighlights';
 import { HomepageTrust } from '@/components/sections/HomepageTrust';
 import { HomepageCTA } from '@/components/sections/HomepageCTA';
+import { NextUpSection } from '@/components/sections/NextUpSection';
 import { SiteGuide } from '@/components/SiteGuide';
 import { seoRoutes } from '@/lib/seo-routes';
 
@@ -27,6 +28,7 @@ export default function HomePage() {
           <LibraryHighlights />
           <HomepageTrust />
           <HomepageCTA />
+          <NextUpSection />
           <SiteGuide />
         </main>
         <ToolsDock />

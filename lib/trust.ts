@@ -307,6 +307,18 @@ export const disclaimers: DisclaimerBlock[] = [
 export const updateHistory: UpdateHistoryEntry[] = [
   {
     date: '2026-06-16',
+    version: '1.5.0',
+    title: 'Conversion Sprint & Next Up Roadmap',
+    category: 'feature',
+    changes: [
+      'Dedicated /quiz with labeled result actions and Stack Architect handoff (preset, Builder tab, age sync)',
+      'Learn hub (/learn) and FAQ (/faq) with full schema; honest indexed PMID counts on trust strip',
+      'Next up panel — shipped, in-progress, and planned functional improvements on home, dashboard, and /trust/updates',
+      'OG preview cards for home, learn, faq, library, and quiz routes',
+    ],
+  },
+  {
+    date: '2026-06-16',
     version: '1.4.0',
     title: 'Trust & Transparency System',
     category: 'feature',

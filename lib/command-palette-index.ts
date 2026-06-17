@@ -89,6 +89,14 @@ const hubPages: PaletteItem[] = [
     keywords: ['trust', 'evidence', 'methodology', 'disclaimer'],
   },
   {
+    id: 'page-next-up',
+    kind: 'page',
+    title: "What's next",
+    subtitle: 'Functional improvements roadmap',
+    href: '/#next-up',
+    keywords: ['roadmap', 'next', 'upcoming', 'planned', 'shipped', 'changelog', 'improvements'],
+  },
+  {
     id: 'page-journey',
     kind: 'page',
     title: 'Personal Journey',

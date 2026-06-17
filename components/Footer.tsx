@@ -9,6 +9,7 @@ import {
   LayoutDashboard,
   HelpCircle,
   GraduationCap,
+  Rocket,
 } from 'lucide-react';
 import { citationRegistry } from '@/lib/trust';
 
@@ -22,6 +23,7 @@ const hubLinks = [
 ];
 
 const resourceLinks = [
+  { href: '/#next-up', label: "What's Next", icon: Rocket },
   { href: '/faq', label: 'FAQ', icon: HelpCircle },
   { href: '/trust', label: 'Trust & Transparency', icon: Shield },
   { href: '/trust/methodology', label: 'Methodology', icon: BookOpen },
