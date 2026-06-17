@@ -16,6 +16,7 @@ import { PageShell } from '@/components/ui/PageShell';
 import { cn } from '@/lib/utils';
 import { EXPORT_KIT_EVENT } from '@/components/os/ExportKitModal';
 import { NextUpPanel } from '@/components/os/NextUpPanel';
+import { DashboardStatusExport } from '@/components/dashboard/DashboardStatusExport';
 
 function formatDaysAgo(dateStr: string): string {
   const days = Math.floor(
@@ -94,7 +95,8 @@ export function Dashboard() {
       </header>
 
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 lg:gap-8">
-        <Card variant="elevated" className="lg:col-span-1">
+        <div id="dashboard-status" className="lg:col-span-1">
+        <Card variant="elevated" className="h-full">
           <CardHeader>
             <CardTitle>Current status</CardTitle>
           </CardHeader>
@@ -149,8 +151,11 @@ export function Dashboard() {
                 </Link>
               )}
             </div>
+
+            <DashboardStatusExport />
           </CardContent>
         </Card>
+        </div>
 
         <Card variant="scientific" className="lg:col-span-2">
           <CardHeader>

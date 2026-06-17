@@ -147,12 +147,11 @@ export const nextUpImprovements: NextUpItem[] = [
     href: '/shop',
     tags: ['commerce', 'conversion'],
   },
-  // Planned
   {
     id: 'compare-share-cards',
     title: 'Compare table share cards',
-    desc: 'Copy-link OG-friendly snippets for each /library/compare route — social proof without PDF export.',
-    status: 'planned',
+    desc: 'Copy link, social snippet, and markdown per compare route — OG-friendly share panel on hub + detail.',
+    status: 'shipped',
     sprint: 'Sprint 14',
     href: '/library/compare',
     tags: ['seo', 'library'],
@@ -160,11 +159,30 @@ export const nextUpImprovements: NextUpItem[] = [
   {
     id: 'dashboard-status-export',
     title: 'Dashboard status card export',
-    desc: 'PNG or markdown snapshot of Longevity OS status strip for N=1 journaling.',
-    status: 'planned',
+    desc: 'Copy/download markdown + canvas PNG snapshot of Longevity OS status for N=1 journaling.',
+    status: 'shipped',
     sprint: 'Sprint 14',
-    href: '/dashboard',
+    href: '/dashboard#dashboard-status',
     tags: ['os', 'retention'],
+  },
+  // Planned
+  {
+    id: 'quiz-result-share',
+    title: 'Quiz result share card',
+    desc: 'Copyable quiz outcome + preset deep link to /stacks and /shop for referral-style handoff.',
+    status: 'planned',
+    sprint: 'Sprint 15',
+    href: '/quiz',
+    tags: ['conversion', 'seo'],
+  },
+  {
+    id: 'trust-citation-export',
+    title: 'Citation bundle export',
+    desc: 'BibTeX/JSON export of PMID registry for researchers building on TNiC evidence index.',
+    status: 'planned',
+    sprint: 'Sprint 15',
+    href: '/trust',
+    tags: ['trust', 'api'],
   },
 ];
 

@@ -64,7 +64,15 @@ const hubPages: PaletteItem[] = [
     title: 'Evidence Comparisons',
     subtitle: 'NMN vs NR, stack vs stack',
     href: '/library/compare',
-    keywords: ['compare', 'nmn vs nr', 'evidence table', 'comparison'],
+    keywords: ['compare', 'nmn vs nr', 'evidence table', 'comparison', 'share'],
+  },
+  {
+    id: 'page-dashboard-export',
+    kind: 'page',
+    title: 'Dashboard status export',
+    subtitle: 'Markdown + PNG N=1 snapshot',
+    href: '/dashboard#dashboard-status',
+    keywords: ['export', 'status', 'journal', 'markdown', 'png'],
   },
   {
     id: 'page-shop',

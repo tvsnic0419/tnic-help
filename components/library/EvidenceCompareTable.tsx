@@ -4,6 +4,7 @@ import Link from 'next/link';
 import { ArrowRight, Scale, ExternalLink } from 'lucide-react';
 import type { EvidenceComparison, CompareVerdict } from '@/lib/comparisons';
 import { EvidenceTag } from '@/components/trust/EvidenceTag';
+import { CompareShareCard } from '@/components/library/CompareShareCard';
 import { cn } from '@/lib/utils';
 
 const verdictStyle: Record<CompareVerdict, string> = {
@@ -124,6 +125,8 @@ export function EvidenceCompareTable({ comparison }: EvidenceCompareTableProps) 
           </ul>
         </div>
       </div>
+
+      <CompareShareCard comparison={comparison} />
 
       <div className="flex flex-wrap gap-3">
         {comparison.relatedHrefs.map((link) => (

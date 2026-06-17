@@ -307,6 +307,17 @@ export const disclaimers: DisclaimerBlock[] = [
 export const updateHistory: UpdateHistoryEntry[] = [
   {
     date: '2026-06-16',
+    version: '1.14.0',
+    title: 'Sprint 14 — Compare Share Cards & Dashboard Export',
+    category: 'feature',
+    changes: [
+      'Compare share cards — copy link, social snippet, and markdown on all six /library/compare routes',
+      'OG-friendly share snippets with opengraph-image URLs in markdown export',
+      'Dashboard status export — copy/download markdown + canvas PNG snapshot at #dashboard-status',
+    ],
+  },
+  {
+    date: '2026-06-16',
     version: '1.13.0',
     title: 'Sprint 13 — Partner Export & Shop Deep Links',
     category: 'feature',
