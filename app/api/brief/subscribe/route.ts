@@ -1,12 +1,12 @@
 import { NextResponse } from 'next/server';
+import { addBriefSubscriber, isResendConfigured, getResendAudienceId } from '@/lib/resend';
 
 export const runtime = 'nodejs';
 
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
 /**
- * Protocol Brief subscribe — forwards to webhook when configured,
- * otherwise returns RSS/JSON feed URLs for automated delivery.
+ * Protocol Brief subscribe — Resend audience first, then webhook, then RSS/JSON feeds.
  */
 export async function POST(request: Request) {
   try {
@@ -17,34 +17,48 @@ export async function POST(request: Request) {
       return NextResponse.json({ ok: false, error: 'Valid email required' }, { status: 400 });
     }
 
-    const webhook = process.env.BRIEF_SUBSCRIBE_WEBHOOK_URL;
-    let mode: 'webhook' | 'feed' = 'feed';
+    let mode: 'resend' | 'webhook' | 'feed' = 'feed';
 
-    if (webhook) {
+    if (isResendConfigured() && getResendAudienceId()) {
       try {
-        const res = await fetch(webhook, {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({
-            email,
-            source: 'tnic-protocol-brief',
-            subscribed_at: new Date().toISOString(),
-            frequency: 'weekly',
-          }),
-        });
-        if (res.ok) mode = 'webhook';
+        const result = await addBriefSubscriber(email);
+        if (result.ok) mode = 'resend';
       } catch {
-        /* fall through to feed mode */
+        /* fall through */
       }
     }
+
+    if (mode === 'feed') {
+      const webhook = process.env.BRIEF_SUBSCRIBE_WEBHOOK_URL;
+      if (webhook) {
+        try {
+          const res = await fetch(webhook, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+              email,
+              source: 'tnic-protocol-brief',
+              subscribed_at: new Date().toISOString(),
+              frequency: 'weekly',
+            }),
+          });
+          if (res.ok) mode = 'webhook';
+        } catch {
+          /* fall through to feed mode */
+        }
+      }
+    }
+
+    const messages: Record<typeof mode, string> = {
+      resend: 'Subscribed — weekly Protocol Brief emails will arrive from TNiC.',
+      webhook: 'Subscribed — weekly delivery will start when the list is processed.',
+      feed: 'Use RSS/JSON feeds for automated delivery until email backend is fully live.',
+    };
 
     return NextResponse.json({
       ok: true,
       mode,
-      message:
-        mode === 'webhook'
-          ? 'Subscribed — weekly delivery will start when the list is processed.'
-          : 'Use RSS/JSON feeds for automated delivery until email backend is fully live.',
+      message: messages[mode],
       feeds: {
         rss: '/brief/feed.xml',
         json: '/brief/feed.json',

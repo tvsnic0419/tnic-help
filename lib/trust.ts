@@ -307,6 +307,18 @@ export const disclaimers: DisclaimerBlock[] = [
 export const updateHistory: UpdateHistoryEntry[] = [
   {
     date: '2026-06-16',
+    version: '1.10.0',
+    title: 'Sprint 10 — Lab OAuth & Resend Brief',
+    category: 'feature',
+    changes: [
+      'Lab partner OAuth preview — connect demo partner, order panels, auto-import via /api/labs/partner/oauth/* and /order',
+      'Partner results webhook at POST /api/labs/partner/webhook with optional LAB_WEBHOOK_SECRET',
+      'Native Resend delivery — audience subscribe on POST /api/brief/subscribe; weekly send via GET /api/cron/brief',
+      'Vercel Cron (Mondays 09:00 UTC) and .env.example for RESEND_*, CRON_SECRET, LAB_OAUTH_CLIENT_ID',
+    ],
+  },
+  {
+    date: '2026-06-16',
     version: '1.9.0',
     title: 'Sprint 9 — Lab Partner Import & Brief Delivery',
     category: 'feature',

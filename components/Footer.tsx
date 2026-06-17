@@ -25,6 +25,7 @@ const hubLinks = [
 const resourceLinks = [
   { href: '/shop', label: 'Protocol Shop', icon: BookOpen },
   { href: '/brief', label: 'Protocol Brief', icon: BookOpen },
+  { href: '/labs#lab-partner-oauth', label: 'Lab Partner OAuth', icon: FlaskConical },
   { href: '/contact', label: 'Contact', icon: HelpCircle },
   { href: '/library/compare', label: 'Comparisons', icon: BookOpen },
   { href: '/#hallmark-targets', label: 'Hallmark Targets', icon: Dna },

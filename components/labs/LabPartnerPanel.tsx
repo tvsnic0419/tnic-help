@@ -4,6 +4,7 @@ import { useState } from 'react';
 import { FlaskConical, Bell, CheckCircle2 } from 'lucide-react';
 import { labPartnerPanels, LAB_PARTNER_WAITLIST_KEY } from '@/lib/lab-partners';
 import { LABS_PARTNER_TAB_EVENT } from './BiomarkerInput';
+import { LabPartnerOAuthFlow } from './LabPartnerOAuthFlow';
 import { SITE } from '@/lib/site';
 
 export function LabPartnerPanel() {
@@ -35,16 +36,19 @@ export function LabPartnerPanel() {
     >
       <div className="flex items-center gap-2 mb-2">
         <FlaskConical className="w-4 h-4 text-accent-rose" />
-        <p className="text-label text-accent-rose">Lab partners · Beta import live</p>
+        <p className="text-label text-accent-rose">Lab partners · OAuth + import live</p>
       </div>
       <h2 id="lab-partners-heading" className="text-xl font-bold mb-2">
-        Partner export → Labs hub (beta)
+        Partner export & order-at-home (beta)
       </h2>
       <p className="text-sm text-muted-foreground mb-4 max-w-2xl">
-        Import TNiC Partner v1 CSV/JSON in the Input tab → <strong>Partner Beta</strong>, or POST to{' '}
-        <code className="text-accent-cyan text-xs">/api/labs/partner-import</code>. Order-at-home OAuth
-        ships Q3–Q4 2026.
+        Import TNiC Partner v1 CSV/JSON in the Input tab → <strong>Partner Beta</strong>, or connect
+        the demo OAuth flow below to order panels and auto-import results. POST to{' '}
+        <code className="text-accent-cyan text-xs">/api/labs/partner-import</code> for stateless
+        normalization.
       </p>
+
+      <LabPartnerOAuthFlow />
       <button
         type="button"
         onClick={() => {

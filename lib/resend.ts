@@ -1,0 +1,118 @@
+import { buildBriefDigestHtml, buildBriefDigestSubject } from './brief-email';
+
+const RESEND_API = 'https://api.resend.com';
+
+export function isResendConfigured(): boolean {
+  return Boolean(process.env.RESEND_API_KEY && process.env.RESEND_FROM_EMAIL);
+}
+
+export function getResendAudienceId(): string | undefined {
+  return process.env.RESEND_AUDIENCE_ID;
+}
+
+async function resendFetch(path: string, init: RequestInit) {
+  const key = process.env.RESEND_API_KEY;
+  if (!key) throw new Error('RESEND_API_KEY not configured');
+
+  const res = await fetch(`${RESEND_API}${path}`, {
+    ...init,
+    headers: {
+      Authorization: `Bearer ${key}`,
+      'Content-Type': 'application/json',
+      ...init.headers,
+    },
+  });
+
+  const data = await res.json().catch(() => ({}));
+  if (!res.ok) {
+    throw new Error((data as { message?: string }).message ?? `Resend error ${res.status}`);
+  }
+  return data;
+}
+
+/** Add subscriber to Resend audience (idempotent on duplicate email) */
+export async function addBriefSubscriber(email: string): Promise<{ ok: boolean; id?: string }> {
+  const audienceId = getResendAudienceId();
+  if (!audienceId) {
+    return { ok: false };
+  }
+
+  try {
+    const data = (await resendFetch(`/audiences/${audienceId}/contacts`, {
+      method: 'POST',
+      body: JSON.stringify({
+        email,
+        unsubscribed: false,
+        first_name: 'Protocol',
+        last_name: 'Brief',
+      }),
+    })) as { id?: string };
+    return { ok: true, id: data.id };
+  } catch (err) {
+    const msg = err instanceof Error ? err.message : '';
+    if (msg.toLowerCase().includes('already')) return { ok: true };
+    throw err;
+  }
+}
+
+export async function listAudienceEmails(): Promise<string[]> {
+  const audienceId = getResendAudienceId();
+  if (!audienceId) return [];
+
+  const data = (await resendFetch(`/audiences/${audienceId}/contacts`, {
+    method: 'GET',
+  })) as { data?: { email: string }[] };
+
+  return (data.data ?? []).map((c) => c.email).filter(Boolean);
+}
+
+export async function sendBriefEmail(to: string, issueIndex = 0): Promise<{ id?: string }> {
+  const from = process.env.RESEND_FROM_EMAIL!;
+  return resendFetch('/emails', {
+    method: 'POST',
+    body: JSON.stringify({
+      from,
+      to: [to],
+      subject: buildBriefDigestSubject(issueIndex),
+      html: buildBriefDigestHtml(issueIndex),
+    }),
+  }) as Promise<{ id?: string }>;
+}
+
+export async function sendWeeklyBriefDigest(): Promise<{
+  sent: number;
+  skipped: number;
+  errors: string[];
+}> {
+  if (!isResendConfigured()) {
+    return { sent: 0, skipped: 0, errors: ['Resend not configured'] };
+  }
+
+  const emails = await listAudienceEmails();
+  const errors: string[] = [];
+  let sent = 0;
+
+  if (emails.length === 0) {
+    const fallback = process.env.BRIEF_FALLBACK_EMAIL;
+    if (fallback) {
+      try {
+        await sendBriefEmail(fallback, 0);
+        return { sent: 1, skipped: 0, errors: [] };
+      } catch (e) {
+        return { sent: 0, skipped: 0, errors: [String(e)] };
+      }
+    }
+    return { sent: 0, skipped: 0, errors: ['No audience contacts'] };
+  }
+
+  for (const email of emails) {
+    try {
+      await sendBriefEmail(email, 0);
+      sent++;
+    } catch (e) {
+      errors.push(`${email}: ${e instanceof Error ? e.message : 'failed'}`);
+    }
+  }
+
+  return { sent, skipped: emails.length - sent, errors };
+}

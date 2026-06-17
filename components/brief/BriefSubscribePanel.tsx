@@ -14,7 +14,7 @@ export function BriefSubscribePanel() {
   const [email, setEmail] = useState('');
   const [subscribed, setSubscribed] = useState(false);
   const [savedEmail, setSavedEmail] = useState<string | null>(null);
-  const [deliveryMode, setDeliveryMode] = useState<'feed' | 'webhook' | null>(null);
+  const [deliveryMode, setDeliveryMode] = useState<'feed' | 'webhook' | 'resend' | null>(null);
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
@@ -41,7 +41,8 @@ export function BriefSubscribePanel() {
       });
       const data = await res.json();
       if (data.ok) {
-        setDeliveryMode(data.mode === 'webhook' ? 'webhook' : 'feed');
+        const mode = data.mode === 'resend' || data.mode === 'webhook' ? data.mode : 'feed';
+        setDeliveryMode(mode);
         setSubscribed(true);
         setSavedEmail(email.trim());
         setLoading(false);
@@ -78,8 +79,8 @@ export function BriefSubscribePanel() {
             Automated Protocol Brief delivery
           </h2>
           <p className="text-sm text-muted-foreground mt-1 max-w-xl">
-            Subscribe by email (webhook when configured) or add the RSS/JSON feed to your reader for
-            hands-free weekly drops — no coupon spam.
+            Subscribe by email (Resend when configured, else webhook) or add the RSS/JSON feed to your
+            reader for hands-free weekly drops — no coupon spam.
           </p>
         </div>
       </div>
@@ -106,7 +107,11 @@ export function BriefSubscribePanel() {
             <CheckCircle2 className="w-5 h-5 text-accent-emerald shrink-0" />
             <div>
               <p className="text-sm font-semibold">
-                {deliveryMode === 'webhook' ? 'Email queued via webhook' : 'Subscribed — use feeds'}
+                {deliveryMode === 'resend'
+                  ? 'Subscribed — weekly email delivery active'
+                  : deliveryMode === 'webhook'
+                    ? 'Email queued via webhook'
+                    : 'Subscribed — use feeds'}
               </p>
               <p className="text-xs text-muted-foreground font-mono">{savedEmail}</p>
               {deliveryMode === 'feed' && (

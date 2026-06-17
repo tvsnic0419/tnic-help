@@ -123,6 +123,14 @@ const hubPages: PaletteItem[] = [
     keywords: ['labs', 'biomarker', 'gsh', 'nad', 'crp'],
   },
   {
+    id: 'page-lab-oauth',
+    kind: 'page',
+    title: 'Lab Partner OAuth',
+    subtitle: 'Order at-home panels & auto-import',
+    href: '/labs#lab-partner-oauth',
+    keywords: ['oauth', 'partner', 'order', 'lab import', 'webhook'],
+  },
+  {
     id: 'page-tools',
     kind: 'page',
     title: 'Longevity Tools',

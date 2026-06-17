@@ -28,10 +28,10 @@ export const labPartnerPanels: LabPartnerPanel[] = [
   {
     id: 'mito-nad',
     name: 'Mitochondrial + NAD Panel',
-    status: 'waitlist',
+    status: 'beta',
     markers: ['NAD+ index', 'Fasting glucose', 'Resting HR guidance'],
-    description: 'Order-at-home bundle — OAuth order flow ships Q4 2026. NAD_INDEX import supported now.',
-    eta: 'Q4 2026',
+    description: 'Order via demo OAuth — NAD_INDEX auto-imports on demo order complete.',
+    eta: 'OAuth demo',
   },
 ];
 
