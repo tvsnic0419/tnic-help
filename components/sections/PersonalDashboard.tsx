@@ -59,9 +59,15 @@ export function PersonalDashboard() {
   };
 
   const handleImport = (text: string) => {
-    const ok = importAll(text);
-    setImportMsg(ok ? 'Platform data restored.' : 'Invalid file — use a TNiC export.');
-    setTimeout(() => setImportMsg(null), 3000);
+    const result = importAll(text);
+    if (!result.ok) {
+      setImportMsg(result.errors[0] ?? 'Invalid file — use a TNiC export.');
+    } else {
+      const warnNote =
+        result.warnings.length > 0 ? ` (${result.warnings.length} warnings)` : '';
+      setImportMsg(`Platform data restored.${warnNote}`);
+    }
+    setTimeout(() => setImportMsg(null), 4000);
   };
 
   const stats = [

@@ -16,6 +16,15 @@ const nextConfig: NextConfig = {
   reactStrictMode: true,
   compress: true,
 
+  images: {
+    remotePatterns: [
+      { protocol: 'https', hostname: 'www.codeage.com', pathname: '/cdn/shop/**' },
+      { protocol: 'https', hostname: 'www.avmacol.com', pathname: '/cdn/shop/**' },
+      { protocol: 'https', hostname: 'donotage.org', pathname: '/media/**' },
+      { protocol: 'https', hostname: 'geronova.com', pathname: '/wp-content/uploads/**' },
+    ],
+  },
+
   experimental: {
     optimizePackageImports: ['lucide-react', 'recharts', 'framer-motion'],
   },

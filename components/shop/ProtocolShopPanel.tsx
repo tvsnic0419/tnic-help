@@ -20,6 +20,7 @@ import { buildShopStackUrl, isPresetKey, parseStackParam } from '@/lib/stack-url
 import { PageHeader } from '@/components/ui/PageHeader';
 import { cn } from '@/lib/utils';
 import { SITE } from '@/lib/site';
+import { ProductPickCard } from '@/components/shop/ProductPickCard';
 
 const presetOptions: { key: PresetKey; label: string }[] = [
   { key: 'starter', label: 'Starter Elite' },
@@ -173,53 +174,61 @@ function ProtocolShopPanelInner() {
                 key={item.compoundId}
                 className="glass glass-hover rounded-2xl p-5 border border-border/80"
               >
-                <div className="flex flex-wrap items-start justify-between gap-3 mb-3">
+                <div className="grid lg:grid-cols-[minmax(0,1fr)_220px] gap-5">
                   <div>
-                    <div className="flex items-center gap-2 mb-1">
-                      <h3 className="font-bold">{item.compoundName}</h3>
-                      <span
-                        className={cn(
-                          'text-[10px] font-mono uppercase px-2 py-0.5 rounded-full border',
-                          item.priority === 'essential'
-                            ? 'text-accent-emerald bg-accent-emerald/10 border-accent-emerald/20'
-                            : 'text-accent-cyan bg-accent-cyan/10 border-accent-cyan/20',
+                    <div className="flex flex-wrap items-start justify-between gap-3 mb-3">
+                      <div>
+                        <div className="flex items-center gap-2 mb-1">
+                          <h3 className="font-bold">{item.compoundName}</h3>
+                          <span
+                            className={cn(
+                              'text-[10px] font-mono uppercase px-2 py-0.5 rounded-full border',
+                              item.priority === 'essential'
+                                ? 'text-accent-emerald bg-accent-emerald/10 border-accent-emerald/20'
+                                : 'text-accent-cyan bg-accent-cyan/10 border-accent-cyan/20',
+                            )}
+                          >
+                            {item.priority}
+                          </span>
+                        </div>
+                        <p className="text-xs font-mono text-muted-foreground">
+                          {item.dose} · {item.timing}
+                        </p>
+                      </div>
+                      <div className="flex flex-wrap gap-2">
+                        <Link
+                          href={`${item.moduleHref}#buyer-guide`}
+                          className="focus-ring text-xs font-semibold text-accent-cyan hover:underline rounded"
+                        >
+                          Buyer guide
+                        </Link>
+                        {item.compareHref && (
+                          <Link
+                            href={item.compareHref}
+                            className="focus-ring text-xs font-semibold text-accent-violet hover:underline rounded"
+                          >
+                            Compare
+                          </Link>
                         )}
-                      >
-                        {item.priority}
-                      </span>
+                      </div>
                     </div>
-                    <p className="text-xs font-mono text-muted-foreground">
-                      {item.dose} · {item.timing}
-                    </p>
-                  </div>
-                  <div className="flex flex-wrap gap-2">
-                    <Link
-                      href={`${item.moduleHref}#buyer-guide`}
-                      className="focus-ring text-xs font-semibold text-accent-cyan hover:underline rounded"
-                    >
-                      Buyer guide
-                    </Link>
-                    {item.compareHref && (
-                      <Link
-                        href={item.compareHref}
-                        className="focus-ring text-xs font-semibold text-accent-violet hover:underline rounded"
-                      >
-                        Compare
-                      </Link>
+
+                    {item.buyerGuide && (
+                      <ul className="grid sm:grid-cols-2 gap-2 text-xs text-muted-foreground">
+                        {item.buyerGuide.coaDemands.slice(0, 4).map((c) => (
+                          <li key={c.id} className="flex gap-2">
+                            <ClipboardCheck className="w-3.5 h-3.5 text-accent-emerald shrink-0" />
+                            {c.label}
+                          </li>
+                        ))}
+                      </ul>
                     )}
                   </div>
-                </div>
 
-                {item.buyerGuide && (
-                  <ul className="grid sm:grid-cols-2 gap-2 text-xs text-muted-foreground">
-                    {item.buyerGuide.coaDemands.slice(0, 4).map((c) => (
-                      <li key={c.id} className="flex gap-2">
-                        <ClipboardCheck className="w-3.5 h-3.5 text-accent-emerald shrink-0" />
-                        {c.label}
-                      </li>
-                    ))}
-                  </ul>
-                )}
+                  {item.productPick && (
+                    <ProductPickCard pick={item.productPick} compact className="lg:max-w-[220px]" />
+                  )}
+                </div>
               </div>
             ))}
           </div>

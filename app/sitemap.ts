@@ -47,8 +47,8 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: 0.86,
   }));
 
-  const moduleRoutes = getAllModuleParams().map(({ category, slug }) => ({
-    url: `${base}/library/${category}/${slug}`,
+  const moduleRoutes = getAllModuleParams().map(({ slug: category, moduleSlug }) => ({
+    url: `${base}/library/${category}/${moduleSlug}`,
     lastModified: BUILD_DATE,
     changeFrequency: 'monthly' as const,
     priority: 0.88,

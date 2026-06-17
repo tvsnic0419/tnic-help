@@ -10,6 +10,8 @@ import {
   CheckCircle2,
 } from 'lucide-react';
 import type { CompoundBuyerGuide as BuyerGuide } from '@/lib/buyer-guides';
+import { getProductPick } from '@/lib/product-picks';
+import { ProductPickCard } from '@/components/shop/ProductPickCard';
 import { cn } from '@/lib/utils';
 
 interface CompoundBuyerGuideProps {
@@ -23,6 +25,8 @@ export function CompoundBuyerGuidePanel({
   compact = false,
   className,
 }: CompoundBuyerGuideProps) {
+  const productPick = getProductPick(guide.compoundId);
+
   return (
     <section
       id="buyer-guide"
@@ -61,6 +65,16 @@ export function CompoundBuyerGuidePanel({
       </div>
 
       <div className={cn('p-5 space-y-5', compact && 'space-y-4')}>
+        {productPick && (
+          <div className="grid md:grid-cols-[minmax(0,1fr)_240px] gap-4 items-start">
+            <p className="text-sm text-muted-foreground leading-relaxed md:col-span-1">
+              After verifying COA demands below, use this TNiC-matched pick — click the image to open
+              the manufacturer product page.
+            </p>
+            <ProductPickCard pick={productPick} compact />
+          </div>
+        )}
+
         <div>
           <p className="text-label text-foreground mb-2 flex items-center gap-2">
             <FlaskConical className="w-3.5 h-3.5 text-accent-cyan" />

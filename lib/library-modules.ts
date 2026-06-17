@@ -353,8 +353,8 @@ export function getModulesByCategory(category: LibraryModuleCategory): LibraryMo
   return libraryModules.filter((m) => m.category === category);
 }
 
-export function getAllModuleParams(): { category: LibraryModuleCategory; slug: string }[] {
-  return libraryModules.map((m) => ({ category: m.category, slug: m.slug }));
+export function getAllModuleParams(): { slug: LibraryModuleCategory; moduleSlug: string }[] {
+  return libraryModules.map((m) => ({ slug: m.category, moduleSlug: m.slug }));
 }
 
 export function getModulePath(module: LibraryModule): string {

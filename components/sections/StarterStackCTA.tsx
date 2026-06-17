@@ -3,8 +3,27 @@
 import { useState } from 'react';
 import { motion } from 'framer-motion';
 import { Download, Copy, CheckCheck, ArrowRight } from 'lucide-react';
+import Image from 'next/image';
 import { starterStack } from '@/lib/journey';
 import { useStack } from '@/context/PlatformContext';
+import { getProductPick, type ProductPick } from '@/lib/product-picks';
+
+function PickThumbnail({ pick }: { pick: ProductPick }) {
+  const [src, setSrc] = useState(pick.imageSrc);
+  return (
+    <Image
+      src={src}
+      alt={`${pick.brand} ${pick.productName}`}
+      width={72}
+      height={90}
+      className="object-contain bg-muted/30"
+      onError={() => {
+        if (src !== pick.fallbackImageSrc) setSrc(pick.fallbackImageSrc);
+      }}
+      unoptimized={src.endsWith('.svg')}
+    />
+  );
+}
 
 export function StarterStackCTA() {
   const { applyPreset } = useStack();
@@ -68,16 +87,43 @@ export function StarterStackCTA() {
 
           <div className="gradient-border p-6">
             <p className="text-[10px] font-mono text-muted-foreground uppercase mb-4">{starterStack.name}</p>
-            {starterStack.compounds.map((c) => (
-              <div key={c.name} className="border-b border-border py-4 last:border-0">
-                <div className="flex justify-between items-start mb-1">
-                  <h3 className="font-bold">{c.name}</h3>
-                  <span className="text-[10px] font-mono text-accent-emerald">Tier {c.tier}</span>
+            {starterStack.compounds.map((c) => {
+              const pick = getProductPick(c.id);
+              return (
+                <div key={c.name} className="border-b border-border py-4 last:border-0">
+                  <div className="flex gap-3">
+                    {pick && (
+                      <a
+                        href={pick.purchaseUrl}
+                        target="_blank"
+                        rel="noopener noreferrer sponsored"
+                        className="focus-ring shrink-0 rounded-xl overflow-hidden border border-border hover:border-accent-violet/40 transition"
+                        aria-label={`${pick.productName} by ${pick.brand} — shop on manufacturer site`}
+                      >
+                        <PickThumbnail pick={pick} />
+                      </a>
+                    )}
+                    <div className="min-w-0 flex-1">
+                      <div className="flex justify-between items-start mb-1 gap-2">
+                        <h3 className="font-bold">{c.name}</h3>
+                        <span className="text-[10px] font-mono text-accent-emerald shrink-0">
+                          Tier {c.tier}
+                        </span>
+                      </div>
+                      <p className="text-xs font-mono text-muted-foreground mb-1">
+                        {c.dose} · {c.timing}
+                      </p>
+                      <p className="text-xs text-muted-foreground">{c.why}</p>
+                      {pick && (
+                        <p className="text-[10px] text-accent-cyan mt-1.5">
+                          Tap image → {pick.brand}
+                        </p>
+                      )}
+                    </div>
+                  </div>
                 </div>
-                <p className="text-xs font-mono text-muted-foreground mb-1">{c.dose} · {c.timing}</p>
-                <p className="text-xs text-muted-foreground">{c.why}</p>
-              </div>
-            ))}
+              );
+            })}
             <p className="text-[10px] text-caption mt-4">{starterStack.disclaimer}</p>
 
             {!submitted ? (

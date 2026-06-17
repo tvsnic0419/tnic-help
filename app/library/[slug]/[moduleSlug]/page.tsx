@@ -22,11 +22,11 @@ export function generateStaticParams() {
 export async function generateMetadata({
   params,
 }: {
-  params: Promise<{ category: string; slug: string }>;
+  params: Promise<{ slug: string; moduleSlug: string }>;
 }): Promise<Metadata> {
-  const { category, slug } = await params;
+  const { slug: category, moduleSlug } = await params;
   if (!VALID_CATEGORIES.includes(category as LibraryModuleCategory)) return { title: 'Not Found' };
-  const mod = getModuleBySlug(category as LibraryModuleCategory, slug);
+  const mod = getModuleBySlug(category as LibraryModuleCategory, moduleSlug);
   if (!mod) return { title: 'Not Found' };
   const path = getModulePath(mod);
   return seoRoutes.module({
@@ -40,12 +40,12 @@ export async function generateMetadata({
 export default async function LibraryModulePage({
   params,
 }: {
-  params: Promise<{ category: string; slug: string }>;
+  params: Promise<{ slug: string; moduleSlug: string }>;
 }) {
-  const { category, slug } = await params;
+  const { slug: category, moduleSlug } = await params;
   if (!VALID_CATEGORIES.includes(category as LibraryModuleCategory)) notFound();
 
-  const mod = getModuleBySlug(category as LibraryModuleCategory, slug);
+  const mod = getModuleBySlug(category as LibraryModuleCategory, moduleSlug);
   if (!mod) notFound();
 
   const mdx = loadMdx(mod.mdxSlug, mod.category);

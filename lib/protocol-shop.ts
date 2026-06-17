@@ -1,5 +1,6 @@
 import { getBuyerGuide } from './buyer-guides';
 import type { CompoundBuyerGuide } from './buyer-guides';
+import { getProductPick, type ProductPick } from './product-picks';
 
 export interface StackShopItem {
   compoundId: string;
@@ -10,6 +11,7 @@ export interface StackShopItem {
   moduleHref: string;
   compareHref?: string;
   priority: 'essential' | 'recommended' | 'optional';
+  productPick?: ProductPick;
 }
 
 const compoundModuleMap: Record<string, { name: string; slug: string; synergy?: boolean }> = {
@@ -48,6 +50,7 @@ export function getStackShopItems(compoundIds: string[]): StackShopItem[] {
           ? `/library/compare/${guide.relatedCompareSlug}`
           : undefined,
         priority: ['glynac', 'nmn', 'sulforaphane'].includes(id) ? 'essential' : 'recommended',
+        productPick: getProductPick(id),
       } satisfies StackShopItem;
     })
     .filter(Boolean) as StackShopItem[];
@@ -55,7 +58,7 @@ export function getStackShopItems(compoundIds: string[]): StackShopItem[] {
 
 export const shopDisclosure = {
   title: 'Zero inventory conflict',
-  body: 'TNiC does not sell supplements, hold inventory, or earn commissions on product links. The Protocol Shop is a verification layer — use buyer guides to evaluate any supplier against RCT doses and COA requirements.',
+  body: 'TNiC does not sell supplements or hold inventory. Verified picks link directly to manufacturer websites — always request batch COA before purchase.',
   affiliateNote:
-    'Future affiliate partnerships, if any, will be disclosed per product and never influence evidence tiers or stack recommendations.',
+    'Product photos are served locally with illustrated fallbacks. Clicking a pick opens the brand site in a new tab. Affiliate relationships, if added later, will be disclosed per product.',
 };

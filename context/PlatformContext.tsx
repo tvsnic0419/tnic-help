@@ -34,6 +34,7 @@ import {
   detectNewMilestones,
   type UserMilestone,
 } from '@/lib/milestone-engine';
+import { validatePlatformImport, type ImportResult } from '@/lib/import-validation';
 const DEFAULT_STACK = stackPresets.starter.ids;
 
 export interface Profile {
@@ -68,7 +69,7 @@ interface PlatformContextValue {
   hallmarkNotes: HallmarkNotesMap;
   setHallmarkNote: (hallmarkId: string, patch: Partial<HallmarkPersonalEntry>) => void;
   exportAll: () => string;
-  importAll: (json: string) => boolean;
+  importAll: (json: string) => ImportResult;
   milestones: UserMilestone[];
   addMilestone: (milestone: UserMilestone) => void;
   privacyMode: PrivacyStorageMode;
@@ -318,16 +319,27 @@ export function PlatformProvider({ children }: { children: ReactNode }) {
     [selected, profile, labs, checklist, hallmarkNotes, milestones],
   );
 
-  const importAll = useCallback((json: string) => {
-    try {
-      const data = JSON.parse(json);
+  const importAll = useCallback(
+    (json: string): ImportResult => {
+      let parsed: unknown;
+      try {
+        parsed = JSON.parse(json);
+      } catch {
+        return { ok: false, errors: ['Invalid JSON'] };
+      }
+
+      const result = validatePlatformImport(parsed);
+      if (!result.ok) return result;
+
+      const { data, warnings } = result;
+
       if (data.stack) setSelected(data.stack);
       if (data.profile) {
         const next = { ...DEFAULT_PROFILE, ...data.profile };
         setProfileState(next);
         writeStorageItem(STORAGE_KEYS.profile, next, privacyMode);
       }
-      if (Array.isArray(data.labs)) persistLabs(sanitizeLabEntries(data.labs));
+      if (data.labs) persistLabs(data.labs);
       if (data.checklist) {
         setChecklist(data.checklist);
         writeStorageItem(STORAGE_KEYS.checklist, data.checklist, privacyMode);
@@ -336,14 +348,12 @@ export function PlatformProvider({ children }: { children: ReactNode }) {
         setHallmarkNotesState(data.hallmarkNotes);
         writeStorageItem(STORAGE_KEYS.hallmarkNotes, data.hallmarkNotes, privacyMode);
       }
-      if (Array.isArray(data.milestones)) {
-        persistMilestones(data.milestones);
-      }
-      return true;
-    } catch {
-      return false;
-    }
-  }, [setSelected, persistLabs, persistMilestones, privacyMode]);
+      if (data.milestones) persistMilestones(data.milestones);
+
+      return { ok: true, data, warnings };
+    },
+    [setSelected, persistLabs, persistMilestones, privacyMode],
+  );
 
   const setPrivacyMode = useCallback((mode: PrivacyStorageMode) => {
     persistPrivacyMode(mode);

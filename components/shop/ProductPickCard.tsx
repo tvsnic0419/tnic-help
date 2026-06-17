@@ -1,0 +1,100 @@
+'use client';
+
+import { useState } from 'react';
+import Image from 'next/image';
+import { ExternalLink } from 'lucide-react';
+import type { ProductPick } from '@/lib/product-picks';
+
+interface ProductPickCardProps {
+  pick: ProductPick;
+  compact?: boolean;
+  className?: string;
+}
+
+function ProductImage({
+  src,
+  fallbackSrc,
+  alt,
+  compact,
+}: {
+  src: string;
+  fallbackSrc: string;
+  alt: string;
+  compact?: boolean;
+}) {
+  const [imgSrc, setImgSrc] = useState(src);
+  const size = compact ? 72 : 120;
+
+  return (
+    <Image
+      src={imgSrc}
+      alt={alt}
+      width={size}
+      height={size}
+      className="object-contain rounded-lg bg-white/5"
+      onError={() => {
+        if (imgSrc !== fallbackSrc) setImgSrc(fallbackSrc);
+      }}
+      unoptimized={imgSrc.endsWith('.svg')}
+    />
+  );
+}
+
+export function ProductPickCard({ pick, compact, className }: ProductPickCardProps) {
+  return (
+    <div
+      className={`rounded-xl border border-white/10 bg-white/5 overflow-hidden ${
+        compact ? 'p-3' : 'p-4'
+      } ${className ?? ''}`}
+    >
+      <a
+        href={pick.purchaseUrl}
+        target="_blank"
+        rel="noopener noreferrer"
+        className="flex gap-4 group"
+        aria-label={`Buy ${pick.productName} from ${pick.brand}`}
+      >
+        <ProductImage
+          src={pick.imageSrc}
+          fallbackSrc={pick.fallbackImageSrc}
+          alt={`${pick.brand} ${pick.productName}`}
+          compact={compact}
+        />
+        <div className="flex-1 min-w-0">
+          <p className="text-xs text-emerald-400/80 uppercase tracking-wide">{pick.brand}</p>
+          <p className={`font-medium text-white group-hover:text-emerald-300 transition-colors ${compact ? 'text-sm' : 'text-base'}`}>
+            {pick.productName}
+          </p>
+          {!compact && (
+            <p className="text-sm text-white/60 mt-1 line-clamp-2">{pick.whyThisPick}</p>
+          )}
+          <span className="inline-flex items-center gap-1 text-xs text-emerald-400 mt-2">
+            Buy on {pick.brand.split(' ')[0]}
+            <ExternalLink className="w-3 h-3" />
+          </span>
+        </div>
+      </a>
+
+      {pick.companionPurchase && (
+        <a
+          href={pick.companionPurchase.purchaseUrl}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="mt-3 flex items-center gap-2 text-xs text-amber-400/90 hover:text-amber-300 border-t border-white/10 pt-3"
+        >
+          <ExternalLink className="w-3 h-3 shrink-0" />
+          {pick.companionPurchase.label}
+        </a>
+      )}
+
+      {!compact && (
+        <p className="text-xs text-white/40 mt-3 border-t border-white/10 pt-2">
+          {pick.doseNote}
+          {pick.linkVerifiedAt && (
+            <span className="block mt-1">Link verified {pick.linkVerifiedAt}</span>
+          )}
+        </p>
+      )}
+    </div>
+  );
+}
