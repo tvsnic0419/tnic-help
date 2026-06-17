@@ -2,25 +2,66 @@
 
 import { Suspense, useCallback, useEffect, useState } from 'react';
 import { useSearchParams, useRouter } from 'next/navigation';
-import { Link2, Package, CheckCircle2, AlertCircle, LogOut } from 'lucide-react';
+import { Link2, Package, CheckCircle2, AlertCircle, LogOut, RefreshCw } from 'lucide-react';
 import { usePlatform } from '@/context/PlatformContext';
 import {
   LAB_OAUTH_SESSION_KEY,
+  LAB_PENDING_ORDERS_KEY,
   labPartners,
   DEMO_PARTNER_ID,
   type LabOAuthSession,
+  type PendingLabOrder,
 } from '@/lib/lab-partner-oauth';
 import { parsePartnerJson } from '@/lib/lab-partner-import';
 import { labPartnerPanels } from '@/lib/lab-partners';
+
+interface ConnectablePartner {
+  id: string;
+  name: string;
+  status: 'demo' | 'live' | 'coming_soon';
+}
 
 function LabPartnerOAuthFlowInner() {
   const searchParams = useSearchParams();
   const router = useRouter();
   const { importLabs } = usePlatform();
   const [session, setSession] = useState<LabOAuthSession | null>(null);
+  const [connectable, setConnectable] = useState<ConnectablePartner[]>([]);
+  const [selectedPartner, setSelectedPartner] = useState(DEMO_PARTNER_ID);
   const [loading, setLoading] = useState(false);
   const [msg, setMsg] = useState<{ type: 'success' | 'error'; text: string } | null>(null);
   const [selectedPanel, setSelectedPanel] = useState('longevity-baseline');
+  const [pendingOrders, setPendingOrders] = useState<PendingLabOrder[]>([]);
+
+  const loadPending = useCallback(() => {
+    try {
+      const raw = localStorage.getItem(LAB_PENDING_ORDERS_KEY);
+      if (!raw) return;
+      setPendingOrders(JSON.parse(raw) as PendingLabOrder[]);
+    } catch {
+      /* ignore */
+    }
+  }, []);
+
+  const savePending = useCallback((orders: PendingLabOrder[]) => {
+    localStorage.setItem(LAB_PENDING_ORDERS_KEY, JSON.stringify(orders));
+    setPendingOrders(orders);
+  }, []);
+
+  useEffect(() => {
+    fetch('/api/labs/partner/config')
+      .then((r) => r.json())
+      .then((data: { partners?: ConnectablePartner[] }) => {
+        const partners = data.partners ?? [];
+        setConnectable(partners);
+        if (partners.length > 0 && !partners.find((p) => p.id === selectedPartner)) {
+          setSelectedPartner(partners[0].id);
+        }
+      })
+      .catch(() => {
+        setConnectable([{ id: DEMO_PARTNER_ID, name: 'TNiC Demo Lab', status: 'demo' }]);
+      });
+  }, [selectedPartner]);
 
   useEffect(() => {
     try {
@@ -29,13 +70,32 @@ function LabPartnerOAuthFlowInner() {
       const s = JSON.parse(raw) as LabOAuthSession;
       if (new Date(s.expires_at) > new Date()) {
         setSession(s);
+        setSelectedPartner(s.partner_id);
       } else {
         localStorage.removeItem(LAB_OAUTH_SESSION_KEY);
       }
     } catch {
       /* ignore */
     }
-  }, []);
+    loadPending();
+  }, [loadPending]);
+
+  const importPayload = useCallback(
+    (payload: unknown, orderId: string) => {
+      const result = parsePartnerJson(payload);
+      if (result.entries.length === 0) {
+        setMsg({ type: 'error', text: result.errors[0] ?? 'No importable results' });
+        return 0;
+      }
+      const count = importLabs(result.entries);
+      setMsg({
+        type: 'success',
+        text: `Order ${orderId} — imported ${count} biomarker${count === 1 ? '' : 's'}`,
+      });
+      return count;
+    },
+    [importLabs],
+  );
 
   const exchangeCode = useCallback(
     async (code: string, partnerId: string) => {
@@ -59,7 +119,11 @@ function LabPartnerOAuthFlowInner() {
         };
         localStorage.setItem(LAB_OAUTH_SESSION_KEY, JSON.stringify(newSession));
         setSession(newSession);
-        const partnerName = labPartners.find((p) => p.id === partnerId)?.name ?? partnerId;
+        setSelectedPartner(partnerId);
+        const partnerName =
+          connectable.find((p) => p.id === partnerId)?.name
+          ?? labPartners.find((p) => p.id === partnerId)?.name
+          ?? partnerId;
         setMsg({ type: 'success', text: `Connected to ${partnerName}` });
       } catch {
         setMsg({ type: 'error', text: 'OAuth exchange failed' });
@@ -67,21 +131,26 @@ function LabPartnerOAuthFlowInner() {
         setLoading(false);
         const url = new URL(window.location.href);
         url.searchParams.delete('oauth_code');
+        url.searchParams.delete('oauth_error');
         url.searchParams.delete('partner');
         router.replace(`${url.pathname}${url.search}${url.hash}`);
       }
     },
-    [router],
+    [router, connectable],
   );
 
   useEffect(() => {
     const code = searchParams.get('oauth_code');
     const partner = searchParams.get('partner') ?? DEMO_PARTNER_ID;
+    const oauthError = searchParams.get('oauth_error');
+    if (oauthError) {
+      setMsg({ type: 'error', text: `OAuth failed: ${oauthError}` });
+    }
     if (code) exchangeCode(code, partner);
   }, [searchParams, exchangeCode]);
 
   const connect = () => {
-    window.location.href = `/api/labs/partner/oauth/start?partner=${DEMO_PARTNER_ID}`;
+    window.location.href = `/api/labs/partner/oauth/start?partner=${selectedPartner}`;
   };
 
   const disconnect = () => {
@@ -108,15 +177,19 @@ function LabPartnerOAuthFlowInner() {
         return;
       }
       if (data.import_payload) {
-        const result = parsePartnerJson(data.import_payload);
-        if (result.entries.length === 0) {
-          setMsg({ type: 'error', text: result.errors[0] ?? 'No importable results' });
-          return;
-        }
-        const count = importLabs(result.entries);
+        importPayload(data.import_payload, data.order_id);
+      } else if (data.status === 'pending') {
+        const entry: PendingLabOrder = {
+          order_id: data.order_id,
+          panel_id: data.panel_id ?? selectedPanel,
+          partner_id: session.partner_id,
+          placed_at: new Date().toISOString(),
+          status: 'pending',
+        };
+        savePending([entry, ...pendingOrders.filter((o) => o.order_id !== data.order_id)]);
         setMsg({
           type: 'success',
-          text: `Order ${data.order_id} — imported ${count} biomarker${count === 1 ? '' : 's'}`,
+          text: `Order ${data.order_id} placed — results will arrive via partner webhook. Check status below.`,
         });
       } else {
         setMsg({ type: 'success', text: `Order ${data.order_id} placed — results pending` });
@@ -128,18 +201,52 @@ function LabPartnerOAuthFlowInner() {
     }
   };
 
-  const demoPartner = labPartners.find((p) => p.id === DEMO_PARTNER_ID);
+  const checkOrderStatus = async (order: PendingLabOrder) => {
+    if (!session) return;
+    setLoading(true);
+    try {
+      const params = new URLSearchParams({
+        order_id: order.order_id,
+        partner_id: order.partner_id,
+      });
+      const res = await fetch(`/api/labs/partner/order/status?${params}`, {
+        headers: { Authorization: `Bearer ${session.access_token}` },
+      });
+      const data = await res.json();
+      if (!res.ok || !data.ok) {
+        setMsg({ type: 'error', text: data.error ?? 'Status check failed' });
+        return;
+      }
+      if (data.import_payload) {
+        importPayload(data.import_payload, data.order_id);
+        savePending(
+          pendingOrders.map((o) =>
+            o.order_id === order.order_id ? { ...o, status: 'complete' as const } : o,
+          ),
+        );
+      } else {
+        setMsg({ type: 'success', text: `Order ${order.order_id} still ${data.status ?? 'pending'}` });
+      }
+    } catch {
+      setMsg({ type: 'error', text: 'Status check failed' });
+    } finally {
+      setLoading(false);
+    }
+  };
+
   const orderablePanels = labPartnerPanels.filter((p) => p.status !== 'waitlist');
+  const activePending = pendingOrders.filter((o) => o.status === 'pending');
 
   return (
     <div id="lab-partner-oauth" className="glass rounded-xl p-5 mb-6">
       <div className="flex items-center gap-2 mb-2">
         <Link2 className="w-4 h-4 text-accent-cyan" />
-        <p className="text-label text-accent-cyan">Order at home · OAuth preview</p>
+        <p className="text-label text-accent-cyan">Order at home · OAuth</p>
       </div>
       <p className="text-sm text-muted-foreground mb-4 max-w-2xl">
-        Connect the demo lab partner, place an at-home panel order, and auto-import results into your
-        Labs hub — no manual CSV upload. Live partners ship when OAuth credentials are configured.
+        Connect a lab partner, place an at-home panel order, and auto-import results. Demo partner
+        returns results instantly; Longevity Direct (when credentials are configured) fulfills via
+        partner webhook push.
       </p>
 
       {msg && (
@@ -199,25 +306,67 @@ function LabPartnerOAuthFlowInner() {
               className="focus-ring inline-flex items-center justify-center gap-2 bg-accent-cyan/20 border border-accent-cyan/30 text-accent-cyan px-5 py-3 rounded-xl font-semibold text-sm hover:bg-accent-cyan/30 transition shrink-0 disabled:opacity-60"
             >
               <Package className="w-4 h-4" />
-              {loading ? 'Ordering…' : 'Order & import'}
+              {loading ? 'Ordering…' : session.partner_id === DEMO_PARTNER_ID ? 'Order & import' : 'Place order'}
             </button>
           </div>
+
+          {activePending.length > 0 && (
+            <div className="space-y-2">
+              <p className="text-xs font-semibold text-muted-foreground">Pending orders</p>
+              {activePending.map((order) => (
+                <div
+                  key={order.order_id}
+                  className="flex flex-wrap items-center justify-between gap-2 text-xs glass rounded-lg px-3 py-2"
+                >
+                  <span className="font-mono text-accent-cyan">{order.order_id}</span>
+                  <span className="text-muted-foreground">{order.panel_id}</span>
+                  <button
+                    type="button"
+                    onClick={() => checkOrderStatus(order)}
+                    disabled={loading}
+                    className="focus-ring inline-flex items-center gap-1 text-accent-cyan hover:underline disabled:opacity-50"
+                  >
+                    <RefreshCw className="w-3 h-3" />
+                    Check status
+                  </button>
+                </div>
+              ))}
+            </div>
+          )}
         </div>
       ) : (
-        <button
-          type="button"
-          onClick={connect}
-          disabled={loading}
-          className="focus-ring inline-flex items-center gap-2 bg-accent-cyan/20 border border-accent-cyan/30 text-accent-cyan px-5 py-3 rounded-xl font-semibold text-sm hover:bg-accent-cyan/30 transition disabled:opacity-60"
-        >
-          <Link2 className="w-4 h-4" />
-          {loading ? 'Connecting…' : `Connect ${demoPartner?.name ?? 'demo partner'}`}
-        </button>
+        <div className="flex flex-col sm:flex-row gap-3 max-w-xl">
+          {connectable.length > 1 && (
+            <select
+              value={selectedPartner}
+              onChange={(e) => setSelectedPartner(e.target.value)}
+              className="flex-1 rounded-xl border border-border bg-card px-4 py-3 text-sm focus-ring"
+              aria-label="Lab partner"
+            >
+              {connectable.map((p) => (
+                <option key={p.id} value={p.id}>
+                  {p.name} ({p.status})
+                </option>
+              ))}
+            </select>
+          )}
+          <button
+            type="button"
+            onClick={connect}
+            disabled={loading || connectable.length === 0}
+            className="focus-ring inline-flex items-center gap-2 bg-accent-cyan/20 border border-accent-cyan/30 text-accent-cyan px-5 py-3 rounded-xl font-semibold text-sm hover:bg-accent-cyan/30 transition disabled:opacity-60 shrink-0"
+          >
+            <Link2 className="w-4 h-4" />
+            {loading
+              ? 'Connecting…'
+              : `Connect ${connectable.find((p) => p.id === selectedPartner)?.name ?? 'partner'}`}
+          </button>
+        </div>
       )}
 
       <p className="text-[10px] text-muted-foreground mt-4 font-mono">
         API: GET /api/labs/partner/oauth/start · POST /api/labs/partner/oauth/token · POST
-        /api/labs/partner/order · POST /api/labs/partner/webhook
+        /api/labs/partner/order · GET /api/labs/partner/order/status · POST /api/labs/partner/webhook
       </p>
     </div>
   );

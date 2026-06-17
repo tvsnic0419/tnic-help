@@ -14,8 +14,8 @@ export const labPartnerPanels: LabPartnerPanel[] = [
     status: 'beta',
     markers: ['GSH', 'hs-CRP', 'NAD+ metabolites', 'oxLDL', 'AKG'],
     description:
-      'Tier 1 panel — import via Partner Beta tab using TNiC Partner v1 CSV/JSON or POST /api/labs/partner-import.',
-    eta: 'Import live',
+      'Tier 1 panel — OAuth order (demo or Longevity Direct) or Partner Beta CSV/JSON import.',
+    eta: 'OAuth + import',
   },
   {
     id: 'inflammation-surge',

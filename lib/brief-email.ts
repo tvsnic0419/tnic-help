@@ -1,7 +1,8 @@
 import { protocolBriefIssues } from './protocol-brief';
+import { buildUnsubscribeUrl } from './brief-unsubscribe';
 import { SITE } from './site';
 
-export function buildBriefDigestHtml(issueIndex = 0): string {
+export function buildBriefDigestHtml(issueIndex = 0, email?: string): string {
   const issue = protocolBriefIssues[issueIndex] ?? protocolBriefIssues[0];
   const pmidLinks = issue.pmids
     .map(
@@ -16,6 +17,11 @@ export function buildBriefDigestHtml(issueIndex = 0): string {
         `<li style="margin-bottom:6px;"><a href="${SITE.url}${l.href}" style="color:#22d3ee;">${l.label}</a></li>`,
     )
     .join('');
+
+  const unsubPath = email ? buildUnsubscribeUrl(email) : null;
+  const unsubLink = unsubPath
+    ? `<a href="${SITE.url}${unsubPath}" style="color:#64748b;">Unsubscribe</a>`
+    : '';
 
   return `<!DOCTYPE html>
 <html>
@@ -33,6 +39,7 @@ export function buildBriefDigestHtml(issueIndex = 0): string {
   <p style="font-size:11px;color:#64748b;">
     Educational only — not medical advice. <a href="${SITE.url}/brief" style="color:#22d3ee;">Read online</a>
     · <a href="${SITE.url}/brief/feed.xml" style="color:#22d3ee;">RSS</a>
+    ${unsubLink ? ` · ${unsubLink}` : ''}
   </p>
 </body>
 </html>`;

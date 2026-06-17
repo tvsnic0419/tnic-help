@@ -29,11 +29,26 @@ export const labPartnerApiSpec = {
     {
       method: 'POST' as const,
       path: '/api/labs/partner/webhook',
-      description: 'Partner pushes completed panel results; validates x-tnic-webhook-secret when configured.',
+      description: 'Partner pushes completed panel results with optional order_id; validates x-tnic-webhook-secret when configured.',
+    },
+    {
+      method: 'GET' as const,
+      path: '/api/labs/partner/oauth/callback',
+      description: 'OAuth redirect handler — forwards authorization code to /labs#lab-partner-oauth.',
+    },
+    {
+      method: 'GET' as const,
+      path: '/api/labs/partner/order/status',
+      description: 'Poll live partner order status; demo returns instant import_payload.',
+    },
+    {
+      method: 'GET' as const,
+      path: '/api/labs/partner/config',
+      description: 'Returns env-resolved connectable partners (demo + live when credentials set).',
     },
   ],
   webhookNote:
-    'Partners POST completed panels to /api/labs/partner/webhook or the import endpoint. OAuth order-at-home demo is live at /labs#lab-partner-oauth.',
+    'Partners POST completed panels to /api/labs/partner/webhook with order_id. Live Longevity Direct OAuth activates when LONGEVITY_DIRECT_* env vars are set.',
   examplePayload: PARTNER_JSON_EXAMPLE,
   responseShape: {
     ok: true,

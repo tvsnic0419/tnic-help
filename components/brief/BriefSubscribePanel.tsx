@@ -1,7 +1,8 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { Suspense, useEffect, useState } from 'react';
 import Link from 'next/link';
+import { useSearchParams } from 'next/navigation';
 import { Mail, Bell, CheckCircle2, X, Rss } from 'lucide-react';
 import { SITE } from '@/lib/site';
 import {
@@ -10,12 +11,14 @@ import {
   clearBriefSubscription,
 } from '@/lib/brief-subscribe';
 
-export function BriefSubscribePanel() {
+function BriefSubscribePanelInner() {
+  const searchParams = useSearchParams();
   const [email, setEmail] = useState('');
   const [subscribed, setSubscribed] = useState(false);
   const [savedEmail, setSavedEmail] = useState<string | null>(null);
   const [deliveryMode, setDeliveryMode] = useState<'feed' | 'webhook' | 'resend' | null>(null);
   const [loading, setLoading] = useState(false);
+  const [unsubNotice, setUnsubNotice] = useState<string | null>(null);
 
   useEffect(() => {
     const record = getBriefSubscription();
@@ -26,11 +29,32 @@ export function BriefSubscribePanel() {
     }
   }, []);
 
+  useEffect(() => {
+    const status = searchParams.get('unsubscribe');
+    if (!status) return;
+
+    if (status === 'ok') {
+      clearBriefSubscription();
+      setSubscribed(false);
+      setSavedEmail(null);
+      setEmail('');
+      setDeliveryMode(null);
+      setUnsubNotice('You have been unsubscribed from Protocol Brief emails.');
+    } else if (status === 'partial') {
+      setUnsubNotice('Unsubscribe recorded locally — contact support if emails continue.');
+    } else if (status === 'invalid') {
+      setUnsubNotice('Invalid unsubscribe link — use the link from your latest email.');
+    } else if (status === 'error') {
+      setUnsubNotice('Unsubscribe failed — try again or clear your preference below.');
+    }
+  }, [searchParams]);
+
   const subscribe = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!email.trim()) return;
 
     setLoading(true);
+    setUnsubNotice(null);
     saveBriefSubscription(email.trim());
 
     try {
@@ -64,6 +88,7 @@ export function BriefSubscribePanel() {
     setSavedEmail(null);
     setEmail('');
     setDeliveryMode(null);
+    setUnsubNotice('Local preference cleared — use the email unsubscribe link to leave the Resend list.');
   };
 
   return (
@@ -80,10 +105,17 @@ export function BriefSubscribePanel() {
           </h2>
           <p className="text-sm text-muted-foreground mt-1 max-w-xl">
             Subscribe by email (Resend when configured, else webhook) or add the RSS/JSON feed to your
-            reader for hands-free weekly drops — no coupon spam.
+            reader. Weekly digests rotate through curated issues — one-click unsubscribe in every email.
           </p>
         </div>
       </div>
+
+      {unsubNotice && (
+        <div className="flex items-center gap-2 text-xs px-3 py-2 rounded-lg mb-4 bg-accent-emerald/10 text-accent-emerald">
+          <CheckCircle2 className="w-3.5 h-3.5 shrink-0" />
+          {unsubNotice}
+        </div>
+      )}
 
       <div className="flex flex-wrap gap-3 mb-6">
         <a
@@ -114,6 +146,11 @@ export function BriefSubscribePanel() {
                     : 'Subscribed — use feeds'}
               </p>
               <p className="text-xs text-muted-foreground font-mono">{savedEmail}</p>
+              {deliveryMode === 'resend' && (
+                <p className="text-xs text-muted-foreground mt-1">
+                  Unsubscribe via the link in your weekly email.
+                </p>
+              )}
               {deliveryMode === 'feed' && (
                 <p className="text-xs text-muted-foreground mt-1">
                   Add{' '}
@@ -158,5 +195,13 @@ export function BriefSubscribePanel() {
         </form>
       )}
     </section>
+  );
+}
+
+export function BriefSubscribePanel() {
+  return (
+    <Suspense fallback={<div className="mb-10 h-32 rounded-2xl glass animate-pulse" />}>
+      <BriefSubscribePanelInner />
+    </Suspense>
   );
 }

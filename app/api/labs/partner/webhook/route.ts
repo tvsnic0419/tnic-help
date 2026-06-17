@@ -27,12 +27,19 @@ export async function POST(request: Request) {
       );
     }
 
+    const orderId =
+      typeof body === 'object' && body !== null && 'order_id' in body
+        ? String((body as { order_id: unknown }).order_id)
+        : undefined;
+
     return NextResponse.json({
       ok: true,
       event: 'panel.complete',
+      order_id: orderId,
       entries: result.entries,
       errors: result.errors,
       meta: result.meta,
+      import_payload: typeof body === 'object' && body !== null ? body : undefined,
     });
   } catch {
     return NextResponse.json({ error: 'Invalid payload' }, { status: 400 });

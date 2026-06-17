@@ -307,6 +307,18 @@ export const disclaimers: DisclaimerBlock[] = [
 export const updateHistory: UpdateHistoryEntry[] = [
   {
     date: '2026-06-16',
+    version: '1.11.0',
+    title: 'Sprint 11 — Live Partner OAuth & Brief Rotation',
+    category: 'feature',
+    changes: [
+      'Longevity Direct live OAuth — env-gated authorize/token/order/status proxy; OAuth callback route',
+      'Pending order tracking in Labs hub with status polling; webhook returns order_id on panel.complete',
+      'Protocol Brief ISO-week issue rotation in weekly cron send',
+      'Signed one-click unsubscribe — GET /api/brief/unsubscribe with HMAC token in Resend digest emails',
+    ],
+  },
+  {
+    date: '2026-06-16',
     version: '1.10.0',
     title: 'Sprint 10 — Lab OAuth & Resend Brief',
     category: 'feature',

@@ -1,7 +1,9 @@
 import type { PartnerImportPayload } from './lab-partner-import';
 import { PARTNER_SCHEMA } from './lab-partner-import';
+import { isLivePartnerConfigured, LONGEVITY_DIRECT_ID } from './lab-partner-live';
 
 export const LAB_OAUTH_SESSION_KEY = 'tnic:lab-oauth-session';
+export const LAB_PENDING_ORDERS_KEY = 'tnic:lab-pending-orders';
 export const DEMO_PARTNER_ID = 'tnic-demo-lab';
 
 export interface LabPartnerConfig {
@@ -20,12 +22,26 @@ export const labPartners: LabPartnerConfig[] = [
     scopes: ['labs.read', 'orders.create'],
   },
   {
-    id: 'longevity-direct',
+    id: LONGEVITY_DIRECT_ID,
     name: 'Longevity Direct',
     status: 'coming_soon',
     scopes: ['labs.read', 'orders.create'],
   },
 ];
+
+/** Server-side — resolves live partner env into status */
+export function getResolvedLabPartners(): LabPartnerConfig[] {
+  return labPartners.map((p) => {
+    if (p.id === LONGEVITY_DIRECT_ID && isLivePartnerConfigured(p.id)) {
+      return {
+        ...p,
+        status: 'live' as const,
+        oauthAuthorizeUrl: process.env.LONGEVITY_DIRECT_AUTHORIZE_URL,
+      };
+    }
+    return p;
+  });
+}
 
 export interface LabOAuthSession {
   partner_id: string;
@@ -93,4 +109,20 @@ export function createDemoOrder(panelId: string): LabOrderResponse {
 
 export function getPartner(id: string): LabPartnerConfig | undefined {
   return labPartners.find((p) => p.id === id);
+}
+
+export function getResolvedPartner(id: string): LabPartnerConfig | undefined {
+  return getResolvedLabPartners().find((p) => p.id === id);
+}
+
+export function getConnectablePartners(): LabPartnerConfig[] {
+  return getResolvedLabPartners().filter((p) => p.status === 'demo' || p.status === 'live');
+}
+
+export interface PendingLabOrder {
+  order_id: string;
+  panel_id: string;
+  partner_id: string;
+  placed_at: string;
+  status: 'pending' | 'complete' | 'demo_ready';
 }

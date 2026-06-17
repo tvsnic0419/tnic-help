@@ -128,7 +128,15 @@ const hubPages: PaletteItem[] = [
     title: 'Lab Partner OAuth',
     subtitle: 'Order at-home panels & auto-import',
     href: '/labs#lab-partner-oauth',
-    keywords: ['oauth', 'partner', 'order', 'lab import', 'webhook'],
+    keywords: ['oauth', 'partner', 'order', 'lab import', 'webhook', 'longevity direct'],
+  },
+  {
+    id: 'page-brief-unsubscribe',
+    kind: 'page',
+    title: 'Protocol Brief unsubscribe',
+    subtitle: 'One-click email opt-out',
+    href: '/brief#brief-subscribe',
+    keywords: ['unsubscribe', 'opt out', 'brief email'],
   },
   {
     id: 'page-tools',
