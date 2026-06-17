@@ -5,6 +5,7 @@ import { Newspaper, ExternalLink, ArrowRight } from 'lucide-react';
 import { protocolBriefIssues } from '@/lib/protocol-brief';
 import { EvidenceTag } from '@/components/trust/EvidenceTag';
 import { PageHeader } from '@/components/ui/PageHeader';
+import { BriefSubscribePanel } from './BriefSubscribePanel';
 
 export function ProtocolBriefHub() {
   return (
@@ -18,7 +19,9 @@ export function ProtocolBriefHub() {
         align="left"
       />
 
-      <div className="space-y-6 mt-10">
+      <BriefSubscribePanel />
+
+      <div className="space-y-6">
         {protocolBriefIssues.map((entry, i) => (
           <article
             key={entry.id}

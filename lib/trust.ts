@@ -307,6 +307,17 @@ export const disclaimers: DisclaimerBlock[] = [
 export const updateHistory: UpdateHistoryEntry[] = [
   {
     date: '2026-06-16',
+    version: '1.8.0',
+    title: 'Sprint 8 — OG Images, Search Index & Brief Subscribe',
+    category: 'feature',
+    changes: [
+      'Social OG images for /library/compare (hub + 6 slugs), /brief, and /shop',
+      'Library search indexes comparisons and Protocol Brief headlines; palette lists each compare route',
+      'Protocol Brief email subscribe — local preference + mailto at /brief#brief-subscribe',
+    ],
+  },
+  {
+    date: '2026-06-16',
     version: '1.7.0',
     title: 'Sprint 7 — Shop, Brief, Contact & Lab Waitlist',
     category: 'feature',

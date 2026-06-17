@@ -1,8 +1,10 @@
 import { compounds } from './data';
 import { hallmarkLibrary } from './hallmarks-library';
 import { libraryModules, getModulePath, libraryCategoryMeta } from './library-modules';
+import { evidenceComparisons } from './comparisons';
+import { protocolBriefIssues } from './protocol-brief';
 
-export type LibrarySearchKind = 'hallmark' | 'module' | 'compound';
+export type LibrarySearchKind = 'hallmark' | 'module' | 'compound' | 'compare' | 'brief';
 
 export interface LibrarySearchItem {
   id: string;
@@ -68,7 +70,43 @@ function buildIndex(): LibrarySearchItem[] {
     ],
   }));
 
-  return [...hallmarkItems, ...moduleItems, ...compoundItems];
+  const compareItems: LibrarySearchItem[] = evidenceComparisons.map((c) => ({
+    id: `compare-${c.slug}`,
+    kind: 'compare',
+    title: c.title,
+    subtitle: `${c.labelA} vs ${c.labelB} · ${c.category}`,
+    href: `/library/compare/${c.slug}`,
+    evidenceTier: c.evidenceTier,
+    keywords: [
+      c.title.toLowerCase(),
+      c.subtitle.toLowerCase(),
+      c.slug,
+      c.labelA.toLowerCase(),
+      c.labelB.toLowerCase(),
+      'compare',
+      'vs',
+      ...c.keywords,
+    ],
+  }));
+
+  const briefItems: LibrarySearchItem[] = protocolBriefIssues.map((b) => ({
+    id: `brief-${b.id}`,
+    kind: 'brief',
+    title: b.headline,
+    subtitle: `Protocol Brief · ${b.date}`,
+    href: '/brief',
+    evidenceTier: b.evidenceTier,
+    keywords: [
+      b.headline.toLowerCase(),
+      b.summary.toLowerCase(),
+      'brief',
+      'digest',
+      ...b.tags,
+      ...b.pmids,
+    ],
+  }));
+
+  return [...hallmarkItems, ...moduleItems, ...compoundItems, ...compareItems, ...briefItems];
 }
 
 const librarySearchIndex = buildIndex();
@@ -91,6 +129,8 @@ export function searchLibrary(query: string, limit = 24): LibrarySearchItem[] {
       if (item.keywords.some((k) => k.includes(q))) score += 10;
       if (item.kind === 'hallmark' && q.includes('hallmark')) score += 5;
       if (item.kind === 'compound' && (q.includes('stack') || q.includes('supplement'))) score += 3;
+      if (item.kind === 'compare' && (q.includes('vs') || q.includes('compare'))) score += 15;
+      if (item.kind === 'brief' && (q.includes('brief') || q.includes('digest'))) score += 12;
 
       return { item, score };
     })
@@ -104,14 +144,16 @@ export const librarySearchKindLabels: Record<LibrarySearchKind, string> = {
   hallmark: 'Hallmark',
   module: 'Guide',
   compound: 'Compound',
+  compare: 'Compare',
+  brief: 'Brief',
 };
 
 export const librarySearchSuggestions = [
+  'NMN vs NR',
   'GlyNAC',
   'NRF2',
+  'compare',
   'mitochondrial',
   'NAD+',
-  'senescence',
-  'inflammation',
   'sulforaphane',
 ] as const;

@@ -1,6 +1,7 @@
 import { consumerFAQ, glossary, compounds } from './data';
 import { hallmarkLibrary } from './hallmarks-library';
 import { libraryModules, getModulePath } from './library-modules';
+import { evidenceComparisons } from './comparisons';
 import { toolsRegistry } from './registry';
 
 export type PaletteItemKind =
@@ -9,6 +10,7 @@ export type PaletteItemKind =
   | 'hallmark'
   | 'module'
   | 'compound'
+  | 'compare'
   | 'faq'
   | 'glossary'
   | 'action';
@@ -173,6 +175,23 @@ const moduleItems: PaletteItem[] = libraryModules.map((m) => ({
   keywords: [m.title.toLowerCase(), m.category, m.slug, ...m.relatedHallmarkIds],
 }));
 
+const compareItems: PaletteItem[] = evidenceComparisons.map((c) => ({
+  id: `compare-${c.slug}`,
+  kind: 'compare' as const,
+  title: c.title,
+  subtitle: `${c.labelA} vs ${c.labelB}`,
+  href: `/library/compare/${c.slug}`,
+  keywords: [
+    c.title.toLowerCase(),
+    c.slug,
+    c.labelA.toLowerCase(),
+    c.labelB.toLowerCase(),
+    'compare',
+    'vs',
+    ...c.keywords,
+  ],
+}));
+
 const compoundItems: PaletteItem[] = compounds.map((c) => ({
   id: `compound-${c.id}`,
   kind: 'compound' as const,
@@ -238,6 +257,7 @@ const actionItems: PaletteItem[] = [
 export const paletteIndex: PaletteItem[] = [
   ...hubPages,
   ...toolItems,
+  ...compareItems,
   ...hallmarkItems,
   ...moduleItems,
   ...compoundItems,
@@ -263,6 +283,7 @@ export function searchPalette(query: string, limit = 12): PaletteItem[] {
       if (subtitle.includes(q)) score += 10;
       if (item.keywords.some((k) => k.includes(q))) score += 8;
       if (item.kind === 'page' || item.kind === 'tool') score += 2;
+      if (item.kind === 'compare' && (q.includes('vs') || q.includes('compare'))) score += 12;
       return { item, score };
     })
     .filter((x) => x.score > 0)
@@ -277,6 +298,7 @@ export const paletteKindLabels: Record<PaletteItemKind, string> = {
   hallmark: 'Hallmark',
   module: 'Guide',
   compound: 'Compound',
+  compare: 'Compare',
   faq: 'FAQ',
   glossary: 'Glossary',
   action: 'Action',

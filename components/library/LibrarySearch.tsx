@@ -73,7 +73,7 @@ export function LibrarySearch() {
               type="search"
               value={input}
               onChange={(e) => setInput(e.target.value)}
-              placeholder="Search hallmarks, compounds, synergies…"
+              placeholder="Search hallmarks, compounds, comparisons, brief…"
               className="flex-1 bg-transparent text-sm outline-none placeholder:text-caption"
               autoComplete="off"
             />
@@ -149,6 +149,8 @@ function SearchResultCard({ item, query }: { item: LibrarySearchItem; query: str
     hallmark: 'text-accent-violet',
     module: 'text-accent-cyan',
     compound: 'text-accent-emerald',
+    compare: 'text-accent-amber',
+    brief: 'text-accent-rose',
   };
 
   return (

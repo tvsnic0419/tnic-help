@@ -45,12 +45,17 @@ export function buildWebSiteSchema() {
     name: SITE.fullName,
     alternateName: SITE.name,
     description:
-      'Evidence-based longevity education with hallmarks library, supplement stack tools, biomarker tracking, and PubMed-cited protocols.',
+      'Evidence-based longevity education with hallmarks library, evidence comparisons, supplement stack tools, biomarker tracking, and PubMed-cited protocols.',
     url: SITE.url,
     inLanguage: 'en-US',
     potentialAction: {
       '@type': 'SearchAction',
-      target: `${SITE.url}/library?q={search_term_string}`,
+      target: {
+        '@type': 'EntryPoint',
+        urlTemplate: `${SITE.url}/library?q={search_term_string}`,
+        description:
+          'Search hallmarks, compounds, synergy guides, evidence comparisons (e.g. NMN vs NR), and Protocol Brief headlines.',
+      },
       'query-input': 'required name=search_term_string',
     },
   };

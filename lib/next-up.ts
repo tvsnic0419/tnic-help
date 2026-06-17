@@ -112,12 +112,11 @@ export const nextUpImprovements: NextUpItem[] = [
     href: '/labs#lab-partners',
     tags: ['labs', 'api'],
   },
-  // Planned
   {
     id: 'compare-og-sitemap',
     title: 'Compare route OG images + search index',
-    desc: 'Social preview cards for /library/compare and /brief; command palette entries for individual comparisons.',
-    status: 'planned',
+    desc: 'OG cards for /library/compare hub + each slug, /brief, /shop. Comparisons + briefs in library search and command palette.',
+    status: 'shipped',
     sprint: 'Sprint 8',
     href: '/library/compare',
     tags: ['seo'],
@@ -125,11 +124,30 @@ export const nextUpImprovements: NextUpItem[] = [
   {
     id: 'email-brief-subscribe',
     title: 'Protocol Brief email subscribe',
-    desc: 'Optional digest delivery when backend is available — local-only platform stays default.',
-    status: 'planned',
+    desc: 'Local preference + mailto handoff at /brief#brief-subscribe. Backend delivery queued for when API exists.',
+    status: 'shipped',
     sprint: 'Sprint 8',
-    href: '/brief',
+    href: '/brief#brief-subscribe',
     tags: ['retention'],
+  },
+  // Planned
+  {
+    id: 'lab-partner-api-live',
+    title: 'Lab partner CSV auto-import API',
+    desc: 'Webhook or OAuth import from partner panels into Labs hub — beyond waitlist mailto.',
+    status: 'planned',
+    sprint: 'Q3 2026',
+    href: '/labs#lab-partners',
+    tags: ['labs', 'api'],
+  },
+  {
+    id: 'brief-email-backend',
+    title: 'Protocol Brief automated delivery',
+    desc: 'Server-side weekly send for subscribed emails — replaces mailto-only flow.',
+    status: 'planned',
+    sprint: 'Sprint 9',
+    href: '/brief',
+    tags: ['retention', 'api'],
   },
 ];
 
