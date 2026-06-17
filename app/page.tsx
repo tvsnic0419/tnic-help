@@ -10,6 +10,7 @@ import { LibraryHighlights } from '@/components/sections/LibraryHighlights';
 import { HomepageTrust } from '@/components/sections/HomepageTrust';
 import { HomepageCTA } from '@/components/sections/HomepageCTA';
 import { NextUpSection } from '@/components/sections/NextUpSection';
+import { HallmarkProblemTiles } from '@/components/sections/HallmarkProblemTiles';
 import { SiteGuide } from '@/components/SiteGuide';
 import { seoRoutes } from '@/lib/seo-routes';
 
@@ -24,6 +25,7 @@ export default function HomePage() {
           <HeroSection />
           <HomepageTrustStrip />
           <HomepageOSFunnel />
+          <HallmarkProblemTiles />
           <TrustBanner />
           <LibraryHighlights />
           <HomepageTrust />

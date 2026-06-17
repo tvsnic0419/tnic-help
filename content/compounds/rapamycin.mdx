@@ -1,40 +1,33 @@
 ---
 title: Rapamycin (Sirolimus)
 evidence_tier: B
+compound_id: rapamycin
 requires_disclaimer: true
 last_updated: 2026-06-16
 ---
 
-## 1. Overview
+> **TL;DR** — Rapamycin inhibits mTORC1, the nutrient-sensing kinase that blocks autophagy. It is the most replicated pharmacological lifespan extension in mice — but human longevity use is off-label, prescription-only, and immunosuppressive at continuous doses. Tier B: strong preclinical + emerging human safety; no completed human longevity RCT. Physician supervision is mandatory.
 
-Rapamycin (sirolimus) inhibits **mTORC1** — the nutrient-sensing kinase that prioritizes growth over repair. In genetically heterogeneous mice, rapamycin is the most replicated pharmacological lifespan extension intervention. Human longevity use is **off-label**, prescription-only, and requires physician supervision.
+## 1. What rapamycin does (and why it matters)
+
+When nutrients and growth signals are abundant, **mTOR Complex 1 (mTORC1)** prioritizes protein synthesis and cell growth over repair. With age, this balance skews toward growth signaling — autophagy, mitophagy, and stress resistance stay suppressed even when cells need cleanup.
+
+Rapamycin (sirolimus) binds FKBP12 and inhibits mTORC1, mimicking the repair-heavy state of caloric restriction without fasting.
 
 **Primary hallmarks targeted:** Disabled macroautophagy · Deregulated nutrient sensing · Cellular senescence · Mitochondrial dysfunction
 
-:::warning title="Educational module only"
-Rapamycin is an immunosuppressant at continuous transplant doses. TNiC documents evidence for informed physician discussions — we do not prescribe, source, or recommend self-medication. See /trust/disclaimers.
-:::
-
 :::evidence tier="B"
-Harrison 2009 (PMID 19587683): rapamycin started late in life extended median and maximal lifespan in mice. PEARL trial and dog aging studies provide emerging human safety data at lower doses. No completed human longevity RCT.
+Harrison et al. *Nature* 2009 (PMID 19587683): rapamycin started late in life extended median and maximal lifespan in genetically heterogeneous mice. Mannick 2014 (PMID 25540326): low-dose mTOR inhibition improved immune function in elderly humans. No completed human longevity endpoint trial.
 :::
 
-:::visual
-**Suggested visual:** mTOR/AMPK seesaw — fed state (mTOR high, autophagy off) vs fasted/rapamycin state (mTOR low, autophagy on). Include autophagosome clearance illustration and senescent cell burden reduction arrow.
+:::pathway title="mTORC1 ↔ AMPK seesaw" nodes="Fed state|mTOR high|rose,Fasted / Rapamycin|mTOR low|cyan,Autophagy|Repair ON|emerald,Mitophagy|Mito recycle|violet,Senescence burden|SASP ↓|amber" edges="Fed state->Autophagy|blocks,Fasted / Rapamycin->Autophagy|enables,Fasted / Rapamycin->Mitophagy|enables"
 :::
 
-## 2. Mechanism
+:::warning title="Educational module only — Rx compound"
+Rapamycin is an immunosuppressant at transplant doses. TNiC documents evidence for informed physician discussions — we do not prescribe, source, or recommend self-medication. Research-chemical sirolimus is never acceptable. See [/trust/disclaimers](/trust/disclaimers).
+:::
 
-### 2.1 mTORC1 inhibition
-
-mTOR Complex 1 integrates signals from insulin, amino acids (leucine), and growth factors. When active:
-
-- **Promotes** protein synthesis, cell growth, lipid biogenesis
-- **Suppresses** autophagy, mitophagy, stress resistance
-
-Rapamycin binds FKBP12 → inhibits mTORC1 → de-represses autophagy.
-
-### 2.2 Hallmark connections
+## 2. Mechanism — growth off, repair on
 
 | Effect | Mechanism | Hallmark |
 | --- | --- | --- |
@@ -43,26 +36,46 @@ Rapamycin binds FKBP12 → inhibits mTORC1 → de-represses autophagy.
 | Nutrient sensing reset | Mimics caloric restriction signaling | Nutrient sensing |
 | Mitophagy | Enhanced mitochondrial recycling | Mitochondrial dysfunction |
 
-### 2.3 Pulse vs continuous dosing
+### Pulse vs continuous dosing
 
-Mouse longevity data used **continuous** low-dose exposure. Human longevity protocols often use **intermittent/pulse** dosing (e.g., weekly) to reduce immunosuppression while maintaining autophagy benefits. No consensus human protocol exists.
+Mouse longevity data used **continuous** low-dose exposure. Human longevity protocols often use **intermittent pulse** dosing (e.g., weekly) to reduce immunosuppression while maintaining autophagy windows. **No consensus human protocol exists** — prescribing physician sets schedule.
+
+:::practical title="When rapamycin is even discussable"
+Rapamycin enters a physician conversation only when **all** apply:
+
+- Established relationship with a prescriber experienced in off-label longevity use
+- Baseline CBC, lipids, glucose, and LFTs on file
+- Lifestyle foundation (sleep, exercise, nutrition) already running 8+ weeks
+- OTC hallmark stack (GlyNAC, NMN) running as complementary — not substitutive
+
+**Not discussable** for self-experimentation, research-chemical sourcing, or as first-line intervention before lifestyle and OTC evidence stacks.
+:::
 
 ## 3. Evidence summary
 
-| Source | Model | Finding | Tier |
+| Study | Model | Finding | Tier |
 | --- | --- | --- | --- |
 | Harrison 2009 (19587683) | Mice (heterogeneous) | ↑ median & maximal lifespan, late-life start effective | Preclinical → B |
 | Bjedov 2010 (21276122) | Mice | Replicated lifespan extension | Preclinical |
-| PEARL trial | Humans | Safety/pharmacokinetics at low doses | Emerging human |
+| Mannick 2014 (25540326) | Humans (elderly) | Low-dose mTOR inhibition improved immune response | B |
+| PEARL trial | Humans | Safety/pharmacokinetics at low doses | Emerging |
 | Dog Aging Project | Dogs | Mid-life rapamycin safety study | Emerging |
-| Mannick 2014 | Humans (elderly) | mTOR inhibition improved immune function (low dose) | B |
 
-**Honest assessment:** Strongest preclinical lifespan drug. Human longevity outcomes unproven. Tier B for mechanistic + emerging human safety; not Tier A until longevity RCT completes.
+**Consensus:** Strongest preclinical lifespan drug. Human longevity outcomes unproven. Tier B for mechanistic + emerging human safety — not Tier A until longevity RCT completes.
 
-## 4. Dosing paradigms (educational)
+:::decision title="Is rapamycin appropriate to discuss with your physician?"
+node | Licensed prescriber + baseline labs + lifestyle foundation 8+ weeks?
+yes | node | Specific hallmark targets need mTOR modulation (autophagy/nutrient sensing)?
+  yes | Educational reference stack for physician review — never self-dose
+  no | Continue OTC stack + labs 12 weeks — reassess with physician
+no | Do not pursue — fix foundation first; Rx without oversight is unacceptable
+redflag | Active infection, planned surgery, live vaccines, pregnancy, or research-chemical sourcing → hard stop
+:::
+
+## 4. Dosing paradigms (educational — physician sets actual dose)
 
 :::warning title="Physician-supervised only"
-The following reflects published discussion protocols — NOT TNiC recommendations. Individual dosing requires medical oversight.
+The following reflects published discussion protocols — **NOT** TNiC recommendations. Individual dosing requires medical oversight.
 :::
 
 | Paradigm | Pattern | Rationale | Risk profile |
@@ -72,6 +85,14 @@ The following reflects published discussion protocols — NOT TNiC recommendatio
 | Continuous low | 1–2 mg daily | Closer to mouse model | Higher infection/metabolic risk |
 
 **Supporting OTC stack (TNiC educational combo):** GlyNAC + NMN + Ca-AKG addresses complementary hallmarks while physician manages rapamycin.
+
+:::practical title="Physician visit checklist"
+- [ ] Bring this module + Rapamycin Combo stack from Stack Architect
+- [ ] Baseline CBC, fasting lipids, glucose, HbA1c, LFTs printed
+- [ ] Document infection history and vaccination schedule
+- [ ] Agree pulse vs continuous in writing
+- [ ] Schedule 3-month lab cadence before first dose
+:::
 
 :::cta href="/stacks" title="View educational Rapamycin combo" label="Rapamycin Combo stack"
 Reference stack for physician discussions — Rx compound flagged, monitoring checklist included.
@@ -88,7 +109,18 @@ Reference stack for physician discussions — Rx compound flagged, monitoring ch
 | Infection vigilance | Ongoing | Recurrent infections, slow wound healing |
 | LFTs | Baseline, 3 months | Elevated transaminases |
 
-## 6. Safety & contraindications
+:::compare title="12-week safety signal (physician-managed)" before="Pre-Rx baseline" after="Week 12 target" summary="Stability beats optimization — any red flag pauses protocol."
+CBC|WBC in range|No neutropenia trend
+Lipids|Baseline|No TG >400 spike
+Fasting glucose|<100 mg/dL|No new hyperglycemia
+Infections|None|None — vigilance ongoing
+:::
+
+:::cta href="/labs" title="Track labs locally" label="Open Labs hub"
+Log CBC and metabolic markers alongside physician orders — TNiC does not replace clinical monitoring.
+:::
+
+## 6. Safety, red flags, and contraindications
 
 **Absolute contraindications (discuss with physician):**
 - Active infections
@@ -99,10 +131,11 @@ Reference stack for physician discussions — Rx compound flagged, monitoring ch
 
 **Drug interactions:** CYP3A4 metabolism — strong inhibitors (azole antifungals) increase levels; inducers decrease efficacy.
 
-**OTC stack note:** NAD+ and antioxidant support does not eliminate rapamycin risks. Physician oversight is mandatory.
-
-:::cta href="/trust/disclaimers" title="Read full disclaimers" label="Trust Center disclaimers"
-Rx compound policy, educational use only, and physician consultation requirements.
+:::redflag title="Hard stops — never self-medicate"
+- **Research-chemical sirolimus** — only pharmacy-grade via prescriber
+- **Skipping CBC because dose feels low** — immunosuppression is dose- and individual-dependent
+- **Continuous daily dosing without monitoring plan** — metabolic and infection risks accumulate
+- **OTC stack substitution** — NAD+ and antioxidants do not eliminate rapamycin risks
 :::
 
 ## 7. Synergies (complementary, not substitutive)
@@ -124,4 +157,8 @@ Rx compound policy, educational use only, and physician consultation requirement
 | YYYY-MM-DD | — mg | Weekly | Yes/No | Yes/No | — | — | 3-month review |
 
 **Never self-adjust dose.** All changes require prescribing physician approval.
+:::
+
+:::cta href="/trust/disclaimers" title="Read full disclaimers" label="Trust Center disclaimers"
+Rx compound policy, educational use only, and physician consultation requirements.
 :::

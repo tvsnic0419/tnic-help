@@ -2,7 +2,7 @@
 
 import { useMemo, useState } from 'react';
 import Link from 'next/link';
-import { Search, ArrowRight, Pill, Layers, HeartPulse, FlaskConical } from 'lucide-react';
+import { Search, ArrowRight, Pill, Layers, HeartPulse, FlaskConical, Scale } from 'lucide-react';
 import {
   libraryModules,
   libraryCategoryMeta,
@@ -65,6 +65,17 @@ export function LibraryModulesHub() {
           theme="emerald"
           as="h2"
         />
+
+        <div className="flex flex-wrap justify-center gap-3 mb-8">
+          <Link
+            href="/library/compare"
+            className="focus-ring interactive inline-flex items-center gap-2 px-4 py-2 rounded-xl glass glass-hover text-sm font-semibold text-accent-cyan"
+          >
+            <Scale className="w-4 h-4" />
+            Evidence comparisons
+            <ArrowRight className="w-3.5 h-3.5" />
+          </Link>
+        </div>
 
         <div className="relative max-w-lg mx-auto mb-10">
           <label htmlFor="module-search" className="sr-only">

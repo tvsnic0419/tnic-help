@@ -9,6 +9,8 @@ import { hallmarkLibrary } from '@/lib/hallmarks-library';
 import { compounds } from '@/lib/data';
 import { EvidenceTag } from '@/components/trust/EvidenceTag';
 import { MdxRenderer } from './MdxRenderer';
+import { CompoundBuyerGuidePanel } from './CompoundBuyerGuide';
+import { getBuyerGuideByModuleSlug } from '@/lib/buyer-guides';
 
 export function LibraryModuleDetail({
   module,
@@ -23,6 +25,8 @@ export function LibraryModuleDetail({
   const synergyCompounds = module.synergyCompoundIds
     ?.map((id) => compounds.find((c) => c.id === id))
     .filter(Boolean) ?? [];
+  const buyerGuide =
+    module.category === 'compounds' ? getBuyerGuideByModuleSlug(module.slug) : undefined;
 
   return (
     <div className="min-h-screen bg-background text-foreground pt-6 md:pt-8 pb-20">
@@ -150,6 +154,10 @@ export function LibraryModuleDetail({
                   </p>
                 </div>
               </div>
+            )}
+
+            {buyerGuide && (
+              <CompoundBuyerGuidePanel guide={buyerGuide} />
             )}
 
             {mdxBody ? (

@@ -57,6 +57,22 @@ const hubPages: PaletteItem[] = [
     keywords: ['library', 'hallmarks', 'learn', 'science'],
   },
   {
+    id: 'page-compare',
+    kind: 'page',
+    title: 'Evidence Comparisons',
+    subtitle: 'NMN vs NR, stack vs stack',
+    href: '/library/compare',
+    keywords: ['compare', 'nmn vs nr', 'evidence table', 'comparison'],
+  },
+  {
+    id: 'page-hallmark-tiles',
+    kind: 'page',
+    title: 'Hallmark targets',
+    subtitle: 'Target what slows with age',
+    href: '/#hallmark-targets',
+    keywords: ['hallmark', 'target', 'aging', 'twelve'],
+  },
+  {
     id: 'page-stacks',
     kind: 'page',
     title: 'Stack Architect',

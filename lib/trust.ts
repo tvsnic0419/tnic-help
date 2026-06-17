@@ -307,6 +307,18 @@ export const disclaimers: DisclaimerBlock[] = [
 export const updateHistory: UpdateHistoryEntry[] = [
   {
     date: '2026-06-16',
+    version: '1.6.0',
+    title: 'Sprint 6 — Compare, Buyer Guides & Hallmark Tiles',
+    category: 'feature',
+    changes: [
+      'Evidence comparison hub at /library/compare — six head-to-head tables with PMID anchors and verdict rows',
+      'Brand-agnostic compound buyer guides on all compound modules (COA, form, RCT doses, red flags)',
+      'Homepage hallmark problem tiles — 12-card “target what slows with age” grid with coverage and top interventions',
+      'Elevated rapamycin, TUDCA, and testing-and-monitoring MDX to full template standard (decision trees, compare blocks)',
+    ],
+  },
+  {
+    date: '2026-06-16',
     version: '1.5.0',
     title: 'Conversion Sprint & Next Up Roadmap',
     category: 'feature',

@@ -66,6 +66,15 @@ export const seoRoutes = {
       keywords: ['hallmarks of aging', 'GlyNAC deep dive', 'longevity library', 'anti-aging education'],
     }),
 
+  libraryCompare: () =>
+    buildPageMetadata({
+      title: 'Evidence Comparisons — NMN vs NR & Stack vs Stack',
+      description:
+        'Neutral head-to-head longevity comparison tables with PMID anchors. Compare compounds, forms, and evidence-graded stacks.',
+      path: '/library/compare',
+      keywords: ['NMN vs NR', 'longevity comparison', 'stack comparison', 'evidence table'],
+    }),
+
   stacks: () =>
     buildPageMetadata({
       title: 'Stack Architect — Build Evidence-Graded Protocols',

@@ -1,6 +1,7 @@
 import type { MetadataRoute } from 'next';
 import { hallmarkLibrary } from '@/lib/hallmarks-library';
 import { getAllModuleParams } from '@/lib/library-modules';
+import { getAllComparisonSlugs } from '@/lib/comparisons';
 import { toolsRegistry } from '@/lib/registry';
 import { SITE } from '@/lib/site';
 
@@ -12,6 +13,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
   const coreRoutes: MetadataRoute.Sitemap = [
     { url: base, lastModified: BUILD_DATE, changeFrequency: 'weekly', priority: 1 },
     { url: `${base}/library`, lastModified: BUILD_DATE, changeFrequency: 'weekly', priority: 0.95 },
+    { url: `${base}/library/compare`, lastModified: BUILD_DATE, changeFrequency: 'weekly', priority: 0.9 },
     { url: `${base}/learn`, lastModified: BUILD_DATE, changeFrequency: 'weekly', priority: 0.88 },
     { url: `${base}/faq`, lastModified: BUILD_DATE, changeFrequency: 'monthly', priority: 0.85 },
     { url: `${base}/stacks`, lastModified: BUILD_DATE, changeFrequency: 'weekly', priority: 0.9 },
@@ -33,6 +35,13 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: 0.85,
   }));
 
+  const compareRoutes = getAllComparisonSlugs().map((slug) => ({
+    url: `${base}/library/compare/${slug}`,
+    lastModified: BUILD_DATE,
+    changeFrequency: 'monthly' as const,
+    priority: 0.86,
+  }));
+
   const moduleRoutes = getAllModuleParams().map(({ category, slug }) => ({
     url: `${base}/library/${category}/${slug}`,
     lastModified: BUILD_DATE,
@@ -47,5 +56,5 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: 0.82,
   }));
 
-  return [...coreRoutes, ...toolTabRoutes, ...hallmarkRoutes, ...moduleRoutes];
+  return [...coreRoutes, ...toolTabRoutes, ...hallmarkRoutes, ...compareRoutes, ...moduleRoutes];
 }
