@@ -75,6 +75,22 @@ const hubPages: PaletteItem[] = [
     keywords: ['shop', 'buy', 'coa', 'verify', 'supplement'],
   },
   {
+    id: 'page-shop-starter',
+    kind: 'page',
+    title: 'Shop — Starter stack',
+    subtitle: 'Deep link verification checklist',
+    href: '/shop?stack=starter',
+    keywords: ['shop link', 'starter', 'stack', 'deep link', 'share'],
+  },
+  {
+    id: 'page-shop-hybrid',
+    kind: 'page',
+    title: 'Shop — Full Hybrid stack',
+    subtitle: 'Deep link verification checklist',
+    href: '/shop?stack=hybrid',
+    keywords: ['shop link', 'hybrid', 'stack', 'deep link'],
+  },
+  {
     id: 'page-brief',
     kind: 'page',
     title: 'Protocol Brief',

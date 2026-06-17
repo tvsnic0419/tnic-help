@@ -2,7 +2,8 @@
 
 import { useMemo, useState } from 'react';
 import { motion } from 'framer-motion';
-import { FlaskConical, LineChart, Lightbulb, Dna, Shield, Download } from 'lucide-react';
+import { FlaskConical, LineChart, Lightbulb, Dna, Shield, Download, FileJson } from 'lucide-react';
+import { exportLabsPartnerJsonString } from '@/lib/lab-partner-export';
 import { analyzeLabs } from '@/lib/lab-analysis';
 import { usePlatform } from '@/context/PlatformContext';
 import { PageShell } from '@/components/ui/PageShell';
@@ -45,6 +46,17 @@ export function LabHub() {
     URL.revokeObjectURL(url);
   };
 
+  const downloadPartnerJson = () => {
+    const json = exportLabsPartnerJsonString(labs);
+    const blob = new Blob([json], { type: 'application/json' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = `tnic-labs-partner-v1-${new Date().toISOString().slice(0, 10)}.json`;
+    a.click();
+    URL.revokeObjectURL(url);
+  };
+
   return (
     <PageShell>
       <PageHeader
@@ -74,9 +86,14 @@ export function LabHub() {
       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-6">
         <TabBar tabs={tabs} active={tab} onChange={setTab} theme="rose" ariaLabel="Lab hub sections" />
         {labs.length > 0 && (
-          <Button variant="secondary" icon={Download} onClick={downloadCsv} className="shrink-0 self-start sm:self-center">
-            Export CSV
-          </Button>
+          <div className="flex flex-wrap gap-2 shrink-0 self-start sm:self-center">
+            <Button variant="secondary" icon={Download} onClick={downloadCsv}>
+              Export CSV
+            </Button>
+            <Button variant="secondary" icon={FileJson} onClick={downloadPartnerJson}>
+              Partner JSON
+            </Button>
+          </div>
         )}
       </div>
 

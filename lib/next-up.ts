@@ -129,12 +129,11 @@ export const nextUpImprovements: NextUpItem[] = [
     href: '/brief#brief-subscribe',
     tags: ['retention', 'api'],
   },
-  // Planned
   {
     id: 'labs-export-partner',
     title: 'Export labs in partner v1 format',
-    desc: 'One-click download of logged biomarkers as TNiC Partner v1 JSON for re-import or partner handoff.',
-    status: 'planned',
+    desc: 'Partner JSON export on Labs hub — latest panel as TNiC Partner v1 for re-import or handoff.',
+    status: 'shipped',
     sprint: 'Sprint 13',
     href: '/labs',
     tags: ['labs', 'api'],
@@ -142,11 +141,30 @@ export const nextUpImprovements: NextUpItem[] = [
   {
     id: 'shop-stack-deep-links',
     title: 'Shop stack deep links',
-    desc: 'Shareable /shop?stack= URLs that pre-filter verification checklist from Stack Architect.',
-    status: 'planned',
+    desc: 'Shareable /shop?stack= URLs — preset keys or compound ids; copy link + deep-link banner.',
+    status: 'shipped',
     sprint: 'Sprint 13',
     href: '/shop',
     tags: ['commerce', 'conversion'],
+  },
+  // Planned
+  {
+    id: 'compare-share-cards',
+    title: 'Compare table share cards',
+    desc: 'Copy-link OG-friendly snippets for each /library/compare route — social proof without PDF export.',
+    status: 'planned',
+    sprint: 'Sprint 14',
+    href: '/library/compare',
+    tags: ['seo', 'library'],
+  },
+  {
+    id: 'dashboard-status-export',
+    title: 'Dashboard status card export',
+    desc: 'PNG or markdown snapshot of Longevity OS status strip for N=1 journaling.',
+    status: 'planned',
+    sprint: 'Sprint 14',
+    href: '/dashboard',
+    tags: ['os', 'retention'],
   },
 ];
 

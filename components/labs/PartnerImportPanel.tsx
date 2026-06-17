@@ -178,6 +178,10 @@ export function PartnerImportPanel() {
         >
           View API GET spec <ExternalLink className="w-3 h-3" />
         </a>
+        <p className="text-[10px] text-muted-foreground mt-3">
+          Round-trip: use <strong>Partner JSON</strong> export on the Labs hub to download TNiC Partner v1
+          JSON from your logged biomarkers, then re-import here or POST to the API.
+        </p>
       </details>
     </div>
   );

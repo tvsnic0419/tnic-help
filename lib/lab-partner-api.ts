@@ -52,6 +52,8 @@ export const labPartnerApiSpec = {
       description: 'Poll ephemeral webhook completions — clients match order_id for push-style delivery.',
     },
   ],
+  exportNote:
+    'Clients export logged biomarkers as Partner v1 JSON from the Labs hub (Partner JSON button) for re-import or partner handoff.',
   webhookNote:
     'Partners POST completed panels to /api/labs/partner/webhook with order_id. Live Longevity Direct OAuth activates when LONGEVITY_DIRECT_* env vars are set.',
   examplePayload: PARTNER_JSON_EXAMPLE,

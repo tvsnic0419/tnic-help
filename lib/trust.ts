@@ -307,6 +307,17 @@ export const disclaimers: DisclaimerBlock[] = [
 export const updateHistory: UpdateHistoryEntry[] = [
   {
     date: '2026-06-16',
+    version: '1.13.0',
+    title: 'Sprint 13 — Partner Export & Shop Deep Links',
+    category: 'feature',
+    changes: [
+      'Labs hub Partner JSON export — latest panel as TNiC Partner v1 JSON (round-trip with Partner Beta import)',
+      'Shop stack deep links — /shop?stack=starter or compound ids; copy share URL + deep-link confirmation',
+      'parseStackParam shared utility — preset keys work site-wide in ?stack= URL hydration',
+    ],
+  },
+  {
+    date: '2026-06-16',
     version: '1.12.0',
     title: 'Sprint 12 — Lab Push Notifications & Welcome Email',
     category: 'feature',

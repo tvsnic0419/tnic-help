@@ -7,6 +7,8 @@ import Link from 'next/link';
 import { Layers, Wrench, Table2, BookOpen, ShoppingBag } from 'lucide-react';
 import { eliteStacks } from '@/lib/stacks-library';
 import { stackPresets, type PresetKey } from '@/lib/presets';
+import { usePlatform } from '@/context/PlatformContext';
+import { buildShopStackUrl } from '@/lib/stack-url';
 import { PageShell } from '@/components/ui/PageShell';
 import { PageHeader } from '@/components/ui/PageHeader';
 import { TabBar } from '@/components/ui/TabBar';
@@ -29,6 +31,7 @@ function isPresetKey(value: string | null): value is PresetKey {
 }
 
 export function StacksLibrary() {
+  const { selected } = usePlatform();
   const searchParams = useSearchParams();
   const fromQuiz = searchParams.get('from') === 'quiz';
   const presetParam = searchParams.get('preset');
@@ -57,11 +60,11 @@ export function StacksLibrary() {
 
       <div className="flex flex-wrap gap-3 mb-6">
         <Link
-          href="/shop"
+          href={selected.length > 0 ? buildShopStackUrl(selected) : '/shop'}
           className="focus-ring interactive inline-flex items-center gap-2 px-4 py-2 rounded-xl glass glass-hover text-sm font-semibold text-accent-amber"
         >
           <ShoppingBag className="w-4 h-4" />
-          Protocol Shop — verify before you buy
+          Protocol Shop — verify your stack
         </Link>
       </div>
 

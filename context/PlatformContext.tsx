@@ -11,6 +11,7 @@ import {
 } from 'react';
 import { compounds, synergyScore, calculateDefenseProfile } from '@/lib/data';
 import { stackPresets, type PresetKey } from '@/lib/presets';
+import { readStackFromSearch } from '@/lib/stack-url';
 import { exportLabsCsv as labsToCsv, type LabEntry } from '@/lib/labs';
 import {
   type HallmarkNotesMap,
@@ -89,10 +90,7 @@ const DEFAULT_PROFILE: Profile = {
 
 function readStackFromUrl(): string[] | null {
   if (typeof window === 'undefined') return null;
-  const param = new URLSearchParams(window.location.search).get('stack');
-  if (!param) return null;
-  const ids = param.split(',').filter((id) => compounds.some((c) => c.id === id));
-  return ids.length > 0 ? ids : null;
+  return readStackFromSearch(window.location.search);
 }
 
 export function PlatformProvider({ children }: { children: ReactNode }) {

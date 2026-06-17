@@ -1,12 +1,25 @@
 'use client';
 
+import { Suspense, useEffect, useMemo, useState } from 'react';
 import Link from 'next/link';
-import { ShoppingBag, Shield, ArrowRight, ClipboardCheck, ExternalLink } from 'lucide-react';
+import { useSearchParams } from 'next/navigation';
+import {
+  ShoppingBag,
+  Shield,
+  ArrowRight,
+  ClipboardCheck,
+  ExternalLink,
+  Link2,
+  CheckCircle2,
+  Copy,
+} from 'lucide-react';
 import { usePlatform } from '@/context/PlatformContext';
 import { stackPresets, type PresetKey } from '@/lib/presets';
 import { getStackShopItems, shopDisclosure } from '@/lib/protocol-shop';
+import { buildShopStackUrl, isPresetKey, parseStackParam } from '@/lib/stack-url';
 import { PageHeader } from '@/components/ui/PageHeader';
 import { cn } from '@/lib/utils';
+import { SITE } from '@/lib/site';
 
 const presetOptions: { key: PresetKey; label: string }[] = [
   { key: 'starter', label: 'Starter Elite' },
@@ -15,14 +28,46 @@ const presetOptions: { key: PresetKey; label: string }[] = [
   { key: 'hybrid', label: 'Full Hybrid' },
 ];
 
-export function ProtocolShopPanel() {
-  const { selected, applyPreset } = usePlatform();
+function ProtocolShopPanelInner() {
+  const searchParams = useSearchParams();
+  const { selected, setSelected } = usePlatform();
   const items = getStackShopItems(selected);
+  const [deepLinked, setDeepLinked] = useState(false);
+  const [copied, setCopied] = useState(false);
+
+  const stackParam = searchParams.get('stack');
+
+  useEffect(() => {
+    if (!stackParam) return;
+    const ids = parseStackParam(stackParam);
+    if (!ids) return;
+    setSelected(ids);
+    setDeepLinked(true);
+  }, [stackParam, setSelected]);
+
+  const shareUrl = useMemo(() => {
+    if (typeof window === 'undefined') {
+      return `${SITE.url}${buildShopStackUrl(selected)}`;
+    }
+    return `${window.location.origin}${buildShopStackUrl(selected)}`;
+  }, [selected]);
+
+  const copyShareUrl = async () => {
+    try {
+      await navigator.clipboard.writeText(shareUrl);
+      setCopied(true);
+      setTimeout(() => setCopied(false), 2500);
+    } catch {
+      /* ignore */
+    }
+  };
 
   const exportChecklist = () => {
     const lines = [
       '# TNiC Protocol Shop — Verification Checklist',
       `# Generated ${new Date().toISOString().slice(0, 10)}`,
+      `# Stack: ${selected.join(', ')}`,
+      `# Shop link: ${shareUrl}`,
       '',
       ...items.flatMap((item) => [
         `## ${item.compoundName}`,
@@ -44,16 +89,26 @@ export function ProtocolShopPanel() {
     URL.revokeObjectURL(url);
   };
 
+  const presetFromUrl = stackParam && isPresetKey(stackParam) ? stackPresets[stackParam].label : null;
+
   return (
     <div>
       <PageHeader
         icon={ShoppingBag}
-        eyebrow="Protocol Shop · Sprint 7"
+        eyebrow="Protocol Shop · Stack-filtered verification"
         title="Buy Smart — Not Branded"
-        description="Stack-filtered verification checklists from buyer guides. Demand COA, match RCT doses, avoid red flags. TNiC earns $0 from products."
+        description="Stack-filtered verification checklists from buyer guides. Share /shop?stack= links to pre-load any preset or custom stack."
         theme="amber"
         align="left"
       />
+
+      {deepLinked && items.length > 0 && (
+        <div className="flex items-center gap-2 text-xs px-3 py-2 rounded-lg mb-6 bg-accent-emerald/10 text-accent-emerald">
+          <CheckCircle2 className="w-3.5 h-3.5 shrink-0" />
+          Loaded checklist from deep link
+          {presetFromUrl ? ` · ${presetFromUrl} preset` : ` · ${selected.length} compounds`}
+        </div>
+      )}
 
       <div className="rounded-xl border border-accent-amber/25 bg-accent-amber/5 p-5 mb-8 flex gap-3">
         <Shield className="w-5 h-5 text-accent-amber shrink-0 mt-0.5" />
@@ -64,17 +119,33 @@ export function ProtocolShopPanel() {
         </div>
       </div>
 
+      {items.length > 0 && (
+        <div className="glass rounded-xl p-4 mb-6 flex flex-col sm:flex-row sm:items-center gap-3">
+          <div className="flex items-center gap-2 min-w-0 flex-1">
+            <Link2 className="w-4 h-4 text-accent-cyan shrink-0" />
+            <code className="text-[10px] sm:text-xs font-mono text-muted-foreground truncate">{shareUrl}</code>
+          </div>
+          <button
+            type="button"
+            onClick={copyShareUrl}
+            className="focus-ring inline-flex items-center justify-center gap-2 shrink-0 px-4 py-2 rounded-lg text-xs font-semibold bg-accent-cyan/15 border border-accent-cyan/25 text-accent-cyan hover:bg-accent-cyan/25 transition"
+          >
+            {copied ? <CheckCircle2 className="w-3.5 h-3.5" /> : <Copy className="w-3.5 h-3.5" />}
+            {copied ? 'Copied' : 'Copy shop link'}
+          </button>
+        </div>
+      )}
+
       <div className="flex flex-wrap gap-2 mb-6">
         <p className="text-label w-full mb-1">Load preset</p>
         {presetOptions.map((p) => (
-          <button
+          <Link
             key={p.key}
-            type="button"
-            onClick={() => applyPreset(p.key)}
+            href={`/shop?stack=${p.key}`}
             className="focus-ring px-3 py-1.5 rounded-lg text-xs font-semibold glass hover:border-accent-amber/30 transition"
           >
             {p.label}
-          </button>
+          </Link>
         ))}
         <Link
           href="/stacks"
@@ -164,5 +235,13 @@ export function ProtocolShopPanel() {
         </>
       )}
     </div>
+  );
+}
+
+export function ProtocolShopPanel() {
+  return (
+    <Suspense fallback={<div className="h-40 glass rounded-2xl animate-pulse" />}>
+      <ProtocolShopPanelInner />
+    </Suspense>
   );
 }
