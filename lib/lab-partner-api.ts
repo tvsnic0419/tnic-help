@@ -46,6 +46,11 @@ export const labPartnerApiSpec = {
       path: '/api/labs/partner/config',
       description: 'Returns env-resolved connectable partners (demo + live when credentials set).',
     },
+    {
+      method: 'GET' as const,
+      path: '/api/labs/partner/events',
+      description: 'Poll ephemeral webhook completions — clients match order_id for push-style delivery.',
+    },
   ],
   webhookNote:
     'Partners POST completed panels to /api/labs/partner/webhook with order_id. Live Longevity Direct OAuth activates when LONGEVITY_DIRECT_* env vars are set.',

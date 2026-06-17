@@ -19,6 +19,7 @@ function BriefSubscribePanelInner() {
   const [deliveryMode, setDeliveryMode] = useState<'feed' | 'webhook' | 'resend' | null>(null);
   const [loading, setLoading] = useState(false);
   const [unsubNotice, setUnsubNotice] = useState<string | null>(null);
+  const [welcomeSent, setWelcomeSent] = useState(false);
 
   useEffect(() => {
     const record = getBriefSubscription();
@@ -67,6 +68,7 @@ function BriefSubscribePanelInner() {
       if (data.ok) {
         const mode = data.mode === 'resend' || data.mode === 'webhook' ? data.mode : 'feed';
         setDeliveryMode(mode);
+        setWelcomeSent(Boolean(data.welcomeSent));
         setSubscribed(true);
         setSavedEmail(email.trim());
         setLoading(false);
@@ -104,8 +106,8 @@ function BriefSubscribePanelInner() {
             Automated Protocol Brief delivery
           </h2>
           <p className="text-sm text-muted-foreground mt-1 max-w-xl">
-            Subscribe by email (Resend when configured, else webhook) or add the RSS/JSON feed to your
-            reader. Weekly digests rotate through curated issues — one-click unsubscribe in every email.
+            Subscribe by email for an instant welcome preview plus weekly rotating digests (Resend when
+            configured). Or add the RSS/JSON feed — one-click unsubscribe in every email.
           </p>
         </div>
       </div>
@@ -140,7 +142,9 @@ function BriefSubscribePanelInner() {
             <div>
               <p className="text-sm font-semibold">
                 {deliveryMode === 'resend'
-                  ? 'Subscribed — weekly email delivery active'
+                  ? welcomeSent
+                    ? 'Subscribed — welcome email sent, weekly delivery active'
+                    : 'Subscribed — weekly email delivery active'
                   : deliveryMode === 'webhook'
                     ? 'Email queued via webhook'
                     : 'Subscribed — use feeds'}

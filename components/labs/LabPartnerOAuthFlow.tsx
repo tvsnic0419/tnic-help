@@ -2,7 +2,7 @@
 
 import { Suspense, useCallback, useEffect, useState } from 'react';
 import { useSearchParams, useRouter } from 'next/navigation';
-import { Link2, Package, CheckCircle2, AlertCircle, LogOut, RefreshCw } from 'lucide-react';
+import { Link2, Package, CheckCircle2, AlertCircle, LogOut, RefreshCw, Bell, BellOff } from 'lucide-react';
 import { usePlatform } from '@/context/PlatformContext';
 import {
   LAB_OAUTH_SESSION_KEY,
@@ -14,6 +14,13 @@ import {
 } from '@/lib/lab-partner-oauth';
 import { parsePartnerJson } from '@/lib/lab-partner-import';
 import { labPartnerPanels } from '@/lib/lab-partners';
+import {
+  getNotificationPermission,
+  isLabNotifyEnabled,
+  requestLabNotificationPermission,
+  setLabNotifyEnabled,
+} from '@/lib/lab-notifications';
+import { useLabOrderWatcher } from './useLabOrderWatcher';
 
 interface ConnectablePartner {
   id: string;
@@ -32,6 +39,8 @@ function LabPartnerOAuthFlowInner() {
   const [msg, setMsg] = useState<{ type: 'success' | 'error'; text: string } | null>(null);
   const [selectedPanel, setSelectedPanel] = useState('longevity-baseline');
   const [pendingOrders, setPendingOrders] = useState<PendingLabOrder[]>([]);
+  const [notifyEnabled, setNotifyEnabled] = useState(false);
+  const [notifyPermission, setNotifyPermission] = useState<NotificationPermission | 'unsupported'>('default');
 
   const loadPending = useCallback(() => {
     try {
@@ -78,6 +87,8 @@ function LabPartnerOAuthFlowInner() {
       /* ignore */
     }
     loadPending();
+    setNotifyEnabled(isLabNotifyEnabled());
+    setNotifyPermission(getNotificationPermission());
   }, [loadPending]);
 
   const importPayload = useCallback(
@@ -96,6 +107,30 @@ function LabPartnerOAuthFlowInner() {
     },
     [importLabs],
   );
+
+  const { watching, pendingCount } = useLabOrderWatcher({
+    pendingOrders,
+    onPendingChange: savePending,
+    importPayload,
+    enabled: notifyEnabled || pendingOrders.some((o) => o.status === 'pending'),
+  });
+
+  const toggleNotifications = async () => {
+    if (!notifyEnabled) {
+      const perm = await requestLabNotificationPermission();
+      setNotifyPermission(perm);
+      if (perm !== 'granted') {
+        setMsg({ type: 'error', text: 'Enable browser notifications in site settings to get lab result alerts.' });
+        return;
+      }
+      setLabNotifyEnabled(true);
+      setNotifyEnabled(true);
+      setMsg({ type: 'success', text: 'Lab result notifications enabled — pending orders auto-import on webhook.' });
+    } else {
+      setLabNotifyEnabled(false);
+      setNotifyEnabled(false);
+    }
+  };
 
   const exchangeCode = useCallback(
     async (code: string, partnerId: string) => {
@@ -189,7 +224,7 @@ function LabPartnerOAuthFlowInner() {
         savePending([entry, ...pendingOrders.filter((o) => o.order_id !== data.order_id)]);
         setMsg({
           type: 'success',
-          text: `Order ${data.order_id} placed — results will arrive via partner webhook. Check status below.`,
+          text: `Order ${data.order_id} placed — auto-watching for partner webhook completion.`,
         });
       } else {
         setMsg({ type: 'success', text: `Order ${data.order_id} placed — results pending` });
@@ -244,10 +279,32 @@ function LabPartnerOAuthFlowInner() {
         <p className="text-label text-accent-cyan">Order at home · OAuth</p>
       </div>
       <p className="text-sm text-muted-foreground mb-4 max-w-2xl">
-        Connect a lab partner, place an at-home panel order, and auto-import results. Demo partner
-        returns results instantly; Longevity Direct (when credentials are configured) fulfills via
-        partner webhook push.
+        Connect a lab partner, place an at-home panel order, and auto-import results. Enable browser
+        notifications for webhook completions — no manual status polling required.
       </p>
+
+      <div className="flex flex-wrap items-center gap-3 mb-4">
+        <button
+          type="button"
+          onClick={toggleNotifications}
+          className={`focus-ring inline-flex items-center gap-2 px-3 py-2 rounded-lg text-xs font-semibold border transition ${
+            notifyEnabled
+              ? 'bg-accent-emerald/15 border-accent-emerald/30 text-accent-emerald'
+              : 'glass border-border text-muted-foreground hover:text-accent-cyan'
+          }`}
+        >
+          {notifyEnabled ? <Bell className="w-3.5 h-3.5" /> : <BellOff className="w-3.5 h-3.5" />}
+          {notifyEnabled ? 'Notifications on' : 'Enable result notifications'}
+        </button>
+        {watching && (
+          <span className="text-[10px] font-mono text-accent-cyan uppercase tracking-wider">
+            Auto-watching {pendingCount} pending
+          </span>
+        )}
+        {notifyPermission === 'denied' && (
+          <span className="text-[10px] text-accent-amber">Notifications blocked in browser</span>
+        )}
+      </div>
 
       {msg && (
         <div
@@ -312,7 +369,9 @@ function LabPartnerOAuthFlowInner() {
 
           {activePending.length > 0 && (
             <div className="space-y-2">
-              <p className="text-xs font-semibold text-muted-foreground">Pending orders</p>
+              <p className="text-xs font-semibold text-muted-foreground">
+                Pending orders {watching ? '· polling webhook + status' : ''}
+              </p>
               {activePending.map((order) => (
                 <div
                   key={order.order_id}
@@ -324,10 +383,11 @@ function LabPartnerOAuthFlowInner() {
                     type="button"
                     onClick={() => checkOrderStatus(order)}
                     disabled={loading}
-                    className="focus-ring inline-flex items-center gap-1 text-accent-cyan hover:underline disabled:opacity-50"
+                    className="focus-ring inline-flex items-center gap-1 text-muted-foreground hover:text-accent-cyan disabled:opacity-50"
+                    title="Manual fallback"
                   >
                     <RefreshCw className="w-3 h-3" />
-                    Check status
+                    Force check
                   </button>
                 </div>
               ))}
@@ -366,7 +426,7 @@ function LabPartnerOAuthFlowInner() {
 
       <p className="text-[10px] text-muted-foreground mt-4 font-mono">
         API: GET /api/labs/partner/oauth/start · POST /api/labs/partner/oauth/token · POST
-        /api/labs/partner/order · GET /api/labs/partner/order/status · POST /api/labs/partner/webhook
+        /api/labs/partner/order · GET /api/labs/partner/events · POST /api/labs/partner/webhook
       </p>
     </div>
   );

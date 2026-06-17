@@ -1,4 +1,5 @@
 import { buildBriefDigestHtml, buildBriefDigestSubject } from './brief-email';
+import { buildBriefWelcomeHtml, buildBriefWelcomeSubject } from './brief-welcome-email';
 import { getWeeklyIssueIndex, getWeeklyIssueId } from './brief-rotation';
 
 const RESEND_API = 'https://api.resend.com';
@@ -85,6 +86,26 @@ export async function removeBriefSubscriber(email: string): Promise<{ ok: boolea
   });
 
   return { ok: true };
+}
+
+export async function sendWelcomeEmail(to: string): Promise<{ id?: string; ok: boolean }> {
+  if (!isResendConfigured()) return { ok: false };
+
+  try {
+    const from = process.env.RESEND_FROM_EMAIL!;
+    const data = (await resendFetch('/emails', {
+      method: 'POST',
+      body: JSON.stringify({
+        from,
+        to: [to],
+        subject: buildBriefWelcomeSubject(),
+        html: buildBriefWelcomeHtml(to),
+      }),
+    })) as { id?: string };
+    return { ok: true, id: data.id };
+  } catch {
+    return { ok: false };
+  }
 }
 
 export async function sendBriefEmail(

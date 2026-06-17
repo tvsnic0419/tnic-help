@@ -139,6 +139,14 @@ const hubPages: PaletteItem[] = [
     keywords: ['unsubscribe', 'opt out', 'brief email'],
   },
   {
+    id: 'page-lab-events',
+    kind: 'page',
+    title: 'Lab webhook events',
+    subtitle: 'Poll partner panel completions',
+    href: '/api/labs/partner/events',
+    keywords: ['webhook', 'events', 'lab push', 'notification'],
+  },
+  {
     id: 'page-tools',
     kind: 'page',
     title: 'Longevity Tools',

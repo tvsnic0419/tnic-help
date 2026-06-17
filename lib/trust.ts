@@ -307,6 +307,17 @@ export const disclaimers: DisclaimerBlock[] = [
 export const updateHistory: UpdateHistoryEntry[] = [
   {
     date: '2026-06-16',
+    version: '1.12.0',
+    title: 'Sprint 12 — Lab Push Notifications & Welcome Email',
+    category: 'feature',
+    changes: [
+      'Lab order push — webhook events log, GET /api/labs/partner/events, auto-poll watcher + browser Notification',
+      'Pending orders auto-import on panel.complete without manual status polling',
+      'Protocol Brief welcome email on Resend subscribe — issue preview, RSS/JSON links, unsubscribe',
+    ],
+  },
+  {
+    date: '2026-06-16',
     version: '1.11.0',
     title: 'Sprint 11 — Live Partner OAuth & Brief Rotation',
     category: 'feature',

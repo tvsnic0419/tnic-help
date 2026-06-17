@@ -111,12 +111,11 @@ export const nextUpImprovements: NextUpItem[] = [
     href: '/brief#brief-subscribe',
     tags: ['retention', 'api'],
   },
-  // Planned
   {
     id: 'lab-partner-push',
     title: 'Lab order push notifications',
-    desc: 'Browser notification when partner webhook completes a pending order — no manual status polling.',
-    status: 'planned',
+    desc: 'Webhook event poll + browser Notification on panel.complete; auto-import pending orders.',
+    status: 'shipped',
     sprint: 'Sprint 12',
     href: '/labs#lab-partner-oauth',
     tags: ['labs', 'retention'],
@@ -124,11 +123,30 @@ export const nextUpImprovements: NextUpItem[] = [
   {
     id: 'brief-welcome-email',
     title: 'Protocol Brief welcome email',
-    desc: 'Instant Resend welcome on subscribe with issue preview and feed links.',
-    status: 'planned',
+    desc: 'Instant Resend welcome on subscribe with rotating issue preview, RSS/JSON links.',
+    status: 'shipped',
     sprint: 'Sprint 12',
-    href: '/brief',
+    href: '/brief#brief-subscribe',
     tags: ['retention', 'api'],
+  },
+  // Planned
+  {
+    id: 'labs-export-partner',
+    title: 'Export labs in partner v1 format',
+    desc: 'One-click download of logged biomarkers as TNiC Partner v1 JSON for re-import or partner handoff.',
+    status: 'planned',
+    sprint: 'Sprint 13',
+    href: '/labs',
+    tags: ['labs', 'api'],
+  },
+  {
+    id: 'shop-stack-deep-links',
+    title: 'Shop stack deep links',
+    desc: 'Shareable /shop?stack= URLs that pre-filter verification checklist from Stack Architect.',
+    status: 'planned',
+    sprint: 'Sprint 13',
+    href: '/shop',
+    tags: ['commerce', 'conversion'],
   },
 ];
 

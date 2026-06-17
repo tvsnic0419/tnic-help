@@ -1,5 +1,10 @@
 import { NextResponse } from 'next/server';
-import { addBriefSubscriber, isResendConfigured, getResendAudienceId } from '@/lib/resend';
+import {
+  addBriefSubscriber,
+  isResendConfigured,
+  getResendAudienceId,
+  sendWelcomeEmail,
+} from '@/lib/resend';
 
 export const runtime = 'nodejs';
 
@@ -18,11 +23,16 @@ export async function POST(request: Request) {
     }
 
     let mode: 'resend' | 'webhook' | 'feed' = 'feed';
+    let welcomeSent = false;
 
     if (isResendConfigured() && getResendAudienceId()) {
       try {
         const result = await addBriefSubscriber(email);
-        if (result.ok) mode = 'resend';
+        if (result.ok) {
+          mode = 'resend';
+          const welcome = await sendWelcomeEmail(email);
+          welcomeSent = welcome.ok;
+        }
       } catch {
         /* fall through */
       }
@@ -50,7 +60,9 @@ export async function POST(request: Request) {
     }
 
     const messages: Record<typeof mode, string> = {
-      resend: 'Subscribed — weekly Protocol Brief emails will arrive from TNiC.',
+      resend: welcomeSent
+        ? 'Subscribed — welcome email sent; weekly Protocol Brief drops follow.'
+        : 'Subscribed — weekly Protocol Brief emails will arrive from TNiC.',
       webhook: 'Subscribed — weekly delivery will start when the list is processed.',
       feed: 'Use RSS/JSON feeds for automated delivery until email backend is fully live.',
     };
@@ -58,6 +70,7 @@ export async function POST(request: Request) {
     return NextResponse.json({
       ok: true,
       mode,
+      welcomeSent,
       message: messages[mode],
       feeds: {
         rss: '/brief/feed.xml',
