@@ -3,9 +3,10 @@
 import { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import Link from 'next/link';
-import { ArrowRight, Dna, Menu, X } from 'lucide-react';
+import { ArrowRight, Dna, Menu, Search, X } from 'lucide-react';
 import { navLinks } from '@/lib/data';
 import { SiteSearch } from '@/components/SiteSearch';
+import { COMMAND_PALETTE_EVENT } from '@/components/os/CommandPalette';
 import { ThemeToggle } from '@/components/theme/ThemeToggle';
 
 export function Nav() {
@@ -76,6 +77,13 @@ export function Nav() {
 
         <div className="flex items-center gap-1 md:hidden">
           <ThemeToggle compact />
+          <button
+            onClick={() => window.dispatchEvent(new Event(COMMAND_PALETTE_EVENT))}
+            className="focus-ring touch-target flex items-center justify-center text-muted-foreground hover:text-foreground rounded-lg"
+            aria-label="Search"
+          >
+            <Search className="w-5 h-5" />
+          </button>
           <button
             onClick={() => setMobileOpen(!mobileOpen)}
             className="focus-ring touch-target flex items-center justify-center text-muted-foreground hover:text-foreground rounded-lg"

@@ -7,6 +7,7 @@ import { HomepageOSFunnel } from '@/components/sections/HomepageOSFunnel';
 import { HomepageTrustStrip } from '@/components/sections/HomepageTrustStrip';
 import { TrustBanner } from '@/components/TrustBanner';
 import { LibraryHighlights } from '@/components/sections/LibraryHighlights';
+import { ResearchIntel } from '@/components/sections/ResearchIntel';
 import { HomepageTrust } from '@/components/sections/HomepageTrust';
 import { HomepageCTA } from '@/components/sections/HomepageCTA';
 import { NextUpSection } from '@/components/sections/NextUpSection';
@@ -28,6 +29,7 @@ export default function HomePage() {
           <HallmarkProblemTiles />
           <TrustBanner />
           <LibraryHighlights />
+          <ResearchIntel />
           <HomepageTrust />
           <HomepageCTA />
           <NextUpSection />
