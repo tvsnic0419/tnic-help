@@ -12,7 +12,7 @@ export function HallmarkProblemTiles() {
   return (
     <section
       id="hallmark-targets"
-      className="py-20 md:py-28 border-b border-border bg-gradient-to-b from-[#0a0f1a]/80 to-background relative overflow-hidden"
+      className="py-20 md:py-28 border-b border-border bg-gradient-to-b from-card to-background section-glow-violet relative overflow-hidden"
     >
       <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,_var(--accent-violet)_0%,_transparent_55%)] opacity-[0.07] pointer-events-none" />
 
@@ -20,11 +20,11 @@ export function HallmarkProblemTiles() {
         <div className="text-center mb-12 md:mb-16">
           <div className="inline-flex items-center gap-2 mb-4">
             <Target className="w-4 h-4 text-accent-violet" />
-            <p className="font-mono text-[10px] text-accent-violet tracking-widest uppercase">
+            <p className="text-label text-accent-violet">
               Target what slows with age
             </p>
           </div>
-          <h2 className="text-3xl md:text-4xl font-bold tracking-tight mb-4">
+          <h2 className="heading-section mb-4">
             Twelve hallmarks. Twelve entry points.
           </h2>
           <p className="text-muted-foreground max-w-2xl mx-auto">
@@ -52,7 +52,7 @@ export function HallmarkProblemTiles() {
                 >
                   <div className="flex items-start justify-between gap-3 mb-3">
                     <HallmarkIcon type={h.visual} size={36} />
-                    <span className="text-[10px] font-mono text-muted-foreground">
+                    <span className="text-label">
                       #{String(h.number).padStart(2, '0')}
                     </span>
                   </div>
@@ -71,12 +71,12 @@ export function HallmarkProblemTiles() {
                         style={{ width: `${h.coverage}%` }}
                       />
                     </div>
-                    <span className="text-[10px] font-mono text-muted-foreground">{h.coverage}%</span>
+                    <span className="text-label">{h.coverage}%</span>
                   </div>
 
                   {top && (
                     <div className="pt-3 border-t border-border/60">
-                      <p className="text-[10px] font-mono text-accent-emerald uppercase mb-1">
+                      <p className="text-label text-accent-emerald mb-1">
                         Top intervention
                       </p>
                       <div className="flex items-center justify-between gap-2">

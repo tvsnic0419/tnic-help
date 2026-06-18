@@ -14,12 +14,12 @@ const impactColor = {
 
 export function LibraryHighlights() {
   return (
-    <section id="library" className="py-20 md:py-28 bg-background border-b border-border">
-      <div className="max-w-7xl mx-auto px-6">
+    <section id="library" className="py-20 md:py-28 bg-background border-b border-border section-glow-violet">
+      <div className="container-page">
         <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-6 mb-12">
           <div>
-            <p className="font-mono text-[10px] text-accent-violet tracking-widest mb-3">THE LIBRARY</p>
-            <h2 className="text-3xl md:text-4xl font-bold tracking-tight">
+            <p className="text-label text-accent-violet mb-3">THE LIBRARY</p>
+            <h2 className="heading-section">
               Curated stacks. Live research.
             </h2>
             <p className="text-muted-foreground mt-3 max-w-xl">
@@ -53,7 +53,7 @@ export function LibraryHighlights() {
                   className="glass glass-hover rounded-2xl p-5 group block"
                 >
                   <div className="flex justify-between items-start mb-3">
-                    <span className="text-[10px] font-mono text-accent-violet">{stack.compoundCount} compounds</span>
+                    <span className="text-label text-accent-violet">{stack.compoundCount} compounds</span>
                     <ArrowRight className="w-4 h-4 text-caption group-hover:text-accent-violet transition" />
                   </div>
                   <h4 className="font-bold mb-1 group-hover:text-violet-300 transition">{stack.label}</h4>
@@ -98,12 +98,12 @@ export function LibraryHighlights() {
                       <span className={`text-[10px] font-semibold px-2 py-0.5 rounded-full ${impactColor[article.impact]}`}>
                         {article.tag}
                       </span>
-                      <span className="text-[10px] font-mono text-caption">{article.date}</span>
+                      <span className="text-caption font-mono">{article.date}</span>
                     </div>
                     <h4 className="font-semibold text-sm leading-snug group-hover:text-emerald-300 transition line-clamp-2">
                       {article.title}
                     </h4>
-                    <p className="text-[10px] text-muted-foreground mt-1">{article.source}</p>
+                    <p className="text-caption mt-1">{article.source}</p>
                   </div>
                   <ExternalLink className="w-4 h-4 text-caption group-hover:text-accent-emerald shrink-0 mt-1 transition" />
                 </motion.a>

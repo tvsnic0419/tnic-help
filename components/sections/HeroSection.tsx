@@ -2,8 +2,7 @@
 
 import { motion } from 'framer-motion';
 import Link from 'next/link';
-import { ArrowRight, LayoutDashboard, Sparkles, CheckCircle2, ClipboardList } from 'lucide-react';
-import { heroValueProps } from '@/lib/homepage';
+import { ArrowRight, LayoutDashboard, Sparkles, ClipboardList } from 'lucide-react';
 import { StarterQuiz } from '@/components/sections/StarterQuiz';
 
 export function HeroSection() {
@@ -44,25 +43,11 @@ export function HeroSection() {
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ delay: 0.2 }}
-              className="text-body max-w-xl mb-6 mx-auto lg:mx-0"
+              className="text-body max-w-xl mb-10 mx-auto lg:mx-0"
             >
               Initialize your personal command center — stack architect, lab hub, hallmark library,
               and six evidence-graded tools. No accounts. Data stays in your browser until you export.
             </motion.p>
-
-            <motion.ul
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ delay: 0.25 }}
-              className="space-y-2 mb-8 max-w-md mx-auto lg:mx-0"
-            >
-              {heroValueProps.map((item) => (
-                <li key={item} className="flex items-center gap-2 text-body-sm">
-                  <CheckCircle2 className="w-4 h-4 text-accent-emerald shrink-0" aria-hidden="true" />
-                  {item}
-                </li>
-              ))}
-            </motion.ul>
 
             <motion.div
               initial={{ opacity: 0, y: 20 }}
@@ -72,7 +57,7 @@ export function HeroSection() {
             >
               <Link
                 href="/quiz"
-                className="focus-ring interactive group bg-white text-black px-6 md:px-8 py-4 min-h-[var(--space-touch)] rounded-2xl font-semibold flex items-center justify-center gap-3 hover:bg-accent-cyan hover:text-black"
+                className="focus-ring interactive group bg-white text-black px-6 md:px-8 py-4 min-h-[var(--space-touch)] rounded-2xl font-semibold flex items-center justify-center gap-3 hover:bg-accent-cyan hover:text-black shadow-lg shadow-white/10"
               >
                 <ClipboardList className="w-5 h-5" aria-hidden="true" />
                 Start 3-Min Quiz
@@ -88,21 +73,15 @@ export function HeroSection() {
                 <LayoutDashboard className="w-4 h-4" aria-hidden="true" />
                 Open Longevity OS
               </Link>
-              <Link
-                href="/learn"
-                className="focus-ring interactive glass px-6 md:px-8 py-4 min-h-[var(--space-touch)] rounded-2xl font-medium hover:border-accent-cyan/30 text-center sm:hidden"
-              >
-                Learn hub
-              </Link>
             </motion.div>
 
             <motion.p
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ delay: 0.35 }}
-              className="text-[10px] text-caption mt-6 font-mono mx-auto lg:mx-0"
+              className="text-caption font-mono mt-6 mx-auto lg:mx-0"
             >
-              Educational only · Not medical advice · ⌘K to search anywhere
+              Educational only · Not medical advice
             </motion.p>
           </div>
 

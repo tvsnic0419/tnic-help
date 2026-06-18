@@ -65,14 +65,14 @@ const accentBorder: Record<string, string> = {
 
 export function HomepageOSFunnel() {
   return (
-    <section id="os" className="py-16 md:py-24 border-b border-border">
+    <section id="os" className="py-16 md:py-24 border-b border-border bg-card section-glow-emerald">
       <div className="container-page">
         <div className="text-center mb-10 md:mb-12">
           <p className="text-label text-accent-emerald mb-2">Longevity OS</p>
-          <h2 className="text-2xl md:text-3xl font-bold tracking-tight">
+          <h2 className="heading-section">
             One operating system. Five entry points.
           </h2>
-          <p className="text-body-sm text-muted-foreground mt-3 max-w-xl mx-auto">
+          <p className="text-body-sm mt-3 max-w-xl mx-auto">
             No paywall, no accounts. Pick your module — everything syncs through your personal OS.
           </p>
         </div>

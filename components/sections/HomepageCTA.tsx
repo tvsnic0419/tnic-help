@@ -38,11 +38,11 @@ const accentMap = {
 
 export function HomepageCTA() {
   return (
-    <section className="py-20 md:py-28 relative overflow-hidden">
+    <section className="py-20 md:py-28 relative overflow-hidden bg-card section-glow-cyan">
       <div className="absolute inset-0 bg-gradient-to-t from-accent-cyan/5 via-transparent to-violet-400/5 pointer-events-none" />
-      <div className="relative max-w-7xl mx-auto px-6">
+      <div className="relative container-page">
         <div className="text-center mb-12">
-          <h2 className="text-3xl md:text-4xl font-bold tracking-tight mb-4">
+          <h2 className="heading-section mb-4">
             Three steps into your OS.
           </h2>
           <p className="text-muted-foreground max-w-xl mx-auto">
@@ -69,7 +69,7 @@ export function HomepageCTA() {
         </div>
 
         <div className="gradient-border p-8 md:p-10 text-center max-w-3xl mx-auto">
-          <p className="font-mono text-[10px] text-accent-violet tracking-widest mb-3">READY TO BUILD?</p>
+          <p className="text-label text-accent-violet mb-3">READY TO BUILD?</p>
           <h3 className="text-2xl font-bold mb-3">Your stack takes 60 seconds</h3>
           <p className="text-sm text-muted-foreground mb-6">
             Take the starter quiz in the hero, or jump into Stack Architect with evidence-graded presets.
