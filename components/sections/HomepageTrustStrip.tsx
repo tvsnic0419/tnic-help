@@ -33,7 +33,7 @@ export function HomepageTrustStrip() {
                 aria-hidden="true"
               />
               <p className="text-xs font-semibold leading-tight">{badge.label}</p>
-              <p className="text-[10px] text-muted-foreground mt-1 font-mono">{badge.desc}</p>
+              <p className="text-caption font-mono mt-1">{badge.desc}</p>
             </div>
           ))}
         </div>

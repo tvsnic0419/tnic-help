@@ -470,11 +470,11 @@ body {
   background: linear-gradient(90deg, transparent, color-mix(in srgb, var(--accent-cyan) 30%, transparent), transparent);
 }
 
-.section-glow-cyan { box-shadow: inset 0 1px 0 0 color-mix(in srgb, var(--accent-cyan) 5%, transparent); }
-.section-glow-emerald { box-shadow: inset 0 1px 0 0 color-mix(in srgb, var(--accent-emerald) 5%, transparent); }
-.section-glow-amber { box-shadow: inset 0 1px 0 0 color-mix(in srgb, var(--accent-amber) 5%, transparent); }
-.section-glow-violet { box-shadow: inset 0 1px 0 0 color-mix(in srgb, var(--accent-violet) 5%, transparent); }
-.section-glow-rose { box-shadow: inset 0 1px 0 0 color-mix(in srgb, var(--accent-rose) 5%, transparent); }
+.section-glow-cyan { box-shadow: inset 0 1px 0 0 color-mix(in srgb, var(--accent-cyan) 22%, transparent); }
+.section-glow-emerald { box-shadow: inset 0 1px 0 0 color-mix(in srgb, var(--accent-emerald) 22%, transparent); }
+.section-glow-amber { box-shadow: inset 0 1px 0 0 color-mix(in srgb, var(--accent-amber) 22%, transparent); }
+.section-glow-violet { box-shadow: inset 0 1px 0 0 color-mix(in srgb, var(--accent-violet) 22%, transparent); }
+.section-glow-rose { box-shadow: inset 0 1px 0 0 color-mix(in srgb, var(--accent-rose) 22%, transparent); }
 
 /* ── Status badges ── */
 .badge-optimal {
