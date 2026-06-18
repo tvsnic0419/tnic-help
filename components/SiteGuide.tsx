@@ -12,8 +12,9 @@ const paths = [
     steps: [
       { label: '3-Min starter quiz', href: '/quiz' },
       { label: 'Learn hub', href: '/learn' },
-      { label: 'FAQ — 12 answers', href: '/faq' },
-      { label: 'Search library', href: '/library' },
+      { label: 'FAQ — 15 answers', href: '/faq' },
+      { label: 'Research digest', href: '/brief' },
+      { label: 'Delivery systems guide', href: '/library/delivery-systems' },
       { label: 'Compound deep-dives', href: '/library/compounds/glynac' },
     ],
   },
@@ -25,6 +26,7 @@ const paths = [
     steps: [
       { label: 'Personal dashboard', href: '/dashboard' },
       { label: 'Stack Architect', href: '/stacks' },
+      { label: 'Protocol Shop — verify picks', href: '/shop' },
       { label: 'Defense scan', href: '/tools?tab=healthspan' },
       { label: 'Lab hub (local)', href: '/labs' },
     ],
@@ -39,6 +41,7 @@ const paths = [
       { label: 'Safety & disclaimers', href: '/trust/disclaimers' },
       { label: 'Founder journey', href: '/trust/journey' },
       { label: 'Platform updates', href: '/trust/updates' },
+      { label: 'Contact & questions', href: '/contact' },
     ],
   },
 ];
