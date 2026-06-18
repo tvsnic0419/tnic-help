@@ -8,6 +8,7 @@ import { HomepageTrustStrip } from '@/components/sections/HomepageTrustStrip';
 import { TrustBanner } from '@/components/TrustBanner';
 import { LibraryHighlights } from '@/components/sections/LibraryHighlights';
 import { ResearchIntel } from '@/components/sections/ResearchIntel';
+import { CompetitiveEdge } from '@/components/sections/CompetitiveEdge';
 import { HomepageTrust } from '@/components/sections/HomepageTrust';
 import { HomepageCTA } from '@/components/sections/HomepageCTA';
 import { NextUpSection } from '@/components/sections/NextUpSection';
@@ -30,6 +31,7 @@ export default function HomePage() {
           <TrustBanner />
           <LibraryHighlights />
           <ResearchIntel />
+          <CompetitiveEdge />
           <HomepageTrust />
           <HomepageCTA />
           <NextUpSection />
