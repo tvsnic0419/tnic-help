@@ -4,11 +4,11 @@ import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import {
   ChevronDown,
-  DollarSign,
+  CheckCircle2,
+  Copy,
   FlaskConical,
   Activity,
   AlertTriangle,
-
   Zap,
   Pill,
 } from 'lucide-react';
@@ -29,11 +29,16 @@ const costColor = { budget: 'text-accent-emerald', moderate: 'text-accent-cyan',
 
 export function EliteStackCard({ stack, expanded: defaultExpanded = false }: EliteStackCardProps) {
   const [open, setOpen] = useState(defaultExpanded);
+  const [cloned, setCloned] = useState(false);
   const { setSelected } = useStack();
 
   const loadStack = () => {
     setSelected([...stack.compoundIds]);
-    document.getElementById('stack-builder')?.scrollIntoView({ behavior: 'smooth' });
+    setCloned(true);
+    setTimeout(() => setCloned(false), 2500);
+    setTimeout(() => {
+      document.getElementById('stack-builder')?.scrollIntoView({ behavior: 'smooth' });
+    }, 150);
   };
 
   const compoundNames = stack.compoundIds.map((id) => compounds.find((c) => c.id === id)?.name ?? id);
@@ -207,10 +212,23 @@ export function EliteStackCard({ stack, expanded: defaultExpanded = false }: Eli
 
               <button
                 onClick={loadStack}
-                className="w-full bg-accent-violet text-black py-3 rounded-xl text-sm font-semibold hover:bg-accent-cyan transition flex items-center justify-center gap-2"
+                className={`w-full py-3 rounded-xl text-sm font-semibold transition-all flex items-center justify-center gap-2 ${
+                  cloned
+                    ? 'bg-accent-emerald text-black'
+                    : 'bg-accent-violet text-black hover:bg-accent-cyan'
+                }`}
               >
-                <DollarSign className="w-4 h-4" />
-                Load into Stack Builder
+                {cloned ? (
+                  <>
+                    <CheckCircle2 className="w-4 h-4" />
+                    Loaded into builder ↓
+                  </>
+                ) : (
+                  <>
+                    <Copy className="w-4 h-4" />
+                    Clone &amp; Customize
+                  </>
+                )}
               </button>
             </div>
           </motion.div>
