@@ -716,4 +716,22 @@ export const consumerFAQ = [
     question: 'How often does TNiC update recommendations?',
     answer: 'Continuously. When new peer-reviewed trials publish, evidence tiers are re-evaluated. The Research Intel feed surfaces breaking longevity science. Major protocol changes are reflected in the Stack Architect and noted in the Trust Center.',
   },
+  {
+    id: 'faq13',
+    category: 'safety' as const,
+    question: 'Is it safe to combine these compounds together?',
+    answer: 'These compounds have good individual safety profiles in published literature. Individual responses vary and interactions with medications are possible. Always consult a qualified healthcare provider before starting any supplementation protocol, especially if you take prescription medications or have existing health conditions. Use the Stack Builder\'s interaction checker for compound-specific flags.',
+  },
+  {
+    id: 'faq14',
+    category: 'science' as const,
+    question: 'What is NRF2 and why does it matter for aging?',
+    answer: 'NRF2 is a transcription factor that activates your cells\' built-in antioxidant and detoxification systems. When triggered, it upregulates 200+ defense genes — including those producing glutathione, catalase, and superoxide dismutase. Declining NRF2 activity with age directly correlates with increased oxidative stress and inflammaging, two core drivers of the 12 hallmarks of aging.',
+  },
+  {
+    id: 'faq15',
+    category: 'science' as const,
+    question: 'What is the difference between liposomal, phytosome, and NLC delivery?',
+    answer: 'Liposomes: good absorption, widely available, variable quality. Phytosomes: strong molecular bond with plant compounds, clinically studied (Meriva, Siliphos), best for polyphenols. NLCs (Nanostructured Lipid Carriers): highest stability, controlled release, best for lipophilic compounds like sulforaphane and fisetin. For most longevity compounds, phytosomes and NLCs offer the best bioavailability-to-cost ratio. See the Delivery Systems guide in the Library.',
+  },
 ];
