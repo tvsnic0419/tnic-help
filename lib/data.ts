@@ -18,6 +18,7 @@ export const navLinks = [
   { href: '/dashboard', label: 'Dashboard', mod: 'MOD-DSH-12' },
   { href: '/library', label: 'Library', mod: 'MOD-LIB-13' },
   { href: '/learn', label: 'Learn', mod: 'MOD-LRN-09' },
+  { href: '/faq', label: 'FAQ', mod: 'MOD-FAQ-15' },
   { href: '/stacks', label: 'Stacks', mod: 'MOD-ARC-04' },
   { href: '/labs', label: 'Labs', mod: 'MOD-LAB-11' },
   { href: '/tools', label: 'Tools', mod: 'MOD-TOL-14' },
@@ -27,7 +28,7 @@ export const navLinks = [
 export const communityPulse = [
   { metric: '6', label: 'Evidence-Graded Compounds' },
   { metric: '12', label: 'Hallmarks Explained' },
-  { metric: '12', label: 'FAQ Answers' },
+  { metric: '15', label: 'FAQ Answers' },
   { metric: '10', label: 'Glossary Terms' },
 ];
 

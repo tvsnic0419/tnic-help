@@ -27,6 +27,7 @@ export default function HomePage() {
           <HeroSection />
           <HomepageTrustStrip />
           <HomepageOSFunnel />
+          <SiteGuide />
           <HallmarkProblemTiles />
           <TrustBanner />
           <LibraryHighlights />
@@ -35,7 +36,6 @@ export default function HomePage() {
           <HomepageTrust />
           <HomepageCTA />
           <NextUpSection />
-          <SiteGuide />
         </main>
         <ToolsDock />
         <Footer />
