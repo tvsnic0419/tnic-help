@@ -33,7 +33,7 @@ export function SiteSearch() {
   };
 
   return (
-    <form onSubmit={submit} className="relative hidden lg:block">
+    <form onSubmit={submit} className="relative hidden md:block">
       <label htmlFor="site-search" className="sr-only">
         Search library or open command palette
       </label>
