@@ -21,15 +21,15 @@ export function HomepageTrust() {
               transition={{ delay: i * 0.05 }}
               className="glass rounded-2xl p-5 text-center"
             >
-              <p className="text-3xl md:text-4xl font-bold font-mono stat-glow text-accent-emerald">{stat.value}</p>
-              <p className="text-[10px] font-mono text-muted-foreground uppercase tracking-wider mt-1">{stat.label}</p>
+              <p className="text-3xl md:text-4xl font-bold font-mono text-accent-emerald tabular-nums">{stat.value}</p>
+              <p className="text-label text-muted-foreground mt-1">{stat.label}</p>
             </motion.div>
           ))}
         </div>
 
         <div className="text-center mb-10">
-          <p className="font-mono text-[10px] text-accent-emerald tracking-widest mb-3">WHY TRUST TNIC</p>
-          <h2 className="text-2xl md:text-3xl font-bold tracking-tight">
+          <p className="text-label text-accent-emerald mb-3">WHY TRUST TNIC</p>
+          <h2 className="heading-section">
             Built for intelligent consumers
           </h2>
           <p className="text-muted-foreground mt-3 max-w-2xl mx-auto text-sm">
@@ -58,7 +58,7 @@ export function HomepageTrust() {
           })}
         </div>
 
-        <p className="text-center text-[10px] text-caption mt-10 font-mono">
+        <p className="text-center text-caption mt-10 font-mono">
           TNiC is an educational platform — not a medical provider. Projections ≠ lab diagnostics. Consult your physician before any protocol.
         </p>
       </div>

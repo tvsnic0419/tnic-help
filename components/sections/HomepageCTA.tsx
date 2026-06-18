@@ -68,24 +68,28 @@ export function HomepageCTA() {
           ))}
         </div>
 
-        <div className="gradient-border p-8 md:p-10 text-center max-w-3xl mx-auto">
-          <p className="text-label text-accent-violet mb-3">READY TO BUILD?</p>
-          <h3 className="text-2xl font-bold mb-3">Your stack takes 60 seconds</h3>
-          <p className="text-sm text-muted-foreground mb-6">
-            Take the starter quiz in the hero, or jump into Stack Architect with evidence-graded presets.
+        <div className="gradient-border p-8 md:p-12 text-center max-w-3xl mx-auto">
+          <p className="text-label text-accent-violet mb-3">YOUR OS AWAITS</p>
+          <h3 className="text-2xl md:text-3xl font-bold mb-3 tracking-tight">
+            Everything in one place.<br className="hidden sm:block" /> Free. Local. Yours.
+          </h3>
+          <p className="text-sm text-muted-foreground mb-8 max-w-md mx-auto leading-relaxed">
+            Stack architect, lab hub, 12-hallmark library, six evidence tools — all running in your browser with no account required.
           </p>
           <div className="flex flex-col sm:flex-row gap-3 justify-center">
             <Link
-              href="/quiz"
-              className="bg-white text-black px-8 py-3.5 rounded-xl font-semibold text-sm hover:bg-accent-cyan transition-all text-center"
+              href="/dashboard"
+              className="bg-white text-black px-8 py-3.5 rounded-xl font-semibold text-sm hover:bg-accent-emerald transition-all text-center flex items-center justify-center gap-2"
             >
-              Start 3-Min Quiz
+              <LayoutDashboard className="w-4 h-4" />
+              Launch Longevity OS
             </Link>
             <Link
-              href="/stacks"
+              href="/library"
               className="glass px-8 py-3.5 rounded-xl font-semibold text-sm hover:border-accent-violet/40 transition-all flex items-center justify-center gap-2"
             >
-              Stack Architect <ArrowRight className="w-4 h-4" />
+              <BookOpen className="w-4 h-4" />
+              Browse Library <ArrowRight className="w-4 h-4" />
             </Link>
           </div>
         </div>
