@@ -1,7 +1,8 @@
 'use client';
 
 import { useMemo } from 'react';
-import { Plus, X, CheckCircle2, AlertTriangle } from 'lucide-react';
+import Link from 'next/link';
+import { Plus, X, CheckCircle2, AlertTriangle, BookOpen } from 'lucide-react';
 import { useStack } from '@/context/PlatformContext';
 import { compounds } from '@/lib/data';
 import {
@@ -18,6 +19,15 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/Card';
 import { Badge } from '@/components/ui/Badge';
 import { StackExport } from './StackExport';
 import { cn } from '@/lib/utils';
+
+const COMPOUND_LIBRARY_HREF: Record<string, string> = {
+  glynac: '/library/compounds/glynac',
+  nmn: '/library/compounds/nmn',
+  sulforaphane: '/library/compounds/sulforaphane',
+  resveratrol: '/library/compounds/resveratrol',
+  tudca: '/library/compounds/tudca',
+  rapamycin: '/library/compounds/rapamycin',
+};
 
 interface StackBuilderProps {
   title?: string;
@@ -204,20 +214,32 @@ function CompoundLibrary({
                 </div>
                 <p className="text-caption text-muted-foreground mt-1 truncate">{hallmarkPreview}</p>
               </div>
-              <Button
-                variant={inStack ? 'secondary' : 'outline'}
-                theme="violet"
-                size="sm"
-                disabled={inStack}
-                onClick={() => onAdd(c.id)}
-              >
-                {inStack ? 'Added' : (
-                  <>
-                    <Plus className="w-3.5 h-3.5" aria-hidden="true" />
-                    Add
-                  </>
+              <div className="flex items-center gap-2 shrink-0">
+                {COMPOUND_LIBRARY_HREF[c.id] && (
+                  <Link
+                    href={COMPOUND_LIBRARY_HREF[c.id]}
+                    className="p-1.5 rounded-lg text-muted-foreground hover:text-accent-cyan transition-colors focus-ring"
+                    title={`Read ${c.name} deep-dive`}
+                    aria-label={`Read ${c.name} library module`}
+                  >
+                    <BookOpen className="w-3.5 h-3.5" />
+                  </Link>
                 )}
-              </Button>
+                <Button
+                  variant={inStack ? 'secondary' : 'outline'}
+                  theme="violet"
+                  size="sm"
+                  disabled={inStack}
+                  onClick={() => onAdd(c.id)}
+                >
+                  {inStack ? 'Added' : (
+                    <>
+                      <Plus className="w-3.5 h-3.5" aria-hidden="true" />
+                      Add
+                    </>
+                  )}
+                </Button>
+              </div>
             </div>
           );
         })}
@@ -265,12 +287,21 @@ function ActiveStackPanel({
                   key={c.id}
                   className="flex items-center justify-between gap-3 rounded-2xl bg-muted/40 border border-border p-4 md:p-5"
                 >
-                  <div className="flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-4 min-w-0">
+                  <div className="flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-4 min-w-0 flex-1">
                     <span className="font-semibold">{c.name}</span>
                     <EvidenceBadge level={evidence} size="sm" showTooltip={false} />
                     <span className="text-caption font-mono text-muted-foreground hidden sm:inline">
                       {c.dose}
                     </span>
+                    {COMPOUND_LIBRARY_HREF[c.id] && (
+                      <Link
+                        href={COMPOUND_LIBRARY_HREF[c.id]}
+                        className="inline-flex items-center gap-1 text-[10px] font-mono text-accent-cyan hover:text-accent-emerald transition-colors focus-ring rounded"
+                      >
+                        <BookOpen className="w-3 h-3" />
+                        Deep dive
+                      </Link>
+                    )}
                   </div>
                   <Button
                     variant="danger"
