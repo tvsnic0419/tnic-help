@@ -17,6 +17,8 @@ import { cn } from '@/lib/utils';
 import { EXPORT_KIT_EVENT } from '@/components/os/ExportKitModal';
 import { NextUpPanel } from '@/components/os/NextUpPanel';
 import { DashboardStatusExport } from '@/components/dashboard/DashboardStatusExport';
+import { OnboardingStrip } from '@/components/dashboard/OnboardingStrip';
+import { UserNextStepsPanel } from '@/components/dashboard/UserNextStepsPanel';
 
 function formatDaysAgo(dateStr: string): string {
   const days = Math.floor(
@@ -41,7 +43,7 @@ const highlightAccent: Record<string, string> = {
 };
 
 export function Dashboard() {
-  const { selected, selectedCompounds, score, profile, defenseProfile, labs } = usePlatform();
+  const { selected, selectedCompounds, score, profile, defenseProfile, labs, quizResult } = usePlatform();
   const analysis = analyzeStack(selected);
 
   const activeProtocol =
@@ -74,6 +76,13 @@ export function Dashboard() {
           }
         : null;
 
+  const goalLabels: Record<string, string> = {
+    learn: 'Learning the science',
+    defense: 'Cellular defense',
+    energy: 'Mitochondrial energy',
+    full: 'Full longevity optimization',
+  };
+
   return (
     <PageShell>
       <header className="mb-10 flex flex-wrap items-end justify-between gap-4">
@@ -81,8 +90,9 @@ export function Dashboard() {
           <p className="text-label text-accent-emerald mb-2">Personal command center</p>
           <h1 className="heading-page">My Longevity OS</h1>
           <p className="text-body text-muted-foreground mt-2 max-w-2xl">
-            Your anti-aging operating system — stack, labs, and journey in one place. Data stays
-            local unless you export it.
+            {quizResult
+              ? `Goal: ${goalLabels[quizResult.goal] ?? quizResult.goal} — stack, labs, and journey in one place.`
+              : 'Your anti-aging operating system — stack, labs, and journey in one place. Data stays local unless you export it.'}
           </p>
         </div>
         <button
@@ -93,6 +103,8 @@ export function Dashboard() {
           Export kit
         </button>
       </header>
+
+      <OnboardingStrip />
 
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 lg:gap-8">
         <div id="dashboard-status" className="lg:col-span-1">
@@ -191,7 +203,13 @@ export function Dashboard() {
 
         <Card variant="default" className="lg:col-span-3">
           <CardContent className="pt-6">
-            <NextUpPanel compact defaultFilter="in_progress" limit={4} showFilters={false} />
+            <UserNextStepsPanel />
+          </CardContent>
+        </Card>
+
+        <Card variant="default" className="lg:col-span-3">
+          <CardContent className="pt-6">
+            <NextUpPanel compact defaultFilter="in_progress" limit={3} showFilters={false} />
           </CardContent>
         </Card>
 

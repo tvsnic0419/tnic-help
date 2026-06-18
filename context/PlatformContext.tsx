@@ -35,6 +35,14 @@ import {
   type UserMilestone,
 } from '@/lib/milestone-engine';
 import { validatePlatformImport, type ImportResult } from '@/lib/import-validation';
+export interface QuizRecord {
+  goal: string;
+  age?: string;
+  experience?: string;
+  preset: string;
+  completedAt: string;
+}
+
 const DEFAULT_STACK = stackPresets.starter.ids;
 
 export interface Profile {
@@ -77,6 +85,8 @@ interface PlatformContextValue {
   purgeAllHealthData: () => void;
   privacyConsent: boolean;
   acceptPrivacyConsent: () => void;
+  quizResult: QuizRecord | null;
+  setQuizResult: (record: QuizRecord) => void;
 }
 
 const PlatformContext = createContext<PlatformContextValue | null>(null);
@@ -106,6 +116,7 @@ export function PlatformProvider({ children }: { children: ReactNode }) {
   const [privacyMode, setPrivacyModeState] = useState<PrivacyStorageMode>('local');
   const [privacyConsent, setPrivacyConsentState] = useState(false);
   const [prevLabsCount, setPrevLabsCount] = useState(0);
+  const [quizResult, setQuizResultState] = useState<QuizRecord | null>(null);
 
   useEffect(() => {
     const fromUrl = readStackFromUrl();
@@ -130,6 +141,8 @@ export function PlatformProvider({ children }: { children: ReactNode }) {
     if (milestonesRaw.length) setMilestones(milestonesRaw);
     setPrevLabsCount(sanitizeLabEntries(labsRaw).length);
     setPrivacyConsentState(hasPrivacyConsent());
+    const quizRaw = readStorageItem<QuizRecord | null>(STORAGE_KEYS.quizResult, null, mode);
+    if (quizRaw) setQuizResultState(quizRaw);
     setHydrated(true);
   }, []);
 
@@ -381,6 +394,14 @@ export function PlatformProvider({ children }: { children: ReactNode }) {
     setPrivacyConsentState(true);
   }, []);
 
+  const setQuizResult = useCallback(
+    (record: QuizRecord) => {
+      setQuizResultState(record);
+      writeStorageItem(STORAGE_KEYS.quizResult, record, privacyMode);
+    },
+    [privacyMode],
+  );
+
   const defenseProfile = useMemo(
     () => calculateDefenseProfile(profile.age, profile.stress, profile.sleep, profile.exercise),
     [profile],
@@ -430,6 +451,8 @@ export function PlatformProvider({ children }: { children: ReactNode }) {
     purgeAllHealthData: handlePurgeAll,
     privacyConsent,
     acceptPrivacyConsent,
+    quizResult,
+    setQuizResult,
   };
 
   return <PlatformContext.Provider value={value}>{children}</PlatformContext.Provider>;

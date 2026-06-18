@@ -15,6 +15,7 @@ export const STORAGE_KEYS = {
   hallmarkNotes: 'tnic-hallmark-notes',
   milestones: 'tnic-user-milestones',
   consent: 'tnic-privacy-consent',
+  quizResult: 'tnic-quiz-result',
 } as const;
 
 export type PrivacyStorageMode = 'local' | 'session';
