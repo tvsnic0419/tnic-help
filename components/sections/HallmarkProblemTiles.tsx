@@ -95,12 +95,19 @@ export function HallmarkProblemTiles() {
           })}
         </div>
 
-        <div className="text-center mt-10">
+        <div className="flex flex-col sm:flex-row items-center justify-center gap-3 mt-10">
           <Link
             href="/library"
             className="focus-ring interactive inline-flex items-center gap-2 px-6 py-3 rounded-xl glass glass-hover text-sm font-semibold"
           >
             Explore full library <ArrowRight className="w-4 h-4" />
+          </Link>
+          <Link
+            href="/stacks"
+            className="focus-ring interactive inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-accent-violet/10 hover:bg-accent-violet/20 border border-accent-violet/30 hover:border-accent-violet/50 text-accent-violet text-sm font-semibold transition-all"
+          >
+            <Target className="w-4 h-4" />
+            Build a stack for a hallmark
           </Link>
         </div>
       </div>
