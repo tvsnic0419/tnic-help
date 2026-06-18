@@ -49,7 +49,7 @@ export const PRODUCT_PICKS: Record<string, ProductPick> = {
       imageSrc: `${PRODUCTS}/glynac.jpg`,
       fallbackImageSrc: `${PRODUCTS}/glynac.svg`,
     },
-    linkVerifiedAt: '2026-06-16',
+    linkVerifiedAt: '2026-06-18',
     whyThisPick:
       'Matched pair from one manufacturer — liposomal delivery, clear dosing, widely available.',
     doseNote: 'Target ~7g glycine + ~600mg NAC daily (split doses). Buy both products.',
@@ -63,7 +63,7 @@ export const PRODUCT_PICKS: Record<string, ProductPick> = {
     fallbackImageSrc: `${PRODUCTS}/nmn.svg`,
     purchaseUrl: 'https://www.codeage.com/products/amen-nmn-supplement',
     brandWebsite: 'https://www.codeage.com',
-    linkVerifiedAt: '2026-06-16',
+    linkVerifiedAt: '2026-06-18',
     whyThisPick:
       '500mg per capsule — matches common longevity protocol doses. Third-party tested.',
     doseNote: 'Typical: 500mg–1g daily. Start at 500mg.',
@@ -77,7 +77,7 @@ export const PRODUCT_PICKS: Record<string, ProductPick> = {
     fallbackImageSrc: `${PRODUCTS}/sulforaphane.svg`,
     purchaseUrl: 'https://www.avmacol.com/products/avmacol-extra-strength',
     brandWebsite: 'https://www.avmacol.com',
-    linkVerifiedAt: '2026-06-16',
+    linkVerifiedAt: '2026-06-18',
     whyThisPick:
       'Clinically studied sulforaphane glucosinolate (TrueBroc®). Standard reference product.',
     doseNote: '1–2 tablets daily with food (provides SGS equivalent).',
@@ -91,7 +91,7 @@ export const PRODUCT_PICKS: Record<string, ProductPick> = {
     fallbackImageSrc: `${PRODUCTS}/resveratrol.svg`,
     purchaseUrl: 'https://www.thorne.com/products/dp/resveracel',
     brandWebsite: 'https://www.thorne.com',
-    linkVerifiedAt: '2026-06-16',
+    linkVerifiedAt: '2026-06-18',
     whyThisPick:
       'Resveratrol + nicotinamide riboside stack. Thorne is a trusted clinical brand.',
     doseNote: 'Per label — typically 1–2 capsules daily.',
@@ -105,7 +105,7 @@ export const PRODUCT_PICKS: Record<string, ProductPick> = {
     fallbackImageSrc: `${PRODUCTS}/cakg.svg`,
     purchaseUrl: 'https://donotage.org/ca-akg',
     brandWebsite: 'https://donotage.org',
-    linkVerifiedAt: '2026-06-16',
+    linkVerifiedAt: '2026-06-18',
     whyThisPick:
       'Direct from the longevity research brand. Pure calcium alpha-ketoglutarate.',
     doseNote: 'Typical research dose: ~1g Ca-AKG daily.',
@@ -120,7 +120,7 @@ export const PRODUCT_PICKS: Record<string, ProductPick> = {
     purchaseUrl:
       'https://geronova.com/product/bio-enhanced-r-lipoic-acid-vegcaps-300mg-60caps/',
     brandWebsite: 'https://geronova.com',
-    linkVerifiedAt: '2026-06-16',
+    linkVerifiedAt: '2026-06-18',
     whyThisPick:
       'Stabilized R-form (not racemic ALA). 300mg matches common protocol doses.',
     doseNote: '300mg R-ALA daily, often split AM/PM.',
