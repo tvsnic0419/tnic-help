@@ -2,6 +2,7 @@
 
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
+import { useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { ArrowRight, RotateCcw, Check, Layers, Compass } from 'lucide-react';
 import { compounds } from '@/lib/data';
@@ -26,7 +27,18 @@ interface QuizResultPanelProps {
 
 export function QuizResultPanel({ result, answers, onRetake }: QuizResultPanelProps) {
   const router = useRouter();
-  const { applyPreset, setProfile } = usePlatform();
+  const { applyPreset, setProfile, setQuizResult } = usePlatform();
+
+  useEffect(() => {
+    setQuizResult({
+      goal: answers.goal ?? 'learn',
+      age: answers.age,
+      experience: answers.experience,
+      preset: result.preset,
+      completedAt: new Date().toISOString(),
+    });
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   const loadStackAndOpenArchitect = () => {
     applyPreset(result.preset as PresetKey);
