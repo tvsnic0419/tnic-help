@@ -14,8 +14,9 @@ const paths = [
       { label: 'Learn hub', href: '/learn' },
       { label: 'FAQ — 15 answers', href: '/faq' },
       { label: 'Research digest', href: '/brief' },
-      { label: 'Delivery systems guide', href: '/library/delivery-systems' },
+      { label: 'Search library', href: '/library' },
       { label: 'Compound deep-dives', href: '/library/compounds/glynac' },
+      { label: 'Delivery systems guide', href: '/library/delivery-systems' },
     ],
   },
   {

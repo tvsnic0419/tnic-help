@@ -27,6 +27,8 @@ const COMPOUND_LIBRARY_HREF: Record<string, string> = {
   resveratrol: '/library/compounds/resveratrol',
   tudca: '/library/compounds/tudca',
   rapamycin: '/library/compounds/rapamycin',
+  rala: '/library/compounds/rala',
+  cakg: '/library/compounds/cakg',
 };
 
 interface StackBuilderProps {
