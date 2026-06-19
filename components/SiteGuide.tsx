@@ -7,8 +7,11 @@ const paths = [
   {
     icon: BookOpen,
     title: 'Learn the Science',
-    color: 'text-accent-cyan',
-    bg: 'bg-accent-cyan/10',
+    gradFrom: 'from-accent-cyan/[0.09]',
+    iconBadge: 'icon-badge-cyan',
+    iconText: 'text-accent-cyan',
+    titleColor: 'text-accent-cyan',
+    glowHover: 'glow-hover-cyan',
     steps: [
       { label: '3-Min starter quiz', href: '/quiz' },
       { label: 'Learn hub', href: '/learn' },
@@ -22,8 +25,11 @@ const paths = [
   {
     icon: Wrench,
     title: 'Use the OS',
-    color: 'text-accent-violet',
-    bg: 'bg-accent-violet/10',
+    gradFrom: 'from-accent-violet/[0.09]',
+    iconBadge: 'icon-badge-violet',
+    iconText: 'text-accent-violet',
+    titleColor: 'text-accent-violet',
+    glowHover: 'glow-hover-violet',
     steps: [
       { label: 'Personal dashboard', href: '/dashboard' },
       { label: 'Stack Architect', href: '/stacks' },
@@ -35,8 +41,11 @@ const paths = [
   {
     icon: Shield,
     title: 'Verify & Trust',
-    color: 'text-accent-emerald',
-    bg: 'bg-accent-emerald/10',
+    gradFrom: 'from-accent-emerald/[0.09]',
+    iconBadge: 'icon-badge-emerald',
+    iconText: 'text-accent-emerald',
+    titleColor: 'text-accent-emerald',
+    glowHover: 'glow-hover-emerald',
     steps: [
       { label: 'Evidence standards', href: '/trust/methodology' },
       { label: 'Safety & disclaimers', href: '/trust/disclaimers' },
@@ -62,11 +71,14 @@ export function SiteGuide() {
 
         <div className="grid md:grid-cols-3 gap-6">
           {paths.map((path) => (
-            <div key={path.title} className="glass rounded-2xl p-6">
-              <div className={`w-10 h-10 rounded-xl ${path.bg} flex items-center justify-center mb-4`}>
-                <path.icon className={`w-5 h-5 ${path.color}`} />
+            <div
+              key={path.title}
+              className={`rounded-2xl p-6 border border-border/60 bg-gradient-to-br ${path.gradFrom} to-transparent backdrop-blur-sm transition-all duration-300 ${path.glowHover}`}
+            >
+              <div className={`w-10 h-10 rounded-xl flex items-center justify-center mb-4 ${path.iconBadge}`}>
+                <path.icon className={`w-5 h-5 ${path.iconText}`} />
               </div>
-              <h3 className={`font-bold mb-4 ${path.color}`}>{path.title}</h3>
+              <h3 className={`font-bold mb-4 ${path.titleColor}`}>{path.title}</h3>
               <ul className="space-y-2">
                 {path.steps.map((step) => (
                   <li key={step.label}>

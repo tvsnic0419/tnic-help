@@ -39,7 +39,8 @@ const resourceLinks = [
 
 export function Footer() {
   return (
-    <footer className="border-t border-border py-12 md:py-16" role="contentinfo">
+    <footer className="relative py-12 md:py-16" role="contentinfo">
+      <div className="absolute top-0 inset-x-0 h-px bg-gradient-to-r from-transparent via-accent-cyan/40 to-transparent" />
       <div className="container-page">
         <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-10 mb-10">
           <div className="sm:col-span-2 lg:col-span-1">
@@ -106,7 +107,8 @@ export function Footer() {
           </div>
         </div>
 
-        <div className="border-t border-border pt-6 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
+        <div className="relative pt-6 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
+          <div className="absolute top-0 inset-x-0 h-px bg-gradient-to-r from-transparent via-accent-emerald/25 to-transparent" />
           <p className="text-caption font-mono">© 2026 TNiC · Independent · Evidence-First</p>
           <div className="flex flex-wrap gap-x-4 gap-y-1 text-caption font-mono">
             <span>Tier A: 4 compounds</span>

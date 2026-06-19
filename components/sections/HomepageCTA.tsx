@@ -3,6 +3,8 @@
 import Link from 'next/link';
 import { ArrowRight, Scan, BookOpen, LayoutDashboard } from 'lucide-react';
 
+type AccentKey = 'cyan' | 'rose' | 'emerald';
+
 const paths = [
   {
     icon: BookOpen,
@@ -10,7 +12,7 @@ const paths = [
     desc: 'Hallmarks, compounds, synergies — full-text search with evidence tiers.',
     href: '/library',
     cta: 'Open Library',
-    accent: 'cyan',
+    accent: 'cyan' as AccentKey,
   },
   {
     icon: Scan,
@@ -18,7 +20,7 @@ const paths = [
     desc: 'Estimate biological age from lifestyle inputs. Sets your OS profile locally.',
     href: '/tools?tab=healthspan',
     cta: 'Defense Scan',
-    accent: 'rose',
+    accent: 'rose' as AccentKey,
   },
   {
     icon: LayoutDashboard,
@@ -26,14 +28,38 @@ const paths = [
     desc: 'Stack, labs, milestones, hallmark grid — unified dashboard. Data stays local.',
     href: '/dashboard',
     cta: 'Open Dashboard',
-    accent: 'emerald',
+    accent: 'emerald' as AccentKey,
   },
 ];
 
-const accentMap = {
-  cyan: 'hover:border-accent-cyan/40 group-hover:text-accent-cyan',
-  rose: 'hover:border-accent-rose/40 group-hover:text-accent-rose',
-  emerald: 'hover:border-accent-emerald/40 group-hover:text-accent-emerald',
+const accentConfig: Record<AccentKey, {
+  iconBadge: string;
+  iconText: string;
+  gradFrom: string;
+  ctaText: string;
+  glowHover: string;
+}> = {
+  cyan: {
+    iconBadge: 'icon-badge-cyan',
+    iconText: 'text-accent-cyan',
+    gradFrom: 'from-accent-cyan/[0.08]',
+    ctaText: 'text-accent-cyan',
+    glowHover: 'glow-hover-cyan',
+  },
+  rose: {
+    iconBadge: 'icon-badge-rose',
+    iconText: 'text-accent-rose',
+    gradFrom: 'from-accent-rose/[0.08]',
+    ctaText: 'text-accent-rose',
+    glowHover: 'glow-hover-rose',
+  },
+  emerald: {
+    iconBadge: 'icon-badge-emerald',
+    iconText: 'text-accent-emerald',
+    gradFrom: 'from-accent-emerald/[0.08]',
+    ctaText: 'text-accent-emerald',
+    glowHover: 'glow-hover-emerald',
+  },
 };
 
 export function HomepageCTA() {
@@ -50,22 +76,27 @@ export function HomepageCTA() {
           </p>
         </div>
 
-        <div className="grid md:grid-cols-3 gap-6 mb-12">
-          {paths.map((path) => (
-            <Link
-              key={path.title}
-              href={path.href}
-              className={`glass glass-hover rounded-2xl p-7 group transition-all ${accentMap[path.accent as keyof typeof accentMap]}`}
-            >
-              <path.icon className="w-6 h-6 text-muted-foreground group-hover:scale-110 transition-transform mb-4" />
-              <h3 className="font-bold mb-2">{path.title}</h3>
-              <p className="text-sm text-muted-foreground mb-5 leading-relaxed">{path.desc}</p>
-              <span className="inline-flex items-center gap-2 text-sm font-semibold transition">
-                {path.cta}{' '}
-                <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
-              </span>
-            </Link>
-          ))}
+        <div className="grid md:grid-cols-3 gap-6 mb-14">
+          {paths.map((path) => {
+            const cfg = accentConfig[path.accent];
+            return (
+              <Link
+                key={path.title}
+                href={path.href}
+                className={`group block rounded-2xl p-7 border border-border/60 bg-gradient-to-br ${cfg.gradFrom} to-transparent backdrop-blur-sm transition-all duration-300 ${cfg.glowHover}`}
+              >
+                <div className={`w-11 h-11 rounded-xl flex items-center justify-center mb-5 ${cfg.iconBadge}`}>
+                  <path.icon className={`w-5 h-5 ${cfg.iconText}`} aria-hidden="true" />
+                </div>
+                <h3 className="font-bold mb-2">{path.title}</h3>
+                <p className="text-sm text-muted-foreground mb-5 leading-relaxed">{path.desc}</p>
+                <span className={`inline-flex items-center gap-2 text-sm font-semibold ${cfg.ctaText} group-hover:gap-3 transition-all`}>
+                  {path.cta}
+                  <ArrowRight className="w-4 h-4" />
+                </span>
+              </Link>
+            );
+          })}
         </div>
 
         <div className="gradient-border p-8 md:p-12 text-center max-w-3xl mx-auto">
@@ -79,14 +110,14 @@ export function HomepageCTA() {
           <div className="flex flex-col sm:flex-row gap-3 justify-center">
             <Link
               href="/dashboard"
-              className="bg-white text-black px-8 py-3.5 rounded-xl font-semibold text-sm hover:bg-accent-emerald transition-all text-center flex items-center justify-center gap-2"
+              className="focus-ring glow-hover-emerald bg-gradient-to-r from-accent-cyan to-accent-emerald text-black px-8 py-3.5 rounded-xl font-semibold text-sm text-center flex items-center justify-center gap-2 transition-all"
             >
               <LayoutDashboard className="w-4 h-4" />
               Launch Longevity OS
             </Link>
             <Link
               href="/library"
-              className="glass px-8 py-3.5 rounded-xl font-semibold text-sm hover:border-accent-violet/40 transition-all flex items-center justify-center gap-2"
+              className="focus-ring glass glow-hover-violet px-8 py-3.5 rounded-xl font-semibold text-sm text-accent-violet flex items-center justify-center gap-2 transition-all"
             >
               <BookOpen className="w-4 h-4" />
               Browse Library <ArrowRight className="w-4 h-4" />

@@ -47,7 +47,7 @@ export function Nav() {
               <Link
                 key={link.href}
                 href={link.href}
-                className="focus-ring interactive px-3 py-2 rounded-lg text-sm font-medium text-muted-foreground hover:text-accent-cyan"
+                className="focus-ring interactive px-3 py-2 rounded-lg text-sm font-medium text-muted-foreground hover:text-foreground hover:bg-accent-cyan/8 transition-all"
               >
                 {link.label}
               </Link>
@@ -55,7 +55,7 @@ export function Nav() {
               <a
                 key={link.href}
                 href={link.href}
-                className="focus-ring interactive px-3 py-2 rounded-lg text-sm font-medium text-muted-foreground hover:text-accent-cyan"
+                className="focus-ring interactive px-3 py-2 rounded-lg text-sm font-medium text-muted-foreground hover:text-foreground hover:bg-accent-cyan/8 transition-all"
               >
                 {link.label}
               </a>
@@ -68,7 +68,7 @@ export function Nav() {
           <SiteSearch />
           <Link
             href="/dashboard"
-            className="focus-ring interactive flex items-center gap-2 bg-foreground text-background px-5 py-2.5 min-h-[var(--space-touch)] rounded-full text-sm font-semibold hover:bg-accent-emerald hover:text-primary-foreground"
+            className="focus-ring interactive flex items-center gap-2 bg-gradient-to-r from-accent-cyan to-accent-emerald text-black px-5 py-2.5 min-h-[var(--space-touch)] rounded-full text-sm font-semibold shadow-sm glow-hover-emerald"
           >
             Open OS
             <ArrowRight className="w-4 h-4" aria-hidden="true" />
