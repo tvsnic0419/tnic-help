@@ -57,7 +57,7 @@ export function HeroSection() {
             >
               <Link
                 href="/quiz"
-                className="focus-ring interactive group bg-white text-black px-6 md:px-8 py-4 min-h-[var(--space-touch)] rounded-2xl font-semibold flex items-center justify-center gap-3 hover:bg-accent-cyan hover:text-black shadow-lg shadow-white/10"
+                className="focus-ring interactive group relative bg-gradient-to-r from-accent-cyan to-accent-emerald text-black px-6 md:px-8 py-4 min-h-[var(--space-touch)] rounded-2xl font-semibold flex items-center justify-center gap-3 shadow-lg glow-hover-cyan"
               >
                 <ClipboardList className="w-5 h-5" aria-hidden="true" />
                 Start 3-Min Quiz

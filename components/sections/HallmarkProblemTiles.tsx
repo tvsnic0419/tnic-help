@@ -8,6 +8,85 @@ import { HallmarkIcon } from '@/components/library/HallmarkIcon';
 import { EvidenceTag } from '@/components/trust/EvidenceTag';
 import type { EvidenceTier } from '@/lib/types';
 
+type AccentKey = 'cyan' | 'amber' | 'violet' | 'emerald' | 'rose';
+
+const hallmarkAccent: Record<string, AccentKey> = {
+  genomic:       'cyan',
+  telomeres:     'amber',
+  epigenetic:    'violet',
+  proteostasis:  'violet',
+  autophagy:     'cyan',
+  mito:          'emerald',
+  senescence:    'rose',
+  stem:          'violet',
+  communication: 'amber',
+  inflammation:  'rose',
+  dysbiosis:     'emerald',
+  nutrient:      'amber',
+};
+
+const accentClasses: Record<AccentKey, {
+  titleHover: string;
+  badgeBg: string;
+  badgeText: string;
+  badgeBorder: string;
+  barGrad: string;
+  coverageText: string;
+  iconWrap: string;
+  glowHover: string;
+}> = {
+  cyan: {
+    titleHover: 'group-hover:text-accent-cyan',
+    badgeBg: 'bg-accent-cyan/10',
+    badgeText: 'text-accent-cyan',
+    badgeBorder: 'border-accent-cyan/25',
+    barGrad: 'from-accent-cyan/70 to-accent-cyan',
+    coverageText: 'text-accent-cyan',
+    iconWrap: 'icon-badge-cyan',
+    glowHover: 'glow-hover-cyan',
+  },
+  amber: {
+    titleHover: 'group-hover:text-accent-amber',
+    badgeBg: 'bg-accent-amber/10',
+    badgeText: 'text-accent-amber',
+    badgeBorder: 'border-accent-amber/25',
+    barGrad: 'from-accent-amber/70 to-accent-amber',
+    coverageText: 'text-accent-amber',
+    iconWrap: 'icon-badge-amber',
+    glowHover: 'glow-hover-amber',
+  },
+  violet: {
+    titleHover: 'group-hover:text-accent-violet',
+    badgeBg: 'bg-accent-violet/10',
+    badgeText: 'text-accent-violet',
+    badgeBorder: 'border-accent-violet/25',
+    barGrad: 'from-accent-violet/70 to-accent-violet',
+    coverageText: 'text-accent-violet',
+    iconWrap: 'icon-badge-violet',
+    glowHover: 'glow-hover-violet',
+  },
+  emerald: {
+    titleHover: 'group-hover:text-accent-emerald',
+    badgeBg: 'bg-accent-emerald/10',
+    badgeText: 'text-accent-emerald',
+    badgeBorder: 'border-accent-emerald/25',
+    barGrad: 'from-accent-emerald/70 to-accent-emerald',
+    coverageText: 'text-accent-emerald',
+    iconWrap: 'icon-badge-emerald',
+    glowHover: 'glow-hover-emerald',
+  },
+  rose: {
+    titleHover: 'group-hover:text-accent-rose',
+    badgeBg: 'bg-accent-rose/10',
+    badgeText: 'text-accent-rose',
+    badgeBorder: 'border-accent-rose/25',
+    barGrad: 'from-accent-rose/70 to-accent-rose',
+    coverageText: 'text-accent-rose',
+    iconWrap: 'icon-badge-rose',
+    glowHover: 'glow-hover-rose',
+  },
+};
+
 export function HallmarkProblemTiles() {
   return (
     <section
@@ -37,6 +116,8 @@ export function HallmarkProblemTiles() {
           {hallmarkLibrary.map((h, i) => {
             const top = h.interventions[0];
             const tier = (top?.evidence ?? 'B') as EvidenceTier;
+            const accent = hallmarkAccent[h.id] ?? 'cyan';
+            const ac = accentClasses[accent];
 
             return (
               <motion.div
@@ -48,35 +129,39 @@ export function HallmarkProblemTiles() {
               >
                 <Link
                   href={`/library/${h.slug}`}
-                  className="focus-ring block h-full glass glass-hover rounded-2xl p-5 group border border-border/80 hover:border-accent-violet/30 transition-all"
+                  className={`focus-ring block h-full glass rounded-2xl p-5 group border border-border/60 transition-all duration-300 ${ac.glowHover}`}
                 >
-                  <div className="flex items-start justify-between gap-3 mb-3">
-                    <HallmarkIcon type={h.visual} size={36} />
-                    <span className="text-label">
+                  <div className="flex items-start justify-between gap-3 mb-4">
+                    <div className={`rounded-xl p-2.5 ${ac.iconWrap}`}>
+                      <HallmarkIcon type={h.visual} size={24} />
+                    </div>
+                    <span className={`text-[10px] font-bold font-mono px-2 py-1 rounded-lg border ${ac.badgeBg} ${ac.badgeText} ${ac.badgeBorder}`}>
                       #{String(h.number).padStart(2, '0')}
                     </span>
                   </div>
 
-                  <h3 className="font-bold text-sm mb-1 group-hover:text-accent-violet transition leading-snug">
+                  <h3 className={`font-bold text-sm mb-1.5 leading-snug transition-colors ${ac.titleHover}`}>
                     {h.title}
                   </h3>
-                  <p className="text-xs text-muted-foreground mb-3 line-clamp-2 leading-relaxed">
+                  <p className="text-xs text-muted-foreground mb-4 line-clamp-2 leading-relaxed">
                     {h.tagline}
                   </p>
 
-                  <div className="flex items-center gap-2 mb-3">
-                    <div className="flex-1 h-1.5 rounded-full bg-muted overflow-hidden">
+                  <div className="flex items-center gap-2 mb-4">
+                    <div className="flex-1 h-1.5 rounded-full bg-muted/60 overflow-hidden">
                       <div
-                        className="h-full rounded-full bg-gradient-to-r from-accent-cyan to-accent-violet"
+                        className={`h-full rounded-full bg-gradient-to-r ${ac.barGrad}`}
                         style={{ width: `${h.coverage}%` }}
                       />
                     </div>
-                    <span className="text-label">{h.coverage}%</span>
+                    <span className={`text-[10px] font-mono font-semibold tabular-nums ${ac.coverageText}`}>
+                      {h.coverage}%
+                    </span>
                   </div>
 
                   {top && (
-                    <div className="pt-3 border-t border-border/60">
-                      <p className="text-label text-accent-emerald mb-1">
+                    <div className="pt-3 border-t border-border/40">
+                      <p className={`text-[10px] font-mono font-semibold uppercase tracking-wider mb-1 ${ac.badgeText}`}>
                         Top intervention
                       </p>
                       <div className="flex items-center justify-between gap-2">
@@ -86,8 +171,8 @@ export function HallmarkProblemTiles() {
                     </div>
                   )}
 
-                  <span className="inline-flex items-center gap-1 text-xs font-semibold text-accent-cyan mt-4 opacity-0 group-hover:opacity-100 transition-opacity">
-                    Open module <ArrowRight className="w-3.5 h-3.5" />
+                  <span className={`inline-flex items-center gap-1 text-xs font-semibold mt-3 opacity-0 group-hover:opacity-100 transition-opacity duration-200 ${ac.badgeText}`}>
+                    Open module <ArrowRight className="w-3 h-3" />
                   </span>
                 </Link>
               </motion.div>
@@ -95,10 +180,10 @@ export function HallmarkProblemTiles() {
           })}
         </div>
 
-        <div className="flex flex-col sm:flex-row items-center justify-center gap-3 mt-10">
+        <div className="flex flex-col sm:flex-row items-center justify-center gap-3 mt-12">
           <Link
             href="/library"
-            className="focus-ring interactive inline-flex items-center gap-2 px-6 py-3 rounded-xl glass glass-hover text-sm font-semibold"
+            className="focus-ring interactive inline-flex items-center gap-2 px-6 py-3 rounded-xl glass glow-hover-cyan text-sm font-semibold"
           >
             Explore full library <ArrowRight className="w-4 h-4" />
           </Link>
