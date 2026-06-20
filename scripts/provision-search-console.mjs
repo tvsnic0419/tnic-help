@@ -215,15 +215,28 @@ async function fallbackHtmlVerification(page, token) {
   return true;
 }
 
-async function main() {
-  mkdirSync(PROFILE_DIR, { recursive: true });
-
-  const context = await chromium.launchPersistentContext(PROFILE_DIR, {
+async function launchBrowser() {
+  const opts = {
     channel: 'chrome',
     headless: false,
     viewport: null,
     args: ['--start-maximized'],
-  });
+  };
+  mkdirSync(PROFILE_DIR, { recursive: true });
+  try {
+    return await chromium.launchPersistentContext(PROFILE_DIR, opts);
+  } catch (err) {
+    if (!String(err).includes('already in use')) throw err;
+    const alt = join(homedir(), '.tnic-gsc-profile-tmp');
+    mkdirSync(alt, { recursive: true });
+    console.warn('Chrome profile locked — using temporary profile. Prefer: node scripts/verify-google-dns.mjs');
+    return await chromium.launchPersistentContext(alt, opts);
+  }
+}
+
+async function main() {
+  console.log('Launching Chrome for Search Console…');
+  const context = await launchBrowser();
 
   const page = context.pages()[0] ?? (await context.newPage());
   page.setDefaultTimeout(TIMEOUT);
