@@ -307,6 +307,17 @@ export const disclaimers: DisclaimerBlock[] = [
 export const updateHistory: UpdateHistoryEntry[] = [
   {
     date: '2026-06-20',
+    version: '1.35.0',
+    title: 'Sprint 35 — Site health polish + safety coverage',
+    category: 'safety',
+    changes: [
+      'Safety profiles for Taurine, Spermidine, Pterostilbene — Trust Center no longer breaks on Tier B compounds',
+      'Elite 8 LQ scores render on first paint (SSR-friendly counter); compare tool blocks identical matchups',
+      'Products hub library-only section; biomarker targeting for new compounds; expanded self-heal route checks',
+    ],
+  },
+  {
+    date: '2026-06-20',
     version: '1.34.0',
     title: 'Sprint 34 — Tier B Compound Expansion (Taurine, Spermidine, Pterostilbene)',
     category: 'content',

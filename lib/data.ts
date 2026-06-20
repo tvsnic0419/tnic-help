@@ -229,7 +229,7 @@ export const biomarkers = [
     optimal: '80–100',
     critical: '<50',
     desc: 'Essential coenzyme for 500+ enzymatic reactions and the required substrate for SIRT1/3 and PARP-mediated DNA repair. Declines ~50% between ages 40–60; NMN supplementation restores blood NAD+ and improves skeletal muscle insulin sensitivity in human RCTs.',
-    compounds: ['nmn', 'resveratrol'],
+    compounds: ['nmn', 'resveratrol', 'pterostilbene', 'taurine'],
   },
   {
     id: 'hscrp',
@@ -238,7 +238,7 @@ export const biomarkers = [
     optimal: '<1.0',
     critical: '>3.0',
     desc: 'High-sensitivity C-reactive protein is the primary marker of low-grade systemic inflammation (inflammaging). Values above 3.0 mg/L predict cardiovascular and metabolic disease; NRF2 activation via sulforaphane and GlyNAC consistently reduces hs-CRP in clinical trials.',
-    compounds: ['sulforaphane', 'resveratrol', 'glynac'],
+    compounds: ['sulforaphane', 'resveratrol', 'glynac', 'taurine', 'pterostilbene'],
   },
   {
     id: 'oxldl',
@@ -265,7 +265,7 @@ export const biomarkers = [
     optimal: '<15',
     critical: '>30',
     desc: 'Urinary 8-hydroxy-2-deoxyguanosine is the gold-standard biomarker for oxidative DNA damage and genomic instability — the first of the 12 hallmarks of aging. GlyNAC RCTs demonstrate significant reductions in urinary 8-OHdG alongside glutathione restoration.',
-    compounds: ['glynac', 'nmn', 'sulforaphane'],
+    compounds: ['glynac', 'nmn', 'sulforaphane', 'taurine', 'spermidine'],
   },
   {
     id: 'il6',
@@ -274,7 +274,7 @@ export const biomarkers = [
     optimal: '<1.5',
     critical: '>3.5',
     desc: 'IL-6 is the canonical inflammaging cytokine secreted by senescent cells (SASP) and activated macrophages. Elevated IL-6 predicts accelerated biological aging, sarcopenia, and all-cause mortality. Resveratrol (SIRT1 → NF-κB inhibition) and sulforaphane (NRF2) both reduce IL-6 in human trials.',
-    compounds: ['resveratrol', 'sulforaphane', 'glynac'],
+    compounds: ['resveratrol', 'sulforaphane', 'glynac', 'pterostilbene', 'spermidine'],
   },
   {
     id: 'hcy',
@@ -904,6 +904,24 @@ export const safetyNotes = [
     cautions: ['Poor bioavailability in standard forms — trans-resveratrol with piperine or micellization preferred', 'May inhibit platelet aggregation'],
     avoidIf: ['Scheduled surgery within 2 weeks'],
     consultIf: ['Blood thinners (warfarin, aspirin)', 'Liver disease', 'Hormone-sensitive conditions'],
+  },
+  {
+    compoundId: 'taurine',
+    cautions: ['Generally well-tolerated; high doses may cause mild GI upset in sensitive individuals', 'Declines sharply with age — repletion is mechanistic, not a cure-all'],
+    avoidIf: [],
+    consultIf: ['Kidney disease', 'Pregnant or nursing', 'Taking lithium or hypotensive medications'],
+  },
+  {
+    compoundId: 'spermidine',
+    cautions: ['Wheat-germ extracts may contain gluten traces — verify label if celiac', 'Start low; autophagy induction can cause transient fatigue in some users'],
+    avoidIf: ['Known wheat or polyamine sensitivity'],
+    consultIf: ['Autoimmune conditions on immunomodulators', 'Pregnant or nursing'],
+  },
+  {
+    compoundId: 'pterostilbene',
+    cautions: ['May lower LDL and blood glucose at higher doses — monitor lipids if on statins', 'Methylated stilbenoid — pairs with NMN PM dosing like resveratrol'],
+    avoidIf: ['Scheduled surgery within 2 weeks (platelet effects, similar to resveratrol)'],
+    consultIf: ['Statins or lipid-lowering drugs', 'Diabetes medications', 'Blood thinners'],
   },
 ];
 

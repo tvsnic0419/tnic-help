@@ -419,6 +419,15 @@ export const nextUpImprovements: NextUpItem[] = [
     href: '/library/compounds/taurine',
     tags: ['content', 'library'],
   },
+  {
+    id: 'sprint35-site-health-polish',
+    title: 'Sprint 35 — Site health polish + safety coverage',
+    desc: 'Tier B safety profiles, Elite 8 SSR scores, products library-only rail, biomarker mappings, self-heal route expansion.',
+    status: 'shipped',
+    sprint: 'Sprint 35',
+    href: '/trust',
+    tags: ['ux', 'fix'],
+  },
 ];
 
 export const nextUpByStatus = {

@@ -34,8 +34,9 @@ export function TrustCenter() {
   const [tab, setTab] = useState<TabId>('standards');
   const [selectedSafety, setSelectedSafety] = useState(safetyNotes[0].compoundId);
 
-  const safety = safetyNotes.find((s) => s.compoundId === selectedSafety)!;
-  const compound = compounds.find((c) => c.id === selectedSafety)!;
+  const compound = compounds.find((c) => c.id === selectedSafety) ?? compounds[0];
+  const safety =
+    safetyNotes.find((s) => s.compoundId === compound.id) ?? safetyNotes[0];
 
   return (
     <SectionShell

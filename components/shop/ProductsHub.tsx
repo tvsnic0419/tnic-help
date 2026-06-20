@@ -4,11 +4,14 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { ExternalLink, Package, ShieldCheck } from 'lucide-react';
 import { PRODUCT_PICKS, type ProductPick } from '@/lib/product-picks';
+import { compounds } from '@/lib/data';
 import { PageHeader } from '@/components/ui/PageHeader';
 import { ContextRail } from '@/components/ui/ContextRail';
 import { getHubContext } from '@/lib/hub-context';
 
 const picks = Object.values(PRODUCT_PICKS).filter((p) => p.compoundId !== 'nr');
+
+const libraryOnlyCompounds = compounds.filter((c) => !PRODUCT_PICKS[c.id]);
 
 function ProductCard({ pick }: { pick: ProductPick }) {
   return (
@@ -91,6 +94,36 @@ export function ProductsHub() {
           <ProductCard key={pick.compoundId} pick={pick} />
         ))}
       </div>
+
+      {libraryOnlyCompounds.length > 0 && (
+        <div className="mb-14">
+          <h2 className="text-lg font-bold mb-2">Evidence modules — no verified pick yet</h2>
+          <p className="text-sm text-muted-foreground mb-5 max-w-2xl">
+            These Tier B compounds have full library deep-dives and stack integration. TNiC adds manufacturer picks only after dose-matched COA verification — not before.
+          </p>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+            {libraryOnlyCompounds.map((c) => (
+              <Link
+                key={c.id}
+                href={`/library/compounds/${c.id}`}
+                className="focus-ring card-premium border border-border/60 rounded-2xl p-5 hover:border-accent-violet/40 transition group h-full"
+              >
+                <p className="text-[11px] font-semibold text-accent-cyan uppercase tracking-widest mb-1">
+                  Tier {c.evidence} · Library only
+                </p>
+                <h3 className="font-bold text-foreground group-hover:text-accent-violet transition-colors mb-2">
+                  {c.name}
+                </h3>
+                <p className="text-xs text-muted-foreground leading-relaxed line-clamp-3 mb-3">{c.desc}</p>
+                <p className="text-[11px] text-muted-foreground/80">{c.dose}</p>
+                <span className="inline-block mt-3 text-xs font-semibold text-accent-violet group-hover:underline">
+                  Read evidence module →
+                </span>
+              </Link>
+            ))}
+          </div>
+        </div>
+      )}
 
       <ContextRail
         what="Manufacturer-linked product cards with dose notes and compound deep-dive handoffs."

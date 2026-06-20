@@ -112,7 +112,7 @@ export const hubContexts: Record<
   },
   libraryModules: {
     theme: 'emerald',
-    what: '26 evidence-graded MDX modules — compounds, synergies, lifestyle pillars, and testing guides with personal tracking templates.',
+    what: '20 evidence-graded MDX modules — compounds, synergies, lifestyle pillars, and testing guides with personal tracking templates.',
     why: 'Shallow blog posts cannot support protocol decisions. Every module includes dosing, monitoring, decision trees, and PMID citations.',
     next: 'Search by compound or hallmark, read the decision tree, then log relevant labs and add compounds to your stack.',
   },

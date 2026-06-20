@@ -66,6 +66,14 @@ export const journeyMilestones: JourneyMilestone[] = [
     metric: '/trust hub live',
     personal: false,
   },
+  {
+    date: '2026 Q2',
+    title: 'Elite 8 + Tier B Expansion',
+    type: 'platform',
+    desc: 'Longevity Quotient ranking tool at /elite-8; Taurine, Spermidine, and Pterostilbene added as Tier B library compounds with full safety profiles.',
+    metric: '9 compounds · /elite-8 live',
+    personal: false,
+  },
 ];
 
 /** Template steps for user's personal longevity journey */

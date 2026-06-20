@@ -34,6 +34,8 @@ export const POPULAR_GUIDE_LINKS = [
   { href: '/library/compounds/nr', label: 'NR Guide' },
   { href: '/library/compounds/glynac', label: 'GlyNAC Guide' },
   { href: '/library/compounds/sulforaphane', label: 'Sulforaphane' },
+  { href: '/library/compounds/taurine', label: 'Taurine Guide' },
+  { href: '/elite-8', label: 'Elite 8 LQ Ranking' },
   { href: '/library/mitochondrial-dysfunction', label: 'Mitochondrial Health' },
   { href: '/library/compare', label: 'All Comparisons' },
   { href: '/faq', label: 'Longevity FAQ' },

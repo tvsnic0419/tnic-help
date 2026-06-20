@@ -23,7 +23,7 @@ jobs:
 
       - name: Check key routes return 200
         run: |
-          for ROUTE in /dashboard /products /tools /quiz /trust; do
+          for ROUTE in /dashboard /products /tools /quiz /trust /elite-8 /library /library/compounds/taurine; do
             CODE=$(curl -s -o /dev/null -w "%{http_code}" --max-time 15 "https://tnic.help${ROUTE}")
             if [ "$CODE" != "200" ]; then
               echo "FAIL: https://tnic.help${ROUTE} returned HTTP $CODE"

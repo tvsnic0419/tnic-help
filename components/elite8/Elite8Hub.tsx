@@ -14,9 +14,13 @@ import {
 } from '@/lib/elite-8-data';
 
 function AnimCounter({ target, duration = 1400, decimals = 1 }: { target: number; duration?: number; decimals?: number }) {
-  const [val, setVal] = useState(0);
+  const [val, setVal] = useState(target);
+  const [mounted, setMounted] = useState(false);
+
   useEffect(() => {
+    setMounted(true);
     let start: number | null = null;
+    setVal(0);
     const step = (ts: number) => {
       if (!start) start = ts;
       const pct = Math.min((ts - start) / duration, 1);
@@ -26,6 +30,8 @@ function AnimCounter({ target, duration = 1400, decimals = 1 }: { target: number
     const raf = requestAnimationFrame(step);
     return () => cancelAnimationFrame(raf);
   }, [target, duration, decimals]);
+
+  if (!mounted) return <span>{target.toFixed(decimals)}</span>;
   return <span>{val.toFixed(decimals)}</span>;
 }
 
@@ -259,9 +265,26 @@ function EquationBlock() {
 
 function CompareTool({ scored }: { scored: ScoredLQCompound[] }) {
   const [aId, setAId] = useState(scored[0]?.id ?? '');
-  const [bId, setBId] = useState(scored[1]?.id ?? '');
-  const pA = scored.find((p) => p.id === aId)!;
-  const pB = scored.find((p) => p.id === bId)!;
+  const [bId, setBId] = useState(scored[1]?.id ?? scored[0]?.id ?? '');
+
+  const pickAlternate = (currentId: string, otherId: string) =>
+    scored.find((p) => p.id !== currentId && p.id !== otherId)?.id ??
+    scored.find((p) => p.id !== currentId)?.id ??
+    currentId;
+
+  const handleAChange = (id: string) => {
+    setAId(id);
+    if (id === bId) setBId(pickAlternate(id, id));
+  };
+
+  const handleBChange = (id: string) => {
+    if (id === aId) setBId(pickAlternate(id, aId));
+    else setBId(id);
+  };
+
+  const pA = scored.find((p) => p.id === aId) ?? scored[0];
+  const pB = scored.find((p) => p.id === bId) ?? scored[1] ?? scored[0];
+  if (!pA || !pB) return null;
 
   return (
     <div className="card-premium border border-border/60 rounded-2xl p-6 md:p-8">
@@ -270,7 +293,7 @@ function CompareTool({ scored }: { scored: ScoredLQCompound[] }) {
         <div className="flex flex-wrap items-center gap-2 text-sm">
           <select
             value={aId}
-            onChange={(e) => setAId(e.target.value)}
+            onChange={(e) => handleAChange(e.target.value)}
             className="glass rounded-xl px-3 py-2 text-sm font-medium focus-ring"
             aria-label="Compare compound A"
           >
@@ -283,7 +306,7 @@ function CompareTool({ scored }: { scored: ScoredLQCompound[] }) {
           <span className="text-muted-foreground">vs</span>
           <select
             value={bId}
-            onChange={(e) => setBId(e.target.value)}
+            onChange={(e) => handleBChange(e.target.value)}
             className="glass rounded-xl px-3 py-2 text-sm font-medium focus-ring"
             aria-label="Compare compound B"
           >

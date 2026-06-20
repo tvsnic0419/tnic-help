@@ -19,7 +19,7 @@ export function CompoundSelectorGrid({
   className = '',
 }: CompoundSelectorGridProps) {
   return (
-    <div className={cn('grid sm:grid-cols-2 gap-3', className)}>
+    <div className={cn('grid sm:grid-cols-2 lg:grid-cols-3 gap-3', className)}>
       {compounds.map((c) => {
         const isOn = selected.includes(c.id);
         return (
