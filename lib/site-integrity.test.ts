@@ -3,6 +3,8 @@ import { compounds, researchFeed, safetyNotes } from './data';
 import { libraryModules } from './library-modules';
 import { ELITE_8_COMPOUNDS } from './elite-8-data';
 import { citationRegistry } from './trust';
+import { buildSitemapEntries } from './sitemap-urls';
+import { PRIORITY_INDEX_PATHS } from './index-priority';
 
 describe('site data integrity', () => {
   it('every stack compound has a safety profile', () => {
@@ -28,6 +30,13 @@ describe('site data integrity', () => {
         registryPmids.has(item.pmid),
         `researchFeed ${item.id} PMID ${item.pmid} missing from citationRegistry`,
       ).toBe(true);
+    }
+  });
+
+  it('sitemap includes all priority index paths', () => {
+    const urls = new Set(buildSitemapEntries().map((e) => new URL(e.url).pathname));
+    for (const path of PRIORITY_INDEX_PATHS) {
+      expect(urls.has(path), `sitemap missing ${path}`).toBe(true);
     }
   });
 
