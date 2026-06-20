@@ -230,24 +230,33 @@ export const nextUpImprovements: NextUpItem[] = [
     href: '/brief',
     tags: ['retention', 'content'],
   },
-  // Planned — Sprint 18
+  {
+    id: 'ui-overhaul-sprint-18',
+    title: 'Premium UI overhaul + contextual clarity',
+    desc: 'ContextRail what/why/next panels, card-premium surfaces, hero stat strip, section mesh backgrounds.',
+    status: 'shipped',
+    sprint: 'Sprint 18',
+    href: '/',
+    tags: ['ui', 'ux'],
+  },
+  {
+    id: 'json-ld-compound-pages',
+    title: 'Compound page JSON-LD',
+    desc: 'MedicalWebPage + ScholarlyArticle citation schema on all compound deep-dives.',
+    status: 'shipped',
+    sprint: 'Sprint 18',
+    href: '/library/compounds/nmn',
+    tags: ['seo'],
+  },
+  // Planned — Sprint 19
   {
     id: 'lifestyle-module-depth',
     title: 'Lifestyle pillar depth upgrade',
     desc: 'Sleep, exercise, and nutrition modules with hallmark decision trees and lab tie-ins.',
     status: 'planned',
-    sprint: 'Sprint 18',
+    sprint: 'Sprint 19',
     href: '/library/lifestyle/sleep',
     tags: ['content', 'library'],
-  },
-  {
-    id: 'json-ld-compound-pages',
-    title: 'Compound page JSON-LD',
-    desc: 'MedicalWebPage + citation schema on all compound deep-dives for rich search results.',
-    status: 'planned',
-    sprint: 'Sprint 18',
-    href: '/library/compounds/nmn',
-    tags: ['seo'],
   },
 ];
 

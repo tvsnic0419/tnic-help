@@ -4,13 +4,17 @@ import { motion } from 'framer-motion';
 import Link from 'next/link';
 import { ArrowRight, LayoutDashboard, Sparkles, ClipboardList } from 'lucide-react';
 import { StarterQuiz } from '@/components/sections/StarterQuiz';
+import { StatStrip } from '@/components/ui/StatStrip';
+import { ContextRail } from '@/components/ui/ContextRail';
+import { platformStats } from '@/lib/platform-stats';
 
 export function HeroSection() {
   return (
     <section
       id="hero"
-      className="relative hero-mesh noise min-h-[85vh] md:min-h-[90vh] flex items-center pt-20 md:pt-24 pb-12 md:pb-16"
+      className="relative hero-mesh noise min-h-[88vh] md:min-h-[92vh] flex items-center pt-20 md:pt-24 pb-12 md:pb-16 overflow-hidden"
     >
+      <div className="hero-beam" aria-hidden="true" />
       <div className="orb orb-1" />
       <div className="orb orb-2" />
       <div className="orb orb-3" />
@@ -22,9 +26,9 @@ export function HeroSection() {
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
-              className="inline-flex items-center gap-2 glass rounded-full px-5 py-2 mb-8 text-sm text-foreground/80"
+              className="inline-flex items-center gap-2 card-premium rounded-full px-5 py-2 mb-8 text-sm text-foreground/80"
             >
-              <Sparkles className="w-4 h-4 text-accent-emerald" aria-hidden="true" />
+              <Sparkles className="w-4 h-4 text-accent-emerald animate-pulse-glow" aria-hidden="true" />
               <span>Anti-Aging Operating System</span>
             </motion.div>
 
@@ -32,7 +36,7 @@ export function HeroSection() {
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.1 }}
-              className="text-4xl sm:text-5xl md:text-[3.25rem] font-bold tracking-tight leading-[1.05] mb-6"
+              className="text-4xl sm:text-5xl md:text-[3.5rem] font-bold tracking-tight leading-[1.05] mb-6"
             >
               Your longevity OS.
               <br />
@@ -43,11 +47,20 @@ export function HeroSection() {
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ delay: 0.2 }}
-              className="text-body max-w-xl mb-10 mx-auto lg:mx-0"
+              className="text-body max-w-xl mb-8 mx-auto lg:mx-0"
             >
               Initialize your personal command center — stack architect, lab hub, hallmark library,
               and six evidence-graded tools. No accounts. Data stays in your browser until you export.
             </motion.p>
+
+            <motion.div
+              initial={{ opacity: 0, y: 16 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.25 }}
+              className="mb-8"
+            >
+              <StatStrip stats={[...platformStats]} variant="hero" ariaLabel="Platform scale" />
+            </motion.div>
 
             <motion.div
               initial={{ opacity: 0, y: 20 }}
@@ -68,7 +81,7 @@ export function HeroSection() {
               </Link>
               <Link
                 href="/dashboard"
-                className="focus-ring interactive glass px-6 md:px-8 py-4 min-h-[var(--space-touch)] rounded-2xl font-medium hover:border-accent-emerald/30 flex items-center justify-center gap-2"
+                className="focus-ring interactive card-premium px-6 md:px-8 py-4 min-h-[var(--space-touch)] rounded-2xl font-medium hover:border-accent-emerald/30 flex items-center justify-center gap-2"
               >
                 <LayoutDashboard className="w-4 h-4" aria-hidden="true" />
                 Open Longevity OS
@@ -95,6 +108,20 @@ export function HeroSection() {
             <StarterQuiz />
           </motion.div>
         </div>
+
+        <motion.div
+          initial={{ opacity: 0, y: 24 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.55, duration: 0.6 }}
+          className="mt-14 md:mt-16 max-w-4xl mx-auto lg:mx-0"
+        >
+          <ContextRail
+            what="A privacy-first longevity operating system — not a supplement store or medical service."
+            why="Most longevity sites sell products or hide evidence tiers. TNiC grades every claim and keeps your data local."
+            next="Take the 3-min quiz for a personalized stack preset, or open your OS dashboard to start building."
+            theme="cyan"
+          />
+        </motion.div>
       </div>
     </section>
   );

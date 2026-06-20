@@ -4,6 +4,13 @@ import { motion } from 'framer-motion';
 import type { ReactNode } from 'react';
 import type { ThemeAccent } from '@/lib/design-system';
 import { themes } from '@/lib/design-system';
+import { ContextRail } from '@/components/ui/ContextRail';
+
+interface SectionContext {
+  what: string;
+  why: string;
+  next?: string;
+}
 
 interface SectionShellProps {
   id: string;
@@ -12,8 +19,10 @@ interface SectionShellProps {
   title: string;
   subtitle: string;
   badge: string;
+  context?: SectionContext;
   children: ReactNode;
   className?: string;
+  mesh?: boolean;
 }
 
 export function SectionShell({
@@ -23,15 +32,21 @@ export function SectionShell({
   title,
   subtitle,
   badge,
+  context,
   children,
   className = '',
+  mesh = false,
 }: SectionShellProps) {
   const t = themes[theme];
 
   return (
-    <section id={id} aria-labelledby={`${id}-heading`} className={`py-16 md:py-24 lg:py-32 relative ${t.glow} ${className}`}>
+    <section
+      id={id}
+      aria-labelledby={`${id}-heading`}
+      className={`py-16 md:py-24 lg:py-32 relative ${t.glow} ${mesh ? 'section-mesh' : ''} ${className}`}
+    >
       <div className="section-divider absolute top-0 left-0 right-0" aria-hidden="true" />
-      <div className={`absolute inset-0 bg-gradient-to-b from-white/[0.03] to-transparent pointer-events-none`} aria-hidden="true" />
+      <div className="absolute inset-0 bg-gradient-to-b from-white/[0.03] to-transparent pointer-events-none" aria-hidden="true" />
 
       <div className="relative container-page">
         <motion.header
@@ -39,7 +54,7 @@ export function SectionShell({
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: '-60px' }}
           transition={{ duration: 0.5 }}
-          className="mb-10 md:mb-14"
+          className="mb-10 md:mb-14 section-header-mesh"
         >
           <div className="flex flex-col lg:flex-row lg:items-end lg:justify-between gap-6">
             <div className="max-w-2xl">
@@ -47,13 +62,22 @@ export function SectionShell({
                 {mod && (
                   <span className={`text-label ${t.text} opacity-80 hidden sm:inline`}>{mod}</span>
                 )}
-                <span className={`w-1.5 h-1.5 rounded-full ${t.dot}`} aria-hidden="true" />
+                <span className={`w-1.5 h-1.5 rounded-full ${t.dot} animate-pulse-glow`} aria-hidden="true" />
                 <span className={`text-label ${t.text}`}>{badge}</span>
               </div>
               <h2 id={`${id}-heading`} className="heading-section mb-3">{title}</h2>
               <p className="text-body">{subtitle}</p>
             </div>
           </div>
+          {context && (
+            <ContextRail
+              what={context.what}
+              why={context.why}
+              next={context.next}
+              theme={theme}
+              className="mt-8"
+            />
+          )}
         </motion.header>
 
         {children}

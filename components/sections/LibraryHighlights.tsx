@@ -3,6 +3,7 @@
 import Link from 'next/link';
 import { motion } from 'framer-motion';
 import { Layers, FlaskConical, ArrowRight, ExternalLink } from 'lucide-react';
+import { ContextRail } from '@/components/ui/ContextRail';
 import { featuredStacks, latestResearch } from '@/lib/homepage';
 import { compounds } from '@/lib/data';
 
@@ -14,9 +15,9 @@ const impactColor = {
 
 export function LibraryHighlights() {
   return (
-    <section id="library" className="py-20 md:py-28 bg-background border-b border-border section-glow-violet">
+    <section id="library" className="py-20 md:py-28 bg-background border-b border-border section-glow-violet section-mesh">
       <div className="container-page">
-        <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-6 mb-12">
+        <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-6 mb-8 section-header-mesh">
           <div>
             <p className="text-label text-accent-violet mb-3">THE LIBRARY</p>
             <h2 className="heading-section">
@@ -28,11 +29,19 @@ export function LibraryHighlights() {
           </div>
           <Link
             href="/library"
-            className="focus-ring inline-flex items-center gap-2 text-sm font-semibold text-accent-violet bg-accent-violet/10 border border-accent-violet/25 px-4 py-2 rounded-xl hover:bg-accent-violet/20 transition shrink-0"
+            className="focus-ring inline-flex items-center gap-2 text-sm font-semibold text-accent-violet card-premium px-4 py-2 rounded-xl hover:bg-accent-violet/10 transition shrink-0"
           >
             Full library <ArrowRight className="w-4 h-4" />
           </Link>
         </div>
+
+        <ContextRail
+          what="Evidence-graded stacks and live research headlines — both linked to compound deep-dives."
+          why="Knowing what to take requires knowing what the science actually says, not marketing claims."
+          next="Browse featured stacks for presets, or follow research headlines to Protocol Brief issues."
+          theme="violet"
+          className="mb-12"
+        />
 
         <div className="grid lg:grid-cols-2 gap-10">
           {/* Featured Stacks */}
@@ -52,7 +61,7 @@ export function LibraryHighlights() {
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
                   transition={{ delay: i * 0.05 }}
-                  className="group block rounded-2xl p-5 border border-border/60 bg-gradient-to-br from-accent-violet/[0.07] to-transparent backdrop-blur-sm glow-hover-violet transition-all duration-300"
+                  className="group block rounded-2xl p-5 border border-border/60 card-premium bg-gradient-to-br from-accent-violet/[0.07] to-transparent glow-hover-violet transition-all duration-300"
                 >
                   <div className="flex justify-between items-start mb-3">
                     <span className="text-[10px] font-mono font-semibold text-accent-violet bg-accent-violet/10 border border-accent-violet/20 px-2 py-0.5 rounded-lg">{stack.compoundCount} compounds</span>
@@ -95,7 +104,7 @@ export function LibraryHighlights() {
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
                   transition={{ delay: i * 0.05 }}
-                  className="group block rounded-2xl p-5 border border-border/60 bg-gradient-to-br from-accent-emerald/[0.06] to-transparent backdrop-blur-sm glow-hover-emerald transition-all duration-300 flex gap-4"
+                  className="group block rounded-2xl p-5 border border-border/60 card-premium bg-gradient-to-br from-accent-emerald/[0.06] to-transparent glow-hover-emerald transition-all duration-300 flex gap-4"
                 >
                   <div className="flex-1 min-w-0">
                     <div className="flex flex-wrap items-center gap-2 mb-2">

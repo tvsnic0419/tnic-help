@@ -31,6 +31,12 @@ export function ResearchIntel() {
       badge="Research Intelligence"
       title="Longevity Intel Feed"
       subtitle="Lifespan.io publishes the news. TNiC connects it to your protocol. Every study mapped to actionable compounds and biomarkers."
+      context={{
+        what: 'A curated feed of longevity research headlines with protocol links to hallmarks, compounds, and stacks.',
+        why: 'Raw science news is disconnected from action. TNiC bridges every headline to your personal OS.',
+        next: 'Expand any item to see protocol links, then follow to the matching Protocol Brief issue.',
+      }}
+      mesh
       className="bg-[#0a0f1a]/60"
     >
       <div className="flex flex-wrap gap-2 mb-8">

@@ -307,6 +307,18 @@ export const disclaimers: DisclaimerBlock[] = [
 export const updateHistory: UpdateHistoryEntry[] = [
   {
     date: '2026-06-19',
+    version: '1.18.0',
+    title: 'Sprint 18 — Premium UI Overhaul & Compound JSON-LD',
+    category: 'feature',
+    changes: [
+      'ContextRail what/why/next panels on hero, OS funnel, site guide, library, and research intel',
+      'Premium visual system — card-premium, stat-card, section-mesh, hero-beam, noise texture',
+      'Animated StatStrip with platform metrics in hero; upgraded SectionShell and PageHeader',
+      'MedicalWebPage + PMID citation JSON-LD on all compound deep-dive modules',
+    ],
+  },
+  {
+    date: '2026-06-19',
     version: '1.17.0',
     title: 'Sprint 17 — NR Expansion & Brief Research Sync',
     category: 'feature',

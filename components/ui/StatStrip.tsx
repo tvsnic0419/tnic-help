@@ -1,24 +1,42 @@
+'use client';
+
+import { motion } from 'framer-motion';
+
 interface StatItem {
   label: string;
   value: string | number;
   color?: string;
+  sublabel?: string;
 }
 
 interface StatStripProps {
   stats: StatItem[];
   ariaLabel?: string;
+  variant?: 'default' | 'hero';
 }
 
-export function StatStrip({ stats, ariaLabel = 'Key metrics' }: StatStripProps) {
+export function StatStrip({ stats, ariaLabel = 'Key metrics', variant = 'default' }: StatStripProps) {
   return (
-    <div className="summary-strip mb-8" role="group" aria-label={ariaLabel}>
-      {stats.map((stat) => (
-        <div key={stat.label} className="card-base p-4 text-center">
-          <p className={`text-2xl md:text-3xl font-bold tabular-nums ${stat.color ?? 'text-foreground'}`}>
-            {stat.value}
-          </p>
+    <div
+      className={`summary-strip ${variant === 'hero' ? 'mb-0' : 'mb-8'}`}
+      role="group"
+      aria-label={ariaLabel}
+    >
+      {stats.map((stat, i) => (
+        <motion.div
+          key={stat.label}
+          initial={{ opacity: 0, y: 16 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ delay: i * 0.08, duration: 0.4 }}
+          className="stat-card"
+        >
+          <p className={`stat-value ${stat.color ?? ''}`}>{stat.value}</p>
           <p className="text-label mt-1.5">{stat.label}</p>
-        </div>
+          {stat.sublabel && (
+            <p className="text-caption mt-0.5">{stat.sublabel}</p>
+          )}
+        </motion.div>
       ))}
     </div>
   );

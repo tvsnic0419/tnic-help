@@ -1,6 +1,8 @@
 import type { Metadata } from 'next';
 import { consumerFAQ } from './data';
 import { SITE, LONGEVITY_KEYWORDS } from './site';
+import type { SourceCitation } from './types';
+import { citationRegistry } from './trust';
 
 export function buildPageMetadata({
   title,
@@ -80,6 +82,61 @@ export function buildFaqSchema() {
       '@type': 'Question',
       name: f.question,
       acceptedAnswer: { '@type': 'Answer', text: f.answer },
+    })),
+  };
+}
+
+/** Map compound module slugs to registry citations for JSON-LD */
+export function getCompoundCitations(slug: string, compoundId?: string): SourceCitation[] {
+  const key = compoundId ?? slug;
+  const prefix = `c-${key.replace('cakg', 'akg').replace('sulforaphane', 'sf').replace('resveratrol', 'resv').replace('glynac', 'glynac').replace('rapamycin', 'rapa')}`;
+  return citationRegistry.filter((c) => c.id.startsWith(prefix));
+}
+
+export function buildMedicalWebPageSchema({
+  title,
+  description,
+  path,
+  dateModified,
+  evidenceTier,
+  citations = [],
+}: {
+  title: string;
+  description: string;
+  path: string;
+  dateModified?: string;
+  evidenceTier?: string;
+  citations?: SourceCitation[];
+}) {
+  const url = `${SITE.url}${path}`;
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'MedicalWebPage',
+    name: title,
+    headline: title,
+    description,
+    url,
+    dateModified: dateModified ?? new Date().toISOString().split('T')[0],
+    author: { '@type': 'Organization', name: SITE.name, url: SITE.url },
+    publisher: { '@type': 'Organization', name: SITE.name, url: SITE.url },
+    about: {
+      '@type': 'MedicalEntity',
+      name: title,
+      description: evidenceTier ? `Evidence tier ${evidenceTier} longevity intervention` : undefined,
+    },
+    isAccessibleForFree: true,
+    educationalUse: 'Longevity education — not medical advice',
+    mainEntityOfPage: { '@type': 'WebPage', '@id': url },
+    citation: citations.map((c) => ({
+      '@type': 'ScholarlyArticle',
+      name: c.title,
+      author: c.authors,
+      datePublished: String(c.year),
+      isPartOf: { '@type': 'Periodical', name: c.journal },
+      identifier: c.pmid
+        ? { '@type': 'PropertyValue', propertyID: 'PMID', value: c.pmid }
+        : undefined,
+      url: c.pmid ? `https://pubmed.ncbi.nlm.nih.gov/${c.pmid}/` : undefined,
     })),
   };
 }

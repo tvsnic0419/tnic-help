@@ -37,7 +37,7 @@ export function HomepageTrustStrip() {
               <Link
                 key={badge.label}
                 href={badge.href}
-                className={`focus-ring glass rounded-xl p-4 text-center transition-all group block ${ac.hoverBg}`}
+                className={`focus-ring card-premium rounded-xl p-4 text-center transition-all group block ${ac.hoverBg}`}
               >
                 <badge.icon
                   className={`w-5 h-5 ${ac.icon} mx-auto mb-2 group-hover:scale-110 transition-transform`}
