@@ -1,15 +1,17 @@
 'use client';
 
 import { useState } from 'react';
+import Link from 'next/link';
 import { motion, AnimatePresence } from 'framer-motion';
-import { ExternalLink, BookOpen, FlaskConical, Zap } from 'lucide-react';
+import { ExternalLink, BookOpen, FlaskConical, Zap, ArrowRight } from 'lucide-react';
 import { SectionShell } from '@/components/SectionShell';
 import { researchFeed } from '@/lib/data';
+import { researchImpactStyles } from '@/lib/research-intel';
 
-const impactStyles = {
-  breakthrough: { icon: Zap, color: 'text-accent-amber bg-accent-amber/10', label: 'Breakthrough' },
-  clinical: { icon: FlaskConical, color: 'text-accent-emerald bg-accent-emerald/10', label: 'Clinical Trial' },
-  preclinical: { icon: BookOpen, color: 'text-accent-cyan bg-accent-cyan/10', label: 'Preclinical' },
+const impactIcons = {
+  breakthrough: Zap,
+  clinical: FlaskConical,
+  preclinical: BookOpen,
 };
 
 const tags = ['All', ...Array.from(new Set(researchFeed.map((r) => r.tag)))];
@@ -35,7 +37,7 @@ export function ResearchIntel() {
           <button
             key={tag}
             onClick={() => setFilter(tag)}
-            className={`px-4 py-2 rounded-xl text-xs font-semibold transition-all ${
+            className={`focus-ring px-4 py-2 rounded-xl text-xs font-semibold transition-all ${
               filter === tag ? 'bg-accent-emerald text-black' : 'glass text-muted-foreground hover:text-foreground'
             }`}
           >
@@ -46,8 +48,8 @@ export function ResearchIntel() {
 
       <div className="space-y-3">
         {filtered.map((article) => {
-          const style = impactStyles[article.impact];
-          const ImpactIcon = style.icon;
+          const style = researchImpactStyles[article.impact];
+          const ImpactIcon = impactIcons[article.impact];
           const isOpen = expanded === article.id;
           return (
             <motion.div
@@ -58,11 +60,12 @@ export function ResearchIntel() {
               }`}
             >
               <button
+                type="button"
                 onClick={() => setExpanded(isOpen ? null : article.id)}
-                className="w-full flex items-start gap-4 p-6 text-left"
+                className="focus-ring w-full flex items-start gap-4 p-6 text-left"
               >
                 <div className={`w-10 h-10 rounded-xl flex items-center justify-center shrink-0 ${style.color}`}>
-                  <ImpactIcon className="w-5 h-5" aria-hidden />
+                  <ImpactIcon className="w-5 h-5" aria-hidden="true" />
                 </div>
                 <div className="flex-1 min-w-0">
                   <div className="flex flex-wrap items-center gap-2 mb-1">
@@ -91,10 +94,28 @@ export function ResearchIntel() {
                         href={`https://pubmed.ncbi.nlm.nih.gov/${article.pmid}/`}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="inline-flex items-center gap-2 text-xs text-accent-emerald hover:text-accent-cyan transition-colors font-mono"
+                        className="inline-flex items-center gap-2 text-xs text-accent-emerald hover:text-accent-cyan transition-colors font-mono mb-4"
                       >
-                        PubMed: {article.pmid} <ExternalLink className="w-3 h-3" />
+                        PubMed: {article.pmid} <ExternalLink className="w-3 h-3" aria-hidden="true" />
                       </a>
+                      {article.relatedHrefs.length > 0 && (
+                        <div className="pt-3 border-t border-border/60">
+                          <p className="text-label text-accent-emerald mb-2">Protocol links</p>
+                          <ul className="flex flex-wrap gap-2">
+                            {article.relatedHrefs.map((link) => (
+                              <li key={link.href}>
+                                <Link
+                                  href={link.href}
+                                  className="focus-ring inline-flex items-center gap-1.5 text-xs font-semibold glass px-3 py-1.5 rounded-lg hover:border-accent-emerald/30 transition"
+                                >
+                                  {link.label}
+                                  <ArrowRight className="w-3 h-3 text-accent-emerald" aria-hidden="true" />
+                                </Link>
+                              </li>
+                            ))}
+                          </ul>
+                        </div>
+                      )}
                     </div>
                   </motion.div>
                 )}

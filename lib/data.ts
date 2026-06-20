@@ -215,6 +215,10 @@ export const researchFeed = [
     summary: 'Muscle-targeted FGF21 delivery increased median lifespan and improved healthspan markers in male mice.',
     pmid: '40512345',
     impact: 'breakthrough' as const,
+    relatedHrefs: [
+      { label: 'Cellular Senescence hallmark', href: '/library/cellular-senescence' },
+      { label: 'Protocol Brief digest', href: '/brief' },
+    ],
   },
   {
     id: 'r2',
@@ -225,6 +229,12 @@ export const researchFeed = [
     summary: '24-week GlyNAC trial restored glutathione, reduced oxidative stress, and improved mitochondrial function.',
     pmid: '36656670',
     impact: 'clinical' as const,
+    presetKey: 'nrf2' as const,
+    relatedHrefs: [
+      { label: 'GlyNAC deep-dive', href: '/library/compounds/glynac' },
+      { label: 'NRF2 Defense preset', href: '/stacks?preset=nrf2' },
+      { label: 'Loss of Proteostasis', href: '/library/loss-of-proteostasis' },
+    ],
   },
   {
     id: 'r3',
@@ -235,6 +245,11 @@ export const researchFeed = [
     summary: 'Ca-AKG supplementation extended lifespan 12–14% by modulating energy metabolism and epigenetic regulation.',
     pmid: '33027664',
     impact: 'preclinical' as const,
+    relatedHrefs: [
+      { label: 'Ca-AKG module', href: '/library/compounds/cakg' },
+      { label: 'Epigenetic Alterations', href: '/library/epigenetic-alterations' },
+      { label: 'Mitochondrial preset', href: '/stacks?preset=mito' },
+    ],
   },
   {
     id: 'r4',
@@ -245,6 +260,12 @@ export const researchFeed = [
     summary: 'Placebo-controlled trial confirmed NMN safely elevates blood NAD+ and improves metabolic markers.',
     pmid: '36482258',
     impact: 'clinical' as const,
+    presetKey: 'mito' as const,
+    relatedHrefs: [
+      { label: 'NMN deep-dive', href: '/library/compounds/nmn' },
+      { label: 'NMN vs NR comparison', href: '/library/compare/nmn-vs-nr' },
+      { label: 'Mitochondrial Dysfunction', href: '/library/mitochondrial-dysfunction' },
+    ],
   },
   {
     id: 'r5',
@@ -255,6 +276,12 @@ export const researchFeed = [
     summary: 'Comprehensive review establishing NRF2 as the central node connecting oxidative stress to longevity pathways.',
     pmid: '37891234',
     impact: 'breakthrough' as const,
+    presetKey: 'nrf2' as const,
+    relatedHrefs: [
+      { label: 'Sulforaphane module', href: '/library/compounds/sulforaphane' },
+      { label: 'NRF2 Defense preset', href: '/stacks?preset=nrf2' },
+      { label: 'Genomic Instability', href: '/library/genomic-instability' },
+    ],
   },
   {
     id: 'r6',
@@ -265,6 +292,11 @@ export const researchFeed = [
     summary: 'Targeting biological aging yields 10× greater healthy lifespan gains than curing individual diseases.',
     pmid: '38234567',
     impact: 'breakthrough' as const,
+    relatedHrefs: [
+      { label: '12 Hallmarks library', href: '/library' },
+      { label: 'Full Hybrid preset', href: '/stacks?preset=hybrid' },
+      { label: 'Trust methodology', href: '/trust/methodology' },
+    ],
   },
 ];
 

@@ -1,6 +1,8 @@
 import { describe, expect, it } from 'vitest';
 import {
   buildQuizShareUrl,
+  buildQuizSharePath,
+  buildQuizOgImageUrl,
   buildQuizStacksUrl,
   buildQuizShopUrl,
   buildQuizShareText,
@@ -20,11 +22,13 @@ describe('quiz-share', () => {
     expect(isCompleteQuizAnswers({ goal: 'energy' })).toBe(false);
   });
 
-  it('builds shareable quiz URL with preset', () => {
+  it('builds OG-friendly share path and URL', () => {
+    const path = buildQuizSharePath(sampleAnswers);
+    expect(path).toContain('/quiz/share/mito?');
+    expect(path).toContain('goal=energy');
     const url = buildQuizShareUrl(sampleAnswers);
-    expect(url).toContain('https://tnic.help/quiz?');
-    expect(url).toContain('goal=energy');
-    expect(url).toContain('preset=mito');
+    expect(url).toBe(`https://tnic.help${path}`);
+    expect(buildQuizOgImageUrl('mito')).toBe('https://tnic.help/quiz/share/mito/opengraph-image');
   });
 
   it('builds stacks and shop deep links', () => {

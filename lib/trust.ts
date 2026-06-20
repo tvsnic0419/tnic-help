@@ -307,6 +307,17 @@ export const disclaimers: DisclaimerBlock[] = [
 export const updateHistory: UpdateHistoryEntry[] = [
   {
     date: '2026-06-19',
+    version: '1.16.0',
+    title: 'Sprint 16 — Research Protocol Links & Quiz Share OG',
+    category: 'feature',
+    changes: [
+      'Research intel protocol links — every feed item links to hallmarks, compounds, and stack presets',
+      'Quiz share OG cards — /quiz/share/[preset] with per-preset opengraph-image for social crawlers',
+      'Sitemap — quiz share routes and /library/delivery-systems indexed',
+    ],
+  },
+  {
+    date: '2026-06-19',
     version: '1.15.0',
     title: 'Sprint 15 — Quiz Share Cards & Citation Export',
     category: 'feature',

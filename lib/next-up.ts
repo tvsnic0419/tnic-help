@@ -184,6 +184,53 @@ export const nextUpImprovements: NextUpItem[] = [
     href: '/trust',
     tags: ['trust', 'api'],
   },
+  // Sprint 16
+  {
+    id: 'research-protocol-links',
+    title: 'Research intel protocol links',
+    desc: 'Every intel feed study links to hallmark modules, compound deep-dives, and stack presets.',
+    status: 'shipped',
+    sprint: 'Sprint 16',
+    href: '/#research',
+    tags: ['content', 'conversion'],
+  },
+  {
+    id: 'quiz-share-og',
+    title: 'Quiz share OG cards',
+    desc: 'Per-preset /quiz/share/[preset] routes with dynamic OG images for social referral handoff.',
+    status: 'shipped',
+    sprint: 'Sprint 16',
+    href: '/quiz/share/starter',
+    tags: ['seo', 'conversion'],
+  },
+  {
+    id: 'sitemap-sprint-16',
+    title: 'Sitemap expansion',
+    desc: 'Quiz share routes + delivery-systems library page indexed for discoverability.',
+    status: 'shipped',
+    sprint: 'Sprint 16',
+    href: '/sitemap.xml',
+    tags: ['seo'],
+  },
+  // Planned — Sprint 17
+  {
+    id: 'compound-expansion-nr',
+    title: 'NR vs NMN buyer guide expansion',
+    desc: 'Deep-dive module + shop verification for nicotinamide riboside with updated compare table.',
+    status: 'planned',
+    sprint: 'Sprint 17',
+    href: '/library/compare/nmn-vs-nr',
+    tags: ['content', 'library'],
+  },
+  {
+    id: 'brief-research-sync',
+    title: 'Brief ↔ Research intel sync',
+    desc: 'Auto-rotate Protocol Brief issues from research feed PMIDs with compound cross-links.',
+    status: 'planned',
+    sprint: 'Sprint 17',
+    href: '/brief',
+    tags: ['retention', 'content'],
+  },
 ];
 
 export const nextUpByStatus = {
