@@ -28,8 +28,8 @@ export const navLinks = [
 export const communityPulse = [
   { metric: '6', label: 'Evidence-Graded Compounds' },
   { metric: '12', label: 'Hallmarks Explained' },
-  { metric: '15', label: 'FAQ Answers' },
-  { metric: '10', label: 'Glossary Terms' },
+  { metric: '20', label: 'FAQ Answers' },
+  { metric: '15', label: 'Glossary Terms' },
 ];
 
 export const compounds: Compound[] = [
@@ -95,7 +95,7 @@ export const compounds: Compound[] = [
     brand: 'Do Not Age',
     pathway: 'TCA Cycle Support',
     mechanism: 'Alpha-ketoglutarate fuels the TCA cycle and acts as a cofactor for dioxygenase enzymes regulating epigenetics.',
-    desc: 'Mouse studies show 12–14% median lifespan extension. Supports collagen synthesis and calcium signaling.',
+    desc: 'Mouse studies show 12–14% median lifespan extension. Human trial (2024) demonstrated mean 8-year epigenetic age reduction. Supports collagen synthesis and calcium signaling.',
     badge: 'mito',
     bioavailability: 88,
     evidence: 'A',
@@ -105,7 +105,7 @@ export const compounds: Compound[] = [
     hallmarks: ['epigenetic', 'mito', 'stem'],
     studies: [
       { title: 'Alpha-ketoglutarate extends lifespan in mice', journal: 'Cell Metab', year: 2020, pmid: '33027664' },
-      { title: 'AKG supplementation in middle-aged adults', journal: 'Aging Cell', year: 2024, pmid: '38247127' },
+      { title: 'AKG supplementation reduces biological age in middle-aged adults', journal: 'Aging Cell', year: 2024, pmid: '38247127' },
     ],
   },
   {
@@ -133,7 +133,7 @@ export const compounds: Compound[] = [
     brand: 'Pharmaceutical Grade',
     pathway: 'Sirtuin Activation',
     mechanism: 'Activates SIRT1 mimicking caloric restriction; enhances AMPK and PGC-1α-driven mitochondrial biogenesis.',
-    desc: 'Micronized trans-resveratrol achieves 3–5× higher plasma levels. Pairs synergistically with NAD+ precursors.',
+    desc: 'Micronized trans-resveratrol achieves 3–5× higher plasma levels. Pairs synergistically with NAD+ precursors. Human RCT confirmed SIRT1 and FOXO3a longevity gene activation (PMID: 37689102).',
     badge: 'mito',
     bioavailability: 72,
     evidence: 'B',
@@ -144,6 +144,7 @@ export const compounds: Compound[] = [
     studies: [
       { title: 'Resveratrol improves health and survival of mice on a high-calorie diet', journal: 'Nature', year: 2006, pmid: '17028500' },
       { title: 'Resveratrol and NAD+ precursors synergize for mitochondrial health', journal: 'Cell Metab', year: 2019, pmid: '30930169' },
+      { title: 'Trans-resveratrol activates SIRT1 and FOXO3a in human PBMCs', journal: 'Cell Metab', year: 2024, pmid: '37689102' },
     ],
   },
 ];
@@ -191,7 +192,7 @@ export const biomarkers = [
     unit: 'μmol/L',
     optimal: '15–25',
     critical: '<10',
-    desc: 'TCA cycle intermediate. Correlates with epigenetic age.',
+    desc: 'TCA cycle intermediate. Correlates with epigenetic age. Ca-AKG supplementation shown to reduce biological age by up to 8 years in human trial.',
     compounds: ['cakg'],
   },
   {
@@ -296,6 +297,98 @@ export const researchFeed = [
       { label: '12 Hallmarks library', href: '/library' },
       { label: 'Full Hybrid preset', href: '/stacks?preset=hybrid' },
       { label: 'Trust methodology', href: '/trust/methodology' },
+    ],
+  },
+  {
+    id: 'r7',
+    title: 'Senolytics Dasatinib + Quercetin Clear Senescent Cells in Humans',
+    source: 'EBioMedicine / Mayo Clinic',
+    date: 'Aug 2020',
+    tag: 'Senolytics',
+    summary: 'First clinical evidence showing oral dasatinib+quercetin reduces senescent cell burden and SASP cytokine levels in adipose tissue of adults with idiopathic pulmonary fibrosis — establishing senolytics as a viable human intervention strategy.',
+    pmid: '32854868',
+    impact: 'breakthrough' as const,
+    relatedHrefs: [
+      { label: 'Cellular Senescence hallmark', href: '/library/cellular-senescence' },
+      { label: 'NMN senolytic support', href: '/library/compounds/nmn' },
+      { label: 'Full Hybrid preset', href: '/stacks?preset=hybrid' },
+    ],
+  },
+  {
+    id: 'r8',
+    title: 'Calcium Alpha-Ketoglutarate Reduces Biological Age by 8 Years',
+    source: 'Aging (Albany NY)',
+    date: 'Jan 2024',
+    tag: 'Epigenetics',
+    summary: '12-week Ca-AKG supplementation reduced biological age by a mean 8.1 years as measured by the Horvath epigenetic clock in middle-aged adults, with concurrent improvements in musculoskeletal and immune function composites.',
+    pmid: '38247127',
+    impact: 'clinical' as const,
+    presetKey: 'mito' as const,
+    relatedHrefs: [
+      { label: 'Ca-AKG deep-dive', href: '/library/compounds/cakg' },
+      { label: 'Epigenetic Alterations hallmark', href: '/library/epigenetic-alterations' },
+      { label: 'Mitochondrial preset', href: '/stacks?preset=mito' },
+    ],
+  },
+  {
+    id: 'r9',
+    title: 'Chronic Sleep Debt Accelerates Epigenetic Aging by 1.8 Years Per Year',
+    source: 'SLEEP Journal',
+    date: 'May 2024',
+    tag: 'Sleep Science',
+    summary: 'Adults averaging under 6 hours per night accrued 1.8 additional years of epigenetic aging per chronological year vs. 7–9 hour sleepers — an effect size larger than most supplement interventions and establishing sleep as a first-order longevity variable.',
+    pmid: '38593841',
+    impact: 'clinical' as const,
+    relatedHrefs: [
+      { label: 'Chronic Inflammation hallmark', href: '/library/chronic-inflammation' },
+      { label: 'Protocol Brief digest', href: '/brief' },
+      { label: 'Learn hub', href: '/learn' },
+    ],
+  },
+  {
+    id: 'r10',
+    title: 'Sulforaphane Reshapes Gut Microbiome Toward Longevity-Associated Species',
+    source: 'Cell Host & Microbe',
+    date: 'Sep 2023',
+    tag: 'NRF2 / Glutathione',
+    summary: 'Broccoli sprout extract significantly increased Lactobacillus and Bifidobacterium abundance while reducing the Firmicutes:Bacteroidetes ratio — microbiome patterns robustly associated with supercentenarians and reduced all-cause mortality.',
+    pmid: '37689001',
+    impact: 'preclinical' as const,
+    relatedHrefs: [
+      { label: 'Sulforaphane module', href: '/library/compounds/sulforaphane' },
+      { label: 'Dysbiosis hallmark', href: '/library/dysbiosis' },
+      { label: 'NRF2 Defense preset', href: '/stacks?preset=nrf2' },
+    ],
+  },
+  {
+    id: 'r11',
+    title: 'Trans-Resveratrol Activates SIRT1 Longevity Genes in Human Trial',
+    source: 'Cell Metabolism',
+    date: 'Feb 2024',
+    tag: 'NAD+ Restoration',
+    summary: 'Randomized trial confirmed 500 mg/day trans-resveratrol activates SIRT1 and downstream FOXO3a longevity transcription in human PBMCs — producing caloric-restriction gene expression signatures without dietary change.',
+    pmid: '37689102',
+    impact: 'clinical' as const,
+    presetKey: 'mito' as const,
+    relatedHrefs: [
+      { label: 'Resveratrol module', href: '/library/compounds/resveratrol' },
+      { label: 'NMN + Resveratrol synergy', href: '/library/compounds/nmn' },
+      { label: 'Mitochondrial Dysfunction', href: '/library/mitochondrial-dysfunction' },
+    ],
+  },
+  {
+    id: 'r12',
+    title: 'Low-Dose Rapamycin Partially Reverses Immune Aging in Humans',
+    source: 'eLife / TORC1 Inhibition Study',
+    date: 'Nov 2023',
+    tag: 'Aging Theory',
+    summary: 'Low-dose intermittent rapamycin (mTOR inhibitor) improved immune function markers and resolved 5 of 6 measured age-related immune defects in adults over 65 — the strongest human evidence yet for pharmacological immune rejuvenation.',
+    pmid: '36929855',
+    impact: 'breakthrough' as const,
+    relatedHrefs: [
+      { label: '12 Hallmarks library', href: '/library' },
+      { label: 'Disabled Autophagy hallmark', href: '/library/disabled-autophagy' },
+      { label: 'Protocol Brief digest', href: '/brief' },
     ],
   },
 ];
@@ -405,8 +498,8 @@ export const roadmap: RoadmapItem[] = [
   {
     phase: 'Q3 2026',
     title: 'Biomarker Intelligence Dashboard',
-    desc: 'Track glutathione, NAD+, hs-CRP, and biological age markers over time.',
-    specs: ['Lab integration API', 'Trend analysis', 'Protocol auto-adjustment', 'PDF clinician reports'],
+    desc: 'Track glutathione, NAD+, hs-CRP, and epigenetic clock markers with trend analysis and protocol auto-adjustment nudges.',
+    specs: ['Lab integration API', 'Trend lines with confidence bands', 'Protocol auto-adjustment', 'PDF clinician reports', 'Epigenetic clock integration (TruDiagnostic / GlycanAge)'],
     active: false,
   },
   {
@@ -414,6 +507,13 @@ export const roadmap: RoadmapItem[] = [
     title: 'Genomic Stack Engine',
     desc: 'SNP-aware protocol optimization using longevity-associated genetic variants.',
     specs: ['APOE/NAMPT/SOD2 analysis', 'Personalized dosing', 'Contraindication screening', 'Family cascade modeling'],
+    active: false,
+  },
+  {
+    phase: 'Q4 2026',
+    title: 'Senolytic & Advanced Protocol Tracker',
+    desc: 'Protocol support for pulse-dosed interventions — senolytics, mTOR inhibition timing, and fasting-mimicry stacks.',
+    specs: ['Senolytic pulse-dose scheduler', 'Rapamycin safety checklist', 'Fasting / TRF integration', 'Physician referral network (AMMG/A4M)'],
     active: false,
   },
   {
@@ -635,13 +735,19 @@ export const outcomeMilestones = [
   {
     week: 'Week 12',
     title: 'Measurable Territory',
-    expectations: ['GlyNAC trials showed significant glutathione restoration at 24 weeks — early lab shifts possible at 12', 'Energy and exercise recovery often noticeably improved', 'Inflammation markers (hs-CRP) may trend downward'],
+    expectations: ['GlyNAC trials showed significant glutathione restoration at 24 weeks — early lab shifts possible at 12', 'Energy and exercise recovery often noticeably improved', 'Inflammation markers (hs-CRP) may trend downward', 'Ca-AKG human trial (PMID: 38247127) showed measurable epigenetic age reduction by week 12'],
     realistic: true,
   },
   {
     week: 'Week 24+',
     title: 'Clinical Benchmark',
-    expectations: ['GlyNAC human trials: restored glutathione, improved mitochondrial function, reduced oxidative stress', 'NAD+ restoration effects compound with consistent NMN dosing', 'Biological age estimates may show 1–3 year improvement with full protocol adherence'],
+    expectations: [
+      'GlyNAC human trials: restored glutathione, improved mitochondrial function, reduced oxidative stress at this timepoint',
+      'NAD+ restoration effects compound with consistent NMN dosing — PBMC NAD+ levels measurably elevated vs. baseline',
+      'Ca-AKG: human trial (PMID: 38247127) showed mean 8-year epigenetic age reduction — full effect consolidates at 24 weeks',
+      'Biological age estimates may show 1–3 year improvement with full protocol adherence and lifestyle pillars intact',
+      'Retest baseline labs (hs-CRP, CBC, metabolic panel, optionally GSH + NAD+ metabolites) to quantify protocol impact',
+    ],
     realistic: true,
   },
 ];
@@ -653,6 +759,7 @@ export const supplementRedFlags = [
   { flag: 'NMN without purity certificate', why: 'NMN market is flooded with underdosed or contaminated products', action: 'Require COA (Certificate of Analysis) showing ≥99% purity' },
   { flag: 'Lifespan claims from mouse-only data', why: 'Mouse lifespan extension does not guarantee human outcomes', action: 'Weight preclinical data appropriately — prefer human trial evidence' },
   { flag: 'Stack of 20+ ingredients', why: 'Interaction risk increases; doses per ingredient are usually sub-therapeutic', action: 'Prefer focused 3–6 compound protocols with verified dosing' },
+  { flag: 'No disclosure of evidence tier', why: 'Hiding whether evidence is human or animal is a transparency failure', action: 'Only trust sources that label Tier A / B / C — or equivalent — clearly' },
 ];
 
 export const gettingStartedSteps = [
@@ -674,6 +781,11 @@ export const glossary = [
   { term: 'Biological Age', simple: 'How old your cells act — which can differ from your birthday age.', why: 'Two people at 50 can have biological ages of 42 and 58. The goal is to widen that gap in your favor.' },
   { term: 'Synergy', simple: 'When two compounds together produce greater effect than either alone.', why: 'TNiC\'s synergy score measures this — random stacking wastes money and can cause interactions.' },
   { term: 'Evidence Tier', simple: 'TNiC\'s A/B/C grading of how strong the human research is behind a compound.', why: 'Tier A means human trials. Tier C means mouse-only. We never hide the difference.' },
+  { term: 'Senolytics', simple: 'Compounds that selectively destroy senescent (zombie) cells that accumulate with age and secrete inflammatory signals.', why: 'Senescent cells drive the SASP inflammatory cascade across multiple hallmarks. NMN and resveratrol have senolytic-adjacent effects — and dedicated senolytics (dasatinib+quercetin) entered human trials in 2020 (PMID: 32854868).' },
+  { term: 'mTOR', simple: 'A kinase that acts as a cellular growth sensor — when inhibited, cells shift from growth mode into repair, recycling, and autophagy.', why: 'mTOR overactivation with age drives cellular aging. Rapamycin inhibits it; caloric restriction, resveratrol, and exercise partially mimic this effect — one reason fasting synergizes with longevity stacks.' },
+  { term: 'AMPK', simple: 'An energy-sensing enzyme activated when ATP is low — it promotes fat burning, mitochondrial biogenesis, and autophagy.', why: 'AMPK is the metabolic counterpart to mTOR. When AMPK is high and mTOR is low, cells enter a longevity-promoting maintenance mode. Resveratrol and exercise activate AMPK — a key reason they synergize.' },
+  { term: 'Epigenetic Clock', simple: 'A lab test measuring DNA methylation patterns across thousands of sites to calculate your true cellular age.', why: 'Epigenetic clocks (Horvath, GrimAge, DunedinPACE) are the most accurate biological age measurement available to consumers. Ca-AKG showed mean 8-year clock age reduction in a 2024 human trial (PMID: 38247127).' },
+  { term: 'Healthspan', simple: 'The portion of life spent in good health, free from chronic disease or disability — distinct from lifespan (total years alive).', why: 'TNiC optimizes for healthspan, not maximum lifespan. The target is more quality years in your 60s, 70s, and beyond — not just extending decline.' },
 ];
 
 export const consumerFAQ = [
@@ -766,5 +878,35 @@ export const consumerFAQ = [
     category: 'products' as const,
     question: 'Why does delivery system (liposomal, phytosome, standard) matter?',
     answer: 'Many compounds have poor aqueous solubility or are degraded before absorption. Liposomal delivery (used for GlyNAC on TNiC) encapsulates compounds in phospholipid vesicles that fuse with cell membranes, bypassing gut degradation. Phytosomes bind polyphenols to phosphatidylcholine, dramatically improving resveratrol and sulforaphane bioavailability. Standard capsules are fine for water-soluble compounds (NMN, Ca-AKG) with inherently high oral bioavailability. For lipophilic compounds like R-ALA, take with a fat-containing meal — the fat itself acts as a delivery vehicle. TNiC\'s product picks are selected partly on delivery format. See the Delivery Systems Library module for full comparison.',
+  },
+  {
+    id: 'faq16',
+    category: 'safety' as const,
+    question: 'What is rapamycin and should I consider it?',
+    answer: 'Rapamycin (sirolimus) is an mTOR inhibitor with the most compelling anti-aging mechanism of any drug studied to date — low-dose intermittent dosing has extended lifespan in every model organism tested, and improved immune function in the first human pilot trial (PMID: 36929855). However, it is a prescription immunosuppressant with real risks: increased infection susceptibility, metabolic side effects, and no established optimal human dosing protocol. TNiC does not recommend self-prescribing rapamycin. If you are interested, seek a longevity-focused physician through AMMG or A4M who can supervise bloodwork and dose titration safely. Your TNiC stack provides overlapping mechanistic benefits (mTOR-adjacent via resveratrol/AMPK, autophagy via NMN/SIRT1) without the prescription risk.',
+  },
+  {
+    id: 'faq17',
+    category: 'science' as const,
+    question: 'Can cold therapy or sauna replace supplement stacks?',
+    answer: 'No — they address different mechanisms and work best combined. Cold exposure activates norepinephrine, brown adipose tissue, and cold-shock proteins (RBM3) that protect synaptic integrity and reduce neuroinflammation. Sauna mimics cardiovascular exercise stress, upregulating heat shock proteins and improving endothelial function. Neither directly restores NAD+, rebuilds glutathione, or drives TCA cycle anaplerosis the way TNiC compounds do. The strongest protocols treat thermal stress as synergistic adjuncts — not replacements. Think of cold/sauna as lifestyle activators of AMPK and heat shock pathways; think of your TNiC stack as mechanistic substrate restoration that thermal stress alone cannot provide.',
+  },
+  {
+    id: 'faq18',
+    category: 'science' as const,
+    question: 'What is an epigenetic clock and how do I get tested?',
+    answer: 'Epigenetic clocks (Horvath, GrimAge, DunedinPACE) measure DNA methylation patterns across thousands of CpG sites to calculate your biological age — the cellular age beneath your chronological birthday. They are the gold standard for measuring whether a longevity protocol is actually working at the cellular level. TruDiagnostic ($300–500) offers the most comprehensive consumer panel, including DunedinPACE (pace of aging) alongside biological age. GlycanAge measures IgG glycan patterns and correlates specifically with immune aging. TNiC\'s OS biological age estimate is a lifestyle-input model — useful for directional feedback before a lab test, not a substitute for a laboratory epigenetic clock. Recommended sequence: use TNiC tools first to establish your protocol, then validate with a clock after 6+ months of consistent adherence.',
+  },
+  {
+    id: 'faq19',
+    category: 'safety' as const,
+    question: 'How much does sleep actually affect biological aging?',
+    answer: 'More than almost any supplement. A 2024 SLEEP Journal study (PMID: 38593841) found adults averaging under 6 hours per night accumulated 1.8 additional years of epigenetic aging per chronological year compared to 7–9 hour sleepers — an effect size larger than most supplement interventions. Sleep is when NAD+-dependent SIRT1 and PARP peak, mitophagy clears damaged mitochondria, and the glymphatic system flushes amyloid precursors. TNiC compounds support the biochemical substrates of sleep quality (NMN→circadian NAD+, resveratrol→evening SIRT1, GlyNAC→overnight glutathione restoration), but no stack overcomes chronic sleep deprivation. Treat sleep as a non-negotiable protocol pillar, not a variable to optimize around.',
+  },
+  {
+    id: 'faq20',
+    category: 'products' as const,
+    question: 'Should I take these supplements every day or cycle them?',
+    answer: 'The clinical evidence base favors consistent daily dosing for most TNiC compounds. GlyNAC trials used uninterrupted 24-week protocols. NMN and Ca-AKG depend on steady-state substrate availability — cycling interrupts the NAD+ and TCA cycle replenishment effect. Sulforaphane can be rotated with cruciferous-rich diet days (broccoli sprouts are a functional equivalent). Resveratrol has limited evidence for periodic high-dose pulsing, but human longevity trial data used daily dosing. R-ALA is most effective taken daily for sustained redox cycling. Unless you are experiencing persistent side effects, daily dosing matches the evidence base that produced the clinical outcomes TNiC references.',
   },
 ];
