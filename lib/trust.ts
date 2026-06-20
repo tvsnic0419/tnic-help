@@ -307,6 +307,18 @@ export const disclaimers: DisclaimerBlock[] = [
 export const updateHistory: UpdateHistoryEntry[] = [
   {
     date: '2026-06-20',
+    version: '1.32.0',
+    title: 'Sprint 32 — Graphical Polish, Personalization & Products Hub',
+    category: 'feature',
+    changes: [
+      '/products catalog route — verified manufacturer picks with compound module links',
+      'Homepage personalization rails — intent-aware hero, return-visitor protocol strip, product picks rail',
+      'Contextual upgrades — preset-filtered research, CompetitiveEdge ContextRail, stat-card trust polish',
+      'Conversion paths — Nav Quiz/Shop CTAs, quiz Brief email capture, command palette products hub',
+    ],
+  },
+  {
+    date: '2026-06-20',
     version: '1.31.0',
     title: 'Sprint 31 — Research Intel, Competitors & Biomarker Depth',
     category: 'feature',

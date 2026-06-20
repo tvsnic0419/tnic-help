@@ -3,7 +3,7 @@
 import { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import Link from 'next/link';
-import { ArrowRight, Dna, Menu, Search, X } from 'lucide-react';
+import { ArrowRight, ClipboardList, Dna, Menu, Search, ShoppingBag, X } from 'lucide-react';
 import { navLinks } from '@/lib/data';
 import { SiteSearch } from '@/components/SiteSearch';
 import { COMMAND_PALETTE_EVENT } from '@/components/os/CommandPalette';
@@ -73,9 +73,23 @@ export function Nav() {
           )}
         </div>
 
-        <div className="hidden md:flex items-center gap-3 shrink-0">
+        <div className="hidden md:flex items-center gap-2 shrink-0">
           <ThemeToggle compact />
           <SiteSearch />
+          <Link
+            href="/quiz"
+            className="focus-ring hidden lg:inline-flex items-center gap-1.5 glass glass-hover px-4 py-2 rounded-full text-sm font-semibold text-muted-foreground hover:text-foreground"
+          >
+            <ClipboardList className="w-4 h-4 text-accent-violet" aria-hidden="true" />
+            Quiz
+          </Link>
+          <Link
+            href="/shop"
+            className="focus-ring hidden lg:inline-flex items-center gap-1.5 glass glass-hover px-4 py-2 rounded-full text-sm font-semibold text-muted-foreground hover:text-foreground"
+          >
+            <ShoppingBag className="w-4 h-4 text-accent-amber" aria-hidden="true" />
+            Shop
+          </Link>
           <Link href="/dashboard" className="focus-ring btn-gradient text-sm !py-2.5 !px-5 !min-h-0 rounded-full">
             Open OS
             <ArrowRight className="w-4 h-4" aria-hidden="true" />
@@ -138,13 +152,29 @@ export function Nav() {
                   </a>
                 ),
               )}
-              <Link
-                href="/dashboard"
-                onClick={() => setMobileOpen(false)}
-                className="focus-ring btn-gradient text-sm text-center mt-3 justify-center"
-              >
-                Open Longevity OS
-              </Link>
+              <div className="flex flex-col gap-2 mt-3">
+                <Link
+                  href="/quiz"
+                  onClick={() => setMobileOpen(false)}
+                  className="focus-ring glass glass-hover text-sm text-center py-3 rounded-xl font-semibold"
+                >
+                  3-Min Stack Quiz
+                </Link>
+                <Link
+                  href="/shop"
+                  onClick={() => setMobileOpen(false)}
+                  className="focus-ring glass glass-hover text-sm text-center py-3 rounded-xl font-semibold"
+                >
+                  Protocol Shop
+                </Link>
+                <Link
+                  href="/dashboard"
+                  onClick={() => setMobileOpen(false)}
+                  className="focus-ring btn-gradient text-sm text-center justify-center"
+                >
+                  Open Longevity OS
+                </Link>
+              </div>
             </div>
           </motion.div>
         )}

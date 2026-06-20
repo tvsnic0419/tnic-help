@@ -28,6 +28,7 @@ const HUB_PATH_MAP: Record<string, HubKey> = {
   '/labs': 'labs',
   '/tools': 'tools',
   '/shop': 'shop',
+  '/products': 'products',
   '/brief': 'brief',
   '/learn': 'learn',
   '/faq': 'learn',
@@ -120,6 +121,13 @@ function getPageContextItems(pathname: string): PaletteItem[] {
       item('ctx-shop-trust', 'COA verification methodology', { href: '/trust/methodology', kind: 'page' }),
     ];
   }
+  if (pathname.startsWith('/products')) {
+    return [
+      item('ctx-products-shop', 'Stack-filtered verification', { href: '/shop', kind: 'page' }),
+      item('ctx-products-library', 'Compound evidence modules', { href: '/library', kind: 'page' }),
+      item('ctx-products-brief', 'Subscribe to Protocol Brief', { href: '/brief#brief-subscribe', kind: 'page' }),
+    ];
+  }
   if (pathname.startsWith('/brief')) {
     return [
       item('ctx-brief-research', 'Research Intel feed', { href: '/#research', kind: 'page' }),
@@ -137,6 +145,7 @@ function getPageContextItems(pathname: string): PaletteItem[] {
   if (pathname === '/' || pathname === '') {
     return [
       item('ctx-home-quiz', 'Take 3-min quiz', { href: '/quiz', kind: 'page' }),
+      item('ctx-home-products', 'Verified product catalog', { href: '/products', kind: 'page' }),
       item('ctx-home-dashboard', 'Open your OS dashboard', { href: '/dashboard', kind: 'page' }),
       item('ctx-home-research', 'Research Intel feed', { href: '/#research', kind: 'page' }),
     ];

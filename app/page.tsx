@@ -13,6 +13,8 @@ import { HomepageCompareRow } from '@/components/sections/HomepageCompareRow';
 import { CompetitiveEdge } from '@/components/sections/CompetitiveEdge';
 import { HomepageTrust } from '@/components/sections/HomepageTrust';
 import { HomepageCTA } from '@/components/sections/HomepageCTA';
+import { HomepageProductRail } from '@/components/sections/HomepageProductRail';
+import { HomepagePersonalizedRail } from '@/components/sections/HomepagePersonalizedRail';
 import { NextUpSection } from '@/components/sections/NextUpSection';
 import { HallmarkProblemTiles } from '@/components/sections/HallmarkProblemTiles';
 import { SiteGuide } from '@/components/SiteGuide';
@@ -27,6 +29,7 @@ export default function HomePage() {
         <Nav />
         <main id="main-content" tabIndex={-1}>
           <HeroSection />
+          <HomepagePersonalizedRail />
           <HomepageTrustStrip />
           <HomepageOSFunnel />
           <SiteGuide />
@@ -37,6 +40,7 @@ export default function HomePage() {
           <ResearchIntel />
           <HomepageBriefRail />
           <CompetitiveEdge />
+          <HomepageProductRail />
           <HomepageTrust />
           <HomepageCTA />
           <NextUpSection />

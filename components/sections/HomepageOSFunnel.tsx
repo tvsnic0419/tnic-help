@@ -11,6 +11,8 @@ import {
   ArrowRight,
 } from 'lucide-react';
 import { ContextRail } from '@/components/ui/ContextRail';
+import { usePlatform } from '@/context/PlatformContext';
+import { getOsFunnelOrder } from '@/lib/homepage-personalization';
 
 type AccentKey = 'emerald' | 'violet' | 'cyan' | 'amber' | 'rose';
 
@@ -112,7 +114,20 @@ const osPaths = [
   },
 ] as const;
 
+const funnelNextByGoal: Record<string, string> = {
+  learn: 'Start at the Library for mechanism-mapped deep-dives, then take the quiz for a stack preset.',
+  defense: 'Run Defense Scan first, then build an NRF2-focused stack with synergy scoring.',
+  energy: 'Open Stack Architect for mitochondrial presets, then log NAD+ and inflammation labs.',
+  full: 'Open your dashboard for the full OS picture, then customize the Hybrid preset in Stack Architect.',
+};
+
 export function HomepageOSFunnel() {
+  const { quizResult } = usePlatform();
+  const order = getOsFunnelOrder(quizResult?.goal);
+  const sorted = [...osPaths].sort((a, b) => order.indexOf(a.href) - order.indexOf(b.href));
+  const featuredHref = order[0];
+  const contextNext = funnelNextByGoal[quizResult?.goal ?? ''] ?? 'Start at the dashboard for the full picture, or jump directly to the module you need right now.';
+
   return (
     <section id="os" className="py-16 md:py-24 border-b border-border bg-card section-glow-emerald section-mesh">
       <div className="container-page">
@@ -129,16 +144,16 @@ export function HomepageOSFunnel() {
         <ContextRail
           what="Five evidence-grounded modules — stack architect, biomarker tracker, library, tools, and dashboard — built around the 12 Hallmarks of Aging."
           why="Most people combine supplements from multiple sources with no synergy check and no outcome tracking. TNiC maps every compound to a specific hallmark, checks pathway interactions, and tracks results over time."
-          next="Start at the dashboard for the full picture, or jump directly to the module you need right now."
+          next={contextNext}
           theme="emerald"
           className="mb-10 md:mb-14 max-w-4xl mx-auto"
         />
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
-          {osPaths.map((path, i) => {
+          {sorted.map((path, i) => {
             const Icon = path.icon;
             const cfg = accentConfig[path.accent];
-            const isFeatured = 'featured' in path && path.featured;
+            const isFeatured = path.href === featuredHref;
 
             return (
               <motion.div
@@ -152,7 +167,7 @@ export function HomepageOSFunnel() {
                 <Link
                   href={path.href}
                   className={[
-                    'focus-ring group block h-full rounded-2xl p-6 card-ultra card-ultra-hover',
+                    'focus-ring group block h-full rounded-2xl p-6 card-premium',
                     'bg-gradient-to-br', cfg.gradFrom, 'to-transparent',
                     `glow-hover-${path.accent}`,
                     isFeatured ? cfg.featuredRing : '',

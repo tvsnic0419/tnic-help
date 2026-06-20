@@ -75,6 +75,21 @@ export const seoRoutes = {
       keywords: ['supplement buyer guide', 'protocol shop', 'NMN COA', 'supplement verification'],
     }),
 
+  products: () =>
+    buildPageMetadata({
+      title: 'Recommended Products — Verified Supplement Picks',
+      description:
+        'One evidence-aligned product per compound, linked directly to the manufacturer. TNiC earns $0 from sales — pure buyer intelligence, zero conflict.',
+      path: '/products',
+      keywords: [
+        'recommended longevity supplements',
+        'best NMN supplement',
+        'GlyNAC buy',
+        'sulforaphane supplement',
+        'Ca-AKG buy',
+      ],
+    }),
+
   brief: () =>
     buildPageMetadata({
       title: 'Protocol Brief — Longevity Research Digest',

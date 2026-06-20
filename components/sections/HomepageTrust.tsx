@@ -19,7 +19,7 @@ export function HomepageTrust() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: i * 0.05 }}
-              className="glass rounded-2xl p-5 text-center"
+              className="stat-card rounded-2xl p-5 text-center"
             >
               <p className="text-3xl md:text-4xl font-bold font-mono text-accent-emerald tabular-nums">{stat.value}</p>
               <p className="text-label text-muted-foreground mt-1">{stat.label}</p>
@@ -48,7 +48,7 @@ export function HomepageTrust() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ delay: i * 0.06 }}
-                className="gradient-border p-5 glass-hover group block"
+                className="card-premium glow-hover-emerald p-5 group block border border-border/60"
               >
                 <Icon className="w-5 h-5 text-accent-emerald mb-3" />
                 <h3 className="font-bold text-sm mb-2 group-hover:text-emerald-300 transition">{pillar.title}</h3>

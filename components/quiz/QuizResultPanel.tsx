@@ -2,9 +2,10 @@
 
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
-import { ArrowRight, RotateCcw, Check, Layers, Compass, ShoppingBag, BookOpen } from 'lucide-react';
+import { ArrowRight, RotateCcw, Check, Layers, Compass, ShoppingBag, BookOpen, Mail, CheckCircle2 } from 'lucide-react';
+import { saveBriefSubscription } from '@/lib/brief-subscribe';
 import { compounds } from '@/lib/data';
 import { usePlatform } from '@/context/PlatformContext';
 import type { PresetKey } from '@/lib/presets';
@@ -31,6 +32,33 @@ interface QuizResultPanelProps {
 export function QuizResultPanel({ result, answers, onRetake }: QuizResultPanelProps) {
   const router = useRouter();
   const { applyPreset, setProfile, setQuizResult } = usePlatform();
+  const [email, setEmail] = useState('');
+  const [subscribed, setSubscribed] = useState(false);
+  const [loading, setLoading] = useState(false);
+
+  const subscribeBrief = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!email.trim()) return;
+    setLoading(true);
+    saveBriefSubscription(email.trim());
+    try {
+      const res = await fetch('/api/brief/subscribe', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email: email.trim() }),
+      });
+      const data = await res.json();
+      if (data.ok) {
+        setSubscribed(true);
+        setLoading(false);
+        return;
+      }
+    } catch {
+      /* fallback */
+    }
+    setSubscribed(true);
+    setLoading(false);
+  };
 
   useEffect(() => {
     setQuizResult({
@@ -159,6 +187,38 @@ export function QuizResultPanel({ result, answers, onRetake }: QuizResultPanelPr
             <ArrowRight className="w-4 h-4 text-muted-foreground shrink-0" aria-hidden="true" />
           </div>
         </Link>
+
+        <div className="rounded-xl card-premium border border-accent-violet/20 p-4">
+          <p className="text-xs font-semibold mb-2">Get weekly Protocol Brief</p>
+          {subscribed ? (
+            <div className="flex items-center gap-2 text-xs text-accent-emerald">
+              <CheckCircle2 className="w-3.5 h-3.5" />
+              Subscribed — PMID research mapped to {result.stack.label}
+            </div>
+          ) : (
+            <form onSubmit={subscribeBrief} className="flex gap-2">
+              <div className="relative flex-1">
+                <Mail className="absolute left-2.5 top-1/2 -translate-y-1/2 w-3.5 h-3.5 text-muted-foreground" />
+                <input
+                  type="email"
+                  required
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  placeholder="you@example.com"
+                  className="w-full rounded-lg border border-border bg-card pl-8 pr-2 py-2 text-xs focus-ring"
+                  aria-label="Email for Protocol Brief"
+                />
+              </div>
+              <button
+                type="submit"
+                disabled={loading}
+                className="focus-ring shrink-0 bg-accent-violet/20 border border-accent-violet/30 text-accent-violet px-3 py-2 rounded-lg font-semibold text-xs hover:bg-accent-violet/30 disabled:opacity-60"
+              >
+                {loading ? '…' : 'Subscribe'}
+              </button>
+            </form>
+          )}
+        </div>
 
         <button
           type="button"

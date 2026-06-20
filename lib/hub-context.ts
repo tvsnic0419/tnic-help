@@ -31,6 +31,7 @@ export const hubContexts: Record<
   | 'labs'
   | 'tools'
   | 'shop'
+  | 'products'
   | 'brief'
   | 'learn'
   | 'compare'
@@ -72,6 +73,12 @@ export const hubContexts: Record<
     what: 'Stack-filtered buyer verification — COA demands, dose anchors, form requirements, and red flags. TNiC earns $0 from products.',
     why: 'Most longevity sites are affiliate stores in disguise. This is an intelligence checklist, not a catalog — verify before you buy.',
     next: 'Share /shop?stack= with your preset URL, export the checklist, and cross-check against compound deep-dives in the library.',
+  },
+  products: {
+    theme: 'emerald',
+    what: 'Verified manufacturer product catalog — one evidence-aligned pick per compound with dose notes and compound module links.',
+    why: 'Random marketplace listings hide purity and form gaps. TNiC picks match trial-matched doses and link to PMID-graded deep-dives.',
+    next: 'Open a product card, read the compound module, then cross-check COA requirements at Protocol Shop for your stack.',
   },
   brief: {
     theme: 'violet',

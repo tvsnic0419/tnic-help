@@ -392,6 +392,15 @@ export const nextUpImprovements: NextUpItem[] = [
     href: '/#research',
     tags: ['content', 'research'],
   },
+  {
+    id: 'sprint32-personalization-products-polish',
+    title: 'Sprint 32 — personalization rails, /products hub, graphical polish',
+    desc: 'Intent-aware hero, return-visitor protocol rail, product picks catalog, preset-filtered research, Nav Quiz/Shop CTAs, stat-card trust.',
+    status: 'shipped',
+    sprint: 'Sprint 32',
+    href: '/products',
+    tags: ['conversion', 'ux'],
+  },
 ];
 
 export const nextUpByStatus = {

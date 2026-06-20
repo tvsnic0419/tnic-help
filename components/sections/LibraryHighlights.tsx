@@ -4,8 +4,11 @@ import Link from 'next/link';
 import { motion } from 'framer-motion';
 import { Layers, FlaskConical, ArrowRight, ExternalLink } from 'lucide-react';
 import { ContextRail } from '@/components/ui/ContextRail';
-import { featuredStacks, latestResearch } from '@/lib/homepage';
-import { compounds } from '@/lib/data';
+import { usePlatform } from '@/context/PlatformContext';
+import { featuredStacks } from '@/lib/homepage';
+import { compounds, researchFeed } from '@/lib/data';
+import { getPresetCompoundIds } from '@/lib/homepage-personalization';
+import type { PresetKey } from '@/lib/presets';
 
 const impactColor = {
   breakthrough: 'text-accent-amber bg-accent-amber/10 border border-accent-amber/20',
@@ -13,7 +16,26 @@ const impactColor = {
   preclinical:  'text-accent-cyan bg-accent-cyan/10 border border-accent-cyan/20',
 };
 
+function getPersonalizedResearch(preset?: string) {
+  if (!preset) return researchFeed.slice(0, 3);
+
+  const compoundIds = new Set(getPresetCompoundIds(preset));
+  const presetMatches = researchFeed.filter(
+    (item) =>
+      item.presetKey === preset ||
+      item.relatedHrefs?.some((link) =>
+        compoundIds.has(link.href.split('/').pop() ?? ''),
+      ),
+  );
+
+  return (presetMatches.length > 0 ? presetMatches : researchFeed).slice(0, 3);
+}
+
 export function LibraryHighlights() {
+  const { quizResult } = usePlatform();
+  const preset = quizResult?.preset as PresetKey | undefined;
+  const latestResearch = getPersonalizedResearch(preset);
+
   return (
     <section id="library" className="py-20 md:py-28 bg-background border-b border-border section-glow-violet section-mesh">
       <div className="container-page">
@@ -93,13 +115,15 @@ export function LibraryHighlights() {
               <div className="icon-badge-emerald w-7 h-7 rounded-lg flex items-center justify-center">
                 <FlaskConical className="w-3.5 h-3.5 text-accent-emerald" />
               </div>
-              <h3 className="text-sm font-bold uppercase tracking-wider">Latest Research</h3>
+              <h3 className="text-sm font-bold uppercase tracking-wider">
+                {preset ? 'Research for your stack' : 'Latest Research'}
+              </h3>
             </div>
             <div className="space-y-3">
               {latestResearch.map((article, i) => (
                 <motion.a
                   key={article.id}
-                  href="/trust/updates"
+                  href="/#research"
                   initial={{ opacity: 0, y: 16 }}
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}

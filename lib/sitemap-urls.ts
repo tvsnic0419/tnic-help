@@ -22,6 +22,7 @@ export function buildSitemapEntries(lastModified = new Date()): MetadataRoute.Si
     { url: `${base}/dashboard`, lastModified, changeFrequency: 'weekly', priority: 0.92 },
     { url: `${base}/quiz`, lastModified, changeFrequency: 'weekly', priority: 0.94 },
     { url: `${base}/shop`, lastModified, changeFrequency: 'weekly', priority: 0.88 },
+    { url: `${base}/products`, lastModified, changeFrequency: 'weekly', priority: 0.87 },
     { url: `${base}/brief`, lastModified, changeFrequency: 'weekly', priority: 0.82 },
     { url: `${base}/brief/feed.xml`, lastModified, changeFrequency: 'weekly', priority: 0.7 },
     { url: `${base}/brief/feed.json`, lastModified, changeFrequency: 'weekly', priority: 0.7 },
