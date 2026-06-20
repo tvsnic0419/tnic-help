@@ -1,36 +1,73 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# TNiC Help — Anti-Aging Operating System
 
-## Getting Started
+Evidence-based longevity education platform at [tnic.help](https://tnic.help).
 
-First, run the development server:
+## Stack
+
+- **Next.js 16** (App Router) · **React 19** · **Tailwind CSS 4**
+- **Vercel** — production hosting, domain, cron
+- **Vitest** — unit tests · **ESLint** — linting
+
+## Local development
 
 ```bash
+npm install
+cp .env.example .env.local   # fill secrets as needed
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open [http://localhost:3000](http://localhost:3000).
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Scripts
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+| Command | Purpose |
+|---------|---------|
+| `npm run dev` | Dev server |
+| `npm run build` | Production build |
+| `npm run lint` | ESLint |
+| `npm run test` | Vitest unit tests |
+| `npm run typecheck` | TypeScript check |
+| `npm run ci` | Full CI pipeline locally |
 
-## Learn More
+## Deployment
 
-To learn more about Next.js, take a look at the following resources:
+**Production URL:** `https://tnic.help`  
+**Vercel project:** `tnic-projects/tnic-help`  
+**Infra reference:** `infra/vercel-project.json`
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+### How deploys work
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+1. Push to `main` on GitHub → Vercel auto-deploys production
+2. PR branches get preview URLs (use their `*.vercel.app` hostname)
+3. GitHub Actions runs lint + test + build on every push/PR
 
-## Deploy on Vercel
+### Required Vercel env vars (Production)
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+| Variable | Required | Purpose |
+|----------|----------|---------|
+| `NEXT_PUBLIC_SITE_URL` | Yes | Canonical URL (`https://tnic.help`) |
+| `CRON_SECRET` | Yes | Protects `/api/cron/brief` |
+| `RESEND_API_KEY` | For email | Protocol Brief delivery |
+| `RESEND_FROM_EMAIL` | For email | Sender address |
+| `LAB_WEBHOOK_SECRET` | Yes | Partner webhook auth |
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+See `.env.example` for the full list.
+
+### Domain
+
+- **Registrar:** Vercel (nameservers already configured)
+- **Canonical:** `tnic.help` (apex)
+- **Redirect:** `www.tnic.help` → `tnic.help` (308, in `vercel.json` + `middleware.ts`)
+
+### Weekly cron
+
+Vercel calls `GET /api/cron/brief` every Monday 09:00 UTC with `Authorization: Bearer $CRON_SECRET`.
+
+## Project structure
+
+```
+app/          # Next.js routes & API
+components/   # UI components
+lib/          # Business logic, SEO, integrations
+infra/        # Committed deployment metadata (not secrets)
+```

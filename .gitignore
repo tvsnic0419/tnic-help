@@ -30,14 +30,14 @@ yarn-debug.log*
 yarn-error.log*
 .pnpm-debug.log*
 
-# env files (can opt-in for committing if needed)
-.env*
+# env files — keep .env.example committed for onboarding
+.env
+.env.local
+.env.*.local
 
-# vercel
+# vercel local link (credentials stay in ~/.vercel or auth.json)
 .vercel
 
 # typescript
 *.tsbuildinfo
 next-env.d.ts
-
-.vercel

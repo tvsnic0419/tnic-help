@@ -1,4 +1,5 @@
 import { NextResponse } from 'next/server';
+import { requireSecretInProduction } from '@/lib/env';
 import { parsePartnerJson, PARTNER_SCHEMA } from '@/lib/lab-partner-import';
 import { recordLabWebhookEvent } from '@/lib/lab-webhook-events';
 
@@ -10,11 +11,14 @@ export const runtime = 'nodejs';
  */
 export async function POST(request: Request) {
   const secret = process.env.LAB_WEBHOOK_SECRET;
-  if (secret) {
-    const header = request.headers.get('x-tnic-webhook-secret');
-    if (header !== secret) {
-      return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
-    }
+  const missingSecret = requireSecretInProduction(secret, 'LAB_WEBHOOK_SECRET');
+  if (missingSecret) {
+    return NextResponse.json({ error: missingSecret.error }, { status: missingSecret.status });
+  }
+
+  const header = request.headers.get('x-tnic-webhook-secret');
+  if (header !== secret) {
+    return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
   }
 
   try {
