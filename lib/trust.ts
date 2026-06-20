@@ -437,6 +437,17 @@ export const disclaimers: DisclaimerBlock[] = [
 export const updateHistory: UpdateHistoryEntry[] = [
   {
     date: '2026-06-20',
+    version: '1.37.0',
+    title: 'Sprint 37 — Material visual transcend + hub context strip',
+    category: 'feature',
+    changes: [
+      'ContextBar breadcrumb trail + hub-specific “Next here” on every OS subpage — closes nav orientation gap',
+      'Homepage CTA finale: gradient-border card, glow Launch OS, Browse Library secondary (eliminates Brief CTA fatigue)',
+      'Library highlight cards gain backdrop-blur depth; route-context module powers palette hub detection',
+    ],
+  },
+  {
+    date: '2026-06-20',
     version: '1.36.0',
     title: 'Sprint 36 — Trust & indexing emergency',
     category: 'safety',

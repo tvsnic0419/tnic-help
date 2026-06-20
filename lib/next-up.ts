@@ -351,8 +351,8 @@ export const nextUpImprovements: NextUpItem[] = [
     id: 'nav-breadcrumb-context',
     title: 'Nav breadcrumb + hub context strip',
     desc: 'Persistent mini context strip under nav showing current hub next-step on all OS routes.',
-    status: 'planned',
-    sprint: 'Sprint 24',
+    status: 'shipped',
+    sprint: 'Sprint 37',
     href: '/dashboard',
     tags: ['ux', 'os'],
   },
@@ -436,6 +436,15 @@ export const nextUpImprovements: NextUpItem[] = [
     sprint: 'Sprint 36',
     href: '/trust/methodology',
     tags: ['trust', 'seo'],
+  },
+  {
+    id: 'sprint37-visual-transcend',
+    title: 'Sprint 37 — Material visual transcend + hub context strip',
+    desc: 'Breadcrumb + hub next-step in ContextBar on all OS routes; gradient CTA finale, backdrop-blur library cards, anti-CTA-fatigue Browse Library path.',
+    status: 'shipped',
+    sprint: 'Sprint 37',
+    href: '/',
+    tags: ['ui', 'ux'],
   },
 ];
 
