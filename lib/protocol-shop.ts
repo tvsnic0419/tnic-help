@@ -80,9 +80,16 @@ export function getNrShopItems(): StackShopItem[] {
   return nr ? [nr] : [];
 }
 
+/** Canonical commerce language — import everywhere; do not contradict elsewhere */
+export const commerceDisclosure = {
+  headline: 'TNiC earns $0 from product links',
+  body: 'TNiC does not sell supplements or hold inventory. Verified picks link directly to manufacturer websites — always request batch COA before purchase.',
+  policy:
+    'No Amazon affiliate CTAs. Any future commercial relationship would be disclosed per product before activation.',
+};
+
 export const shopDisclosure = {
   title: 'Zero inventory conflict',
-  body: 'TNiC does not sell supplements or hold inventory. Verified picks link directly to manufacturer websites — always request batch COA before purchase.',
-  affiliateNote:
-    'Product photos are served locally with illustrated fallbacks. Clicking a pick opens the brand site in a new tab. Affiliate relationships, if added later, will be disclosed per product.',
+  body: commerceDisclosure.body,
+  affiliateNote: `${commerceDisclosure.headline}. ${commerceDisclosure.policy}`,
 };

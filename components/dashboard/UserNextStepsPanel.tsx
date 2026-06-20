@@ -20,8 +20,11 @@ const COMPOUND_MODULE: Record<string, string> = {
   nmn: '/library/compounds/nmn',
   sulforaphane: '/library/compounds/sulforaphane',
   resveratrol: '/library/compounds/resveratrol',
-  cakg: '/library',
-  rala: '/library',
+  cakg: '/library/compounds/cakg',
+  rala: '/library/compounds/rala',
+  taurine: '/library/compounds/taurine',
+  spermidine: '/library/compounds/spermidine',
+  pterostilbene: '/library/compounds/pterostilbene',
 };
 
 interface ActionItem {

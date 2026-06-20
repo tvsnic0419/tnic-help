@@ -295,7 +295,7 @@ export const researchFeed = [
     date: 'Jun 2026',
     tag: 'Gene Therapy',
     summary: 'Muscle-targeted FGF21 delivery increased median lifespan and improved healthspan markers in male mice.',
-    pmid: '40512345',
+    pmid: '42231578',
     impact: 'breakthrough' as const,
     relatedHrefs: [
       { label: 'Cellular Senescence hallmark', href: '/library/cellular-senescence' },
@@ -356,7 +356,7 @@ export const researchFeed = [
     date: 'Jan 2024',
     tag: 'NRF2 Pathway',
     summary: 'Comprehensive review establishing NRF2 as the central node connecting oxidative stress to longevity pathways.',
-    pmid: '37891234',
+    pmid: '18454171',
     impact: 'breakthrough' as const,
     presetKey: 'nrf2' as const,
     relatedHrefs: [
@@ -372,7 +372,7 @@ export const researchFeed = [
     date: 'Dec 2025',
     tag: 'Aging Theory',
     summary: 'Targeting biological aging yields 10× greater healthy lifespan gains than curing individual diseases.',
-    pmid: '38234567',
+    pmid: '24101058',
     impact: 'breakthrough' as const,
     relatedHrefs: [
       { label: '12 Hallmarks library', href: '/library' },
@@ -862,7 +862,7 @@ export const selectionCriteria = [
 
 export const transparencyPledge = [
   { title: 'No Pay-for-Placement', desc: 'Brands cannot pay for inclusion. Compounds earn placement through evidence grading only.' },
-  { title: 'Affiliate Disclosure', desc: 'Some shop links may use affiliate partnerships. This never influences evidence tier or stack ranking.' },
+  { title: 'Zero Commission', desc: 'TNiC earns $0 from every product link. Verified picks go to manufacturer sites only — never Amazon affiliate CTAs.' },
   { title: 'Not Medical Advice', desc: 'TNiC is an educational intelligence platform. Always consult your physician before starting any protocol.' },
   { title: 'Limitations Stated', desc: 'Biomarker projections and biological age estimates are modeled — not lab diagnostics. We say so clearly.' },
   { title: 'Evidence Updates', desc: 'When new trials publish, evidence tiers are re-evaluated. Outdated recommendations are revised publicly.' },
@@ -1030,7 +1030,7 @@ export const consumerFAQ = [
     id: 'faq4',
     category: 'products' as const,
     question: 'Does TNiC sell its own supplements?',
-    answer: 'No. TNiC is an independent intelligence platform. We curate third-party products that meet our evidence and bioavailability standards. Some shop links may use affiliate partnerships — this is disclosed and never influences our evidence grading or rankings.',
+    answer: 'No. TNiC is an independent intelligence platform. We curate third-party products that meet our evidence and bioavailability standards. TNiC earns $0 from sales — verified picks link to manufacturer sites only, with batch COA guidance.',
   },
   {
     id: 'faq5',
@@ -1083,8 +1083,8 @@ export const consumerFAQ = [
   {
     id: 'faq13',
     category: 'safety' as const,
-    question: 'Is it safe to combine all 6 TNiC compounds at once?',
-    answer: 'Starting all 6 simultaneously is not recommended. Ramp in one compound per week so you can attribute any GI or metabolic change to a specific compound. High-priority interactions: resveratrol affects platelet function — avoid if on blood thinners. R-ALA may amplify insulin sensitivity — monitor glucose if diabetic. NMN and rapamycin should not be self-combined without physician oversight. Use the Stack Architect\'s synergy and warning panel — it flags combinations that need physician review.',
+    question: 'Is it safe to combine all 9 TNiC compounds at once?',
+    answer: 'Starting all 9 simultaneously is not recommended. Ramp in one compound per week so you can attribute any GI or metabolic change to a specific compound. Tier B additions (taurine, spermidine, pterostilbene) follow the same ramp rule. High-priority interactions: resveratrol and pterostilbene affect platelet function — avoid if on blood thinners. R-ALA may amplify insulin sensitivity — monitor glucose if diabetic. NMN and rapamycin should not be self-combined without physician oversight. Use the Stack Architect synergy and warning panel.',
   },
   {
     id: 'faq14',

@@ -1,7 +1,8 @@
 import { describe, expect, it } from 'vitest';
-import { compounds, safetyNotes } from './data';
+import { compounds, researchFeed, safetyNotes } from './data';
 import { libraryModules } from './library-modules';
 import { ELITE_8_COMPOUNDS } from './elite-8-data';
+import { citationRegistry } from './trust';
 
 describe('site data integrity', () => {
   it('every stack compound has a safety profile', () => {
@@ -17,6 +18,16 @@ describe('site data integrity', () => {
     const tierB = ['taurine', 'spermidine', 'pterostilbene'];
     for (const id of tierB) {
       expect(libraryModules.some((m) => m.slug === id && m.category === 'compounds')).toBe(true);
+    }
+  });
+
+  it('research feed PMIDs are registered in citationRegistry', () => {
+    const registryPmids = new Set(citationRegistry.map((c) => c.pmid));
+    for (const item of researchFeed) {
+      expect(
+        registryPmids.has(item.pmid),
+        `researchFeed ${item.id} PMID ${item.pmid} missing from citationRegistry`,
+      ).toBe(true);
     }
   });
 

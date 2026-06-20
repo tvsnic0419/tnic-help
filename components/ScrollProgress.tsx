@@ -58,7 +58,7 @@ export function ScrollProgress() {
                   isActive ? 'text-accent-cyan opacity-100' : 'text-caption opacity-0 group-hover:opacity-100'
                 }`}
               >
-                {link.mod}
+                {link.label}
               </span>
               <span
                 className={`w-2.5 h-2.5 rounded-full transition-all duration-300 ${

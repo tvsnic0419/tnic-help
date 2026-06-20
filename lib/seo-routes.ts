@@ -43,7 +43,7 @@ export const seoRoutes = {
     buildPageMetadata({
       title: 'Learn Hub — Getting Started, Glossary & Red Flags',
       description:
-        'Start here before you stack: 5-step onboarding checklist, 15-term longevity glossary, seven supplement red flags to avoid, outcome timelines, and evidence tier explainer.',
+        'Start here before you stack: 5-step onboarding checklist, 20-term longevity glossary, seven supplement red flags to avoid, outcome timelines, and evidence tier explainer.',
       path: '/learn',
       keywords: ['longevity FAQ', 'getting started biohacking', 'supplement red flags', 'longevity glossary', 'evidence tier A B C'],
     }),
@@ -176,7 +176,7 @@ export const seoRoutes = {
     buildPageMetadata({
       title: 'Disclaimers — Legal & Educational Notices',
       description:
-        'Medical advice disclaimer, modeled projections labeling, N=1 data policy, affiliate disclosure, and data privacy statement. TNiC is an educational platform — not a medical provider.',
+        'Medical advice disclaimer, modeled projections labeling, N=1 data policy, zero-commission commerce policy, and data privacy statement. TNiC is an educational platform — not a medical provider.',
       path: '/trust/disclaimers',
     }),
 
