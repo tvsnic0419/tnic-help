@@ -307,6 +307,17 @@ export const disclaimers: DisclaimerBlock[] = [
 export const updateHistory: UpdateHistoryEntry[] = [
   {
     date: '2026-06-19',
+    version: '1.23.0',
+    title: 'Sprint 23 — Command Palette v2 & Research Intel Filters',
+    category: 'feature',
+    changes: [
+      'Command palette v2 — page-aware suggestions, stack shortcuts, recent modules, hub next-step hint',
+      'lib/recent-modules.ts — localStorage tracking on all 26 library module visits',
+      'Research Intel — impact/topic/compound/hallmark filter chips with dynamic ContextRail per filter state',
+    ],
+  },
+  {
+    date: '2026-06-19',
     version: '1.22.0',
     title: 'Sprint 22 — Trust & Secondary Page Context',
     category: 'feature',

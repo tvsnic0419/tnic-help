@@ -1,5 +1,6 @@
 'use client';
 
+import { useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { ArrowLeft, BookOpen, Layers, FlaskConical, AlertTriangle } from 'lucide-react';
 import Link from 'next/link';
@@ -14,6 +15,7 @@ import { LifestylePillarPanel } from './LifestylePillarPanel';
 import { getBuyerGuideByModuleSlug } from '@/lib/buyer-guides';
 import type { LifestyleSlug } from '@/lib/lifestyle-pillars';
 import { ModuleContextStrip } from './ModuleContextStrip';
+import { recordModuleVisit } from '@/lib/recent-modules';
 
 export function LibraryModuleDetail({
   module,
@@ -30,6 +32,10 @@ export function LibraryModuleDetail({
     .filter(Boolean) ?? [];
   const buyerGuide =
     module.category === 'compounds' ? getBuyerGuideByModuleSlug(module.slug) : undefined;
+
+  useEffect(() => {
+    recordModuleVisit(module);
+  }, [module]);
 
   return (
     <div className="min-h-screen bg-background text-foreground pt-6 md:pt-8 pb-20">
