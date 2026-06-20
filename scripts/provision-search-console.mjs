@@ -12,7 +12,11 @@ import { join } from 'node:path';
 import { addDnsTxt, upsertVercelEnv, SITE_URL } from './lib/vercel.mjs';
 import { PRIORITY_INDEX_URLS } from './lib/seo-constants.mjs';
 
-const TIMEOUT = 300_000;
+const TIMEOUT = 120_000;
+const SIGNIN_HINT =
+  'Google blocks automated sign-in. Use DNS instead:\n' +
+  '  1. Search Console → add domain tnic.help → DNS verification\n' +
+  '  2. node scripts/verify-google-dns.mjs "google-site-verification=TOKEN"';
 const PROFILE_DIR = process.env.CHROME_USER_DATA?.trim() || join(homedir(), '.tnic-gsc-profile');
 const GSC_HOME = 'https://search.google.com/search-console';
 const DOMAIN = 'tnic.help';
@@ -85,7 +89,7 @@ async function waitForGoogleAuth(page) {
     }
     await sleep(2000);
   }
-  throw new Error('Google sign-in timed out — complete login in the browser and re-run.');
+  throw new Error(`Google sign-in timed out.\n${SIGNIN_HINT}`);
 }
 
 async function pickToken(tokens) {
@@ -235,6 +239,10 @@ async function launchBrowser() {
 }
 
 async function main() {
+  if (!googleCredentials() && !process.env.FORCE_GSC_BROWSER) {
+    console.error(SIGNIN_HINT);
+    process.exit(1);
+  }
   console.log('Launching Chrome for Search Console…');
   const context = await launchBrowser();
 
