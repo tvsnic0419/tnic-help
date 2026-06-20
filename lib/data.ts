@@ -50,6 +50,7 @@ export const compounds: Compound[] = [
     studies: [
       { title: 'GlyNAC supplementation improves glutathione deficiency in aging humans', journal: 'J Gerontol A', year: 2021, pmid: '34129059' },
       { title: 'Improvement of mitochondrial function in older adults after GlyNAC', journal: 'J Gerontol A', year: 2023, pmid: '36656670' },
+      { title: 'Supplementing GlyNAC in older adults improves glutathione deficiency, oxidative stress, mitochondrial dysfunction, inflammation, physical function, and aging hallmarks: A randomized clinical trial', journal: 'J Gerontol A', year: 2023, pmid: '35975308' },
     ],
   },
   {
@@ -69,6 +70,7 @@ export const compounds: Compound[] = [
     studies: [
       { title: 'Sulforaphane activates Nrf2 and protects against oxidative stress', journal: 'Oncogene', year: 2008, pmid: '18454171' },
       { title: 'Broccoli sprouts activate NRF2 in human airway epithelial cells', journal: 'Clin Immunol', year: 2016, pmid: '27356680' },
+      { title: 'Sulforaphane upregulates the mRNA expression of NRF2 and NQO1 in non-dialysis patients with chronic kidney disease', journal: 'Free Radic Biol Med', year: 2024, pmid: '38772511' },
     ],
   },
   {
@@ -125,6 +127,7 @@ export const compounds: Compound[] = [
     studies: [
       { title: 'NMN supplementation elevates NAD+ levels in healthy adults', journal: 'GeroScience', year: 2022, pmid: '36482258' },
       { title: 'NAD+ intermediates: NMN and NR in aging and disease', journal: 'Cell Metab', year: 2018, pmid: '29514064' },
+      { title: 'Nicotinamide mononucleotide increases muscle insulin sensitivity in prediabetic women', journal: 'Science', year: 2021, pmid: '33888596' },
     ],
   },
   {
