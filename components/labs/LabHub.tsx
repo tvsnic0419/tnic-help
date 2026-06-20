@@ -1,6 +1,7 @@
 'use client';
 
-import { useMemo, useState } from 'react';
+import { useMemo, useState, useEffect } from 'react';
+import { useSearchParams } from 'next/navigation';
 import { motion } from 'framer-motion';
 import { FlaskConical, LineChart, Lightbulb, Dna, Shield, Download, FileJson } from 'lucide-react';
 import { exportLabsPartnerJsonString } from '@/lib/lab-partner-export';
@@ -32,7 +33,17 @@ const tabs = [
 
 export function LabHub() {
   const { labs, selected, exportLabsCsv } = usePlatform();
-  const [tab, setTab] = useState<Tab>('input');
+  const searchParams = useSearchParams();
+  const tabParam = searchParams.get('tab');
+  const initialTab =
+    tabParam && tabs.some((t) => t.id === tabParam) ? (tabParam as Tab) : 'input';
+  const [tab, setTab] = useState<Tab>(initialTab);
+
+  useEffect(() => {
+    if (tabParam && tabs.some((t) => t.id === tabParam)) {
+      setTab(tabParam as Tab);
+    }
+  }, [tabParam]);
 
   const analysis = useMemo(() => analyzeLabs(labs, selected), [labs, selected]);
 

@@ -248,15 +248,23 @@ export const nextUpImprovements: NextUpItem[] = [
     href: '/library/compounds/nmn',
     tags: ['seo'],
   },
-  // Planned — Sprint 19
   {
     id: 'lifestyle-module-depth',
     title: 'Lifestyle pillar depth upgrade',
-    desc: 'Sleep, exercise, and nutrition modules with hallmark decision trees and lab tie-ins.',
-    status: 'planned',
+    desc: 'Hallmark matrices, graphical decision trees, lab deep-links, and Lifestyle Pillars hub on /library.',
+    status: 'shipped',
     sprint: 'Sprint 19',
-    href: '/library/lifestyle/sleep',
+    href: '/library#lifestyle-pillars',
     tags: ['content', 'library'],
+  },
+  {
+    id: 'labs-marker-deeplink',
+    title: 'Labs marker deep-links from lifestyle modules',
+    desc: '/labs?marker=hscrp&tab=input pre-selects biomarker from lifestyle pillar lab tie-ins.',
+    status: 'shipped',
+    sprint: 'Sprint 19',
+    href: '/labs?marker=hscrp&tab=input',
+    tags: ['labs', 'ux'],
   },
 ];
 

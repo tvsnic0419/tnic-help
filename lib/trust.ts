@@ -307,6 +307,18 @@ export const disclaimers: DisclaimerBlock[] = [
 export const updateHistory: UpdateHistoryEntry[] = [
   {
     date: '2026-06-19',
+    version: '1.19.0',
+    title: 'Sprint 19 — Lifestyle Pillar Depth & Lab Deep-Links',
+    category: 'feature',
+    changes: [
+      'Lifestyle pillar data layer — hallmark impact matrices, lab tie-ins, wearable signals, stack gates',
+      'LifestylePillarPanel on all lifestyle modules with one-click /labs?marker= deep-links',
+      'Graphical LifestyleDecisionTree renderer for MDX decision blocks',
+      'Lifestyle Pillars hub on /library#lifestyle-pillars with priority-ordered protocol cards',
+    ],
+  },
+  {
+    date: '2026-06-19',
     version: '1.18.0',
     title: 'Sprint 18 — Premium UI Overhaul & Compound JSON-LD',
     category: 'feature',

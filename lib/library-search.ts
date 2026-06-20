@@ -3,6 +3,7 @@ import { hallmarkLibrary } from './hallmarks-library';
 import { libraryModules, getModulePath, libraryCategoryMeta } from './library-modules';
 import { evidenceComparisons } from './comparisons';
 import { getAllBriefIssues } from './brief-research-sync';
+import { lifestylePillars, lifestylePillarOrder } from './lifestyle-pillars';
 
 export type LibrarySearchKind = 'hallmark' | 'module' | 'compound' | 'compare' | 'brief';
 
@@ -33,24 +34,41 @@ function buildIndex(): LibrarySearchItem[] {
     ],
   }));
 
-  const moduleItems: LibrarySearchItem[] = libraryModules.map((m) => ({
-    id: `module-${m.category}-${m.slug}`,
-    kind: 'module',
-    title: m.title,
-    subtitle: `${libraryCategoryMeta[m.category].label} · Tier ${m.evidenceTier}`,
-    href: getModulePath(m),
-    evidenceTier: m.evidenceTier,
-    keywords: [
-      m.title.toLowerCase(),
-      m.tagline.toLowerCase(),
-      m.summary.toLowerCase(),
-      m.slug,
-      m.category,
-      ...m.relatedHallmarkIds,
-      ...(m.compoundId ? [m.compoundId] : []),
-      ...(m.synergyCompoundIds ?? []),
-    ],
-  }));
+  const moduleItems: LibrarySearchItem[] = libraryModules.map((m) => {
+    const pillar =
+      m.category === 'lifestyle'
+        ? lifestylePillars[m.slug as keyof typeof lifestylePillars]
+        : undefined;
+
+    return {
+      id: `module-${m.category}-${m.slug}`,
+      kind: 'module',
+      title: m.title,
+      subtitle: `${libraryCategoryMeta[m.category].label} · Tier ${m.evidenceTier}`,
+      href: getModulePath(m),
+      evidenceTier: m.evidenceTier,
+      keywords: [
+        m.title.toLowerCase(),
+        m.tagline.toLowerCase(),
+        m.summary.toLowerCase(),
+        m.slug,
+        m.category,
+        ...m.relatedHallmarkIds,
+        ...(m.compoundId ? [m.compoundId] : []),
+        ...(m.synergyCompoundIds ?? []),
+        ...(pillar
+          ? [
+              'decision tree',
+              'lab tie-in',
+              'lifestyle pillar',
+              pillar.headline.toLowerCase(),
+              ...pillar.labTieIns.map((l) => l.label.toLowerCase()),
+              ...pillar.wearableSignals.map((w) => w.label.toLowerCase()),
+            ]
+          : []),
+      ],
+    };
+  });
 
   const compoundItems: LibrarySearchItem[] = compounds.map((c) => ({
     id: `compound-${c.id}`,

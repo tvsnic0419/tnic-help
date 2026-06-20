@@ -10,7 +10,9 @@ import { compounds } from '@/lib/data';
 import { EvidenceTag } from '@/components/trust/EvidenceTag';
 import { MdxRenderer } from './MdxRenderer';
 import { CompoundBuyerGuidePanel } from './CompoundBuyerGuide';
+import { LifestylePillarPanel } from './LifestylePillarPanel';
 import { getBuyerGuideByModuleSlug } from '@/lib/buyer-guides';
+import type { LifestyleSlug } from '@/lib/lifestyle-pillars';
 
 export function LibraryModuleDetail({
   module,
@@ -40,6 +42,10 @@ export function LibraryModuleDetail({
 
         <div className="grid lg:grid-cols-12 gap-10">
           <aside className="lg:col-span-4 space-y-6">
+            {module.category === 'lifestyle' && (
+              <LifestylePillarPanel slug={module.slug as LifestyleSlug} />
+            )}
+
             <div className="card-elevated p-6">
               <p className="text-[10px] font-mono text-accent-cyan tracking-widest mb-2 uppercase">
                 {categoryMeta.label}

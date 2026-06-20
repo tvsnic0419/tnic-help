@@ -8,7 +8,6 @@ import {
   ClipboardList,
   Lightbulb,
   OctagonX,
-  GitBranch,
 } from 'lucide-react';
 import type { EvidenceTier } from '@/lib/types';
 import type { HallmarkVisualType } from '@/lib/hallmark-visuals';
@@ -16,6 +15,10 @@ import { EvidenceTag } from '@/components/trust/EvidenceTag';
 import { HallmarkIcon } from '@/components/library/HallmarkIcon';
 import { PathwayDiagram } from '@/components/library/PathwayDiagram';
 import { InterventionCompare } from '@/components/library/InterventionCompare';
+import {
+  LifestyleDecisionTree,
+  parseDecisionNodes,
+} from '@/components/library/LifestyleDecisionTree';
 
 function renderInline(text: string) {
   return text
@@ -208,78 +211,12 @@ function renderDirective(block: Extract<ParsedBlock, { kind: 'directive' }>, key
   }
 
   if (type === 'decision') {
-    const lines = body.split('\n').filter((l) => l.trim());
-    const nodes: Array<{
-      kind: 'question' | 'branch' | 'redflag';
-      label: string;
-      depth: number;
-    }> = [];
-
-    lines.forEach((line) => {
-      const trimmed = line.trim();
-      const depth = Math.floor((line.length - line.trimStart().length) / 2);
-      const lower = trimmed.toLowerCase();
-
-      if (lower.startsWith('redflag |')) {
-        nodes.push({ kind: 'redflag', label: trimmed.slice(9).trim(), depth });
-        return;
-      }
-      if (lower.startsWith('node |')) {
-        nodes.push({ kind: 'question', label: trimmed.slice(6).trim(), depth });
-        return;
-      }
-      const branchMatch = trimmed.match(/^(yes|no|if|else)\s*\|\s*(.+)$/i);
-      if (branchMatch) {
-        nodes.push({
-          kind: 'branch',
-          label: `${branchMatch[1].toUpperCase()} → ${branchMatch[2].trim()}`,
-          depth,
-        });
-        return;
-      }
-      const arrowMatch = trimmed.match(/^(YES|NO|IF|ELSE)(?:\s+(.+?))?\s*→\s*(.+)$/i);
-      if (arrowMatch) {
-        const cond = arrowMatch[2]
-          ? `${arrowMatch[1].toUpperCase()} ${arrowMatch[2]}`
-          : arrowMatch[1].toUpperCase();
-        nodes.push({ kind: 'branch', label: `${cond} → ${arrowMatch[3].trim()}`, depth });
-        return;
-      }
-      if (trimmed.endsWith('?')) {
-        nodes.push({ kind: 'question', label: trimmed, depth });
-        return;
-      }
-      nodes.push({ kind: 'branch', label: trimmed, depth });
-    });
-
     return (
-      <div
+      <LifestyleDecisionTree
         key={key}
-        className="my-6 rounded-xl p-5 border border-accent-violet/25 bg-accent-violet/5"
-      >
-        <div className="flex items-center gap-2 mb-4">
-          <GitBranch className="w-4 h-4 text-accent-violet" aria-hidden="true" />
-          <p className="text-[10px] font-mono text-accent-violet uppercase tracking-wider">
-            {attrs.title ?? 'Decision tree'}
-          </p>
-        </div>
-        <div className="space-y-2 font-mono text-xs">
-          {nodes.map((node, ni) => (
-            <div
-              key={ni}
-              style={{ paddingLeft: `${node.depth * 1.25}rem` }}
-              className={
-                node.kind === 'question'
-                  ? 'text-foreground font-semibold py-1'
-                  : node.kind === 'redflag'
-                    ? 'text-accent-rose font-semibold py-1'
-                    : 'text-muted-foreground py-0.5'
-              }
-              dangerouslySetInnerHTML={{ __html: renderInline(node.label) }}
-            />
-          ))}
-        </div>
-      </div>
+        title={attrs.title ?? 'Decision tree'}
+        nodes={parseDecisionNodes(body)}
+      />
     );
   }
 

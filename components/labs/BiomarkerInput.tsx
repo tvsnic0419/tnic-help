@@ -1,6 +1,7 @@
 'use client';
 
 import { useEffect, useRef, useState } from 'react';
+import { useSearchParams } from 'next/navigation';
 
 export const LABS_PARTNER_TAB_EVENT = 'tnic:labs-partner-tab';
 import { Plus, Upload, FileText, ClipboardPaste, CheckCircle2, AlertCircle } from 'lucide-react';
@@ -13,8 +14,13 @@ type InputMode = 'single' | 'panel' | 'upload' | 'partner';
 
 export function BiomarkerInput() {
   const { addLab, importLabs } = usePlatform();
+  const searchParams = useSearchParams();
+  const markerParam = searchParams.get('marker');
+  const validMarker =
+    markerParam && biomarkers.some((b) => b.id === markerParam) ? markerParam : biomarkers[0].id;
+
   const [mode, setMode] = useState<InputMode>('single');
-  const [markerId, setMarkerId] = useState(biomarkers[0].id);
+  const [markerId, setMarkerId] = useState(validMarker);
   const [value, setValue] = useState('');
   const [date, setDate] = useState(new Date().toISOString().slice(0, 10));
   const [panelDate, setPanelDate] = useState(new Date().toISOString().slice(0, 10));
@@ -22,6 +28,13 @@ export function BiomarkerInput() {
   const [uploadMsg, setUploadMsg] = useState<{ type: 'success' | 'error'; text: string } | null>(null);
   const [pasteText, setPasteText] = useState('');
   const fileRef = useRef<HTMLInputElement>(null);
+
+  useEffect(() => {
+    if (markerParam && biomarkers.some((b) => b.id === markerParam)) {
+      setMarkerId(markerParam);
+      setMode('single');
+    }
+  }, [markerParam]);
 
   useEffect(() => {
     const openPartner = () => setMode('partner');
