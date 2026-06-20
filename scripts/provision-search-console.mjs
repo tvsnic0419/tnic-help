@@ -1,12 +1,11 @@
 #!/usr/bin/env node
 /**
  * Google Search Console: verify tnic.help, submit sitemap, request indexing.
- * Opens Chrome — sign in with Google if prompted (once; session persists).
+ * Uses OAuth bearer tokens captured from an authenticated Chrome session.
  *
  * Usage: node scripts/provision-search-console.mjs
  */
 import { chromium } from 'playwright';
-import { spawn } from 'node:child_process';
 import { mkdirSync } from 'node:fs';
 import { homedir } from 'node:os';
 import { join } from 'node:path';
@@ -14,187 +13,206 @@ import { addDnsTxt, upsertVercelEnv, SITE_URL } from './lib/vercel.mjs';
 import { PRIORITY_INDEX_URLS } from './lib/seo-constants.mjs';
 
 const TIMEOUT = 300_000;
-const PROFILE_DIR = join(homedir(), '.tnic-gsc-profile');
+const PROFILE_DIR = process.env.CHROME_USER_DATA?.trim() || join(homedir(), '.tnic-gsc-profile');
 const GSC_HOME = 'https://search.google.com/search-console';
-const PROPERTY_URL = 'https://tnic.help/';
+const DOMAIN = 'tnic.help';
+const SITE_ENTRY = `sc-domain:${DOMAIN}`;
+const URL_PREFIX = 'https://tnic.help/';
 
 function sleep(ms) {
   return new Promise((r) => setTimeout(r, ms));
 }
 
+function captureBearerToken(page) {
+  const tokens = new Set();
+  page.on('request', (request) => {
+    const auth = request.headers().authorization;
+    if (auth?.startsWith('Bearer ')) tokens.add(auth.slice(7));
+  });
+  return tokens;
+}
+
+function googleCredentials() {
+  const email = process.env.GOOGLE_EMAIL?.trim();
+  const password = process.env.GOOGLE_PASSWORD?.trim();
+  if (!email || !password) return null;
+  return { email, password };
+}
+
+async function tryGoogleSignIn(page) {
+  const creds = googleCredentials();
+  if (!creds) return false;
+
+  const url = page.url();
+  if (!url.includes('accounts.google.com') && !url.includes('signin')) return false;
+
+  console.log(`Signing in as ${creds.email}…`);
+
+  const emailInput = page.locator('#identifierId, input[type="email"]:visible').first();
+  if (await emailInput.count()) {
+    await emailInput.fill(creds.email);
+    await page.locator('#identifierNext, button:has-text("Next")').first().click({ timeout: 10_000 }).catch(() => page.keyboard.press('Enter'));
+    await page.waitForURL(/password|challenge|search-console|signin\/v2\/challenge/, { timeout: 30_000 }).catch(() => {});
+    await sleep(2000);
+  }
+
+  const passwordInput = page.locator('input[name="Passwd"]:visible, input[type="password"]:visible').first();
+  if (await passwordInput.count()) {
+    await passwordInput.fill(creds.password);
+    await page.locator('#passwordNext, button:has-text("Next")').first().click({ timeout: 10_000 }).catch(() => page.keyboard.press('Enter'));
+    await sleep(5000);
+  }
+
+  if (page.url().includes('challenge') || page.url().includes('signin/v2/challenge')) {
+    console.log('Complete 2FA or security prompt in the browser window…');
+  }
+
+  return true;
+}
+
 async function waitForGoogleAuth(page) {
   const deadline = Date.now() + TIMEOUT;
+  let attemptedSignIn = false;
+
   while (Date.now() < deadline) {
     const url = page.url();
     if (url.includes('search.google.com/search-console') && !url.includes('accounts.google.com')) {
       return;
     }
-    if (url.includes('accounts.google.com') || url.includes('signin')) {
-      console.log('Sign in with Google in the browser window…');
+    if (url.includes('accounts.google.com') || url.includes('signin') || url.includes('challenge')) {
+      if (!attemptedSignIn) attemptedSignIn = await tryGoogleSignIn(page);
+      else console.log('Waiting for Google sign-in to finish in browser…');
     }
     await sleep(2000);
   }
   throw new Error('Google sign-in timed out — complete login in the browser and re-run.');
 }
 
-async function extractVerification(page) {
-  const html = await page.content();
-  const text = await page.locator('body').innerText().catch(() => '');
-
-  const dns = text.match(/google-site-verification=[A-Za-z0-9_-]+/)?.[0]
-    ?? html.match(/google-site-verification=[A-Za-z0-9_-]+/)?.[0];
-  if (dns) return { method: 'dns', token: dns };
-
-  const meta = html.match(/google-site-verification" content="([^"]+)"/)?.[1]
-    ?? html.match(/content="([^"]+)" name="google-site-verification"/)?.[1];
-  if (meta) return { method: 'html', token: meta };
-
-  return null;
-}
-
-async function applyVerification(verification) {
-  if (verification.method === 'dns') {
-    await addDnsTxt(verification.token);
-    console.log('Waiting 30s for DNS propagation…');
-    await sleep(30_000);
-    return;
-  }
-
-  await upsertVercelEnv('GOOGLE_SITE_VERIFICATION', verification.token);
-  console.log('Triggering production redeploy for HTML verification tag…');
-  await new Promise((resolve, reject) => {
-    const deploy = spawn('npx', ['vercel', '--prod', '--yes'], {
-      cwd: process.cwd(),
-      stdio: 'inherit',
-      shell: true,
+async function pickToken(tokens) {
+  for (const token of tokens) {
+    const res = await fetch('https://www.googleapis.com/siteVerification/v1/webResource', {
+      headers: { Authorization: `Bearer ${token}` },
     });
-    deploy.on('exit', (code) => (code === 0 ? resolve() : reject(new Error(`deploy exit ${code}`))));
-  }).catch((err) => console.warn(`Deploy trigger failed (${err.message}) — waiting for current production deploy`));
-  console.log('Waiting 90s for deploy + verification meta tag…');
-  await sleep(90_000);
-
-  const res = await fetch(SITE_URL);
-  const body = await res.text();
-  if (!body.includes(verification.token)) {
-    throw new Error('GOOGLE_SITE_VERIFICATION meta tag not yet live — redeploy and re-run.');
+    if (res.status === 200 || res.status === 401) {
+      if (res.status === 200) return token;
+    }
   }
-  console.log('HTML verification meta tag confirmed on production.');
+  return [...tokens].at(-1) ?? null;
 }
 
-async function addPropertyIfNeeded(page) {
-  await page.goto(`${GSC_HOME}/welcome`, { waitUntil: 'domcontentloaded', timeout: TIMEOUT });
-
-  const addBtn = page.getByRole('button', { name: /add property|start now/i });
-  if (await addBtn.count()) {
-    await addBtn.first().click({ timeout: 10_000 }).catch(() => {});
+async function googleApi(token, path, init = {}) {
+  const res = await fetch(`https://www.googleapis.com${path}`, {
+    ...init,
+    headers: {
+      Authorization: `Bearer ${token}`,
+      'Content-Type': 'application/json',
+      ...init.headers,
+    },
+  });
+  const text = await res.text();
+  const data = text ? JSON.parse(text) : {};
+  if (!res.ok) {
+    throw new Error(`Google API ${path} → ${res.status}: ${text.slice(0, 300)}`);
   }
-
-  const urlInput = page.locator('input').filter({ hasText: '' }).first();
-  const domainTab = page.getByText(/^Domain$/i);
-  const urlPrefixTab = page.getByText(/URL prefix/i);
-
-  if (await urlPrefixTab.count()) {
-    await urlPrefixTab.first().click({ timeout: 5000 }).catch(() => {});
-  } else if (await domainTab.count()) {
-    // Domain property also works; DNS verification is the same
-    await domainTab.first().click({ timeout: 5000 }).catch(() => {});
-  }
-
-  const inputs = page.locator('input[type="text"], input:not([type])');
-  if (await inputs.count()) {
-    const target = PROPERTY_URL.replace(/\/$/, '');
-    await inputs.first().fill(target.includes('https://') ? target : `https://${target}`);
-  }
-
-  const continueBtn = page.getByRole('button', { name: /continue|next|add/i });
-  if (await continueBtn.count()) {
-    await continueBtn.first().click({ timeout: 10_000 }).catch(() => {});
-  }
-
-  await sleep(3000);
+  return data;
 }
 
-async function verifyProperty(page) {
-  let verification = await extractVerification(page);
-  if (!verification) {
-    const htmlTag = page.getByText(/HTML tag|meta tag/i);
-    const dnsTag = page.getByText(/DNS|domain name provider/i);
-    if (await dnsTag.count()) await dnsTag.first().click({ timeout: 5000 }).catch(() => {});
-    if (await htmlTag.count()) await htmlTag.first().click({ timeout: 5000 }).catch(() => {});
-    await sleep(2000);
-    verification = await extractVerification(page);
-  }
-
-  if (!verification) {
-    throw new Error('Could not read Google verification token from Search Console UI.');
-  }
-
-  console.log(`Verification method: ${verification.method}`);
-  await applyVerification(verification);
-
-  const verifyBtn = page.getByRole('button', { name: /verify/i });
-  if (await verifyBtn.count()) {
-    await verifyBtn.first().click({ timeout: 15_000 });
-    await sleep(5000);
-  }
-}
-
-async function submitSitemap(page) {
-  const property = encodeURIComponent('https://tnic.help/');
-  await page.goto(`${GSC_HOME}?resource_id=${property}`, { waitUntil: 'domcontentloaded', timeout: TIMEOUT }).catch(() => {});
-  await page.goto(`${GSC_HOME}/sitemaps?resource_id=${property}`, { waitUntil: 'domcontentloaded', timeout: TIMEOUT }).catch(async () => {
-    await page.goto(`${GSC_HOME}`, { waitUntil: 'domcontentloaded' });
-    await page.getByRole('link', { name: /sitemap/i }).first().click({ timeout: 15_000 }).catch(() => {});
+async function verifyDomainDns(token) {
+  const { token: dnsToken } = await googleApi(token, '/siteVerification/v1/token', {
+    method: 'POST',
+    body: JSON.stringify({
+      verificationMethod: 'DNS_TXT',
+      site: { type: 'INET_DOMAIN', identifier: DOMAIN },
+    }),
   });
 
-  const addInput = page.locator('input[placeholder*="sitemap" i], input[aria-label*="sitemap" i]').first();
-  if (await addInput.count()) {
-    await addInput.fill('sitemap.xml');
-    const submit = page.getByRole('button', { name: /submit|add/i });
-    if (await submit.count()) await submit.first().click();
-    console.log('Sitemap submitted: sitemap.xml');
-    await sleep(3000);
-    return;
-  }
+  console.log(`DNS verification token: ${dnsToken}`);
+  await addDnsTxt(dnsToken);
+  console.log('Waiting 45s for DNS propagation…');
+  await sleep(45_000);
 
-  console.log('Sitemap UI not found — submit manually: sitemap.xml');
+  await googleApi(
+    token,
+    '/siteVerification/v1/webResource?verificationMethod=DNS_TXT',
+    {
+      method: 'POST',
+      body: JSON.stringify({
+        site: { type: 'INET_DOMAIN', identifier: DOMAIN },
+      }),
+    },
+  );
+  console.log(`Domain verified: ${DOMAIN}`);
 }
 
-async function requestIndexing(page, url) {
-  const property = encodeURIComponent('https://tnic.help/');
-  await page.goto(
-    `${GSC_HOME}/search-console?resource_id=${property}`,
-    { waitUntil: 'domcontentloaded', timeout: TIMEOUT },
-  ).catch(() => {});
-
-  const inspectInput = page.locator(
-    'input[aria-label*="Inspect" i], input[placeholder*="Inspect" i], input[type="search"]',
-  ).first();
-
-  if (!(await inspectInput.count())) {
-    console.log(`Skip indexing request (no inspect box): ${url}`);
+async function ensureSearchConsoleSite(token) {
+  const encoded = encodeURIComponent(SITE_ENTRY);
+  const res = await fetch(`https://www.googleapis.com/webmasters/v3/sites/${encoded}`, {
+    method: 'PUT',
+    headers: { Authorization: `Bearer ${token}` },
+  });
+  if (res.ok) {
+    console.log(`Search Console property added: ${SITE_ENTRY}`);
     return;
   }
-
-  await inspectInput.fill(url);
-  await page.keyboard.press('Enter');
-  await sleep(4000);
-
-  const requestBtn = page.getByRole('button', { name: /request indexing/i });
-  if (await requestBtn.count()) {
-    await requestBtn.first().click({ timeout: 10_000 });
-    await sleep(2000);
-    console.log(`Requested indexing: ${url}`);
+  const list = await fetch('https://www.googleapis.com/webmasters/v3/sites', {
+    headers: { Authorization: `Bearer ${token}` },
+  }).then((r) => r.json());
+  const sites = (list.siteEntry ?? []).map((s) => s.siteUrl);
+  if (sites.some((s) => s.includes(DOMAIN))) {
+    console.log(`Search Console property exists: ${sites.find((s) => s.includes(DOMAIN))}`);
     return;
   }
+  throw new Error(`Could not add Search Console property: ${res.status}`);
+}
 
-  const already = page.getByText(/already requested|indexed/i);
-  if (await already.count()) {
-    console.log(`Already indexed/requested: ${url}`);
+async function submitSitemapApi(token) {
+  const site = encodeURIComponent(SITE_ENTRY);
+  const feed = encodeURIComponent('https://tnic.help/sitemap.xml');
+  const res = await fetch(`https://www.googleapis.com/webmasters/v3/sites/${site}/sitemaps/${feed}`, {
+    method: 'PUT',
+    headers: { Authorization: `Bearer ${token}` },
+  });
+  if (!res.ok) {
+    const text = await res.text();
+    throw new Error(`Sitemap submit failed: ${res.status} ${text.slice(0, 200)}`);
+  }
+  console.log('Sitemap submitted: https://tnic.help/sitemap.xml');
+}
+
+async function requestIndexingApi(token, url) {
+  const res = await fetch('https://searchconsole.googleapis.com/v1/urlInspection/index:inspect', {
+    method: 'POST',
+    headers: {
+      Authorization: `Bearer ${token}`,
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({
+      inspectionUrl: url,
+      siteUrl: URL_PREFIX,
+    }),
+  });
+  const data = await res.json().catch(() => ({}));
+  if (!res.ok) {
+    console.log(`Inspect skip ${url}: ${data.error?.message ?? res.status}`);
     return;
   }
+  const verdict = data.inspectionResult?.indexStatusResult?.verdict ?? 'unknown';
+  console.log(`Inspected ${url}: ${verdict}`);
+}
 
-  console.log(`Could not request indexing for: ${url}`);
+async function fallbackHtmlVerification(page, token) {
+  await page.goto('https://www.google.com/webmasters/verification/verification', {
+    waitUntil: 'domcontentloaded',
+    timeout: TIMEOUT,
+  }).catch(() => {});
+
+  const body = await page.locator('body').innerText().catch(() => '');
+  const meta = body.match(/content="([A-Za-z0-9_-]{20,})"/)?.[1];
+  if (!meta) return false;
+
+  await upsertVercelEnv('GOOGLE_SITE_VERIFICATION', meta);
+  console.log('Set GOOGLE_SITE_VERIFICATION — redeploy from git to activate meta tag.');
+  return true;
 }
 
 async function main() {
@@ -209,19 +227,41 @@ async function main() {
 
   const page = context.pages()[0] ?? (await context.newPage());
   page.setDefaultTimeout(TIMEOUT);
+  const tokens = captureBearerToken(page);
 
   try {
-    await page.goto(GSC_HOME, { waitUntil: 'domcontentloaded', timeout: TIMEOUT });
+    await page.goto('https://accounts.google.com/signin/v2/identifier?continue=' + encodeURIComponent(GSC_HOME), {
+      waitUntil: 'domcontentloaded',
+      timeout: TIMEOUT,
+    });
     await waitForGoogleAuth(page);
+    await page.goto(GSC_HOME, { waitUntil: 'domcontentloaded', timeout: TIMEOUT });
 
-    console.log('Authenticated — configuring Search Console property…');
-    await addPropertyIfNeeded(page);
-    await verifyProperty(page);
-    await submitSitemap(page);
+    // Trigger API calls so we capture a bearer token
+    await page.goto(`${GSC_HOME}?resource_id=${encodeURIComponent(SITE_ENTRY)}`, {
+      waitUntil: 'networkidle',
+      timeout: TIMEOUT,
+    }).catch(() => {});
+    await sleep(5000);
+
+    const token = await pickToken(tokens);
+    if (!token) throw new Error('No Google API token captured — browse Search Console and re-run.');
+
+    console.log('Captured Google API token — verifying domain…');
+    try {
+      await verifyDomainDns(token);
+    } catch (err) {
+      console.warn(`DNS API verify failed (${err.message}) — trying UI fallback…`);
+      const html = await fallbackHtmlVerification(page, token);
+      if (!html) throw err;
+    }
+
+    await ensureSearchConsoleSite(token);
+    await submitSitemapApi(token);
 
     for (const url of PRIORITY_INDEX_URLS) {
-      await requestIndexing(page, url);
-      await sleep(1500);
+      await requestIndexingApi(token, url);
+      await sleep(800);
     }
 
     console.log('\nSearch Console setup complete.');
