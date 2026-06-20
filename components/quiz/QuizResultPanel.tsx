@@ -9,6 +9,8 @@ import { compounds } from '@/lib/data';
 import { usePlatform } from '@/context/PlatformContext';
 import type { PresetKey } from '@/lib/presets';
 import type { getQuizResult } from '@/lib/homepage';
+import { QuizShareCard } from '@/components/quiz/QuizShareCard';
+import { isCompleteQuizAnswers } from '@/lib/quiz-share';
 
 type QuizResult = ReturnType<typeof getQuizResult>;
 
@@ -131,6 +133,14 @@ export function QuizResultPanel({ result, answers, onRetake }: QuizResultPanelPr
           <span className="text-caption">— try a different goal or experience level</span>
         </button>
       </div>
+
+      {isCompleteQuizAnswers(answers) && (
+        <QuizShareCard
+          answers={answers}
+          preset={result.preset as PresetKey}
+          stackLabel={result.stack.label}
+        />
+      )}
     </motion.div>
   );
 }

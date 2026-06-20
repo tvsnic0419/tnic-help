@@ -18,6 +18,7 @@ import { PageHeader } from '@/components/ui/PageHeader';
 import { TabBar } from '@/components/ui/TabBar';
 import { EvidenceTagLegend } from './EvidenceTag';
 import { CitationList } from './CitationList';
+import { CitationExportPanel } from './CitationExportPanel';
 import { DisclaimerBanner } from './DisclaimerBanner';
 import { JourneyTimeline } from './JourneyTimeline';
 import { UpdateHistoryList } from './UpdateHistoryList';
@@ -178,6 +179,7 @@ export function TrustHub() {
                 ))}
               </div>
             </section>
+            <CitationExportPanel />
             <CitationList citations={citationRegistry} title="Citation Registry" />
           </div>
         )}

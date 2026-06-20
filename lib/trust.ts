@@ -306,6 +306,17 @@ export const disclaimers: DisclaimerBlock[] = [
 
 export const updateHistory: UpdateHistoryEntry[] = [
   {
+    date: '2026-06-19',
+    version: '1.15.0',
+    title: 'Sprint 15 — Quiz Share Cards & Citation Export',
+    category: 'feature',
+    changes: [
+      'Quiz result share card — copy quiz link, Architect/Shop deep links, social snippet, and markdown',
+      'Quiz URL deep links — /quiz?goal=&age=&experience= restores shared results on page load',
+      'Citation bundle export — BibTeX and JSON copy/download on Trust hub Citations tab',
+    ],
+  },
+  {
     date: '2026-06-16',
     version: '1.14.0',
     title: 'Sprint 14 — Compare Share Cards & Dashboard Export',

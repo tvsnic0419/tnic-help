@@ -1,11 +1,13 @@
 'use client';
 
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import Link from 'next/link';
+import { useSearchParams } from 'next/navigation';
 import { motion, AnimatePresence } from 'framer-motion';
 import { BookOpen, Shield, Zap, Layers } from 'lucide-react';
 import { quizSteps, getQuizResult, type QuizAnswers } from '@/lib/homepage';
 import { QuizResultPanel } from '@/components/quiz/QuizResultPanel';
+import { parseQuizSearchParams } from '@/lib/quiz-share';
 
 const goalIcons = {
   book: BookOpen,
@@ -15,9 +17,20 @@ const goalIcons = {
 };
 
 export function StarterQuiz({ variant = 'embedded' }: { variant?: 'embedded' | 'page' }) {
+  const searchParams = useSearchParams();
   const [step, setStep] = useState(0);
   const [answers, setAnswers] = useState<QuizAnswers>({});
   const [done, setDone] = useState(false);
+
+  useEffect(() => {
+    if (variant !== 'page') return;
+    const shared = parseQuizSearchParams(searchParams.toString());
+    if (shared) {
+      setAnswers(shared);
+      setDone(true);
+      setStep(quizSteps.length - 1);
+    }
+  }, [searchParams, variant]);
 
   const current = quizSteps[step];
   const progress = done ? 100 : ((step + 1) / quizSteps.length) * 100;
