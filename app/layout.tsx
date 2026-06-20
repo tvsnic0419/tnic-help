@@ -1,4 +1,4 @@
-import type { Viewport } from 'next';
+import type { Metadata, Viewport } from 'next';
 import { Geist, Geist_Mono } from 'next/font/google';
 import { JsonLd } from '@/components/JsonLd';
 import { SkipLink } from '@/components/SkipLink';
@@ -21,7 +21,10 @@ const geistMono = Geist_Mono({
   display: 'swap',
 });
 
-export const metadata = buildRootMetadata();
+export const metadata: Metadata = {
+  ...buildRootMetadata(),
+  verification: { google: 'JXl9PzynZw-9rloI6NeoW8CNLPJ6wGrpdKu9GdZtAL4' },
+};
 
 export const viewport: Viewport = {
   themeColor: [
