@@ -720,27 +720,12 @@ export const consumerFAQ = [
   {
     id: 'faq13',
     category: 'safety' as const,
-<<<<<<< HEAD
-    question: 'Is it safe to combine these compounds together?',
-    answer: 'These compounds have good individual safety profiles in published literature. Individual responses vary and interactions with medications are possible. Always consult a qualified healthcare provider before starting any supplementation protocol, especially if you take prescription medications or have existing health conditions. Use the Stack Builder\'s interaction checker for compound-specific flags.',
-=======
     question: 'Is it safe to combine all 6 TNiC compounds at once?',
     answer: 'Starting all 6 simultaneously is not recommended. Ramp in one compound per week so you can attribute any GI or metabolic change to a specific compound. High-priority interactions: resveratrol affects platelet function — avoid if on blood thinners. R-ALA may amplify insulin sensitivity — monitor glucose if diabetic. NMN and rapamycin should not be self-combined without physician oversight. Use the Stack Architect\'s synergy and warning panel — it flags combinations that need physician review.',
->>>>>>> bc0e117 (feat: R-ALA + Ca-AKG library modules, expanded FAQ, full nav coverage)
   },
   {
     id: 'faq14',
     category: 'science' as const,
-<<<<<<< HEAD
-    question: 'What is NRF2 and why does it matter for aging?',
-    answer: 'NRF2 is a transcription factor that activates your cells\' built-in antioxidant and detoxification systems. When triggered, it upregulates 200+ defense genes — including those producing glutathione, catalase, and superoxide dismutase. Declining NRF2 activity with age directly correlates with increased oxidative stress and inflammaging, two core drivers of the 12 hallmarks of aging.',
-  },
-  {
-    id: 'faq15',
-    category: 'science' as const,
-    question: 'What is the difference between liposomal, phytosome, and NLC delivery?',
-    answer: 'Liposomes: good absorption, widely available, variable quality. Phytosomes: strong molecular bond with plant compounds, clinically studied (Meriva, Siliphos), best for polyphenols. NLCs (Nanostructured Lipid Carriers): highest stability, controlled release, best for lipophilic compounds like sulforaphane and fisetin. For most longevity compounds, phytosomes and NLCs offer the best bioavailability-to-cost ratio. See the Delivery Systems guide in the Library.',
-=======
     question: 'What is NRF2 and why does TNiC build around it?',
     answer: 'NRF2 is a transcription factor that — when activated — switches on 200+ cytoprotective genes: phase-II detox enzymes, proteasome components, glutathione synthesis genes, and antioxidant response elements. It is the master regulator of cellular defense. Three TNiC compounds target it from different angles: sulforaphane activates it (via KEAP1 modification), GlyNAC supplies the substrate it upregulates (glutathione precursors), and R-ALA recycles the oxidized products. Together they form the NRF2 Defense Triad — the most mechanistically layered single-pathway stack on TNiC.',
   },
@@ -749,6 +734,5 @@ export const consumerFAQ = [
     category: 'products' as const,
     question: 'Why does delivery system (liposomal, phytosome, standard) matter?',
     answer: 'Many compounds have poor aqueous solubility or are degraded before absorption. Liposomal delivery (used for GlyNAC on TNiC) encapsulates compounds in phospholipid vesicles that fuse with cell membranes, bypassing gut degradation. Phytosomes bind polyphenols to phosphatidylcholine, dramatically improving resveratrol and sulforaphane bioavailability. Standard capsules are fine for water-soluble compounds (NMN, Ca-AKG) with inherently high oral bioavailability. For lipophilic compounds like R-ALA, take with a fat-containing meal — the fat itself acts as a delivery vehicle. TNiC\'s product picks are selected partly on delivery format. See the Delivery Systems Library module for full comparison.',
->>>>>>> bc0e117 (feat: R-ALA + Ca-AKG library modules, expanded FAQ, full nav coverage)
   },
 ];
