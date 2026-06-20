@@ -139,6 +139,7 @@ export const ELITE_8_COMPOUNDS: LQCompound[] = [
     color: '#a78bfa',
     isRx: false,
     evidenceTier: 'B',
+    libraryHref: '/library/compounds/spermidine',
   },
   {
     id: 'senolytics',
@@ -203,6 +204,7 @@ export const ELITE_8_COMPOUNDS: LQCompound[] = [
     color: '#38bdf8',
     isRx: false,
     evidenceTier: 'B',
+    libraryHref: '/library/compounds/taurine',
   },
   {
     id: 'resveratrol_pterostilbene',
@@ -223,7 +225,7 @@ export const ELITE_8_COMPOUNDS: LQCompound[] = [
     clockConfidence: 'modeled',
     color: '#c084fc',
     isRx: false,
-    libraryHref: '/library/compounds/resveratrol',
+    libraryHref: '/library/compounds/pterostilbene',
     evidenceTier: 'B',
   },
 ];

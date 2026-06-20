@@ -307,6 +307,17 @@ export const disclaimers: DisclaimerBlock[] = [
 export const updateHistory: UpdateHistoryEntry[] = [
   {
     date: '2026-06-20',
+    version: '1.34.0',
+    title: 'Sprint 34 — Tier B Compound Expansion (Taurine, Spermidine, Pterostilbene)',
+    category: 'content',
+    changes: [
+      'Three Tier B compounds added to Stack Architect data layer — taurine, spermidine, pterostilbene',
+      'Library MDX deep-dives with PMID anchors; hallmark intervention mappings (autophagy, mitochondrial)',
+      'Elite 8 libraryHref links for OTC compounds; IndexNow priority paths for new compound routes',
+    ],
+  },
+  {
+    date: '2026-06-20',
     version: '1.33.0',
     title: 'Sprint 33 — Elite 8 Integration + Production Health Monitor',
     category: 'feature',

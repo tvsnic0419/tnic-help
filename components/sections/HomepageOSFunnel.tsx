@@ -95,7 +95,7 @@ const osPaths = [
   {
     icon: Library,
     title: 'Anti-Aging Library',
-    desc: '12 hallmarks, 6 compound deep-dives, synergy guides — all PMID-cited and evidence-graded.',
+    desc: '12 hallmarks, 9 compound deep-dives, synergy guides — all PMID-cited and evidence-graded.',
     context: 'Search by compound, hallmark, or pathway. Every entry links to the primary trial.',
     href: '/library',
     cta: 'Search library',

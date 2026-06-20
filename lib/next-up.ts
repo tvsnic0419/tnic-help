@@ -410,6 +410,15 @@ export const nextUpImprovements: NextUpItem[] = [
     href: '/elite-8',
     tags: ['tools', 'integration'],
   },
+  {
+    id: 'sprint34-tier-b-compounds',
+    title: 'Sprint 34 — Taurine, Spermidine, Pterostilbene Tier B expansion',
+    desc: 'Three OTC compounds in data.ts + library MDX modules; hallmark autophagy/mito mappings; Elite 8 library links.',
+    status: 'shipped',
+    sprint: 'Sprint 34',
+    href: '/library/compounds/taurine',
+    tags: ['content', 'library'],
+  },
 ];
 
 export const nextUpByStatus = {

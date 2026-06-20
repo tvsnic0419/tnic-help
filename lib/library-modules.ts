@@ -248,6 +248,67 @@ export const libraryModules: LibraryModule[] = [
     ],
     mdxSlug: 'resveratrol',
   },
+  {
+    slug: 'taurine',
+    category: 'compounds',
+    title: 'Taurine',
+    tagline: 'Age-depleted osmolyte — Science 2023 lifespan signals',
+    summary:
+      'Sulfonic amino acid buffering mitochondrial stress and declining ~80% with age. Tier B: strong Singh 2023 Science mechanism and animal lifespan data; limited human longevity RCT.',
+    evidenceTier: 'B',
+    relatedHallmarkIds: ['mito', 'inflammation', 'genomic'],
+    compoundId: 'taurine',
+    outline: [
+      'Overview & taurine decline with age',
+      'Mechanism: membrane + mitochondrial buffering',
+      'Evidence: Singh 2023 Science',
+      'Dosing protocol',
+      'Monitoring',
+      'Personal results template',
+    ],
+    mdxSlug: 'taurine',
+  },
+  {
+    slug: 'spermidine',
+    category: 'compounds',
+    title: 'Spermidine',
+    tagline: 'Autophagy polyamine — Madeo 2021 memory RCT',
+    summary:
+      'Dietary and supplemental polyamine inducing autophagy via EP300 inhibition. Tier B: human pilot memory outcomes; strong mechanistic autophagy data.',
+    evidenceTier: 'B',
+    relatedHallmarkIds: ['autophagy', 'epigenetic', 'senescence'],
+    compoundId: 'spermidine',
+    outline: [
+      'Overview & autophagy induction',
+      'Mechanism: EP300 / eIF5A',
+      'Evidence: Madeo 2021 Cell RCT',
+      'Dosing & dietary sources',
+      'Monitoring',
+      'Personal results template',
+    ],
+    mdxSlug: 'spermidine',
+  },
+  {
+    slug: 'pterostilbene',
+    category: 'compounds',
+    title: 'Pterostilbene',
+    tagline: 'Methylated resveratrol — 4× bioavailability',
+    summary:
+      'Stilbenoid SIRT1 activator with superior human PK vs trans-resveratrol. Tier B: Kapetanovic 2011 safety/PK; compare with resveratrol for stack pairing.',
+    evidenceTier: 'B',
+    relatedHallmarkIds: ['mito', 'epigenetic', 'inflammation'],
+    compoundId: 'pterostilbene',
+    relatedSynergySlugs: ['nmn-resveratrol-sirt1'],
+    outline: [
+      'Overview vs resveratrol',
+      'Mechanism & bioavailability advantage',
+      'Evidence summary',
+      'Dosing & NMN pairing',
+      'Compare table link',
+      'Personal results template',
+    ],
+    mdxSlug: 'pterostilbene',
+  },
 
   // ── Synergies ──────────────────────────────────────────────────────────────
   {

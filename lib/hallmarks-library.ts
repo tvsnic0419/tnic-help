@@ -105,7 +105,7 @@ export const hallmarkLibrary: HallmarkLibraryEntry[] = [
     visual: 'autophagy',
     coverage: 70,
     biomarkers: ['LC3-II/LC3-I ratio (research)', 'p62 levels', 'Fasting glucose / ketones'],
-    relatedCompoundIds: ['nmn', 'sulforaphane', 'resveratrol'],
+    relatedCompoundIds: ['nmn', 'sulforaphane', 'resveratrol', 'spermidine'],
     mdxSlug: 'disabled-autophagy',
     personalPrompts: ['Log fasting window length', 'Track post-meal energy crashes', 'Note exercise intensity and recovery'],
     interventions: [
@@ -113,7 +113,7 @@ export const hallmarkLibrary: HallmarkLibraryEntry[] = [
       { id: 'a2', name: 'NMN → SIRT1 autophagy axis', category: 'compound', evidence: 'B', rank: 2, impact: 7, description: 'NAD+-SIRT1 pathway deacetylates ATG proteins, promoting autophagosome formation.', compoundId: 'nmn', tnicAvailable: true },
       { id: 'a3', name: 'Resveratrol → AMPK activation', category: 'compound', evidence: 'B', rank: 3, impact: 7, description: 'AMPK phosphorylation triggers autophagy independent of mTOR.', compoundId: 'resveratrol', tnicAvailable: true },
       { id: 'a4', name: 'Sulforaphane', category: 'compound', evidence: 'B', rank: 4, impact: 6, description: 'NRF2-mediated upregulation of autophagy-related genes in preclinical models.', compoundId: 'sulforaphane', tnicAvailable: true },
-      { id: 'a5', name: 'Spermidine', category: 'emerging', evidence: 'B', rank: 5, impact: 6, description: 'Induces autophagy via EP300 inhibition. Human epidemiology links dietary intake to longevity.', pmid: '30093609', tnicAvailable: false },
+      { id: 'a5', name: 'Spermidine', category: 'compound', evidence: 'B', rank: 5, impact: 6, description: 'Induces autophagy via EP300 inhibition. Madeo 2021 memory RCT; dietary epidemiology links intake to longevity.', compoundId: 'spermidine', pmid: '33932338', tnicAvailable: true },
     ],
   },
   {
@@ -128,7 +128,7 @@ export const hallmarkLibrary: HallmarkLibraryEntry[] = [
     visual: 'mito',
     coverage: 95,
     biomarkers: ['NAD+ metabolites', 'Lactate/pyruvate ratio', 'VO2 max', 'Resting metabolic rate'],
-    relatedCompoundIds: ['nmn', 'cakg', 'resveratrol', 'rala'],
+    relatedCompoundIds: ['nmn', 'cakg', 'resveratrol', 'rala', 'taurine'],
     mdxSlug: 'mitochondrial-dysfunction',
     personalPrompts: ['Log subjective energy 1–10 daily', 'Track resting heart rate trend', 'Note NAD+ panel results if tested'],
     interventions: [
@@ -137,6 +137,7 @@ export const hallmarkLibrary: HallmarkLibraryEntry[] = [
       { id: 'm3', name: 'Zone 2 aerobic training', category: 'lifestyle', evidence: 'A', rank: 3, impact: 9, description: 'The single strongest lifestyle intervention for mitochondrial biogenesis via PGC-1α.', tnicAvailable: false },
       { id: 'm4', name: 'Resveratrol (mitophagy)', category: 'compound', evidence: 'B', rank: 4, impact: 7, description: 'Promotes clearance of damaged mitochondria via SIRT1/PINK1 pathway.', compoundId: 'resveratrol', tnicAvailable: true },
       { id: 'm5', name: 'R-Alpha Lipoic Acid', category: 'compound', evidence: 'B', rank: 5, impact: 7, description: 'Cofactor for pyruvate dehydrogenase and complex enzymes; recycles antioxidants in the mitochondrial matrix.', compoundId: 'rala', tnicAvailable: true },
+      { id: 'm6', name: 'Taurine', category: 'compound', evidence: 'B', rank: 6, impact: 6, description: 'Age-depleted osmolyte; Singh 2023 Science links deficiency to hallmarks and extends lifespan in animal models.', compoundId: 'taurine', pmid: '37289866', tnicAvailable: true },
     ],
   },
   {
