@@ -91,12 +91,12 @@ export function HallmarkProblemTiles() {
   return (
     <section
       id="hallmark-targets"
-      className="py-20 md:py-28 border-b border-border bg-gradient-to-b from-card to-background section-glow-violet relative overflow-hidden"
+      className="py-20 md:py-28 border-b border-border section-mesh section-glow-violet relative overflow-hidden"
     >
       <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,_var(--accent-violet)_0%,_transparent_55%)] opacity-[0.07] pointer-events-none" />
 
       <div className="relative max-w-7xl mx-auto px-6">
-        <div className="text-center mb-12 md:mb-16">
+        <div className="text-center mb-12 md:mb-16 section-header-mesh">
           <div className="inline-flex items-center gap-2 mb-4">
             <Target className="w-4 h-4 text-accent-violet" />
             <p className="text-label text-accent-violet">
@@ -129,7 +129,7 @@ export function HallmarkProblemTiles() {
               >
                 <Link
                   href={`/library/${h.slug}`}
-                  className={`focus-ring block h-full glass rounded-2xl p-5 group border border-border/60 transition-all duration-300 ${ac.glowHover}`}
+                  className={`focus-ring block h-full card-ultra card-ultra-hover p-5 group transition-all duration-300 ${ac.glowHover}`}
                 >
                   <div className="flex items-start justify-between gap-3 mb-4">
                     <div className={`rounded-xl p-2.5 ${ac.iconWrap}`}>
@@ -183,7 +183,7 @@ export function HallmarkProblemTiles() {
         <div className="flex flex-col sm:flex-row items-center justify-center gap-3 mt-12">
           <Link
             href="/library"
-            className="focus-ring interactive inline-flex items-center gap-2 px-6 py-3 rounded-xl glass glow-hover-cyan text-sm font-semibold"
+            className="focus-ring btn-ghost-premium text-sm"
           >
             Explore full library <ArrowRight className="w-4 h-4" />
           </Link>

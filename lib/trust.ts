@@ -307,6 +307,18 @@ export const disclaimers: DisclaimerBlock[] = [
 export const updateHistory: UpdateHistoryEntry[] = [
   {
     date: '2026-06-19',
+    version: '1.20.0',
+    title: 'Sprint 20 — Design System v3 Cinematic Escalation',
+    category: 'feature',
+    changes: [
+      'Site-wide ambient aurora canvas — drifting gradient orbs behind all pages',
+      'Cinematic hero — display typography, pulse rings, ultra card quiz shell, gradient CTAs',
+      'card-ultra surface system — gradient borders, spotlight glow, hover lift across homepage',
+      'Nav glass scroll state + logo glow; animated scroll progress; footer aurora mesh',
+    ],
+  },
+  {
+    date: '2026-06-19',
     version: '1.19.0',
     title: 'Sprint 19 — Lifestyle Pillar Depth & Lab Deep-Links',
     category: 'feature',

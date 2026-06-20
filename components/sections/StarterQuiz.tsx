@@ -57,7 +57,7 @@ export function StarterQuiz({ variant = 'embedded' }: { variant?: 'embedded' | '
 
   return (
     <div
-      className={`gradient-border p-6 md:p-8 ${variant === 'page' ? 'shadow-lg shadow-accent-emerald/5' : ''}`}
+      className={`p-6 md:p-8 ${variant === 'page' ? 'card-ultra shadow-lg shadow-accent-emerald/10' : ''}`}
       role="form"
       aria-label="3-minute starter quiz"
     >

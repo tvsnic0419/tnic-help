@@ -8,8 +8,8 @@ interface PageShellProps {
 /** Consistent wrapper for /labs, /stacks, /library hub pages */
 export function PageShell({ children, className = '' }: PageShellProps) {
   return (
-    <div className={`py-16 md:py-24 lg:py-28 ${className}`}>
-      <div className="container-page">{children}</div>
+    <div className={`hub-shell py-16 md:py-24 lg:py-28 section-mesh ${className}`}>
+      <div className="relative container-page">{children}</div>
     </div>
   );
 }

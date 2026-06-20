@@ -266,6 +266,15 @@ export const nextUpImprovements: NextUpItem[] = [
     href: '/labs?marker=hscrp&tab=input',
     tags: ['labs', 'ux'],
   },
+  {
+    id: 'design-v3-cinematic',
+    title: 'Design System v3 — cinematic UI escalation',
+    desc: 'Ambient aurora layer, hero rings, card-ultra, btn-gradient, nav glass scroll state, hub shell mesh.',
+    status: 'shipped',
+    sprint: 'Sprint 20',
+    href: '/',
+    tags: ['ui', 'design'],
+  },
 ];
 
 export const nextUpByStatus = {

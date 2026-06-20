@@ -39,7 +39,7 @@ export function PageHeader({
 
   return (
     <header className={`mb-10 md:mb-12 max-w-4xl ${alignClass} section-header-mesh relative`}>
-      <div className="inline-flex items-center gap-2 card-premium rounded-full px-4 py-2 mb-5 text-body-sm">
+      <div className="inline-flex items-center gap-2 card-ultra rounded-full px-4 py-2.5 mb-5 text-body-sm">
         <Icon className={`w-4 h-4 ${t.text}`} aria-hidden="true" />
         <span className="text-foreground/90">{eyebrow}</span>
       </div>

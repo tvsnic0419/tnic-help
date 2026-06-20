@@ -6,6 +6,7 @@ import ErrorBoundary from '@/components/ErrorBoundary';
 import { PlatformProviderWrapper } from '@/components/PlatformProviderWrapper';
 import { ThemeScript } from '@/components/theme/ThemeScript';
 import { SITE, LONGEVITY_KEYWORDS } from '@/lib/site';
+import { AmbientLayer } from '@/components/ui/AmbientLayer';
 import './globals.css';
 
 const geistSans = Geist({
@@ -74,9 +75,12 @@ export default function RootLayout({
         <JsonLd />
       </head>
       <body className="min-h-full">
+        <AmbientLayer />
         <SkipLink />
         <ErrorBoundary fallbackMessage="The Longevity OS encountered an issue loading this section.">
-          <PlatformProviderWrapper>{children}</PlatformProviderWrapper>
+          <PlatformProviderWrapper>
+            <div className="page-canvas">{children}</div>
+          </PlatformProviderWrapper>
         </ErrorBoundary>
       </body>
     </html>

@@ -11,7 +11,15 @@ import { ThemeToggle } from '@/components/theme/ThemeToggle';
 
 export function Nav() {
   const [mobileOpen, setMobileOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
   const menuRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const onScroll = () => setScrolled(window.scrollY > 24);
+    onScroll();
+    window.addEventListener('scroll', onScroll, { passive: true });
+    return () => window.removeEventListener('scroll', onScroll);
+  }, []);
 
   useEffect(() => {
     if (!mobileOpen) return;
@@ -30,24 +38,26 @@ export function Nav() {
 
   return (
     <nav className="fixed top-0 w-full z-50" aria-label="Main navigation">
-      <div className="absolute inset-0 bg-background/85 backdrop-blur-xl border-b border-border" />
+      <div
+        className={`absolute inset-0 nav-glass ${scrolled ? 'nav-glass-scrolled' : ''}`}
+      />
       <div className="relative container-page py-3 md:py-4 flex justify-between items-center gap-4">
-        <Link href="/" className="focus-ring interactive flex items-center gap-2 rounded-lg shrink-0">
-          <div className="w-9 h-9 rounded-lg bg-gradient-to-br from-accent-cyan to-accent-emerald flex items-center justify-center">
-            <Dna className="w-4 h-4 text-primary-foreground" aria-hidden="true" />
+        <Link href="/" className="focus-ring interactive flex items-center gap-2.5 rounded-lg shrink-0 group">
+          <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-accent-cyan via-accent-emerald to-accent-cyan flex items-center justify-center logo-glow transition-transform group-hover:scale-105">
+            <Dna className="w-5 h-5 text-primary-foreground" aria-hidden="true" />
           </div>
           <span className="text-xl font-bold tracking-tight text-foreground">
-            TN<span className="text-accent-cyan">i</span>C
+            TN<span className="shimmer-text">i</span>C
           </span>
         </Link>
 
-        <div className="hidden lg:flex gap-1 xl:gap-2">
+        <div className="hidden lg:flex gap-0.5 xl:gap-1">
           {navLinks.map((link) =>
             isExternal(link.href) ? (
               <Link
                 key={link.href}
                 href={link.href}
-                className="focus-ring interactive px-3 py-2 rounded-lg text-sm font-medium text-muted-foreground hover:text-foreground hover:bg-accent-cyan/8 transition-all"
+                className="focus-ring interactive px-3.5 py-2 rounded-xl text-sm font-medium text-muted-foreground hover:text-foreground hover:bg-accent-cyan/10 transition-all"
               >
                 {link.label}
               </Link>
@@ -55,7 +65,7 @@ export function Nav() {
               <a
                 key={link.href}
                 href={link.href}
-                className="focus-ring interactive px-3 py-2 rounded-lg text-sm font-medium text-muted-foreground hover:text-foreground hover:bg-accent-cyan/8 transition-all"
+                className="focus-ring interactive px-3.5 py-2 rounded-xl text-sm font-medium text-muted-foreground hover:text-foreground hover:bg-accent-cyan/10 transition-all"
               >
                 {link.label}
               </a>
@@ -66,10 +76,7 @@ export function Nav() {
         <div className="hidden md:flex items-center gap-3 shrink-0">
           <ThemeToggle compact />
           <SiteSearch />
-          <Link
-            href="/dashboard"
-            className="focus-ring interactive flex items-center gap-2 bg-gradient-to-r from-accent-cyan to-accent-emerald text-black px-5 py-2.5 min-h-[var(--space-touch)] rounded-full text-sm font-semibold shadow-sm glow-hover-emerald"
-          >
+          <Link href="/dashboard" className="focus-ring btn-gradient text-sm !py-2.5 !px-5 !min-h-0 rounded-full">
             Open OS
             <ArrowRight className="w-4 h-4" aria-hidden="true" />
           </Link>
@@ -107,7 +114,7 @@ export function Nav() {
             initial={{ opacity: 0, height: 0 }}
             animate={{ opacity: 1, height: 'auto' }}
             exit={{ opacity: 0, height: 0 }}
-            className="lg:hidden relative bg-background/98 backdrop-blur-xl border-b border-border"
+            className="lg:hidden relative nav-glass nav-glass-scrolled border-b border-border"
           >
             <div className="container-page py-4 flex flex-col gap-1">
               {navLinks.map((link) =>
@@ -116,7 +123,7 @@ export function Nav() {
                     key={link.href}
                     href={link.href}
                     onClick={() => setMobileOpen(false)}
-                    className="focus-ring interactive flex justify-between items-center text-foreground hover:text-accent-cyan py-3.5 min-h-[var(--space-touch)] text-base font-medium border-b border-border last:border-0"
+                    className="focus-ring interactive flex justify-between items-center text-foreground hover:text-accent-cyan py-3.5 min-h-[var(--space-touch)] text-base font-medium border-b border-border/50 last:border-0"
                   >
                     {link.label}
                   </Link>
@@ -125,7 +132,7 @@ export function Nav() {
                     key={link.href}
                     href={link.href}
                     onClick={() => setMobileOpen(false)}
-                    className="focus-ring interactive flex justify-between items-center text-foreground hover:text-accent-cyan py-3.5 min-h-[var(--space-touch)] text-base font-medium border-b border-border last:border-0"
+                    className="focus-ring interactive flex justify-between items-center text-foreground hover:text-accent-cyan py-3.5 min-h-[var(--space-touch)] text-base font-medium border-b border-border/50 last:border-0"
                   >
                     {link.label}
                   </a>
@@ -134,7 +141,7 @@ export function Nav() {
               <Link
                 href="/dashboard"
                 onClick={() => setMobileOpen(false)}
-                className="focus-ring interactive bg-accent-emerald text-primary-foreground px-5 py-3.5 min-h-[var(--space-touch)] rounded-xl text-sm font-semibold text-center mt-3"
+                className="focus-ring btn-gradient text-sm text-center mt-3 justify-center"
               >
                 Open Longevity OS
               </Link>

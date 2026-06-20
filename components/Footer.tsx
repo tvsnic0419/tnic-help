@@ -39,17 +39,17 @@ const resourceLinks = [
 
 export function Footer() {
   return (
-    <footer className="relative py-12 md:py-16" role="contentinfo">
-      <div className="absolute top-0 inset-x-0 h-px bg-gradient-to-r from-transparent via-accent-cyan/40 to-transparent" />
+    <footer className="relative py-14 md:py-20 footer-aurora border-t border-border/50" role="contentinfo">
+      <div className="absolute top-0 inset-x-0 h-px bg-gradient-to-r from-transparent via-accent-cyan/50 to-transparent" />
       <div className="container-page">
         <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-10 mb-10">
           <div className="sm:col-span-2 lg:col-span-1">
-            <Link href="/" className="focus-ring inline-flex items-center gap-2 mb-4 rounded-lg">
-              <div className="w-8 h-8 rounded-md bg-gradient-to-br from-accent-cyan to-accent-emerald flex items-center justify-center">
+            <Link href="/" className="focus-ring inline-flex items-center gap-2.5 mb-4 rounded-lg group">
+              <div className="w-9 h-9 rounded-xl bg-gradient-to-br from-accent-cyan to-accent-emerald flex items-center justify-center logo-glow group-hover:scale-105 transition-transform">
                 <Dna className="w-4 h-4 text-black" aria-hidden="true" />
               </div>
               <span className="font-bold text-lg">
-                TN<span className="text-accent-cyan">i</span>C
+                TN<span className="shimmer-text">i</span>C
               </span>
             </Link>
             <p className="text-body-sm max-w-xs">

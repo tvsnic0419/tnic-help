@@ -16,6 +16,9 @@ interface StatStripProps {
 }
 
 export function StatStrip({ stats, ariaLabel = 'Key metrics', variant = 'default' }: StatStripProps) {
+  const cardClass = variant === 'hero' ? 'stat-card-v3' : 'stat-card';
+  const valueClass = variant === 'hero' ? 'stat-value-v3' : 'stat-value';
+
   return (
     <div
       className={`summary-strip ${variant === 'hero' ? 'mb-0' : 'mb-8'}`}
@@ -29,9 +32,9 @@ export function StatStrip({ stats, ariaLabel = 'Key metrics', variant = 'default
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ delay: i * 0.08, duration: 0.4 }}
-          className="stat-card"
+          className={cardClass}
         >
-          <p className={`stat-value ${stat.color ?? ''}`}>{stat.value}</p>
+          <p className={`${valueClass} ${stat.color ?? ''}`}>{stat.value}</p>
           <p className="text-label mt-1.5">{stat.label}</p>
           {stat.sublabel && (
             <p className="text-caption mt-0.5">{stat.sublabel}</p>

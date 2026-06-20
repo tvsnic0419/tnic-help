@@ -152,7 +152,7 @@ export function HomepageOSFunnel() {
                 <Link
                   href={path.href}
                   className={[
-                    'focus-ring group block h-full rounded-2xl p-6 border border-border/60 card-premium',
+                    'focus-ring group block h-full rounded-2xl p-6 card-ultra card-ultra-hover',
                     'bg-gradient-to-br', cfg.gradFrom, 'to-transparent',
                     `glow-hover-${path.accent}`,
                     isFeatured ? cfg.featuredRing : '',
