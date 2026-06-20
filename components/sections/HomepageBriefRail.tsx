@@ -1,59 +1,14 @@
 'use client';
 
-import { useEffect, useState } from 'react';
 import Link from 'next/link';
 import { motion } from 'framer-motion';
-import { Bell, Mail, Rss, ArrowRight, CheckCircle2 } from 'lucide-react';
+import { Bell, Mail, Rss, ArrowRight, CheckCircle2, AlertCircle } from 'lucide-react';
 import { ContextRail } from '@/components/ui/ContextRail';
 import { SITE } from '@/lib/site';
-import {
-  getBriefSubscription,
-  saveBriefSubscription,
-} from '@/lib/brief-subscribe';
+import { useBriefSubscribe } from '@/hooks/useBriefSubscribe';
 
 export function HomepageBriefRail() {
-  const [email, setEmail] = useState('');
-  const [subscribed, setSubscribed] = useState(false);
-  const [savedEmail, setSavedEmail] = useState<string | null>(null);
-  const [loading, setLoading] = useState(false);
-
-  useEffect(() => {
-    const record = getBriefSubscription();
-    if (record) {
-      setSubscribed(true);
-      setSavedEmail(record.email);
-      setEmail(record.email);
-    }
-  }, []);
-
-  const subscribe = async (e: React.FormEvent) => {
-    e.preventDefault();
-    if (!email.trim()) return;
-
-    setLoading(true);
-    saveBriefSubscription(email.trim());
-
-    try {
-      const res = await fetch('/api/brief/subscribe', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ email: email.trim() }),
-      });
-      const data = await res.json();
-      if (data.ok) {
-        setSubscribed(true);
-        setSavedEmail(email.trim());
-        setLoading(false);
-        return;
-      }
-    } catch {
-      /* fallback below */
-    }
-
-    setSubscribed(true);
-    setSavedEmail(email.trim());
-    setLoading(false);
-  };
+  const { email, setEmail, subscribed, loading, error, notice, subscribe } = useBriefSubscribe();
 
   return (
     <section className="py-16 md:py-20 border-b border-border bg-[#0a0f1a]/50 section-mesh">
@@ -92,13 +47,14 @@ export function HomepageBriefRail() {
               </div>
             </div>
 
-            {subscribed && savedEmail ? (
+            {subscribed && email ? (
               <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 glass rounded-xl p-4 mb-4">
                 <div className="flex items-center gap-3">
                   <CheckCircle2 className="w-5 h-5 text-accent-emerald shrink-0" />
                   <div>
                     <p className="text-sm font-semibold">Subscribed — weekly delivery active</p>
-                    <p className="text-xs text-muted-foreground font-mono">{savedEmail}</p>
+                    <p className="text-xs text-muted-foreground font-mono">{email}</p>
+                    {notice && <p className="text-caption mt-1">{notice}</p>}
                   </div>
                 </div>
                 <Link
@@ -109,7 +65,14 @@ export function HomepageBriefRail() {
                 </Link>
               </div>
             ) : (
-              <form onSubmit={subscribe} className="flex flex-col sm:flex-row gap-3 mb-4">
+              <form onSubmit={subscribe} className="flex flex-col gap-2 mb-4">
+                {error && (
+                  <p role="alert" className="flex items-center gap-1.5 text-xs text-accent-rose">
+                    <AlertCircle className="w-3.5 h-3.5 shrink-0" />
+                    {error}
+                  </p>
+                )}
+                <div className="flex flex-col sm:flex-row gap-3">
                 <div className="relative flex-1">
                   <Mail className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
                   <input
@@ -130,6 +93,7 @@ export function HomepageBriefRail() {
                   <Bell className="w-4 h-4" />
                   {loading ? 'Subscribing…' : 'Subscribe'}
                 </button>
+                </div>
               </form>
             )}
 

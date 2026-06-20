@@ -17,16 +17,25 @@ export function getBriefSubscription(): BriefSubscribeRecord | null {
   }
 }
 
-export function saveBriefSubscription(email: string): BriefSubscribeRecord {
+export function saveBriefSubscription(email: string): BriefSubscribeRecord | null {
   const record: BriefSubscribeRecord = {
     email,
     subscribedAt: new Date().toISOString(),
     frequency: 'weekly',
   };
-  localStorage.setItem(BRIEF_SUBSCRIBE_KEY, JSON.stringify(record));
-  return record;
+  try {
+    localStorage.setItem(BRIEF_SUBSCRIBE_KEY, JSON.stringify(record));
+    return record;
+  } catch {
+    return null;
+  }
 }
 
-export function clearBriefSubscription(): void {
-  localStorage.removeItem(BRIEF_SUBSCRIBE_KEY);
+export function clearBriefSubscription(): boolean {
+  try {
+    localStorage.removeItem(BRIEF_SUBSCRIBE_KEY);
+    return true;
+  } catch {
+    return false;
+  }
 }

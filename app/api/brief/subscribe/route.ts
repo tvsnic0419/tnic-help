@@ -77,7 +77,8 @@ export async function POST(request: Request) {
         json: '/brief/feed.json',
       },
     });
-  } catch {
-    return NextResponse.json({ ok: false, error: 'Invalid request' }, { status: 400 });
+  } catch (err) {
+    console.error('[brief/subscribe]', err);
+    return NextResponse.json({ ok: false, error: 'Subscription service unavailable' }, { status: 500 });
   }
 }

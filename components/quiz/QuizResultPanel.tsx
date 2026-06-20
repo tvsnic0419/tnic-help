@@ -2,10 +2,10 @@
 
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { motion } from 'framer-motion';
-import { ArrowRight, RotateCcw, Check, Layers, Compass, ShoppingBag, BookOpen, Mail, CheckCircle2 } from 'lucide-react';
-import { saveBriefSubscription } from '@/lib/brief-subscribe';
+import { ArrowRight, RotateCcw, Check, Layers, Compass, ShoppingBag, BookOpen, Mail, CheckCircle2, AlertCircle } from 'lucide-react';
+import { useBriefSubscribe } from '@/hooks/useBriefSubscribe';
 import { compounds } from '@/lib/data';
 import { usePlatform } from '@/context/PlatformContext';
 import type { PresetKey } from '@/lib/presets';
@@ -32,33 +32,7 @@ interface QuizResultPanelProps {
 export function QuizResultPanel({ result, answers, onRetake }: QuizResultPanelProps) {
   const router = useRouter();
   const { applyPreset, setProfile, setQuizResult } = usePlatform();
-  const [email, setEmail] = useState('');
-  const [subscribed, setSubscribed] = useState(false);
-  const [loading, setLoading] = useState(false);
-
-  const subscribeBrief = async (e: React.FormEvent) => {
-    e.preventDefault();
-    if (!email.trim()) return;
-    setLoading(true);
-    saveBriefSubscription(email.trim());
-    try {
-      const res = await fetch('/api/brief/subscribe', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ email: email.trim() }),
-      });
-      const data = await res.json();
-      if (data.ok) {
-        setSubscribed(true);
-        setLoading(false);
-        return;
-      }
-    } catch {
-      /* fallback */
-    }
-    setSubscribed(true);
-    setLoading(false);
-  };
+  const { email, setEmail, subscribed, loading, error, subscribe: subscribeBrief } = useBriefSubscribe();
 
   useEffect(() => {
     setQuizResult({
@@ -196,7 +170,14 @@ export function QuizResultPanel({ result, answers, onRetake }: QuizResultPanelPr
               Subscribed — PMID research mapped to {result.stack.label}
             </div>
           ) : (
-            <form onSubmit={subscribeBrief} className="flex gap-2">
+            <form onSubmit={subscribeBrief} className="flex flex-col gap-2">
+              {error && (
+                <p role="alert" className="flex items-center gap-1.5 text-xs text-accent-rose">
+                  <AlertCircle className="w-3.5 h-3.5 shrink-0" />
+                  {error}
+                </p>
+              )}
+              <div className="flex gap-2">
               <div className="relative flex-1">
                 <Mail className="absolute left-2.5 top-1/2 -translate-y-1/2 w-3.5 h-3.5 text-muted-foreground" />
                 <input
@@ -216,6 +197,7 @@ export function QuizResultPanel({ result, answers, onRetake }: QuizResultPanelPr
               >
                 {loading ? '…' : 'Subscribe'}
               </button>
+              </div>
             </form>
           )}
         </div>

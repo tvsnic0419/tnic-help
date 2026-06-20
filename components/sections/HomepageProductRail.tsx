@@ -1,44 +1,17 @@
 'use client';
 
-import { useState } from 'react';
 import Link from 'next/link';
 import { motion } from 'framer-motion';
-import { ArrowRight, Mail, Package, CheckCircle2 } from 'lucide-react';
+import { ArrowRight, Mail, Package, CheckCircle2, AlertCircle } from 'lucide-react';
 import { productPicks } from '@/lib/product-picks';
 import { ProductPickCard } from '@/components/shop/ProductPickCard';
 import { ContextRail } from '@/components/ui/ContextRail';
-import { saveBriefSubscription } from '@/lib/brief-subscribe';
+import { useBriefSubscribe } from '@/hooks/useBriefSubscribe';
 
 const featuredPicks = productPicks.filter((p) => p.compoundId !== 'nr').slice(0, 3);
 
 export function HomepageProductRail() {
-  const [email, setEmail] = useState('');
-  const [subscribed, setSubscribed] = useState(false);
-  const [loading, setLoading] = useState(false);
-
-  const subscribe = async (e: React.FormEvent) => {
-    e.preventDefault();
-    if (!email.trim()) return;
-    setLoading(true);
-    saveBriefSubscription(email.trim());
-    try {
-      const res = await fetch('/api/brief/subscribe', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ email: email.trim() }),
-      });
-      const data = await res.json();
-      if (data.ok) {
-        setSubscribed(true);
-        setLoading(false);
-        return;
-      }
-    } catch {
-      /* fallback */
-    }
-    setSubscribed(true);
-    setLoading(false);
-  };
+  const { email, setEmail, subscribed, loading, error, notice, subscribe } = useBriefSubscribe();
 
   return (
     <section className="py-16 md:py-20 border-b border-border section-mesh section-glow-amber bg-[#0a0f1a]/30">
@@ -93,12 +66,22 @@ export function HomepageProductRail() {
             </div>
           </div>
           {subscribed ? (
-            <div className="flex items-center gap-2 text-sm text-accent-emerald shrink-0">
-              <CheckCircle2 className="w-4 h-4" />
-              Subscribed — check your inbox
+            <div className="flex flex-col gap-1 shrink-0">
+              <div className="flex items-center gap-2 text-sm text-accent-emerald">
+                <CheckCircle2 className="w-4 h-4" />
+                Subscribed — check your inbox
+              </div>
+              {notice && <p className="text-caption text-muted-foreground">{notice}</p>}
             </div>
           ) : (
-            <form onSubmit={subscribe} className="flex gap-2 w-full md:w-auto shrink-0">
+            <form onSubmit={subscribe} className="flex flex-col gap-2 w-full md:w-auto shrink-0">
+              {error && (
+                <p role="alert" className="flex items-center gap-1.5 text-xs text-accent-rose">
+                  <AlertCircle className="w-3.5 h-3.5 shrink-0" />
+                  {error}
+                </p>
+              )}
+              <div className="flex gap-2">
               <div className="relative flex-1 md:w-56">
                 <Mail className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
                 <input
@@ -118,6 +101,7 @@ export function HomepageProductRail() {
               >
                 {loading ? '…' : 'Subscribe'}
               </button>
+              </div>
             </form>
           )}
         </div>
