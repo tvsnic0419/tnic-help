@@ -438,6 +438,15 @@ export const nextUpImprovements: NextUpItem[] = [
     tags: ['trust', 'seo'],
   },
   {
+    id: 'sprint37-ssl-hardening',
+    title: 'Sprint 37.1 — SSL & transport security hardening',
+    desc: 'HTTPS+apex middleware, HSTS preload in next.config, Trust transport-security disclaimer, self-heal HTTP/HSTS monitors.',
+    status: 'shipped',
+    sprint: 'Sprint 37.1',
+    href: '/trust/disclaimers',
+    tags: ['trust', 'security'],
+  },
+  {
     id: 'sprint37-visual-transcend',
     title: 'Sprint 37 — Material visual transcend + hub context strip',
     desc: 'Breadcrumb + hub next-step in ContextBar on all OS routes; gradient CTA finale, backdrop-blur library cards, anti-CTA-fatigue Browse Library path.',

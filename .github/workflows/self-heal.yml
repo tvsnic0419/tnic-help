@@ -50,6 +50,24 @@ jobs:
           fi
           echo "OK: www → $FINAL_URL"
 
+      - name: Enforce HTTP to HTTPS redirect
+        run: |
+          LOCATION=$(curl -s -o /dev/null -w "%{redirect_url}" --max-time 15 http://tnic.help)
+          if [[ "$LOCATION" != https://tnic.help/* ]]; then
+            echo "FAIL: http://tnic.help did not redirect to HTTPS ($LOCATION)"
+            exit 1
+          fi
+          echo "OK: HTTP → $LOCATION"
+
+      - name: Confirm HSTS preload header on apex
+        run: |
+          HSTS=$(curl -s -I --max-time 15 https://tnic.help | grep -i strict-transport-security | tr -d '\r')
+          if [[ "$HSTS" != *"includeSubDomains"* ]] || [[ "$HSTS" != *"preload"* ]]; then
+            echo "FAIL: Missing HSTS preload directives ($HSTS)"
+            exit 1
+          fi
+          echo "OK: $HSTS"
+
       - name: Check sitemap is reachable
         run: |
           CODE=$(curl -s -o /dev/null -w "%{http_code}" --max-time 15 https://tnic.help/sitemap.xml)

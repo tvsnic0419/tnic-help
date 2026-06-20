@@ -432,9 +432,27 @@ export const disclaimers: DisclaimerBlock[] = [
     body: 'Stack selections, lab entries, and personal notes are stored in your browser\'s localStorage. TNiC does not transmit this data to servers. Clearing browser data deletes your entries. Export regularly for backup.',
     appliesTo: ['Lab Hub', 'Personal Dashboard', 'Hallmark Notes'],
   },
+  {
+    id: 'transport-security',
+    title: 'HTTPS & Transport Security',
+    severity: 'info',
+    body: 'tnic.help is served exclusively over HTTPS with HSTS preload (max-age 2 years, includeSubDomains). HTTP and www.tnic.help permanently redirect to the apex domain. Vercel provisions and auto-renews TLS certificates. API routes that accept secrets (cron, webhooks) require HTTPS in production.',
+    appliesTo: ['All pages', 'API routes', 'Protocol Brief subscribe'],
+  },
 ];
 
 export const updateHistory: UpdateHistoryEntry[] = [
+  {
+    date: '2026-06-20',
+    version: '1.37.1',
+    title: 'Sprint 37.1 — SSL & transport security hardening',
+    category: 'safety',
+    changes: [
+      'Middleware enforces HTTPS + apex canonical host in production (308 redirects)',
+      'HSTS preload header unified in next.config + vercel.json; self-heal monitors HTTP→HTTPS',
+      'Trust Center transport-security disclaimer documents TLS, HSTS, and certificate policy',
+    ],
+  },
   {
     date: '2026-06-20',
     version: '1.37.0',
