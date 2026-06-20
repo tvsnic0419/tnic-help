@@ -50,9 +50,9 @@ export const seoRoutes = {
 
   faq: () =>
     buildPageMetadata({
-      title: 'FAQ — Twenty Longevity Protocol Questions Answered',
+      title: 'FAQ — Twenty-Five Longevity Protocol Questions Answered',
       description:
-        'Twenty honest answers about TNiC evidence tiers, rapamycin safety, epigenetic clocks, sleep and biological aging, daily vs cycling dosing, medications, and how we differ from supplement stores.',
+        'Twenty-five honest answers about TNiC evidence tiers, rapamycin safety, epigenetic clocks, sleep and biological aging, daily vs cycling dosing, medications, and how we differ from supplement stores.',
       path: '/faq',
       keywords: ['longevity FAQ', 'NMN safety', 'evidence tier A B C', 'rapamycin longevity', 'epigenetic clock', 'supplement protocol questions'],
     }),

@@ -117,7 +117,7 @@ export const hubContexts: Record<
   },
   faq: {
     theme: 'cyan',
-    what: 'Twenty curated answers on protocols, safety, evidence tiers, and how TNiC differs from supplement stores.',
+    what: 'Twenty-five curated answers on protocols, safety, evidence tiers, and how TNiC differs from supplement stores.',
     why: 'Smart consumers ask hard questions before spending on compounds. Honest FAQ beats marketing copy every time.',
     next: 'Filter by your concern (Safety or Products), then follow links to the Learn hub or Protocol Shop verification.',
   },

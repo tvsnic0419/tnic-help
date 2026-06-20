@@ -6,7 +6,7 @@ export function NextUpSection() {
   return (
     <section className="py-16 md:py-24 border-b border-border bg-[#0a0f1a]/40">
       <div className="container-page">
-        <NextUpPanel defaultFilter="in_progress" showFilters />
+        <NextUpPanel defaultFilter="planned" showFilters />
       </div>
     </section>
   );

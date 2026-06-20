@@ -306,6 +306,40 @@ export const disclaimers: DisclaimerBlock[] = [
 
 export const updateHistory: UpdateHistoryEntry[] = [
   {
+    date: '2026-06-20',
+    version: '1.29.0',
+    title: 'Sprint 29 — Content Expansion & Homepage Upconversion',
+    category: 'feature',
+    changes: [
+      'Research feed r13–r15 — GlyNAC 16-week RCT, NMN insulin sensitivity, sulforaphane NRF2/NQO1 CKD trial PMIDs',
+      'FAQ 21–25 + five glossary terms (Autophagy, Telomeres, Mitophagy, SASP, Oxidative Stress)',
+      'Homepage Brief capture rail, compare row, stack preset deep links, quiz Shop + Brief CTAs',
+      'Community pulse updated to 25 FAQ / 20 glossary; NextUp defaults to planned roadmap',
+    ],
+  },
+  {
+    date: '2026-06-20',
+    version: '1.27.0',
+    title: 'Sprint 27 — Google Search Console & Indexing Acceleration',
+    category: 'feature',
+    changes: [
+      'GSC HTML file + meta tag verification deployed',
+      'IndexNow key and submit script for priority URL batching',
+      'HTML sitemap at /site-map with ItemList JSON-LD and footer popular guides',
+    ],
+  },
+  {
+    date: '2026-06-19',
+    version: '1.24.0',
+    title: 'Sprint 24 — Homepage Context & Compare Merchandising',
+    category: 'feature',
+    changes: [
+      'Homepage compare row — six evidence tables with ContextRail and deep links',
+      'Homepage Brief capture rail — email subscribe + RSS handoff from Research Intel funnel',
+      'Featured stacks link to /stacks?preset= for one-click Architect load',
+    ],
+  },
+  {
     date: '2026-06-19',
     version: '1.23.0',
     title: 'Sprint 23 — Command Palette v2 & Research Intel Filters',

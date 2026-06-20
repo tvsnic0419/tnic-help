@@ -4,13 +4,14 @@ import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { useEffect } from 'react';
 import { motion } from 'framer-motion';
-import { ArrowRight, RotateCcw, Check, Layers, Compass } from 'lucide-react';
+import { ArrowRight, RotateCcw, Check, Layers, Compass, ShoppingBag, BookOpen } from 'lucide-react';
 import { compounds } from '@/lib/data';
 import { usePlatform } from '@/context/PlatformContext';
 import type { PresetKey } from '@/lib/presets';
 import type { getQuizResult } from '@/lib/homepage';
 import { QuizShareCard } from '@/components/quiz/QuizShareCard';
 import { isCompleteQuizAnswers } from '@/lib/quiz-share';
+import { buildShopPresetUrl } from '@/lib/stack-url';
 
 type QuizResult = ReturnType<typeof getQuizResult>;
 
@@ -106,6 +107,42 @@ export function QuizResultPanel({ result, answers, onRetake }: QuizResultPanelPr
             <ArrowRight className="w-5 h-5 shrink-0" aria-hidden="true" />
           </div>
         </button>
+
+        <Link
+          href={buildShopPresetUrl(result.preset as PresetKey)}
+          className="focus-ring block w-full text-left rounded-xl glass glass-hover p-4 transition-all hover:border-accent-amber/30"
+        >
+          <div className="flex items-center justify-between gap-3">
+            <div className="flex items-start gap-3">
+              <ShoppingBag className="w-5 h-5 text-accent-amber shrink-0 mt-0.5" aria-hidden="true" />
+              <div>
+                <p className="text-sm font-semibold">Shop verified picks</p>
+                <p className="text-xs text-muted-foreground mt-0.5">
+                  COA checklist filtered to <strong>{result.stack.label}</strong> — TNiC earns $0 from products
+                </p>
+              </div>
+            </div>
+            <ArrowRight className="w-4 h-4 text-muted-foreground shrink-0" aria-hidden="true" />
+          </div>
+        </Link>
+
+        <Link
+          href="/brief"
+          className="focus-ring block w-full text-left rounded-xl glass glass-hover p-4 transition-all hover:border-accent-violet/30"
+        >
+          <div className="flex items-center justify-between gap-3">
+            <div className="flex items-start gap-3">
+              <BookOpen className="w-5 h-5 text-accent-violet shrink-0 mt-0.5" aria-hidden="true" />
+              <div>
+                <p className="text-sm font-semibold">Read Protocol Brief</p>
+                <p className="text-xs text-muted-foreground mt-0.5">
+                  PMID-curated research mapped to your stack compounds
+                </p>
+              </div>
+            </div>
+            <ArrowRight className="w-4 h-4 text-muted-foreground shrink-0" aria-hidden="true" />
+          </div>
+        </Link>
 
         <Link
           href={result.primary.href}
