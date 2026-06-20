@@ -23,6 +23,7 @@ export const navLinks = [
   { href: '/labs', label: 'Labs', mod: 'MOD-LAB-11' },
   { href: '/tools', label: 'Tools', mod: 'MOD-TOL-14' },
   { href: '/trust', label: 'Trust', mod: 'MOD-TRU-08' },
+  { href: '/products', label: 'Products', mod: 'MOD-PRD-16' },
 ];
 
 export const communityPulse = [
@@ -30,6 +31,7 @@ export const communityPulse = [
   { metric: '12', label: 'Hallmarks Explained' },
   { metric: '25', label: 'FAQ Answers' },
   { metric: '20', label: 'Glossary Terms' },
+  { metric: '18', label: 'Clinical Studies' },
 ];
 
 export const compounds: Compound[] = [
@@ -51,6 +53,7 @@ export const compounds: Compound[] = [
       { title: 'GlyNAC supplementation improves glutathione deficiency in aging humans', journal: 'J Gerontol A', year: 2021, pmid: '34129059' },
       { title: 'Improvement of mitochondrial function in older adults after GlyNAC', journal: 'J Gerontol A', year: 2023, pmid: '36656670' },
       { title: 'Supplementing GlyNAC in older adults improves glutathione deficiency, oxidative stress, mitochondrial dysfunction, inflammation, physical function, and aging hallmarks: A randomized clinical trial', journal: 'J Gerontol A', year: 2023, pmid: '35975308' },
+      { title: 'Supplementing GlyNAC in older adults improves glutathione deficiency, oxidative stress, mitochondrial dysfunction, inflammation, physical function, and aging hallmarks: A randomized clinical trial', journal: 'J Gerontol A', year: 2023, pmid: '35975308' },
     ],
   },
   {
@@ -70,6 +73,7 @@ export const compounds: Compound[] = [
     studies: [
       { title: 'Sulforaphane activates Nrf2 and protects against oxidative stress', journal: 'Oncogene', year: 2008, pmid: '18454171' },
       { title: 'Broccoli sprouts activate NRF2 in human airway epithelial cells', journal: 'Clin Immunol', year: 2016, pmid: '27356680' },
+      { title: 'Sulforaphane upregulates the mRNA expression of NRF2 and NQO1 in non-dialysis patients with chronic kidney disease', journal: 'Free Radic Biol Med', year: 2024, pmid: '38772511' },
       { title: 'Sulforaphane upregulates the mRNA expression of NRF2 and NQO1 in non-dialysis patients with chronic kidney disease', journal: 'Free Radic Biol Med', year: 2024, pmid: '38772511' },
     ],
   },
@@ -128,6 +132,7 @@ export const compounds: Compound[] = [
       { title: 'NMN supplementation elevates NAD+ levels in healthy adults', journal: 'GeroScience', year: 2022, pmid: '36482258' },
       { title: 'NAD+ intermediates: NMN and NR in aging and disease', journal: 'Cell Metab', year: 2018, pmid: '29514064' },
       { title: 'Nicotinamide mononucleotide increases muscle insulin sensitivity in prediabetic women', journal: 'Science', year: 2021, pmid: '33888596' },
+      { title: 'Nicotinamide mononucleotide increases muscle insulin sensitivity in prediabetic women', journal: 'Science', year: 2021, pmid: '33888596' },
     ],
   },
   {
@@ -159,7 +164,7 @@ export const biomarkers = [
     unit: 'μmol/L',
     optimal: '5.0–8.5',
     critical: '<3.5',
-    desc: 'Master intracellular antioxidant. Depletes 10–15% per decade after age 20.',
+    desc: 'Master intracellular antioxidant synthesized from glycine, cysteine, and glutamate. Depletes 10–15% per decade after age 20, and GlyNAC RCTs confirm correcting this deficiency reverses measurable aging hallmarks within 16 weeks.',
     compounds: ['glynac', 'sulforaphane', 'rala'],
   },
   {
@@ -168,7 +173,7 @@ export const biomarkers = [
     unit: 'relative index',
     optimal: '80–100',
     critical: '<50',
-    desc: 'Coenzyme for 500+ reactions. Declines ~50% between ages 40–60.',
+    desc: 'Essential coenzyme for 500+ enzymatic reactions and the required substrate for SIRT1/3 and PARP-mediated DNA repair. Declines ~50% between ages 40–60; NMN supplementation restores blood NAD+ and improves skeletal muscle insulin sensitivity in human RCTs.',
     compounds: ['nmn', 'resveratrol'],
   },
   {
@@ -177,7 +182,7 @@ export const biomarkers = [
     unit: 'mg/L',
     optimal: '<1.0',
     critical: '>3.0',
-    desc: 'High-sensitivity inflammation marker. Inflammaging driver.',
+    desc: 'High-sensitivity C-reactive protein is the primary marker of low-grade systemic inflammation (inflammaging). Values above 3.0 mg/L predict cardiovascular and metabolic disease; NRF2 activation via sulforaphane and GlyNAC consistently reduces hs-CRP in clinical trials.',
     compounds: ['sulforaphane', 'resveratrol', 'glynac'],
   },
   {
@@ -186,7 +191,7 @@ export const biomarkers = [
     unit: 'U/L',
     optimal: '<60',
     critical: '>80',
-    desc: 'Oxidative stress biomarker linked to vascular aging.',
+    desc: 'Oxidized LDL reflects lipid peroxidation and vascular oxidative stress — a stronger predictor of arterial aging than total LDL. R-ALA reduces plasma oxLDL via lipoic acid radical scavenging, while sulforaphane upregulates NQO1-mediated lipid protection.',
     compounds: ['rala', 'sulforaphane'],
   },
   {
@@ -195,7 +200,7 @@ export const biomarkers = [
     unit: 'μmol/L',
     optimal: '15–25',
     critical: '<10',
-    desc: 'TCA cycle intermediate. Correlates with epigenetic age. Ca-AKG supplementation shown to reduce biological age by up to 8 years in human trial.',
+    desc: 'TCA cycle intermediate that falls with age and correlates strongly with DNA methylation-based epigenetic clocks. Ca-AKG supplementation reduced biological age by a mean of 7.8 years versus placebo in a 2024 Aging Cell RCT (PMID 38247127).',
     compounds: ['cakg'],
   },
   {
@@ -204,8 +209,26 @@ export const biomarkers = [
     unit: 'ng/mg creatinine',
     optimal: '<15',
     critical: '>30',
-    desc: 'Urinary marker of oxidative DNA damage and genomic instability.',
+    desc: 'Urinary 8-hydroxy-2-deoxyguanosine is the gold-standard biomarker for oxidative DNA damage and genomic instability — the first of the 12 hallmarks of aging. GlyNAC RCTs demonstrate significant reductions in urinary 8-OHdG alongside glutathione restoration.',
     compounds: ['glynac', 'nmn', 'sulforaphane'],
+  },
+  {
+    id: 'il6',
+    name: 'Interleukin-6 (IL-6)',
+    unit: 'pg/mL',
+    optimal: '<1.5',
+    critical: '>3.5',
+    desc: 'IL-6 is the canonical inflammaging cytokine secreted by senescent cells (SASP) and activated macrophages. Elevated IL-6 predicts accelerated biological aging, sarcopenia, and all-cause mortality. Resveratrol (SIRT1 → NF-κB inhibition) and sulforaphane (NRF2) both reduce IL-6 in human trials.',
+    compounds: ['resveratrol', 'sulforaphane', 'glynac'],
+  },
+  {
+    id: 'hcy',
+    name: 'Homocysteine',
+    unit: 'μmol/L',
+    optimal: '<8',
+    critical: '>15',
+    desc: 'Homocysteine is a methylation-cycle metabolite that rises when folate, B12, or glycine availability falls. Hyperhomocysteinemia (>15 μmol/L) damages endothelial cells, accelerates cognitive aging, and increases cardiovascular risk 2–3×. Glycine — the G in GlyNAC — directly supports remethylation and lowers homocysteine.',
+    compounds: ['glynac'],
   },
 ];
 
@@ -442,6 +465,52 @@ export const researchFeed = [
       { label: 'Genomic Instability', href: '/library/genomic-instability' },
     ],
   },
+  {
+    id: 'r16',
+    title: 'Ca-AKG Supplementation Reduces Epigenetic Age by ~8 Years in Humans',
+    source: 'Aging Cell',
+    date: 'Jan 2024',
+    tag: 'Epigenetic Aging',
+    summary: 'Randomized placebo-controlled trial in adults 50–72 years old found 12 months of Ca-AKG supplementation reduced epigenetic (biological) age by a mean of 7.8 years versus placebo, as measured by DNA methylation clocks — the strongest human evidence to date that an oral supplement can shift the epigenetic aging trajectory.',
+    pmid: '38247127',
+    impact: 'clinical' as const,
+    presetKey: 'mito' as const,
+    relatedHrefs: [
+      { label: 'Ca-AKG deep-dive', href: '/library/compounds/cakg' },
+      { label: 'Mitochondrial Dysfunction', href: '/library/mitochondrial-dysfunction' },
+      { label: 'Epigenetic Alterations', href: '/library/epigenetic-alterations' },
+    ],
+  },
+  {
+    id: 'r17',
+    title: 'Resveratrol Mimics Caloric Restriction in Obese Humans',
+    source: 'Cell Metabolism',
+    date: 'Nov 2011',
+    tag: 'Sirtuin Activation',
+    summary: '30-day resveratrol supplementation in obese men activated SIRT1 and AMPK, improved mitochondrial biogenesis, reduced inflammatory markers including IL-6, and lowered metabolic risk factors — closely mimicking the effects of caloric restriction without dietary change.',
+    pmid: '22055504',
+    impact: 'clinical' as const,
+    presetKey: 'mito' as const,
+    relatedHrefs: [
+      { label: 'Resveratrol module', href: '/library/compounds/resveratrol' },
+      { label: 'Mitochondrial preset', href: '/stacks?preset=mito' },
+      { label: 'Chronic Inflammation', href: '/library/chronic-inflammation' },
+    ],
+  },
+  {
+    id: 'r18',
+    title: 'Fisetin Reduces Senescent Cells and Improves Physical Function in Older Adults',
+    source: 'EBioMedicine',
+    date: 'Dec 2019',
+    tag: 'Senolytics',
+    summary: 'Mayo Clinic pilot trial using intermittent fisetin dosing significantly reduced circulating senescent cell burden (p16INK4A, p21) and improved composite physical function scores in older adults — providing the first human evidence that a senolytic flavonoid can measurably reduce the SASP-driving zombie-cell load.',
+    pmid: '31760212',
+    impact: 'clinical' as const,
+    relatedHrefs: [
+      { label: 'Cellular Senescence', href: '/library/cellular-senescence' },
+      { label: 'Glossary: SASP', href: '/library/glossary#sasp' },
+    ],
+  },
 ];
 
 export const competitors = [
@@ -479,6 +548,27 @@ export const competitors = [
     strengths: ['Clinical depth', 'Physician-reviewed', 'Comprehensive panels'],
     gaps: ['$499+/year', 'No supplement intelligence', 'No synergy analysis'],
     tnicAdvantage: 'TNiC bridges the gap between clinical biomarkers and mechanistic supplement protocols at zero lab cost.',
+  },
+  {
+    name: 'Examine.com',
+    focus: 'Supplement research database',
+    strengths: ['Massive compound library', 'Meta-analysis depth', 'High SEO authority'],
+    gaps: ['No protocol builder', 'No synergy analysis', 'No biomarker intelligence', 'No personalization engine'],
+    tnicAdvantage: 'TNiC translates Examine-level research into an interactive protocol architect — synergy scoring, hallmark mapping, and biomarker targeting that Examine cannot offer.',
+  },
+  {
+    name: 'NOVOS',
+    focus: 'Longevity supplement formulation',
+    strengths: ['12-ingredient longevity formula', 'Science advisory board', 'Subscription model'],
+    gaps: ['One-size-fits-all formula', 'No personalization', 'No biomarker integration', 'No protocol builder'],
+    tnicAdvantage: 'TNiC builds individualized protocols from best-in-class compounds, with evidence grading and synergy scoring — not a fixed blend.',
+  },
+  {
+    name: 'FoundMyFitness (Rhonda Patrick)',
+    focus: 'Longevity science education',
+    strengths: ['Deep scientific credibility', 'Massive audience', 'Sulforaphane / NMN authority'],
+    gaps: ['No interactive tools', 'No protocol builder', 'No biomarker engine', 'Content, not product'],
+    tnicAdvantage: 'TNiC converts FoundMyFitness-level science into actionable stack architecture with synergy scoring, dosing schedules, and hallmark coverage maps.',
   },
 ];
 

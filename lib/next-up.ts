@@ -383,6 +383,15 @@ export const nextUpImprovements: NextUpItem[] = [
     href: '/faq',
     tags: ['content', 'research'],
   },
+  {
+    id: 'sprint31-research-competitors-biomarkers',
+    title: 'Sprint 31 — researchFeed 18, competitors 8, biomarkers 8',
+    desc: 'Ca-AKG/resveratrol/fisetin PMIDs, Examine/NOVOS/FoundMyFitness intel, IL-6 + Homocysteine markers, Clinical Studies pulse.',
+    status: 'shipped',
+    sprint: 'Sprint 31',
+    href: '/#research',
+    tags: ['content', 'research'],
+  },
 ];
 
 export const nextUpByStatus = {

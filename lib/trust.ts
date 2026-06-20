@@ -307,6 +307,18 @@ export const disclaimers: DisclaimerBlock[] = [
 export const updateHistory: UpdateHistoryEntry[] = [
   {
     date: '2026-06-20',
+    version: '1.31.0',
+    title: 'Sprint 31 — Research Intel, Competitors & Biomarker Depth',
+    category: 'feature',
+    changes: [
+      'Research feed r16–r18 — Ca-AKG epigenetic age RCT, resveratrol CR-mimetic trial, fisetin senolytic pilot',
+      'Competitors expanded to 8 — Examine.com, NOVOS, FoundMyFitness competitive intelligence',
+      'Biomarkers expanded to 8 — IL-6 and Homocysteine with enriched descriptions across all markers',
+      'Community pulse adds 18 Clinical Studies counter',
+    ],
+  },
+  {
+    date: '2026-06-20',
     version: '1.29.0',
     title: 'Sprint 29 — Content Expansion & Homepage Upconversion',
     category: 'feature',
