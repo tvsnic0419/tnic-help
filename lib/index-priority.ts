@@ -1,0 +1,34 @@
+/** High-intent routes — request indexing in GSC and surface in footer/HTML sitemap first */
+export const PRIORITY_INDEX_PATHS = [
+  '/',
+  '/library',
+  '/library/compare',
+  '/library/compare/nmn-vs-nr',
+  '/library/compare/glynac-vs-liposomal-glutathione',
+  '/library/compare/sulforaphane-vs-curcumin',
+  '/library/compare/resveratrol-vs-pterostilbene',
+  '/library/compounds/nmn',
+  '/library/compounds/nr',
+  '/library/compounds/glynac',
+  '/library/compounds/sulforaphane',
+  '/library/compounds/rapamycin',
+  '/library/mitochondrial-dysfunction',
+  '/library/cellular-senescence',
+  '/faq',
+  '/quiz',
+  '/stacks',
+  '/learn',
+  '/brief',
+  '/site-map',
+] as const;
+
+export const POPULAR_GUIDE_LINKS = [
+  { href: '/library/compare/nmn-vs-nr', label: 'NMN vs NR' },
+  { href: '/library/compounds/nmn', label: 'NMN Guide' },
+  { href: '/library/compounds/nr', label: 'NR Guide' },
+  { href: '/library/compounds/glynac', label: 'GlyNAC Guide' },
+  { href: '/library/compounds/sulforaphane', label: 'Sulforaphane' },
+  { href: '/library/mitochondrial-dysfunction', label: 'Mitochondrial Health' },
+  { href: '/library/compare', label: 'All Comparisons' },
+  { href: '/faq', label: 'Longevity FAQ' },
+] as const;

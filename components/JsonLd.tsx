@@ -3,6 +3,7 @@ import {
   buildOrganizationSchema,
   buildFaqSchema,
   buildSoftwareApplicationSchema,
+  buildItemListSchema,
 } from '@/lib/seo';
 import { StructuredData } from '@/components/seo/StructuredData';
 
@@ -14,6 +15,7 @@ export function JsonLd() {
         buildOrganizationSchema(),
         buildFaqSchema(),
         buildSoftwareApplicationSchema(),
+        buildItemListSchema(),
       ]}
     />
   );

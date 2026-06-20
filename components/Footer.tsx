@@ -11,6 +11,7 @@ import {
   GraduationCap,
   Rocket,
 } from 'lucide-react';
+import { POPULAR_GUIDE_LINKS } from '@/lib/index-priority';
 import { citationRegistry } from '@/lib/trust';
 
 const hubLinks = [
@@ -35,6 +36,7 @@ const resourceLinks = [
   { href: '/trust/methodology', label: 'Methodology', icon: BookOpen },
   { href: '/trust/disclaimers', label: 'Disclaimers', icon: BookOpen },
   { href: '/trust/updates', label: 'Update History', icon: BookOpen },
+  { href: '/site-map', label: 'Site Map', icon: BookOpen },
 ];
 
 export function Footer() {
@@ -42,7 +44,7 @@ export function Footer() {
     <footer className="relative py-14 md:py-20 footer-aurora border-t border-border/50" role="contentinfo">
       <div className="absolute top-0 inset-x-0 h-px bg-gradient-to-r from-transparent via-accent-cyan/50 to-transparent" />
       <div className="container-page">
-        <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-10 mb-10">
+        <div className="grid sm:grid-cols-2 lg:grid-cols-5 gap-8 lg:gap-10 mb-10">
           <div className="sm:col-span-2 lg:col-span-1">
             <Link href="/" className="focus-ring inline-flex items-center gap-2.5 mb-4 rounded-lg group">
               <div className="w-9 h-9 rounded-xl bg-gradient-to-br from-accent-cyan to-accent-emerald flex items-center justify-center logo-glow group-hover:scale-105 transition-transform">
@@ -68,6 +70,22 @@ export function Footer() {
                     className="focus-ring interactive flex items-center gap-2 text-body-sm hover:text-accent-cyan rounded-md"
                   >
                     <link.icon className="w-4 h-4 shrink-0" aria-hidden="true" />
+                    {link.label}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          <div>
+            <p className="text-label mb-4">Popular Guides</p>
+            <ul className="space-y-3">
+              {POPULAR_GUIDE_LINKS.map((link) => (
+                <li key={link.href}>
+                  <Link
+                    href={link.href}
+                    className="focus-ring interactive text-body-sm hover:text-accent-cyan rounded-md"
+                  >
                     {link.label}
                   </Link>
                 </li>

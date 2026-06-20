@@ -3,7 +3,7 @@
  * Notify Bing/Yandex/etc. of sitemap URLs via IndexNow.
  * Usage: node scripts/submit-indexnow.mjs
  */
-import { INDEXNOW_KEY, SITE_URL } from './lib/seo-constants.mjs';
+import { INDEXNOW_KEY, PRIORITY_INDEX_URLS, SITE_URL } from './lib/seo-constants.mjs';
 
 const KEY_URL = `${SITE_URL}/${INDEXNOW_KEY}.txt`;
 const SITEMAP_URL = `${SITE_URL}/sitemap.xml`;
@@ -52,12 +52,14 @@ async function main() {
   if (keyBody !== INDEXNOW_KEY) throw new Error('IndexNow key file content mismatch');
 
   const urls = await fetchSitemapUrls();
-  console.log(`Submitting ${urls.length} URLs…`);
+  console.log(`Submitting ${PRIORITY_INDEX_URLS.length} priority URLs first…`);
+  await submitIndexNow(PRIORITY_INDEX_URLS);
 
-  // IndexNow accepts up to 10,000 URLs per post; batch if needed
+  const rest = urls.filter((u) => !PRIORITY_INDEX_URLS.includes(u));
+  console.log(`Submitting ${rest.length} remaining URLs…`);
   const batchSize = 100;
-  for (let i = 0; i < urls.length; i += batchSize) {
-    await submitIndexNow(urls.slice(i, i + batchSize));
+  for (let i = 0; i < rest.length; i += batchSize) {
+    await submitIndexNow(rest.slice(i, i + batchSize));
   }
 
   await pingSearchEngines();

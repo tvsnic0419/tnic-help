@@ -1,5 +1,6 @@
 import type { Metadata } from 'next';
 import { consumerFAQ } from './data';
+import { PRIORITY_INDEX_PATHS } from './index-priority';
 import { SITE, LONGEVITY_KEYWORDS, SOCIAL_PROFILES } from './site';
 import type { SourceCitation } from './types';
 import { citationRegistry } from './trust';
@@ -60,6 +61,21 @@ export function buildWebSiteSchema() {
       },
       'query-input': 'required name=search_term_string',
     },
+  };
+}
+
+export function buildItemListSchema() {
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'ItemList',
+    name: 'TNiC Priority Longevity Guides',
+    description: 'High-intent evidence guides and comparisons for healthspan optimization.',
+    itemListElement: PRIORITY_INDEX_PATHS.map((path, i) => ({
+      '@type': 'ListItem',
+      position: i + 1,
+      name: path === '/' ? 'Home' : path.replace(/^\//, '').replace(/\//g, ' › '),
+      url: `${SITE.url}${path === '/' ? '' : path}`,
+    })),
   };
 }
 
