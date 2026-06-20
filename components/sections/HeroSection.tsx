@@ -33,7 +33,7 @@ export function HeroSection() {
               <Sparkles className="w-4 h-4 text-accent-emerald animate-pulse-glow" aria-hidden="true" />
               <span className="font-medium">Anti-Aging Operating System</span>
               <span className="w-1.5 h-1.5 rounded-full bg-accent-emerald animate-pulse-glow" aria-hidden="true" />
-              <span className="text-caption font-mono hidden sm:inline">v1.21</span>
+              <span className="text-caption font-mono hidden sm:inline">v1.22</span>
             </motion.div>
 
             <motion.h1

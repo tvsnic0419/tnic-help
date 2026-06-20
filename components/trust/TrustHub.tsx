@@ -37,6 +37,8 @@ import { evidenceStandards, transparencyPledge } from '@/lib/data';
 import type { EvidenceTier } from '@/lib/types';
 import { EvidenceTag } from './EvidenceTag';
 import { CheckCircle2 } from 'lucide-react';
+import { ContextRail } from '@/components/ui/ContextRail';
+import { getHubContext, getTrustTabContext } from '@/lib/hub-context';
 
 type Tab = 'overview' | 'evidence' | 'citations' | 'journey' | 'methodology' | 'disclaimers' | 'updates';
 
@@ -75,6 +77,7 @@ export function TrustHub() {
         description="Evidence tagging, source citations, methodology, disclaimers, and public update history. No black boxes — every recommendation is traceable."
         theme="emerald"
         meta={`${citationRegistry.length} indexed citations · Tier A/B/C grading · N=1 clearly labeled`}
+        context={getHubContext('trust')}
       />
 
       <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-3 mb-8">
@@ -97,6 +100,8 @@ export function TrustHub() {
       </div>
 
       <TabBar tabs={tabs} active={tab} onChange={setTab} theme="emerald" ariaLabel="Trust hub sections" className="mb-8" />
+
+      <ContextRail {...getTrustTabContext(tab)} theme="emerald" className="mb-8 max-w-4xl" />
 
       <motion.div
         key={tab}

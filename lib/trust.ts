@@ -307,6 +307,17 @@ export const disclaimers: DisclaimerBlock[] = [
 export const updateHistory: UpdateHistoryEntry[] = [
   {
     date: '2026-06-19',
+    version: '1.22.0',
+    title: 'Sprint 22 — Trust & Secondary Page Context',
+    category: 'feature',
+    changes: [
+      'lib/hub-context.ts — trust, faq, contact, deliverySystems hubs plus per-trust-tab and trust subpage context',
+      'ContextRail on TrustHub (per-tab), TrustPageTemplate subpages, FaqHub, ContactForm, and delivery-systems',
+      'Delivery-systems page upgraded to PageHeader + card-ultra surfaces',
+    ],
+  },
+  {
+    date: '2026-06-19',
     version: '1.21.0',
     title: 'Sprint 21 — Hub Context Expansion',
     category: 'feature',

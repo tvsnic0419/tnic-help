@@ -5,6 +5,7 @@ import type { ThemeAccent } from '@/lib/design-system';
 import { PageShell } from '@/components/ui/PageShell';
 import { PageHeader } from '@/components/ui/PageHeader';
 import { DisclaimerInline } from './DisclaimerBanner';
+import { getTrustPageContext, type TrustPageKey } from '@/lib/hub-context';
 
 interface TrustPageTemplateProps {
   icon: LucideIcon;
@@ -12,6 +13,7 @@ interface TrustPageTemplateProps {
   title: string;
   description: string;
   theme?: ThemeAccent;
+  pageKey?: TrustPageKey;
   children: React.ReactNode;
   showBackLink?: boolean;
   disclaimer?: string;
@@ -24,6 +26,7 @@ export function TrustPageTemplate({
   title,
   description,
   theme = 'emerald',
+  pageKey,
   children,
   showBackLink = true,
   disclaimer = 'TNiC is educational only — not medical advice. Consult your physician before starting any protocol.',
@@ -46,6 +49,7 @@ export function TrustPageTemplate({
         description={description}
         theme={theme}
         align="left"
+        context={pageKey ? getTrustPageContext(pageKey) : undefined}
       />
       <div className="max-w-4xl">{children}</div>
       <DisclaimerInline text={disclaimer} />

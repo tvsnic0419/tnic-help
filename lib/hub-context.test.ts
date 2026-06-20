@@ -5,6 +5,8 @@ import {
   getHubContext,
   getModuleContext,
   getToolContext,
+  getTrustPageContext,
+  getTrustTabContext,
   hubContexts,
 } from './hub-context';
 import { libraryModules } from './library-modules';
@@ -36,6 +38,20 @@ describe('hub-context', () => {
       expect(ctx.why).toBeTruthy();
       expect(ctx.next).toBeTruthy();
     }
+  });
+
+  it('returns trust tab and page context', () => {
+    const tabCtx = getTrustTabContext('evidence');
+    expect(tabCtx.what).toContain('Tier');
+    const pageCtx = getTrustPageContext('methodology');
+    expect(pageCtx.what).toContain('methodology');
+  });
+
+  it('defines context for trust, faq, contact, and delivery pages', () => {
+    expect(getHubContext('trust').theme).toBe('emerald');
+    expect(getHubContext('faq').what).toContain('curated answers');
+    expect(getHubContext('contact').what).toContain('contact');
+    expect(getHubContext('deliverySystems').what).toContain('lipid');
   });
 
   it('returns hallmark and compare context', () => {

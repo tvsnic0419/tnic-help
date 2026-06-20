@@ -6,6 +6,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { ChevronDown, ArrowRight, BookOpen, HelpCircle } from 'lucide-react';
 import { consumerFAQ } from '@/lib/data';
 import { PageHeader } from '@/components/ui/PageHeader';
+import { getHubContext } from '@/lib/hub-context';
 
 const faqCategories = [
   { id: 'all', label: 'All' },
@@ -32,6 +33,7 @@ export function FaqHub() {
         title="Frequently Asked Questions"
         description="Twelve honest answers about TNiC protocols, safety, evidence tiers, and how we differ from supplement stores."
         align="left"
+        context={getHubContext('faq')}
       />
 
       <div className="flex flex-wrap gap-2 mb-8">

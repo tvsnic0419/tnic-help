@@ -4,6 +4,7 @@ import { useState } from 'react';
 import { MessageSquare, Send, CheckCircle2, AlertTriangle } from 'lucide-react';
 import { SITE } from '@/lib/site';
 import { PageHeader } from '@/components/ui/PageHeader';
+import { getHubContext } from '@/lib/hub-context';
 
 const categories = [
   { id: 'stack', label: 'Stack / protocol question' },
@@ -63,6 +64,7 @@ export function ContactForm() {
         description="Structured channel for stack, lab, and library questions. We respond to educational inquiries — never medical advice, diagnoses, or dose prescriptions."
         theme="cyan"
         align="left"
+        context={getHubContext('contact')}
       />
 
       <div className="rounded-xl border border-accent-amber/25 bg-accent-amber/5 p-4 mb-8 flex gap-3">

@@ -14,6 +14,7 @@ export default function DisclaimersPage() {
       title="Disclaimers & Notices"
       description="Every limitation of the TNiC platform, clearly stated. Read before building stacks, logging labs, or acting on recommendations."
       disclaimer="These disclaimers apply site-wide. When in doubt, consult a qualified physician."
+      pageKey="disclaimers"
     >
       <div className="space-y-4">
         {disclaimers.map((d) => (

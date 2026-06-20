@@ -293,6 +293,42 @@ export const nextUpImprovements: NextUpItem[] = [
     href: '/tools?tab=simulator',
     tags: ['content', 'tools'],
   },
+  {
+    id: 'trust-faq-contact-context',
+    title: 'Trust, FAQ, contact & delivery-systems context rails',
+    desc: 'ContextRail on /trust (per-tab), trust subpages, /faq, /contact, and /library/delivery-systems with PageHeader upgrade.',
+    status: 'shipped',
+    sprint: 'Sprint 22',
+    href: '/trust',
+    tags: ['content', 'trust', 'ux'],
+  },
+  {
+    id: 'per-trust-tab-context',
+    title: 'Per-trust-tab contextual clarity',
+    desc: 'Active trust tab shows dedicated what/why/next rail — overview through update history.',
+    status: 'shipped',
+    sprint: 'Sprint 22',
+    href: '/trust',
+    tags: ['content', 'trust'],
+  },
+  {
+    id: 'command-palette-v2',
+    title: 'Command palette v2 — context-aware quick actions',
+    desc: 'Palette surfaces hub context, recent modules, and stack-aware shortcuts from any page.',
+    status: 'planned',
+    sprint: 'Sprint 23',
+    href: '/dashboard',
+    tags: ['ux', 'os'],
+  },
+  {
+    id: 'research-intel-context',
+    title: 'Research Intel contextual rails & feed filters',
+    desc: 'Per-category what/why/next on Research Intel with hallmark and compound filter chips.',
+    status: 'planned',
+    sprint: 'Sprint 23',
+    href: '/#research-intel',
+    tags: ['content', 'research'],
+  },
 ];
 
 export const nextUpByStatus = {

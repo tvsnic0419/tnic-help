@@ -1,6 +1,8 @@
 import Link from 'next/link';
-import { ArrowLeft, FlaskConical, CheckCircle2, AlertCircle, Info } from 'lucide-react';
+import { ArrowLeft, CheckCircle2, AlertCircle, Info, FlaskConical } from 'lucide-react';
 import { buildPageMetadata } from '@/lib/seo';
+import { PageHeader } from '@/components/ui/PageHeader';
+import { getHubContext } from '@/lib/hub-context';
 
 export const metadata = buildPageMetadata({
   title: 'Lipid Delivery Systems — Bioavailability Technology Guide',
@@ -69,20 +71,17 @@ export default function DeliverySystemsPage() {
         <ArrowLeft className="w-3.5 h-3.5" /> Library
       </Link>
 
-      <div className="mb-10">
-        <div className="flex items-center gap-2 mb-4">
-          <FlaskConical className="w-4 h-4 text-accent-emerald" />
-          <p className="text-label text-accent-emerald">RESEARCH LIBRARY · DELIVERY SCIENCE</p>
-        </div>
-        <h1 className="heading-section mb-3">Lipid-Based Delivery Systems</h1>
-        <p className="text-muted-foreground max-w-2xl">
-          A comparison of the main lipid-based technologies used to improve absorption, stability, and
-          effectiveness of bioactive longevity compounds. Delivery matters as much as dose.
-        </p>
-      </div>
+      <PageHeader
+        icon={FlaskConical}
+        eyebrow="Research Library · Delivery Science"
+        title="Lipid-Based Delivery Systems"
+        description="A comparison of the main lipid-based technologies used to improve absorption, stability, and effectiveness of bioactive longevity compounds. Delivery matters as much as dose."
+        theme="emerald"
+        align="left"
+        context={getHubContext('deliverySystems')}
+      />
 
-      {/* TNiC recommendation banner */}
-      <div className="glass rounded-2xl p-5 border border-accent-emerald/20 mb-10 flex gap-3">
+      <div className="card-ultra rounded-2xl p-5 mb-10 flex gap-3">
         <Info className="w-4 h-4 text-accent-emerald shrink-0 mt-0.5" />
         <p className="text-sm text-muted-foreground leading-relaxed">
           <span className="font-semibold text-foreground">TNiC approach:</span> For most longevity and cellular
@@ -96,7 +95,7 @@ export default function DeliverySystemsPage() {
       {/* Mobile cards */}
       <div className="grid grid-cols-1 gap-4 md:hidden mb-10">
         {systems.map((s) => (
-          <div key={s.name} className="glass rounded-2xl p-5 border border-border">
+          <div key={s.name} className="card-ultra rounded-2xl p-5">
             <div className="flex items-start justify-between gap-3 mb-3">
               <div>
                 <h2 className="font-bold text-base">{s.name}</h2>

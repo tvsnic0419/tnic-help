@@ -14,6 +14,17 @@ export interface HubContextEntry extends HubContext {
   theme: ThemeAccent;
 }
 
+export type TrustTab =
+  | 'overview'
+  | 'evidence'
+  | 'citations'
+  | 'journey'
+  | 'methodology'
+  | 'disclaimers'
+  | 'updates';
+
+export type TrustPageKey = 'methodology' | 'disclaimers' | 'journey' | 'updates';
+
 export const hubContexts: Record<
   | 'dashboard'
   | 'stacks'
@@ -25,7 +36,11 @@ export const hubContexts: Record<
   | 'compare'
   | 'quiz'
   | 'library'
-  | 'libraryModules',
+  | 'libraryModules'
+  | 'trust'
+  | 'faq'
+  | 'contact'
+  | 'deliverySystems',
   HubContextEntry
 > = {
   dashboard: {
@@ -93,6 +108,91 @@ export const hubContexts: Record<
     what: '26 evidence-graded MDX modules — compounds, synergies, lifestyle pillars, and testing guides with personal tracking templates.',
     why: 'Shallow blog posts cannot support protocol decisions. Every module includes dosing, monitoring, decision trees, and PMID citations.',
     next: 'Search by compound or hallmark, read the decision tree, then log relevant labs and add compounds to your stack.',
+  },
+  trust: {
+    theme: 'emerald',
+    what: 'Trust & transparency hub — evidence tiers, citation registry, methodology, disclaimers, and public update history.',
+    why: 'Longevity sites hide conflicts of interest and evidence gaps. TNiC publishes how every recommendation is graded, cited, and revised.',
+    next: 'Read the Evidence tab for A/B/C tier criteria, then export citations from the Citations tab for physician discussions.',
+  },
+  faq: {
+    theme: 'cyan',
+    what: 'Fifteen curated answers on protocols, safety, evidence tiers, and how TNiC differs from supplement stores.',
+    why: 'Smart consumers ask hard questions before spending on compounds. Honest FAQ beats marketing copy every time.',
+    next: 'Filter by your concern (Safety or Products), then follow links to the Learn hub or Protocol Shop verification.',
+  },
+  contact: {
+    theme: 'cyan',
+    what: 'Structured contact channel for stack, lab, and library questions — educational only, never medical advice.',
+    why: 'Generic contact forms waste time. Category routing helps TNiC respond with the right module links and disclaimers.',
+    next: 'Pick your category, include relevant labs or stack URL, then send via the pre-filled mailto handoff.',
+  },
+  deliverySystems: {
+    theme: 'emerald',
+    what: 'Comparison guide for lipid delivery technologies — liposomes, phytosomes, NLCs, and LNPs — and when each improves bioavailability.',
+    why: 'Premium brands charge more for liposomal labels that may not improve absorption. Delivery chemistry determines whether dose dollars work.',
+    next: 'Match your compound to phytosome or NLC rows, then verify branded forms at Protocol Shop before buying.',
+  },
+};
+
+const trustTabContexts: Record<TrustTab, HubContext> = {
+  overview: {
+    what: 'Transparency pledge, evidence tag legend, and the primary site-wide disclaimer in one view.',
+    why: 'Trust starts with stated principles — not buried footnotes. Overview sets the rules before you read details.',
+    next: 'Open the Evidence tab to learn tier criteria, then bookmark deep-links to Methodology and Disclaimers.',
+  },
+  evidence: {
+    what: 'Tier A/B/C definitions with inclusion criteria, real examples, and quarterly re-evaluation policy.',
+    why: 'Marketing tiers are meaningless without published criteria. Every compound and stack on TNiC maps to these definitions.',
+    next: 'Note which tier your current stack compounds carry, then open linked library modules to verify PMID anchors.',
+  },
+  citations: {
+    what: 'Citation principles, format guide, BibTeX/JSON export, and the full indexed PMID registry.',
+    why: 'Traceability is the antidote to hype. Export citations when sharing protocols with physicians or research partners.',
+    next: 'Export your citation bundle, cross-check PMIDs on PubMed, then link sources in your personal journey notes.',
+  },
+  journey: {
+    what: 'TNiC platform evolution timeline plus a personal journey template with N=1 vs. population labeling.',
+    why: 'Anecdotes upgrade evidence tiers in most longevity content. TNiC separates founder N=1 from population science explicitly.',
+    next: 'Read platform milestones for context, then start your personal journey log — label every entry N=1 or cited.',
+  },
+  methodology: {
+    what: 'How compounds are selected, evidence is graded, biomarkers are modeled, and conflicts of interest are managed.',
+    why: 'Methodology transparency lets you audit recommendations instead of trusting a brand voice.',
+    next: 'Read compound selection and tier assignment sections, then open the full methodology page for complete detail.',
+  },
+  disclaimers: {
+    what: 'Every limitation of the TNiC platform — medical advice, Rx protocols, supplement quality, and local data storage.',
+    why: 'Informed consent requires knowing what TNiC cannot do. Disclaimers apply site-wide even when not repeated inline.',
+    next: 'Read Rx and supplement-quality disclaimers before loading clinical-tier stacks, then export your lab data regularly.',
+  },
+  updates: {
+    what: 'Public changelog of platform releases, evidence tier revisions, and the Next Up improvement roadmap.',
+    why: 'Silent updates erode trust. Every significant change is versioned and logged with sprint-level detail.',
+    next: 'Check the latest sprint entry, review in-progress items on Next Up, then subscribe to Brief for research sync.',
+  },
+};
+
+const trustPageContexts: Record<TrustPageKey, HubContext> = {
+  methodology: {
+    what: 'Full published methodology — compound curation, evidence grading rubric, biomarker modeling, and conflict-of-interest policy.',
+    why: 'Hub tab summaries are not enough for physician or researcher review. This page is the complete audit document.',
+    next: 'Read tier assignment criteria, then cross-check your stack compounds against the Evidence tab definitions.',
+  },
+  disclaimers: {
+    what: 'Standalone page with every site-wide disclaimer — medical, Rx, supplement quality, N=1, and data privacy.',
+    why: 'Legal clarity should not require tab-hopping. This page is the canonical reference before protocol decisions.',
+    next: 'Read Rx and emergency disclaimers first, then proceed to Stack Architect only with physician oversight where required.',
+  },
+  journey: {
+    what: 'Expanded journey timeline — platform milestones and a personal protocol log template with honest N=1 labeling.',
+    why: 'Your protocol history matters for retest timing and spend decisions. Population science and personal anecdotes stay separated.',
+    next: 'Review platform milestones for TNiC context, then log your first personal entry with biomarker snapshots from Labs.',
+  },
+  updates: {
+    what: 'Complete version history plus the Next Up panel showing shipped, in-progress, and planned improvements.',
+    why: 'Roadmap transparency shows where TNiC is headed — and what already shipped. No vaporware promises.',
+    next: 'Filter Next Up by in-progress, read the latest changelog entry, then open linked modules to verify new features.',
   },
 };
 
@@ -176,6 +276,14 @@ export function getHubContext(
   key: keyof typeof hubContexts,
 ): HubContextEntry {
   return hubContexts[key];
+}
+
+export function getTrustTabContext(tab: TrustTab): HubContext {
+  return trustTabContexts[tab];
+}
+
+export function getTrustPageContext(page: TrustPageKey): HubContext {
+  return trustPageContexts[page];
 }
 
 export function getToolContext(toolId: ToolId): HubContext {
