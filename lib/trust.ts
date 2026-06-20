@@ -307,6 +307,18 @@ export const disclaimers: DisclaimerBlock[] = [
 export const updateHistory: UpdateHistoryEntry[] = [
   {
     date: '2026-06-19',
+    version: '1.17.0',
+    title: 'Sprint 17 — NR Expansion & Brief Research Sync',
+    category: 'feature',
+    changes: [
+      'NR compound module + buyer guide + Tru Niagen shop pick at /shop?stack=nr',
+      'NMN vs NR compare table expanded with buyer verification and Martens RCT row',
+      'Brief ↔ Research intel sync — feed PMIDs auto-rotate in Protocol Brief + RSS/JSON feeds',
+      'Research Intel links to matching Protocol Brief issues',
+    ],
+  },
+  {
+    date: '2026-06-19',
     version: '1.16.0',
     title: 'Sprint 16 — Research Protocol Links & Quiz Share OG',
     category: 'feature',

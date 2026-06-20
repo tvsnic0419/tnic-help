@@ -212,24 +212,42 @@ export const nextUpImprovements: NextUpItem[] = [
     href: '/sitemap.xml',
     tags: ['seo'],
   },
-  // Planned — Sprint 17
   {
     id: 'compound-expansion-nr',
     title: 'NR vs NMN buyer guide expansion',
     desc: 'Deep-dive module + shop verification for nicotinamide riboside with updated compare table.',
-    status: 'planned',
+    status: 'shipped',
     sprint: 'Sprint 17',
-    href: '/library/compare/nmn-vs-nr',
+    href: '/library/compounds/nr',
     tags: ['content', 'library'],
   },
   {
     id: 'brief-research-sync',
     title: 'Brief ↔ Research intel sync',
     desc: 'Auto-rotate Protocol Brief issues from research feed PMIDs with compound cross-links.',
-    status: 'planned',
+    status: 'shipped',
     sprint: 'Sprint 17',
     href: '/brief',
     tags: ['retention', 'content'],
+  },
+  // Planned — Sprint 18
+  {
+    id: 'lifestyle-module-depth',
+    title: 'Lifestyle pillar depth upgrade',
+    desc: 'Sleep, exercise, and nutrition modules with hallmark decision trees and lab tie-ins.',
+    status: 'planned',
+    sprint: 'Sprint 18',
+    href: '/library/lifestyle/sleep',
+    tags: ['content', 'library'],
+  },
+  {
+    id: 'json-ld-compound-pages',
+    title: 'Compound page JSON-LD',
+    desc: 'MedicalWebPage + citation schema on all compound deep-dives for rich search results.',
+    status: 'planned',
+    sprint: 'Sprint 18',
+    href: '/library/compounds/nmn',
+    tags: ['seo'],
   },
 ];
 

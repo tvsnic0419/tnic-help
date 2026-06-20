@@ -6,7 +6,7 @@ import { PRESET_KEYS } from '@/lib/quiz-share';
 import { toolsRegistry } from '@/lib/registry';
 import { SITE } from '@/lib/site';
 
-const BUILD_DATE = new Date('2026-06-19');
+const BUILD_DATE = new Date('2026-06-19'); // Sprint 17
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const base = SITE.url;

@@ -1,11 +1,14 @@
 'use client';
 
 import Link from 'next/link';
-import { Newspaper, ExternalLink, ArrowRight } from 'lucide-react';
-import { protocolBriefIssues } from '@/lib/protocol-brief';
+import { Newspaper, ExternalLink, ArrowRight, Radio } from 'lucide-react';
+import { getAllBriefIssues } from '@/lib/brief-research-sync';
 import { EvidenceTag } from '@/components/trust/EvidenceTag';
 import { PageHeader } from '@/components/ui/PageHeader';
 import { BriefSubscribePanel } from './BriefSubscribePanel';
+
+const allIssues = getAllBriefIssues();
+const researchCount = allIssues.filter((i) => i.source === 'research-intel').length;
 
 export function ProtocolBriefHub() {
   return (
@@ -14,7 +17,7 @@ export function ProtocolBriefHub() {
         icon={Newspaper}
         eyebrow="Protocol Brief · Research Digest"
         title="PMID-Curated Drops"
-        description="Weekly research summaries tied to library updates — retention through evidence, not coupons. Every headline links to actionable modules."
+        description={`Weekly research summaries tied to library updates — ${allIssues.length} issues in rotation (${researchCount} synced from Research Intel). Every headline links to actionable modules.`}
         theme="violet"
         align="left"
       />
@@ -22,10 +25,11 @@ export function ProtocolBriefHub() {
       <BriefSubscribePanel />
 
       <div className="space-y-6">
-        {protocolBriefIssues.map((entry, i) => (
+        {allIssues.map((entry, i) => (
           <article
             key={entry.id}
-            className="glass rounded-2xl p-6 md:p-8 border border-border/80"
+            id={entry.id}
+            className="glass rounded-2xl p-6 md:p-8 border border-border/80 scroll-mt-24"
           >
             <div className="flex flex-wrap items-center gap-3 mb-3">
               <time className="text-caption font-mono">{entry.date}</time>
@@ -33,6 +37,12 @@ export function ProtocolBriefHub() {
               {i === 0 && (
                 <span className="text-[10px] font-mono text-accent-violet uppercase tracking-wider">
                   Latest
+                </span>
+              )}
+              {entry.source === 'research-intel' && (
+                <span className="inline-flex items-center gap-1 text-[10px] font-mono text-accent-cyan uppercase tracking-wider">
+                  <Radio className="w-3 h-3" aria-hidden="true" />
+                  Research Intel sync
                 </span>
               )}
             </div>
@@ -54,7 +64,7 @@ export function ProtocolBriefHub() {
                   rel="noopener noreferrer"
                   className="focus-ring inline-flex items-center gap-1 text-[10px] font-mono text-muted-foreground hover:text-accent-cyan px-2 py-1 rounded bg-muted/50"
                 >
-                  PMID {pmid} <ExternalLink className="w-3 h-3" />
+                  PMID {pmid} <ExternalLink className="w-3 h-3" aria-hidden="true" />
                 </a>
               ))}
             </div>
@@ -66,7 +76,7 @@ export function ProtocolBriefHub() {
                   href={link.href}
                   className="focus-ring interactive text-xs font-semibold text-accent-cyan hover:underline inline-flex items-center gap-1"
                 >
-                  {link.label} <ArrowRight className="w-3 h-3" />
+                  {link.label} <ArrowRight className="w-3 h-3" aria-hidden="true" />
                 </Link>
               ))}
             </div>
@@ -84,15 +94,6 @@ export function ProtocolBriefHub() {
           </article>
         ))}
       </div>
-
-      <p className="text-xs text-muted-foreground mt-8 max-w-2xl">
-        Protocol Brief is editorial — not medical advice. New issues ship with platform updates and
-        logged in{' '}
-        <Link href="/trust/updates" className="text-accent-cyan hover:underline">
-          update history
-        </Link>
-        .
-      </p>
     </div>
   );
 }

@@ -23,6 +23,24 @@ const compoundModuleMap: Record<string, { name: string; slug: string; synergy?: 
   rala: { name: 'R-Alpha Lipoic Acid', slug: 'glynac-nrf2-triad', synergy: true },
 };
 
+/** NR alternative shop card when user chose NR over NMN */
+export function getNrAlternativeShopItem(): StackShopItem | null {
+  const guide = getBuyerGuide('nr');
+  if (!guide) return null;
+
+  return {
+    compoundId: 'nr',
+    compoundName: 'NR (Nicotinamide Riboside)',
+    dose: guide.doseAnchors[0]?.dose ?? '300–1000 mg/day',
+    timing: 'AM',
+    buyerGuide: guide,
+    moduleHref: '/library/compounds/nr',
+    compareHref: '/library/compare/nmn-vs-nr',
+    priority: 'optional',
+    productPick: getProductPick('nr'),
+  };
+}
+
 /** Map active stack IDs to shop intelligence — no affiliate URLs, buyer-guide driven */
 export function getStackShopItems(compoundIds: string[]): StackShopItem[] {
   const unique = [...new Set(compoundIds)];
@@ -54,6 +72,12 @@ export function getStackShopItems(compoundIds: string[]): StackShopItem[] {
       } satisfies StackShopItem;
     })
     .filter(Boolean) as StackShopItem[];
+}
+
+/** Shop items for ?stack=nr deep link or NR-only verification */
+export function getNrShopItems(): StackShopItem[] {
+  const nr = getNrAlternativeShopItem();
+  return nr ? [nr] : [];
 }
 
 export const shopDisclosure = {

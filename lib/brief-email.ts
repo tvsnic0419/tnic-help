@@ -1,9 +1,10 @@
-import { protocolBriefIssues } from './protocol-brief';
+import { getAllBriefIssues } from './brief-research-sync';
 import { buildUnsubscribeUrl } from './brief-unsubscribe';
 import { SITE } from './site';
 
 export function buildBriefDigestHtml(issueIndex = 0, email?: string): string {
-  const issue = protocolBriefIssues[issueIndex] ?? protocolBriefIssues[0];
+  const issues = getAllBriefIssues();
+  const issue = issues[issueIndex] ?? issues[0];
   const pmidLinks = issue.pmids
     .map(
       (p) =>
@@ -46,6 +47,7 @@ export function buildBriefDigestHtml(issueIndex = 0, email?: string): string {
 }
 
 export function buildBriefDigestSubject(issueIndex = 0): string {
-  const issue = protocolBriefIssues[issueIndex] ?? protocolBriefIssues[0];
+  const issues = getAllBriefIssues();
+  const issue = issues[issueIndex] ?? issues[0];
   return `Protocol Brief: ${issue.headline}`;
 }

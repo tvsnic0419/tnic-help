@@ -3,9 +3,10 @@
 import { useState } from 'react';
 import Link from 'next/link';
 import { motion, AnimatePresence } from 'framer-motion';
-import { ExternalLink, BookOpen, FlaskConical, Zap, ArrowRight } from 'lucide-react';
+import { ExternalLink, BookOpen, FlaskConical, Zap, ArrowRight, Radio } from 'lucide-react';
 import { SectionShell } from '@/components/SectionShell';
 import { researchFeed } from '@/lib/data';
+import { getBriefHrefForResearch } from '@/lib/brief-research-sync';
 import { researchImpactStyles } from '@/lib/research-intel';
 
 const impactIcons = {
@@ -90,14 +91,23 @@ export function ResearchIntel() {
                   >
                     <div className="px-6 pb-6 pt-0 border-t border-border mx-6">
                       <p className="text-sm text-muted-foreground leading-relaxed mb-4 pt-4">{article.summary}</p>
-                      <a
-                        href={`https://pubmed.ncbi.nlm.nih.gov/${article.pmid}/`}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="inline-flex items-center gap-2 text-xs text-accent-emerald hover:text-accent-cyan transition-colors font-mono mb-4"
-                      >
-                        PubMed: {article.pmid} <ExternalLink className="w-3 h-3" aria-hidden="true" />
-                      </a>
+                      <div className="flex flex-wrap items-center gap-3 mb-4">
+                        <a
+                          href={`https://pubmed.ncbi.nlm.nih.gov/${article.pmid}/`}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="inline-flex items-center gap-2 text-xs text-accent-emerald hover:text-accent-cyan transition-colors font-mono"
+                        >
+                          PubMed: {article.pmid} <ExternalLink className="w-3 h-3" aria-hidden="true" />
+                        </a>
+                        <Link
+                          href={getBriefHrefForResearch(article.id)}
+                          className="focus-ring inline-flex items-center gap-1.5 text-xs font-semibold text-accent-violet hover:text-accent-cyan transition"
+                        >
+                          <Radio className="w-3.5 h-3.5" aria-hidden="true" />
+                          Protocol Brief
+                        </Link>
+                      </div>
                       {article.relatedHrefs.length > 0 && (
                         <div className="pt-3 border-t border-border/60">
                           <p className="text-label text-accent-emerald mb-2">Protocol links</p>

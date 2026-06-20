@@ -1,5 +1,5 @@
 import { NextResponse } from 'next/server';
-import { protocolBriefIssues } from '@/lib/protocol-brief';
+import { getAllBriefIssues } from '@/lib/brief-research-sync';
 import { SITE } from '@/lib/site';
 
 export const runtime = 'nodejs';
@@ -11,7 +11,7 @@ export async function GET() {
     home_page_url: `${SITE.url}/brief`,
     feed_url: `${SITE.url}/brief/feed.json`,
     description: 'PMID-curated longevity research drops tied to TNiC library updates.',
-    items: protocolBriefIssues.map((entry) => ({
+    items: getAllBriefIssues().map((entry) => ({
       id: entry.id,
       url: `${SITE.url}/brief#${entry.id}`,
       title: entry.headline,

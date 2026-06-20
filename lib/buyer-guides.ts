@@ -58,6 +58,37 @@ export const compoundBuyerGuides: CompoundBuyerGuide[] = [
     relatedCompareSlug: 'nmn-vs-nr',
   },
   {
+    compoundId: 'nr',
+    title: 'NR (Nicotinamide Riboside) buyer guide',
+    tagline: 'NAD+ precursor alternative — verify NR-Cl identity and trial-matched dose',
+    formRequirements: [
+      'Nicotinamide riboside chloride (NR-Cl) — not generic "NAD+ booster" blends',
+      'Declared NR mg per capsule — not hidden in proprietary NAD+ complex',
+      'Not β-NMN mislabeled as "NAD+ precursor" without naming the molecule',
+    ],
+    coaDemands: [
+      { id: 'identity', label: 'NR-Cl identity', detail: 'HPLC confirms nicotinamide riboside chloride, not niacin' },
+      { id: 'purity', label: '≥98% purity', detail: 'Third-party batch COA dated within 12 months' },
+      { id: 'heavy-metals', label: 'Heavy metals panel', detail: 'Lead, arsenic, cadmium within USP limits' },
+      { id: 'nad-proof', label: 'Optional NAD+ metabolite retest', detail: 'Week-4 blood NAD+ index to confirm response' },
+    ],
+    doseAnchors: [
+      { label: 'Martens RCT', dose: '1000 mg/day', pmid: '29514064', note: 'Elevated whole-blood NAD+' },
+      { label: 'Common consumer range', dose: '300–500 mg/day', note: 'Start mid-range; titrate at week 12' },
+      { label: 'TNiC compare anchor', dose: 'See NMN vs NR table', note: 'Match one precursor — not both high-dose' },
+    ],
+    redFlags: [
+      'NR + NMN combo products without physician oversight label',
+      'Niacin (flush form) sold as NAD+ support',
+      'Dose below 250 mg with "clinical strength" marketing',
+      'No batch COA or expired certificate',
+      'Switching from NMN without week-4 NAD+ baseline to compare response',
+    ],
+    sourcingNote:
+      'Choose NR if your physician prefers NR literature or you have proven NR response. TNiC stacks default to NMN — substitution is manual in Lab Hub notes.',
+    relatedCompareSlug: 'nmn-vs-nr',
+  },
+  {
     compoundId: 'glynac',
     title: 'GlyNAC buyer guide',
     tagline: 'Dual-precursor glutathione — ratio and elemental weights matter',

@@ -1,5 +1,5 @@
 import { NextResponse } from 'next/server';
-import { protocolBriefIssues } from '@/lib/protocol-brief';
+import { getAllBriefIssues } from '@/lib/brief-research-sync';
 import { SITE } from '@/lib/site';
 
 export const runtime = 'nodejs';
@@ -13,7 +13,7 @@ function escapeXml(s: string) {
 }
 
 export async function GET() {
-  const items = protocolBriefIssues
+  const items = getAllBriefIssues()
     .map(
       (e) => `
     <item>

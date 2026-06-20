@@ -95,6 +95,27 @@ export const libraryModules: LibraryModule[] = [
     mdxSlug: 'nmn',
   },
   {
+    slug: 'nr',
+    category: 'compounds',
+    title: 'NR (Nicotinamide Riboside)',
+    tagline: 'NAD+ precursor alternative — human RCT data, manual stack substitution',
+    summary:
+      'Legitimate NAD+ precursor with human trial footprint. TNiC defaults to NMN for stack integration; this module covers when NR is the right choice, dosing, buyer verification, and compare-table evidence.',
+    evidenceTier: 'A',
+    relatedHallmarkIds: ['mito', 'genomic', 'epigenetic', 'senescence', 'nutrient'],
+    relatedSynergySlugs: ['nad-mito-stack', 'nmn-resveratrol-sirt1'],
+    outline: [
+      'Overview & NR → NMN → NAD+ pathway',
+      'When to choose NR vs NMN',
+      'Evidence summary (Martens, Trammell)',
+      'Dosing & NR-Cl form requirements',
+      'TNiC stack substitution guide',
+      'Buyer guide & red flags',
+      'Personal results template',
+    ],
+    mdxSlug: 'nr',
+  },
+  {
     slug: 'rapamycin',
     category: 'compounds',
     title: 'Rapamycin (Sirolimus)',

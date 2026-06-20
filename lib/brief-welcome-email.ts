@@ -1,4 +1,4 @@
-import { protocolBriefIssues } from './protocol-brief';
+import { getAllBriefIssues } from './brief-research-sync';
 import { getWeeklyIssueIndex } from './brief-rotation';
 import { buildUnsubscribeUrl } from './brief-unsubscribe';
 import { SITE } from './site';
@@ -9,7 +9,8 @@ export function buildBriefWelcomeSubject(): string {
 
 export function buildBriefWelcomeHtml(email: string): string {
   const issueIndex = getWeeklyIssueIndex();
-  const preview = protocolBriefIssues[issueIndex] ?? protocolBriefIssues[0];
+  const issues = getAllBriefIssues();
+  const preview = issues[issueIndex] ?? issues[0];
   const unsubPath = buildUnsubscribeUrl(email);
   const unsubLink = unsubPath
     ? `<a href="${SITE.url}${unsubPath}" style="color:#64748b;">Unsubscribe</a>`

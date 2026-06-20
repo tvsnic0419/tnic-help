@@ -68,6 +68,20 @@ export const PRODUCT_PICKS: Record<string, ProductPick> = {
       '500mg per capsule — matches common longevity protocol doses. Third-party tested.',
     doseNote: 'Typical: 500mg–1g daily. Start at 500mg.',
   },
+  nr: {
+    compoundId: 'nr',
+    compoundName: 'NR (Nicotinamide Riboside)',
+    brand: 'Tru Niagen',
+    productName: 'Niagen® 300mg NR-Cl',
+    imageSrc: `${PRODUCTS}/nmn.jpg`,
+    fallbackImageSrc: `${PRODUCTS}/nmn.svg`,
+    purchaseUrl: 'https://www.truniagen.com/products/tru-niagen',
+    brandWebsite: 'https://www.truniagen.com',
+    linkVerifiedAt: '2026-06-19',
+    whyThisPick:
+      'Pharmaceutical-grade NR-Cl (Niagen®) — the molecule used in published human NAD+ trials. Clear 300mg dose per capsule.',
+    doseNote: 'Typical: 300–1000 mg/day NR. Start 300mg; retest NAD+ at week 4.',
+  },
   sulforaphane: {
     compoundId: 'sulforaphane',
     compoundName: 'Sulforaphane',

@@ -2,7 +2,7 @@ import { compounds } from './data';
 import { hallmarkLibrary } from './hallmarks-library';
 import { libraryModules, getModulePath, libraryCategoryMeta } from './library-modules';
 import { evidenceComparisons } from './comparisons';
-import { protocolBriefIssues } from './protocol-brief';
+import { getAllBriefIssues } from './brief-research-sync';
 
 export type LibrarySearchKind = 'hallmark' | 'module' | 'compound' | 'compare' | 'brief';
 
@@ -89,12 +89,12 @@ function buildIndex(): LibrarySearchItem[] {
     ],
   }));
 
-  const briefItems: LibrarySearchItem[] = protocolBriefIssues.map((b) => ({
+  const briefItems: LibrarySearchItem[] = getAllBriefIssues().map((b) => ({
     id: `brief-${b.id}`,
     kind: 'brief',
     title: b.headline,
-    subtitle: `Protocol Brief · ${b.date}`,
-    href: '/brief',
+    subtitle: `Protocol Brief · ${b.date}${b.source === 'research-intel' ? ' · Intel sync' : ''}`,
+    href: `/brief#${b.id}`,
     evidenceTier: b.evidenceTier,
     keywords: [
       b.headline.toLowerCase(),

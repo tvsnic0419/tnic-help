@@ -81,6 +81,21 @@ export const evidenceComparisons: EvidenceComparison[] = [
         verdict: 'tie',
         note: 'Physician oversight if stacking precursors',
       },
+      {
+        dimension: 'Buyer verification',
+        a: 'β-NMN identity + ≥98% HPLC',
+        b: 'NR-Cl identity + ≥98% HPLC',
+        verdict: 'context',
+        note: 'Different COA targets — see compound buyer guides',
+      },
+      {
+        dimension: 'NR-specific human RCT',
+        a: 'Igarashi/Liao 250 mg NMN',
+        b: 'Martens 1000 mg NR',
+        verdict: 'b',
+        pmid: '29514064',
+        note: 'Both elevate NAD+ — dose units differ',
+      },
     ],
     whenChooseA: [
       'Running TNiC SIRT1 or Mito stacks',
@@ -94,8 +109,11 @@ export const evidenceComparisons: EvidenceComparison[] = [
     ],
     relatedHrefs: [
       { label: 'NMN deep dive', href: '/library/compounds/nmn' },
+      { label: 'NR deep dive', href: '/library/compounds/nr' },
       { label: 'NMN buyer guide', href: '/library/compounds/nmn#buyer-guide' },
+      { label: 'NR buyer guide', href: '/library/compounds/nr#buyer-guide' },
       { label: 'NAD+ Mito Stack', href: '/library/synergies/nad-mito-stack' },
+      { label: 'NR shop verification', href: '/shop?stack=nr' },
     ],
     keywords: ['nmn', 'nr', 'nicotinamide riboside', 'nad+', 'precursor'],
   },

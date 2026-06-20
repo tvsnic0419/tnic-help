@@ -15,7 +15,12 @@ import {
 } from 'lucide-react';
 import { usePlatform } from '@/context/PlatformContext';
 import { stackPresets, type PresetKey } from '@/lib/presets';
-import { getStackShopItems, shopDisclosure } from '@/lib/protocol-shop';
+import {
+  getNrAlternativeShopItem,
+  getNrShopItems,
+  getStackShopItems,
+  shopDisclosure,
+} from '@/lib/protocol-shop';
 import { buildShopStackUrl, isPresetKey, parseStackParam } from '@/lib/stack-url';
 import { PageHeader } from '@/components/ui/PageHeader';
 import { cn } from '@/lib/utils';
@@ -32,14 +37,20 @@ const presetOptions: { key: PresetKey; label: string }[] = [
 function ProtocolShopPanelInner() {
   const searchParams = useSearchParams();
   const { selected, setSelected } = usePlatform();
-  const items = getStackShopItems(selected);
+  const stackParam = searchParams.get('stack');
+  const isNrOnlyMode = stackParam === 'nr';
+  const items = isNrOnlyMode ? getNrShopItems() : getStackShopItems(selected);
+  const nrAlternative =
+    !isNrOnlyMode && selected.includes('nmn') ? getNrAlternativeShopItem() : null;
   const [deepLinked, setDeepLinked] = useState(false);
   const [copied, setCopied] = useState(false);
 
-  const stackParam = searchParams.get('stack');
-
   useEffect(() => {
     if (!stackParam) return;
+    if (stackParam === 'nr') {
+      setDeepLinked(true);
+      return;
+    }
     const ids = parseStackParam(stackParam);
     if (!ids) return;
     setSelected(ids);
@@ -107,7 +118,11 @@ function ProtocolShopPanelInner() {
         <div className="flex items-center gap-2 text-xs px-3 py-2 rounded-lg mb-6 bg-accent-emerald/10 text-accent-emerald">
           <CheckCircle2 className="w-3.5 h-3.5 shrink-0" />
           Loaded checklist from deep link
-          {presetFromUrl ? ` · ${presetFromUrl} preset` : ` · ${selected.length} compounds`}
+          {isNrOnlyMode
+            ? ' · NR verification mode'
+            : presetFromUrl
+              ? ` · ${presetFromUrl} preset`
+              : ` · ${selected.length} compounds`}
         </div>
       )}
 
@@ -148,6 +163,12 @@ function ProtocolShopPanelInner() {
             {p.label}
           </Link>
         ))}
+        <Link
+          href="/shop?stack=nr"
+          className="focus-ring px-3 py-1.5 rounded-lg text-xs font-semibold glass hover:border-accent-violet/30 transition"
+        >
+          NR alternative
+        </Link>
         <Link
           href="/stacks"
           className="focus-ring px-3 py-1.5 rounded-lg text-xs font-semibold text-accent-cyan hover:underline"
@@ -231,6 +252,43 @@ function ProtocolShopPanelInner() {
                 </div>
               </div>
             ))}
+
+            {nrAlternative && (
+              <div className="glass rounded-2xl p-5 border border-accent-violet/25 bg-accent-violet/5">
+                <p className="text-label text-accent-violet mb-2">Chose NR instead of NMN?</p>
+                <p className="text-body-sm text-muted-foreground mb-4">
+                  Your stack includes NMN. If you or your physician prefer nicotinamide riboside, use this
+                  verification card — do not run both high-dose without oversight.
+                </p>
+                <div className="grid lg:grid-cols-[minmax(0,1fr)_220px] gap-5">
+                  <div>
+                    <h3 className="font-bold mb-1">{nrAlternative.compoundName}</h3>
+                    <p className="text-xs font-mono text-muted-foreground mb-3">
+                      {nrAlternative.dose} · {nrAlternative.timing}
+                    </p>
+                    <div className="flex flex-wrap gap-2">
+                      <Link
+                        href={`${nrAlternative.moduleHref}#buyer-guide`}
+                        className="focus-ring text-xs font-semibold text-accent-cyan hover:underline rounded"
+                      >
+                        NR buyer guide
+                      </Link>
+                      {nrAlternative.compareHref && (
+                        <Link
+                          href={nrAlternative.compareHref}
+                          className="focus-ring text-xs font-semibold text-accent-violet hover:underline rounded"
+                        >
+                          NMN vs NR
+                        </Link>
+                      )}
+                    </div>
+                  </div>
+                  {nrAlternative.productPick && (
+                    <ProductPickCard pick={nrAlternative.productPick} compact className="lg:max-w-[220px]" />
+                  )}
+                </div>
+              </div>
+            )}
           </div>
 
           <button
