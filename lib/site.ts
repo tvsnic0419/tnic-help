@@ -15,6 +15,12 @@ export function resolveSiteUrl(): string {
   return process.env.NODE_ENV === 'development' ? 'http://localhost:3000' : CANONICAL_SITE_URL;
 }
 
+/** Public profiles — used in Organization JSON-LD sameAs and social metadata */
+export const SOCIAL_PROFILES = [
+  'https://github.com/tvsnic0419/tnic-help',
+  'https://x.com/tnic_help',
+] as const;
+
 /** Canonical site configuration — single source for URLs and branding */
 export const SITE = {
   name: 'TNiC',
@@ -24,6 +30,8 @@ export const SITE = {
   locale: 'en_US',
   twitter: '@tnic_help',
   contactEmail: 'protocol@tnic.help',
+  sameAs: SOCIAL_PROFILES,
+  briefRssUrl: `${resolveSiteUrl()}/brief/feed.xml`,
 } as const;
 
 export const LONGEVITY_KEYWORDS = [

@@ -1,6 +1,6 @@
 import type { Metadata } from 'next';
 import { consumerFAQ } from './data';
-import { SITE, LONGEVITY_KEYWORDS } from './site';
+import { SITE, LONGEVITY_KEYWORDS, SOCIAL_PROFILES } from './site';
 import type { SourceCitation } from './types';
 import { citationRegistry } from './trust';
 
@@ -70,7 +70,49 @@ export function buildOrganizationSchema() {
     name: SITE.name,
     url: SITE.url,
     description: 'Independent educational longevity platform — not a medical provider or supplement retailer.',
-    sameAs: [],
+    sameAs: [...SOCIAL_PROFILES],
+  };
+}
+
+/** Root layout metadata — canonical URL, RSS discovery, optional Search Console verification */
+export function buildRootMetadata(): Metadata {
+  const googleVerification = process.env.GOOGLE_SITE_VERIFICATION?.trim();
+
+  return {
+    metadataBase: new URL(SITE.url),
+    title: {
+      default: SITE.fullName,
+      template: `%s | ${SITE.name}`,
+    },
+    description:
+      'Free educational platform for healthspan optimization. Learn the 12 Hallmarks of Aging, build evidence-graded supplement stacks, track biomarkers locally, and access PubMed-cited longevity research.',
+    keywords: [...LONGEVITY_KEYWORDS],
+    authors: [{ name: SITE.name }],
+    creator: SITE.name,
+    openGraph: {
+      title: SITE.fullName,
+      description:
+        'Authoritative longevity science made accessible. Interactive tools, safety guidance, and PubMed-cited protocols for health-optimized adults.',
+      type: 'website',
+      locale: SITE.locale,
+      siteName: SITE.fullName,
+      url: SITE.url,
+    },
+    twitter: {
+      card: 'summary_large_image',
+      site: SITE.twitter,
+      creator: SITE.twitter,
+      title: SITE.fullName,
+      description: 'Evidence-based longevity education, stacks, labs, and interactive tools.',
+    },
+    robots: { index: true, follow: true },
+    alternates: {
+      canonical: SITE.url,
+      types: {
+        'application/rss+xml': SITE.briefRssUrl,
+      },
+    },
+    ...(googleVerification ? { verification: { google: googleVerification } } : {}),
   };
 }
 
