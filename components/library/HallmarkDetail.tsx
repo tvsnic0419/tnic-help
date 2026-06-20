@@ -8,6 +8,8 @@ import { HallmarkVisual } from './HallmarkVisual';
 import { InterventionExplorer } from './InterventionExplorer';
 import { HallmarkNotesPanel } from './HallmarkNotesPanel';
 import { MdxRenderer } from './MdxRenderer';
+import { ContextRail } from '@/components/ui/ContextRail';
+import { getHallmarkContext } from '@/lib/hub-context';
 
 export function HallmarkDetail({
   hallmark,
@@ -53,6 +55,8 @@ export function HallmarkDetail({
                 <p className="text-sm text-foreground/80 leading-relaxed">{hallmark.whyItMatters}</p>
               </div>
             </motion.div>
+
+            <ContextRail {...getHallmarkContext(hallmark)} theme="cyan" />
 
             {mdxBody && (
               <div className="gradient-border p-6 md:p-8">

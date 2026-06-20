@@ -13,6 +13,7 @@ import { CompoundBuyerGuidePanel } from './CompoundBuyerGuide';
 import { LifestylePillarPanel } from './LifestylePillarPanel';
 import { getBuyerGuideByModuleSlug } from '@/lib/buyer-guides';
 import type { LifestyleSlug } from '@/lib/lifestyle-pillars';
+import { ModuleContextStrip } from './ModuleContextStrip';
 
 export function LibraryModuleDetail({
   module,
@@ -142,6 +143,7 @@ export function LibraryModuleDetail({
 
           <div className="lg:col-span-8 space-y-8">
             <motion.div initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }}>
+              <ModuleContextStrip module={module} />
               <h1 className="text-3xl md:text-4xl font-bold tracking-tight mb-2">{module.title}</h1>
               <p className="text-lg text-muted-foreground mb-4">{module.tagline}</p>
               <p className="text-sm text-muted-foreground leading-relaxed">{module.summary}</p>

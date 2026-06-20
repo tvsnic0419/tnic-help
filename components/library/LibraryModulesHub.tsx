@@ -11,6 +11,7 @@ import {
 } from '@/lib/library-modules';
 import { EvidenceTag } from '@/components/trust/EvidenceTag';
 import { PageHeader } from '@/components/ui/PageHeader';
+import { getHubContext } from '@/lib/hub-context';
 
 const categoryIcons: Record<LibraryModuleCategory, typeof Pill> = {
   compounds: Pill,
@@ -64,6 +65,7 @@ export function LibraryModulesHub() {
           description="Compound deep-dives, synergy guides, lifestyle pillars, and testing protocols — evidence-graded, MDX-ready, with personal tracking templates."
           theme="emerald"
           as="h2"
+          context={getHubContext('libraryModules')}
         />
 
         <div className="flex flex-wrap justify-center gap-3 mb-8">

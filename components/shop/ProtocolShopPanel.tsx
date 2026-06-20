@@ -26,6 +26,7 @@ import { PageHeader } from '@/components/ui/PageHeader';
 import { cn } from '@/lib/utils';
 import { SITE } from '@/lib/site';
 import { ProductPickCard } from '@/components/shop/ProductPickCard';
+import { getHubContext } from '@/lib/hub-context';
 
 const presetOptions: { key: PresetKey; label: string }[] = [
   { key: 'starter', label: 'Starter Elite' },
@@ -112,6 +113,7 @@ function ProtocolShopPanelInner() {
         description="Stack-filtered verification checklists from buyer guides. Share /shop?stack= links to pre-load any preset or custom stack."
         theme="amber"
         align="left"
+        context={getHubContext('shop')}
       />
 
       {deepLinked && items.length > 0 && (

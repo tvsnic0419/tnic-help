@@ -1,7 +1,7 @@
 'use client';
 
 import Link from 'next/link';
-import { ArrowRight, Activity, FlaskConical, Layers } from 'lucide-react';
+import { ArrowRight, Activity, FlaskConical, Layers, LayoutDashboard } from 'lucide-react';
 import { usePlatform } from '@/context/PlatformContext';
 import { analyzeStack } from '@/lib/stack-analysis';
 import { runBiomarkerDashboard } from '@/lib/tools/biomarker-dashboard';
@@ -19,6 +19,8 @@ import { NextUpPanel } from '@/components/os/NextUpPanel';
 import { DashboardStatusExport } from '@/components/dashboard/DashboardStatusExport';
 import { OnboardingStrip } from '@/components/dashboard/OnboardingStrip';
 import { UserNextStepsPanel } from '@/components/dashboard/UserNextStepsPanel';
+import { ContextRail } from '@/components/ui/ContextRail';
+import { getHubContext } from '@/lib/hub-context';
 
 function formatDaysAgo(dateStr: string): string {
   const days = Math.floor(
@@ -85,11 +87,14 @@ export function Dashboard() {
 
   return (
     <PageShell>
-      <header className="mb-10 flex flex-wrap items-end justify-between gap-4">
-        <div>
-          <p className="text-label text-accent-emerald mb-2">Personal command center</p>
+      <header className="mb-8 flex flex-wrap items-end justify-between gap-4 section-header-mesh">
+        <div className="max-w-3xl">
+          <div className="inline-flex items-center gap-2 card-ultra rounded-full px-4 py-2 mb-4 text-body-sm">
+            <LayoutDashboard className="w-4 h-4 text-accent-emerald" aria-hidden="true" />
+            <span>Personal command center</span>
+          </div>
           <h1 className="heading-page">My Longevity OS</h1>
-          <p className="text-body text-muted-foreground mt-2 max-w-2xl">
+          <p className="text-body text-muted-foreground mt-3 max-w-2xl">
             {quizResult
               ? `Goal: ${goalLabels[quizResult.goal] ?? quizResult.goal} — stack, labs, and journey in one place.`
               : 'Your anti-aging operating system — stack, labs, and journey in one place. Data stays local unless you export it.'}
@@ -98,11 +103,13 @@ export function Dashboard() {
         <button
           type="button"
           onClick={() => window.dispatchEvent(new Event(EXPORT_KIT_EVENT))}
-          className="focus-ring interactive inline-flex items-center gap-2 rounded-xl font-semibold border border-border px-3 py-2 text-xs hover:border-accent-cyan/40"
+          className="focus-ring btn-ghost-premium text-xs !py-2 !px-3 !min-h-0"
         >
           Export kit
         </button>
       </header>
+
+      <ContextRail {...getHubContext('dashboard')} theme="emerald" className="mb-8" />
 
       <OnboardingStrip />
 

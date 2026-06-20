@@ -307,6 +307,17 @@ export const disclaimers: DisclaimerBlock[] = [
 export const updateHistory: UpdateHistoryEntry[] = [
   {
     date: '2026-06-19',
+    version: '1.21.0',
+    title: 'Sprint 21 — Hub Context Expansion',
+    category: 'feature',
+    changes: [
+      'lib/hub-context.ts — centralized what/why/next for all OS hubs, tools, hallmarks, comparisons, and library modules',
+      'ContextRail on dashboard, stacks, labs, tools (per-tab), shop, brief, learn, quiz, library, compare hub + detail pages',
+      'ModuleContextStrip on all 26 library module deep-dives; hallmark-specific context on detail pages',
+    ],
+  },
+  {
+    date: '2026-06-19',
     version: '1.20.0',
     title: 'Sprint 20 — Design System v3 Cinematic Escalation',
     category: 'feature',

@@ -11,6 +11,7 @@ import {
   getComparison,
 } from '@/lib/comparisons';
 import { buildArticleSchema, buildBreadcrumbSchema, buildPageMetadata } from '@/lib/seo';
+import { getCompareContext } from '@/lib/hub-context';
 
 export function generateStaticParams() {
   return getAllComparisonSlugs().map((slug) => ({ slug }));
@@ -74,6 +75,7 @@ export default async function CompareDetailPage({
           description={comparison.subtitle}
           theme="cyan"
           align="left"
+          context={getCompareContext(comparison)}
         />
 
         <EvidenceCompareTable comparison={comparison} />

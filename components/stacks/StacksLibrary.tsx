@@ -17,6 +17,7 @@ import { EliteStackCard } from './EliteStackCard';
 import { StackComparisonTable } from './StackComparisonTable';
 import { ToolsPromoStrip } from '@/components/tools/ToolsPromoStrip';
 import { QuizStacksBanner } from './QuizStacksBanner';
+import { getHubContext } from '@/lib/hub-context';
 
 type Tab = 'catalog' | 'builder' | 'compare';
 
@@ -56,6 +57,7 @@ export function StacksLibrary() {
         description="Pre-built evidence-graded protocols with dosing, monitoring, and cost breakdowns. Build custom stacks with real-time synergy and contraindication analysis."
         meta={`${eliteStacks.length} elite stacks · 6 evidence-graded compounds · Educational only`}
         theme="violet"
+        context={getHubContext('stacks')}
       />
 
       <div className="flex flex-wrap gap-3 mb-6">

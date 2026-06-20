@@ -6,6 +6,7 @@ import { getAllBriefIssues } from '@/lib/brief-research-sync';
 import { EvidenceTag } from '@/components/trust/EvidenceTag';
 import { PageHeader } from '@/components/ui/PageHeader';
 import { BriefSubscribePanel } from './BriefSubscribePanel';
+import { getHubContext } from '@/lib/hub-context';
 
 const allIssues = getAllBriefIssues();
 const researchCount = allIssues.filter((i) => i.source === 'research-intel').length;
@@ -20,6 +21,7 @@ export function ProtocolBriefHub() {
         description={`Weekly research summaries tied to library updates — ${allIssues.length} issues in rotation (${researchCount} synced from Research Intel). Every headline links to actionable modules.`}
         theme="violet"
         align="left"
+        context={getHubContext('brief')}
       />
 
       <BriefSubscribePanel />

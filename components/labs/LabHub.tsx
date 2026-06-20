@@ -20,6 +20,7 @@ import { LabRecommendations } from './LabRecommendations';
 import { PrivacyPanel } from './PrivacyPanel';
 import { ToolsPromoStrip } from '@/components/tools/ToolsPromoStrip';
 import { LabPartnerPanel } from './LabPartnerPanel';
+import { getHubContext } from '@/lib/hub-context';
 
 type Tab = 'input' | 'trends' | 'risk' | 'insights' | 'privacy';
 
@@ -76,6 +77,7 @@ export function LabHub() {
         title="Your Biomarkers. Your Data. Your Insights."
         description="Log lab results, visualize trends, map risks to the 12 Hallmarks of Aging, and get stack-aware recommendations — all processed locally in your browser."
         theme="rose"
+        context={getHubContext('labs')}
       />
 
       {analysis.markersTracked > 0 && (

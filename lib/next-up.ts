@@ -275,6 +275,24 @@ export const nextUpImprovements: NextUpItem[] = [
     href: '/',
     tags: ['ui', 'design'],
   },
+  {
+    id: 'hub-context-expansion',
+    title: 'OS hub context rails — what/why/next everywhere',
+    desc: 'Centralized hub-context for dashboard, stacks, labs, tools, shop, brief, learn, quiz, library, compare, and all 26 modules.',
+    status: 'shipped',
+    sprint: 'Sprint 21',
+    href: '/dashboard',
+    tags: ['content', 'ux'],
+  },
+  {
+    id: 'per-tool-context',
+    title: 'Per-tool contextual clarity',
+    desc: 'Active tool tab shows dedicated what/why/next rail — simulator through defense scan.',
+    status: 'shipped',
+    sprint: 'Sprint 21',
+    href: '/tools?tab=simulator',
+    tags: ['content', 'tools'],
+  },
 ];
 
 export const nextUpByStatus = {
