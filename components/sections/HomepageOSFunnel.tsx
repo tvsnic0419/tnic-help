@@ -62,8 +62,8 @@ const osPaths = [
   {
     icon: LayoutDashboard,
     title: 'My Longevity OS',
-    desc: 'Command center — stack, labs, milestones, hallmark coverage, export kit.',
-    context: 'Your personal dashboard that ties every module together.',
+    desc: 'Command center — active stack, hallmark coverage map, lab status, outcome milestones, and export kit.',
+    context: 'Ties every module together. Your personal protocol hub, visible at a glance.',
     href: '/dashboard',
     cta: 'Open dashboard',
     accent: 'emerald' as AccentKey,
@@ -73,8 +73,8 @@ const osPaths = [
   {
     icon: Layers,
     title: 'Stack Architect',
-    desc: 'Build protocols with live synergy scoring and shareable URLs.',
-    context: 'Design evidence-graded supplement stacks with interaction checks.',
+    desc: 'Build protocols with live synergy scoring, hallmark coverage, and contraindication checks.',
+    context: 'Every compound is evidence-graded Tier A/B/C before it enters a preset. No random bundling.',
     href: '/stacks',
     cta: 'Build stack',
     accent: 'violet' as AccentKey,
@@ -83,8 +83,8 @@ const osPaths = [
   {
     icon: FlaskConical,
     title: 'Lab Hub',
-    desc: 'Log biomarkers locally. Trends, retest nudges, CSV export.',
-    context: 'Track NAD+, inflammation, and metabolic markers over time.',
+    desc: 'Log biomarkers locally. Track NAD+, glutathione, hs-CRP. Trends, retest nudges, CSV export.',
+    context: 'Compare your real bloodwork against modeled projections — no cloud, no accounts.',
     href: '/labs',
     cta: 'Track labs',
     accent: 'cyan' as AccentKey,
@@ -93,8 +93,8 @@ const osPaths = [
   {
     icon: Library,
     title: 'Anti-Aging Library',
-    desc: '12 hallmarks, compounds, synergies — searchable and evidence-graded.',
-    context: 'Deep-dive modules with PMID citations and buyer guides.',
+    desc: '12 hallmarks, 6 compound deep-dives, synergy guides — all PMID-cited and evidence-graded.',
+    context: 'Search by compound, hallmark, or pathway. Every entry links to the primary trial.',
     href: '/library',
     cta: 'Search library',
     accent: 'amber' as AccentKey,
@@ -103,8 +103,8 @@ const osPaths = [
   {
     icon: Wand2,
     title: 'Longevity Tools',
-    desc: 'Simulator, protocol engine, biomarker forecasts, defense scan.',
-    context: 'Six interactive calculators — all local, no paywall.',
+    desc: 'Six interactive tools: stack simulator, interaction network, biomarker forecasts, defense scan.',
+    context: 'All local-first. No paywall, no account required. Run scenarios before you commit to a stack.',
     href: '/tools',
     cta: 'Open tools',
     accent: 'rose' as AccentKey,
@@ -122,14 +122,14 @@ export function HomepageOSFunnel() {
             One operating system. Five entry points.
           </h2>
           <p className="text-body-sm mt-3 max-w-xl mx-auto">
-            No paywall, no accounts. Pick your module — everything syncs through your personal OS.
+            Every module is free, local-first, and grounded in the same evidence standards that grade the library. No paywall. No accounts. No supplement store agenda.
           </p>
         </div>
 
         <ContextRail
-          what="Five interconnected modules that form your personal longevity command center."
-          why="Fragmented advice leads to bad stacks. TNiC unifies research, tools, and tracking in one OS."
-          next="Start at the dashboard for the full picture, or jump directly to the module you need."
+          what="Five evidence-grounded modules — stack architect, biomarker tracker, library, tools, and dashboard — built around the 12 Hallmarks of Aging."
+          why="Most people combine supplements from multiple sources with no synergy check and no outcome tracking. TNiC maps every compound to a specific hallmark, checks pathway interactions, and tracks results over time."
+          next="Start at the dashboard for the full picture, or jump directly to the module you need right now."
           theme="emerald"
           className="mb-10 md:mb-14 max-w-4xl mx-auto"
         />

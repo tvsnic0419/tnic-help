@@ -33,7 +33,7 @@ export function HeroSection() {
               <Sparkles className="w-4 h-4 text-accent-emerald animate-pulse-glow" aria-hidden="true" />
               <span className="font-medium">Anti-Aging Operating System</span>
               <span className="w-1.5 h-1.5 rounded-full bg-accent-emerald animate-pulse-glow" aria-hidden="true" />
-              <span className="text-caption font-mono hidden sm:inline">v1.23</span>
+              <span className="text-caption font-mono hidden sm:inline">v1.24</span>
             </motion.div>
 
             <motion.h1
@@ -53,8 +53,9 @@ export function HeroSection() {
               transition={{ delay: 0.2 }}
               className="text-body text-lg max-w-xl mb-8 mx-auto lg:mx-0"
             >
-              Initialize your personal command center — stack architect, lab hub, hallmark library,
-              and six evidence-graded tools. No accounts. Data stays in your browser until you export.
+              Six evidence-graded modules — stack architect, biomarker tracker, hallmark library, and
+              longevity tools. Every compound rated Tier A, B, or C from human trials. Your data stays
+              in your browser. No accounts. No paywall. No supplement store agenda.
             </motion.p>
 
             <motion.div
@@ -92,7 +93,7 @@ export function HeroSection() {
               transition={{ delay: 0.35 }}
               className="text-caption font-mono mt-6 mx-auto lg:mx-0"
             >
-              Educational only · Not medical advice
+              Educational only · Not medical advice · Data stays local
             </motion.p>
           </div>
 
@@ -117,9 +118,9 @@ export function HeroSection() {
           className="mt-14 md:mt-20 max-w-4xl mx-auto lg:mx-0"
         >
           <ContextRail
-            what="A privacy-first longevity operating system — not a supplement store or medical service."
-            why="Most longevity sites sell products or hide evidence tiers. TNiC grades every claim and keeps your data local."
-            next="Take the 3-min quiz for a personalized stack preset, or open your OS dashboard to start building."
+            what="A privacy-first longevity OS built on 12 Hallmarks of Aging — not a supplement store or medical service."
+            why="Most longevity sites sell products before explaining the mechanism. TNiC grades every compound claim, cites every PMID, and keeps your health data in your own browser — never on TNiC servers."
+            next="Take the 3-min quiz for a mechanism-matched stack preset, or open the OS dashboard to start building and tracking your protocol."
             theme="cyan"
           />
         </motion.div>

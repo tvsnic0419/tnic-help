@@ -3,9 +3,9 @@ import { researchFeed } from './data';
 import { platformStats } from './platform-stats';
 
 export const heroValueProps = [
-  'Personal Longevity OS — dashboard, milestones, export kit',
-  '12 Hallmarks + searchable evidence library',
-  'Six interactive tools — local-first, no paywall',
+  'Every compound rated Tier A, B, or C — from human trials, not marketing claims',
+  '12 Hallmarks of Aging library — mechanism-mapped, PMID-cited, updated as trials publish',
+  'Six local-first tools — biomarker forecasts, defense scan, stack simulator. No accounts, no paywall.',
 ];
 
 export const quizSteps = [
@@ -65,12 +65,12 @@ export function getQuizResult(answers: QuizAnswers) {
 
   const insight =
     answers.goal === 'learn'
-      ? 'Smart first move. TNiC maps every compound to hallmarks, evidence tiers, and safety data before you stack anything.'
+      ? "Good starting point. TNiC maps every compound to a specific hallmark mechanism, evidence tier, and human trial before it enters the library — you'll know exactly what each one targets and why before you spend a dollar."
       : answers.age === '60+'
-        ? 'At 60+, dual-pathway coverage (NRF2 + mitochondrial) typically yields the best modeled defense index.'
+        ? 'At 60+, NAD+ has typically fallen 40–60% from peak (Cell Metab, 2018). Dual-pathway coverage — NRF2 defense restoration plus mitochondrial substrate support — produces the highest modeled defense index at this stage. Your preset stacks both.'
         : answers.experience === 'new'
-          ? 'We recommend the Tier-A starter protocol — three human-trial-backed compounds with clear dosing.'
-          : 'Your profile points to an evidence-graded preset. Load it in Stack Architect and adjust from there.';
+          ? 'Starting with GlyNAC is the evidence-first move: 24-week human trials showed restored glutathione, improved mitochondrial function, and reduced oxidative stress in older adults (J Gerontol A, 2023, PMID 36656670). Tier A for a reason.'
+          : 'Your profile aligns with the Hybrid preset — 5 Tier-A/B compounds spanning NRF2 activation, mitochondrial substrate restoration, and sirtuin pathway support. The broadest evidence-graded coverage TNiC offers. Load it in Stack Architect and adjust synergy scoring from there.';
 
   return { preset, stack, primary, insight };
 }
@@ -85,23 +85,23 @@ export const latestResearch = researchFeed.slice(0, 3);
 
 export const trustPillars = [
   {
-    title: 'Evidence-Graded',
-    desc: 'Every compound rated Tier A/B/C based on human trial data — never hidden behind marketing.',
-    href: '/library/compounds/glynac',
+    title: 'Human Trial–Graded',
+    desc: 'GlyNAC, NMN, and Ca-AKG hold Tier A: randomized or controlled human trials with measured biomarker endpoints. R-ALA and Resveratrol hold Tier B: strong mechanism plus human pharmacokinetic data. No compound earns Tier A from mouse data alone.',
+    href: '/trust/methodology',
   },
   {
-    title: 'Modeled vs. Lab',
-    desc: 'Projections are clearly labeled. Log real bloodwork in Lab Hub to compare against models.',
+    title: 'Model vs. Lab — Always Labeled',
+    desc: 'Every biological age estimate and biomarker projection is explicitly marked as modeled — not a clinical diagnostic. Log real bloodwork in Lab Hub to compare your actual values against what the model predicts for your age and stack.',
     href: '/labs',
   },
   {
-    title: 'Safety First',
-    desc: 'Contraindications, red flags, and physician-export protocols in the Trust Center.',
+    title: 'Safety Before Stack',
+    desc: 'Per-compound contraindications, a seven-point red-flag brand checklist, and physician-export protocols are built into every recommendation. Taking prescriptions? Export your stack PDF and review with your pharmacist before combining.',
     href: '/trust/disclaimers',
   },
   {
-    title: 'Radical Transparency',
-    desc: 'No affiliate pressure on recommendations. Methodology, limitations, and sources are open.',
+    title: 'No Pay-for-Placement',
+    desc: "Brands cannot pay for inclusion, evidence tier upgrades, or Library positioning. Affiliate links are disclosed and never influence compound rankings, hallmark mapping, or research feed placement.",
     href: '/trust/methodology',
   },
 ];

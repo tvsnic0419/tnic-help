@@ -30,10 +30,10 @@ export function HomepageTrust() {
         <div className="text-center mb-10">
           <p className="text-label text-accent-emerald mb-3">WHY TRUST TNIC</p>
           <h2 className="heading-section">
-            Built for intelligent consumers
+            Graded by evidence. Built for trust.
           </h2>
           <p className="text-muted-foreground mt-3 max-w-2xl mx-auto text-sm">
-            We tell you what we know, what we model, and what we don&apos;t. No black-box algorithms. No hidden affiliations on educational content.
+            We name the trial, the PMID, the year, and the effect size. We label every projection as modeled — not lab-measured. No black-box recommendations, no hidden affiliate pressure on evidence grading.
           </p>
         </div>
 
