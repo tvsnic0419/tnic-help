@@ -143,9 +143,9 @@ export const seoRoutes = {
 
   elite8: () =>
     buildPageMetadata({
-      title: 'Elite 8 Longevity Quotient — Evidence-Based Compound Ranking',
+      title: 'Elite 8 Longevity Rankings — Longevity Quotient',
       description:
-        'Eight premier longevity interventions ranked by the Longevity Quotient — a modeled synthesis of clinical evidence, epigenetic signals, safety, and bioavailability. Educational only; Rx compounds flagged.',
+        'Eight premier longevity interventions ranked by the Longevity Quotient — a weighted synthesis of clinical evidence, epigenetic impact, safety, and bioavailability.',
       path: '/elite-8',
       keywords: [
         'longevity quotient ranking',

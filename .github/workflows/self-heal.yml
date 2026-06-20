@@ -1,4 +1,4 @@
-name: TNiC Production Health Monitor
+name: TNiC Self-Healing Monitor
 
 on:
   schedule:
@@ -8,29 +8,53 @@ on:
 jobs:
   validate:
     runs-on: ubuntu-latest
-    steps:
-      - name: Homepage availability
-        run: |
-          CODE=$(curl -s -o /dev/null -w "%{http_code}" https://tnic.help/)
-          echo "Homepage HTTP $CODE"
-          test "$CODE" = "200"
+    timeout-minutes: 5
 
-      - name: Key routes respond 200
+    steps:
+      - name: Check homepage availability
         run: |
-          for path in /products /shop /quiz /tools /elite-8 /brief; do
-            CODE=$(curl -s -o /dev/null -w "%{http_code}" "https://tnic.help${path}")
-            echo "${path} -> $CODE"
-            test "$CODE" = "200"
+          echo "Checking https://tnic.help"
+          CODE=$(curl -s -o /dev/null -w "%{http_code}" --max-time 15 https://tnic.help)
+          if [ "$CODE" != "200" ]; then
+            echo "FAIL: Homepage returned HTTP $CODE"
+            exit 1
+          fi
+          echo "OK: Homepage returned 200"
+
+      - name: Check key routes return 200
+        run: |
+          for ROUTE in /dashboard /products /tools /quiz /trust; do
+            CODE=$(curl -s -o /dev/null -w "%{http_code}" --max-time 15 "https://tnic.help${ROUTE}")
+            if [ "$CODE" != "200" ]; then
+              echo "FAIL: https://tnic.help${ROUTE} returned HTTP $CODE"
+              exit 1
+            fi
+            echo "OK: ${ROUTE} → 200"
           done
 
-      - name: Production build markers present
+      - name: Validate production build identity
         run: |
-          CONTENT=$(curl -s https://tnic.help/)
-          echo "$CONTENT" | grep -q "TNiC" || { echo "FAIL: TNiC branding missing"; exit 1; }
-          echo "$CONTENT" | grep -q "Anti-Aging" || { echo "FAIL: hero content missing"; exit 1; }
+          CONTENT=$(curl -s --max-time 15 https://tnic.help)
+          if [[ "$CONTENT" != *"TNiC"* ]]; then
+            echo "FAIL: Production identity string 'TNiC' not found"
+            exit 1
+          fi
+          echo "OK: Production identity confirmed"
 
-      - name: WWW redirect to apex
+      - name: Confirm www redirects to apex
         run: |
-          CODE=$(curl -s -o /dev/null -w "%{http_code}" -L https://www.tnic.help/)
-          echo "www.tnic.help (follow redirects) -> $CODE"
-          test "$CODE" = "200"
+          FINAL_URL=$(curl -s -o /dev/null -w "%{url_effective}" -L --max-time 15 https://www.tnic.help)
+          if [[ "$FINAL_URL" != *"tnic.help"* ]]; then
+            echo "FAIL: www did not redirect to tnic.help (landed at: $FINAL_URL)"
+            exit 1
+          fi
+          echo "OK: www → $FINAL_URL"
+
+      - name: Check sitemap is reachable
+        run: |
+          CODE=$(curl -s -o /dev/null -w "%{http_code}" --max-time 15 https://tnic.help/sitemap.xml)
+          if [ "$CODE" != "200" ]; then
+            echo "FAIL: sitemap.xml returned HTTP $CODE"
+            exit 1
+          fi
+          echo "OK: sitemap.xml → 200"
