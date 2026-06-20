@@ -1,0 +1,36 @@
+name: TNiC Production Health Monitor
+
+on:
+  schedule:
+    - cron: '*/30 * * * *'
+  workflow_dispatch:
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Homepage availability
+        run: |
+          CODE=$(curl -s -o /dev/null -w "%{http_code}" https://tnic.help/)
+          echo "Homepage HTTP $CODE"
+          test "$CODE" = "200"
+
+      - name: Key routes respond 200
+        run: |
+          for path in /products /shop /quiz /tools /elite-8 /brief; do
+            CODE=$(curl -s -o /dev/null -w "%{http_code}" "https://tnic.help${path}")
+            echo "${path} -> $CODE"
+            test "$CODE" = "200"
+          done
+
+      - name: Production build markers present
+        run: |
+          CONTENT=$(curl -s https://tnic.help/)
+          echo "$CONTENT" | grep -q "TNiC" || { echo "FAIL: TNiC branding missing"; exit 1; }
+          echo "$CONTENT" | grep -q "Anti-Aging" || { echo "FAIL: hero content missing"; exit 1; }
+
+      - name: WWW redirect to apex
+        run: |
+          CODE=$(curl -s -o /dev/null -w "%{http_code}" -L https://www.tnic.help/)
+          echo "www.tnic.help (follow redirects) -> $CODE"
+          test "$CODE" = "200"

@@ -141,6 +141,21 @@ export const seoRoutes = {
       keywords: ['longevity calculator', 'supplement interaction graph', 'healthspan estimator', 'biological age calculator'],
     }),
 
+  elite8: () =>
+    buildPageMetadata({
+      title: 'Elite 8 Longevity Quotient — Evidence-Based Compound Ranking',
+      description:
+        'Eight premier longevity interventions ranked by the Longevity Quotient — a modeled synthesis of clinical evidence, epigenetic signals, safety, and bioavailability. Educational only; Rx compounds flagged.',
+      path: '/elite-8',
+      keywords: [
+        'longevity quotient ranking',
+        'best longevity supplements ranked',
+        'rapamycin vs metformin aging',
+        'top anti-aging compounds 2026',
+        'NMN ranking',
+      ],
+    }),
+
   trust: () =>
     buildPageMetadata({
       title: 'Trust & Transparency Hub — Evidence Standards & Methodology',

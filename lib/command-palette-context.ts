@@ -29,6 +29,7 @@ const HUB_PATH_MAP: Record<string, HubKey> = {
   '/tools': 'tools',
   '/shop': 'shop',
   '/products': 'products',
+  '/elite-8': 'tools',
   '/brief': 'brief',
   '/learn': 'learn',
   '/faq': 'learn',
@@ -95,9 +96,17 @@ function getPageContextItems(pathname: string): PaletteItem[] {
   }
   if (pathname.startsWith('/tools')) {
     return [
+      item('ctx-tools-elite8', 'Elite 8 Longevity Quotient', { href: '/elite-8', kind: 'tool' }),
       item('ctx-tools-protocol', 'Build phased protocol', { href: '/tools?tab=protocol', kind: 'tool' }),
       item('ctx-tools-stacks', 'Load stack in Architect', { href: '/stacks', kind: 'page' }),
       item('ctx-tools-labs', 'Import labs for forecasts', { href: '/labs', kind: 'page' }),
+    ];
+  }
+  if (pathname.startsWith('/elite-8')) {
+    return [
+      item('ctx-elite8-compare', 'Head-to-head comparison', { href: '/elite-8', kind: 'tool' }),
+      item('ctx-elite8-library', 'Compound evidence modules', { href: '/library', kind: 'page' }),
+      item('ctx-elite8-trust', 'Evidence tier methodology', { href: '/trust/methodology', kind: 'page' }),
     ];
   }
   if (pathname.startsWith('/library/compare')) {

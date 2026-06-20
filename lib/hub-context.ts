@@ -64,9 +64,9 @@ export const hubContexts: Record<
   },
   tools: {
     theme: 'violet',
-    what: 'Six rule-based calculators — simulator, network graph, protocol engine, biomarker forecasts, impact ranking, and defense scan.',
-    why: 'Library knowledge stays abstract until you model it. These tools turn evidence into dose schedules and projected outcomes — locally, no AI black box.',
-    next: 'Run the Stack Simulator on your current compounds, then Protocol Engine for a phased plan tied to your goals.',
+    what: 'Six rule-based calculators plus Elite 8 Longevity Quotient ranking — simulator, network graph, protocol engine, biomarker forecasts, impact ranking, and defense scan.',
+    why: 'Library knowledge stays abstract until you model it. These tools turn evidence into dose schedules, composite rankings, and projected outcomes — locally, no AI black box.',
+    next: 'Run the Stack Simulator on your current compounds, or open Elite 8 LQ to compare interventions head-to-head.',
   },
   shop: {
     theme: 'amber',

@@ -307,6 +307,18 @@ export const disclaimers: DisclaimerBlock[] = [
 export const updateHistory: UpdateHistoryEntry[] = [
   {
     date: '2026-06-20',
+    version: '1.33.0',
+    title: 'Sprint 33 — Elite 8 Integration + Production Health Monitor',
+    category: 'feature',
+    changes: [
+      '/elite-8 Longevity Quotient — 8-compound ranked tool with head-to-head compare and weight tuner',
+      'Cherry-picked from feature/priority-upgrades — production tokens, Rx disclaimers, clock confidence labels',
+      'Tools hub featured card, sitemap + IndexNow priority, adapted GitHub self-heal workflow',
+      'Shared Brief subscribe error handling hardened (Sprint 33 patch)',
+    ],
+  },
+  {
+    date: '2026-06-20',
     version: '1.32.0',
     title: 'Sprint 32 — Graphical Polish, Personalization & Products Hub',
     category: 'feature',

@@ -401,6 +401,15 @@ export const nextUpImprovements: NextUpItem[] = [
     href: '/products',
     tags: ['conversion', 'ux'],
   },
+  {
+    id: 'sprint33-elite8-integration',
+    title: 'Sprint 33 — Elite 8 LQ ranking + priority-upgrades cherry-pick',
+    desc: 'Elite 8 Longevity Quotient at /elite-8, production health monitor workflow, Brief subscribe error hardening, tools hub promo.',
+    status: 'shipped',
+    sprint: 'Sprint 33',
+    href: '/elite-8',
+    tags: ['tools', 'integration'],
+  },
 ];
 
 export const nextUpByStatus = {

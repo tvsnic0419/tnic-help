@@ -21,6 +21,7 @@ export const PRIORITY_INDEX_PATHS = [
   '/brief',
   '/products',
   '/shop',
+  '/elite-8',
   '/site-map',
 ] as const;
 
