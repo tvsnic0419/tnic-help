@@ -43,10 +43,10 @@ export function HeroSection() {
               <span className="text-caption font-mono hidden sm:inline">v2.0</span>
             </motion.div>
 
+            {/* LCP-critical: render visible at first paint (no opacity:0 entrance) so
+                the headline counts toward Largest Contentful Paint immediately. */}
             <motion.h1
-              initial={{ opacity: 0, y: 30 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.1 }}
+              initial={false}
               className="text-display mb-6"
             >
               {hero.line1}
@@ -55,9 +55,7 @@ export function HeroSection() {
             </motion.h1>
 
             <motion.p
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ delay: 0.2 }}
+              initial={false}
               className="text-body text-lg max-w-xl mb-8 mx-auto lg:mx-0"
             >
               {hero.subcopy}
