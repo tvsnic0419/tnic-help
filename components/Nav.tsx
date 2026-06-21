@@ -3,6 +3,7 @@
 import { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import Link from 'next/link';
+import { usePathname } from 'next/navigation';
 import { ArrowRight, ClipboardList, Dna, Menu, Search, ShoppingBag, X } from 'lucide-react';
 import { navLinks } from '@/lib/data';
 import { SiteSearch } from '@/components/SiteSearch';
@@ -10,9 +11,15 @@ import { COMMAND_PALETTE_EVENT } from '@/components/os/CommandPalette';
 import { ThemeToggle } from '@/components/theme/ThemeToggle';
 
 export function Nav() {
+  const pathname = usePathname();
   const [mobileOpen, setMobileOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const menuRef = useRef<HTMLDivElement>(null);
+
+  const isLinkActive = (href: string) => {
+    if (href === '/') return pathname === '/';
+    return pathname === href || pathname.startsWith(`${href}/`);
+  };
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 24);
@@ -52,25 +59,23 @@ export function Nav() {
         </Link>
 
         <div className="hidden lg:flex gap-0.5 xl:gap-1">
-          {navLinks.map((link) =>
-            isExternal(link.href) ? (
-              <Link
-                key={link.href}
-                href={link.href}
-                className="focus-ring interactive px-3.5 py-2 rounded-xl text-sm font-medium text-muted-foreground hover:text-foreground hover:bg-accent-cyan/10 transition-all"
-              >
+          {navLinks.map((link) => {
+            const active = isLinkActive(link.href);
+            const cls = `focus-ring interactive px-3.5 py-2 rounded-xl text-sm font-medium transition-all ${
+              active
+                ? 'text-accent-cyan bg-accent-cyan/12 shadow-[0_0_20px_-4px_rgba(34,211,238,0.35)]'
+                : 'text-muted-foreground hover:text-foreground hover:bg-accent-cyan/10'
+            }`;
+            return isExternal(link.href) ? (
+              <Link key={link.href} href={link.href} className={cls} aria-current={active ? 'page' : undefined}>
                 {link.label}
               </Link>
             ) : (
-              <a
-                key={link.href}
-                href={link.href}
-                className="focus-ring interactive px-3.5 py-2 rounded-xl text-sm font-medium text-muted-foreground hover:text-foreground hover:bg-accent-cyan/10 transition-all"
-              >
+              <a key={link.href} href={link.href} className={cls}>
                 {link.label}
               </a>
-            ),
-          )}
+            );
+          })}
         </div>
 
         <div className="hidden md:flex items-center gap-2 shrink-0">

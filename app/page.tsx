@@ -17,6 +17,7 @@ import { HomepageProductRail } from '@/components/sections/HomepageProductRail';
 import { HomepagePersonalizedRail } from '@/components/sections/HomepagePersonalizedRail';
 import { NextUpSection } from '@/components/sections/NextUpSection';
 import { HallmarkProblemTiles } from '@/components/sections/HallmarkProblemTiles';
+import { PlatformTicker } from '@/components/ui/PlatformTicker';
 import { SiteGuide } from '@/components/SiteGuide';
 import { seoRoutes } from '@/lib/seo-routes';
 
@@ -29,6 +30,7 @@ export default function HomePage() {
         <Nav />
         <main id="main-content" tabIndex={-1}>
           <HeroSection />
+          <PlatformTicker />
           <HomepagePersonalizedRail />
           <HomepageTrustStrip />
           <HomepageOSFunnel />

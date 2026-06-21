@@ -7,6 +7,7 @@ import { StarterQuiz } from '@/components/sections/StarterQuiz';
 import { StatStrip } from '@/components/ui/StatStrip';
 import { ContextRail } from '@/components/ui/ContextRail';
 import { HeroRings } from '@/components/ui/HeroRings';
+import { HeroNetworkCanvas } from '@/components/ui/HeroNetworkCanvas';
 import { platformStats } from '@/lib/platform-stats';
 import { usePlatform } from '@/context/PlatformContext';
 import { getHeroPersonalization } from '@/lib/homepage-personalization';
@@ -20,6 +21,7 @@ export function HeroSection() {
       id="hero"
       className="relative hero-mesh hero-cinematic noise scan-overlay min-h-[90vh] md:min-h-[94vh] flex items-center pt-24 md:pt-28 pb-14 md:pb-20 overflow-hidden"
     >
+      <HeroNetworkCanvas />
       <HeroRings />
       <div className="hero-beam" aria-hidden="true" />
       <div className="orb orb-1" />
@@ -38,7 +40,7 @@ export function HeroSection() {
               <Sparkles className="w-4 h-4 text-accent-emerald animate-pulse-glow" aria-hidden="true" />
               <span className="font-medium">Anti-Aging Operating System</span>
               <span className="w-1.5 h-1.5 rounded-full bg-accent-emerald animate-pulse-glow" aria-hidden="true" />
-              <span className="text-caption font-mono hidden sm:inline">v1.37</span>
+              <span className="text-caption font-mono hidden sm:inline">v2.0</span>
             </motion.div>
 
             <motion.h1

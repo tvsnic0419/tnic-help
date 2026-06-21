@@ -1229,6 +1229,173 @@ body {
 .orb-2 { filter: blur(70px); opacity: 0.85; }
 .orb-3 { filter: blur(60px); opacity: 0.8; }
 
+/* ═══════════════════════════════════════════════════════════════════════════
+   Design System v4 — Experimental visual upconvert (Sprint 21)
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+/* ── Hero network canvas ── */
+.hero-network-canvas {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0.55;
+  pointer-events: none;
+  z-index: 0;
+}
+
+[data-theme="light"] .hero-network-canvas { opacity: 0.35; }
+
+/* ── Platform ticker ── */
+.platform-ticker {
+  position: relative;
+  z-index: 2;
+}
+
+.platform-ticker-track {
+  display: flex;
+  width: max-content;
+  animation: ticker-scroll 45s linear infinite;
+  padding: 0.75rem 0;
+}
+
+.platform-ticker-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.625rem;
+  padding: 0 1.75rem;
+  font-family: var(--font-mono);
+  font-size: 0.6875rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--color-text-faint);
+  white-space: nowrap;
+}
+
+.platform-ticker-dot {
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--accent-cyan), var(--accent-emerald));
+  box-shadow: 0 0 8px color-mix(in srgb, var(--accent-cyan) 60%, transparent);
+  flex-shrink: 0;
+}
+
+@keyframes ticker-scroll {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+/* ── Hallmarks constellation ── */
+.hallmarks-constellation {
+  position: relative;
+  aspect-ratio: 1;
+  width: 100%;
+  max-width: 420px;
+  margin-inline: auto;
+}
+
+.constellation-svg {
+  width: 100%;
+  height: 100%;
+}
+
+.constellation-core {
+  animation: breathe 5s ease-in-out infinite;
+}
+
+.constellation-orbit {
+  transform-origin: 50px 50px;
+  animation: ring-pulse 10s ease-in-out infinite;
+}
+
+.constellation-orbit-2 {
+  animation-delay: -4s;
+}
+
+.constellation-nodes {
+  position: absolute;
+  inset: 0;
+}
+
+.constellation-node {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 2.25rem;
+  height: 2.25rem;
+  margin: -1.125rem;
+  transform: rotate(var(--angle)) translateX(calc(var(--radius) * 0.55)) rotate(calc(-1 * var(--angle)));
+}
+
+.constellation-node-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  background: color-mix(in srgb, var(--glass-bg) 90%, transparent);
+  backdrop-filter: blur(12px);
+  border: 1px solid color-mix(in srgb, var(--accent-cyan) 20%, var(--color-border-subtle));
+  transition: transform 0.25s, border-color 0.25s, box-shadow 0.25s, background 0.25s;
+}
+
+.constellation-node-btn:hover,
+.constellation-node-btn.is-active,
+.constellation-node-btn:focus-visible {
+  transform: scale(1.2);
+  border-color: color-mix(in srgb, var(--accent-cyan) 50%, transparent);
+  box-shadow: 0 0 20px color-mix(in srgb, var(--accent-cyan) 40%, transparent);
+  background: color-mix(in srgb, var(--accent-cyan) 12%, var(--glass-bg));
+}
+
+.constellation-node-num {
+  font-family: var(--font-mono);
+  font-size: 0.625rem;
+  font-weight: 800;
+}
+
+.constellation-theme-cyan    { color: var(--accent-cyan); }
+.constellation-theme-emerald { color: var(--accent-emerald); }
+.constellation-theme-violet  { color: var(--accent-violet); }
+.constellation-theme-rose    { color: var(--accent-rose); }
+.constellation-theme-amber   { color: var(--accent-amber); }
+
+.constellation-tooltip {
+  position: absolute;
+  bottom: -0.5rem;
+  left: 50%;
+  transform: translateX(-50%) translateY(100%);
+  width: min(280px, 90vw);
+  padding: 1rem 1.25rem;
+  z-index: 10;
+  pointer-events: none;
+}
+
+/* ── 3D tilt cards ── */
+.tilt-card {
+  transition: transform 0.15s ease-out;
+  transform-style: preserve-3d;
+  will-change: transform;
+}
+
+/* ── Tools dock premium ── */
+.tools-dock-shell {
+  border-radius: 1.25rem;
+  box-shadow:
+    0 0 0 1px color-mix(in srgb, var(--accent-emerald) 15%, transparent),
+    0 16px 48px -8px rgba(0, 0, 0, 0.4),
+    0 0 60px -12px color-mix(in srgb, var(--accent-cyan) 25%, transparent);
+}
+
+.tools-dock-item:hover {
+  background: color-mix(in srgb, var(--accent-emerald) 10%, transparent);
+  box-shadow: 0 0 16px color-mix(in srgb, var(--accent-emerald) 20%, transparent);
+}
+
 @media (prefers-reduced-motion: reduce) {
-  .ambient-orb, .hero-ring, .scroll-progress-glow { animation: none; }
+  .ambient-orb, .hero-ring, .scroll-progress-glow,
+  .platform-ticker-track, .constellation-core, .constellation-orbit { animation: none; }
 }

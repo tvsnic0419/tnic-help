@@ -6,6 +6,8 @@ import { ArrowRight, Target } from 'lucide-react';
 import { hallmarkLibrary } from '@/lib/hallmarks-library';
 import { HallmarkIcon } from '@/components/library/HallmarkIcon';
 import { EvidenceTag } from '@/components/trust/EvidenceTag';
+import { HallmarksConstellation } from '@/components/ui/HallmarksConstellation';
+import { TiltCard } from '@/components/ui/TiltCard';
 import type { EvidenceTier } from '@/lib/types';
 
 type AccentKey = 'cyan' | 'amber' | 'violet' | 'emerald' | 'rose';
@@ -112,6 +114,16 @@ export function HallmarkProblemTiles() {
           </p>
         </div>
 
+        <motion.div
+          initial={{ opacity: 0, scale: 0.95 }}
+          whileInView={{ opacity: 1, scale: 1 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6 }}
+          className="mb-14 md:mb-16 max-w-lg mx-auto"
+        >
+          <HallmarksConstellation />
+        </motion.div>
+
         <div className="grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
           {hallmarkLibrary.map((h, i) => {
             const top = h.interventions[0];
@@ -127,6 +139,7 @@ export function HallmarkProblemTiles() {
                 viewport={{ once: true, margin: '-40px' }}
                 transition={{ delay: Math.min(i * 0.04, 0.4) }}
               >
+                <TiltCard className="h-full">
                 <Link
                   href={`/library/${h.slug}`}
                   className={`focus-ring block h-full card-ultra card-ultra-hover p-5 group transition-all duration-300 ${ac.glowHover}`}
@@ -175,6 +188,7 @@ export function HallmarkProblemTiles() {
                     Open module <ArrowRight className="w-3 h-3" />
                   </span>
                 </Link>
+                </TiltCard>
               </motion.div>
             );
           })}
