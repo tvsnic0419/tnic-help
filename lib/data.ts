@@ -29,7 +29,7 @@ export const navLinks = [
 export const communityPulse = [
   { metric: '9', label: 'Evidence-Graded Compounds' },
   { metric: '12', label: 'Hallmarks Explained' },
-  { metric: '25', label: 'FAQ Answers' },
+  { metric: '33', label: 'FAQ Answers' },
   { metric: '20', label: 'Glossary Terms' },
   { metric: '18', label: 'Clinical Studies' },
 ];
@@ -52,7 +52,6 @@ export const compounds: Compound[] = [
     studies: [
       { title: 'GlyNAC supplementation improves glutathione deficiency in aging humans', journal: 'J Gerontol A', year: 2021, pmid: '34129059' },
       { title: 'Improvement of mitochondrial function in older adults after GlyNAC', journal: 'J Gerontol A', year: 2023, pmid: '36656670' },
-      { title: 'Supplementing GlyNAC in older adults improves glutathione deficiency, oxidative stress, mitochondrial dysfunction, inflammation, physical function, and aging hallmarks: A randomized clinical trial', journal: 'J Gerontol A', year: 2023, pmid: '35975308' },
       { title: 'Supplementing GlyNAC in older adults improves glutathione deficiency, oxidative stress, mitochondrial dysfunction, inflammation, physical function, and aging hallmarks: A randomized clinical trial', journal: 'J Gerontol A', year: 2023, pmid: '35975308' },
     ],
   },
@@ -131,7 +130,6 @@ export const compounds: Compound[] = [
     studies: [
       { title: 'NMN supplementation elevates NAD+ levels in healthy adults', journal: 'GeroScience', year: 2022, pmid: '36482258' },
       { title: 'NAD+ intermediates: NMN and NR in aging and disease', journal: 'Cell Metab', year: 2018, pmid: '29514064' },
-      { title: 'Nicotinamide mononucleotide increases muscle insulin sensitivity in prediabetic women', journal: 'Science', year: 2021, pmid: '33888596' },
       { title: 'Nicotinamide mononucleotide increases muscle insulin sensitivity in prediabetic women', journal: 'Science', year: 2021, pmid: '33888596' },
     ],
   },
@@ -1157,5 +1155,53 @@ export const consumerFAQ = [
     category: 'products',
     question: 'How do I read a Certificate of Analysis (COA) for supplements?',
     answer: 'Check: (1) Purity >= 98% for active compound. (2) Identity test via HPLC or NMR. (3) Heavy metals below USP limits. (4) Microbial testing with pathogen absence. (5) Batch number matching your product. (6) ISO/IEC 17025-accredited lab. Red flags: COA on request only, missing batch number, or unverifiable lab.',
+  },
+  {
+    id: 'faq26',
+    category: 'science' as const,
+    question: 'Why is taking glutathione directly less effective than GlyNAC?',
+    answer: 'Oral glutathione is cleaved in the gut before absorption — you absorb the component amino acids, not the intact tripeptide. GlyNAC supplies glycine and N-acetylcysteine, the two rate-limiting precursors the body uses to synthesize glutathione intracellularly. Three human RCTs confirm intracellular glutathione is rebuilt at 24 weeks, something direct glutathione supplementation fails to achieve at equivalent doses.',
+  },
+  {
+    id: 'faq27',
+    category: 'science' as const,
+    question: 'Does intermittent fasting synergize with longevity supplement stacks?',
+    answer: 'Yes — with timing discipline. Fasting activates AMPK and suppresses mTORC1, priming autophagy. Time NMN and Ca-AKG to your eating window (not fasted) since they require substrate availability. Sulforaphane and spermidine can be taken fasted. R-ALA needs fat co-ingestion. Avoid dosing resveratrol with fatty meals — it competes with SIRT1 activation that fasting has already primed.',
+  },
+  {
+    id: 'faq28',
+    category: 'safety' as const,
+    question: 'Why does TNiC not include metformin in the standard stack?',
+    answer: 'Metformin is a biguanide prescription drug — not a supplement. Though the TAME trial (Targeting Aging with Metformin) is underway, evidence for longevity outcomes in non-diabetic adults remains incomplete. Metformin also blocks the muscle hypertrophy response to exercise via AMPK interference — a significant tradeoff. TNiC provides overlapping AMPK-supportive mechanisms (Ca-AKG, R-ALA, NMN) without the prescription risk.',
+  },
+  {
+    id: 'faq29',
+    category: 'science' as const,
+    question: 'What exactly are senescent cells and why do they matter?',
+    answer: 'Senescent cells are damaged cells that stop dividing but refuse to die. They secrete the SASP (senescence-associated secretory phenotype) — a cocktail of inflammatory cytokines (IL-6, IL-8, MMP-3) that damages neighboring tissue. Senescent cell accumulation correlates with every major age-related disease. TNiC maps senolytic-adjacent compounds (spermidine, resveratrol, NMN) to the senescence hallmark in Stack Architect.',
+  },
+  {
+    id: 'faq30',
+    category: 'getting-started' as const,
+    question: 'What are the most common mistakes people make when starting a longevity protocol?',
+    answer: 'The big five: (1) Starting 5+ compounds simultaneously — you cannot attribute effects or side effects. (2) Using unverified brands with no third-party COA. (3) Ignoring drug interactions — especially resveratrol with blood thinners. (4) Expecting results in under 8 weeks — biology is slow. (5) Not tracking biomarkers — you are flying blind without baseline labs. TNiC\'s Stack Architect and Lab Hub are designed to prevent all five.',
+  },
+  {
+    id: 'faq31',
+    category: 'safety' as const,
+    question: 'Does TNiC store or share my health data?',
+    answer: 'No. TNiC is built on a local-first architecture. Your quiz results, biomarker logs, stack configurations, and biological age inputs are stored in your own browser — never transmitted to TNiC servers or third parties. There is no account system, no user database, and no data monetization. Clearing your browser storage erases your data permanently. This is a deliberate design choice, not a marketing claim.',
+  },
+  {
+    id: 'faq32',
+    category: 'science' as const,
+    question: 'How does the TNiC quiz generate a personalized stack preset?',
+    answer: 'The quiz maps three inputs — primary goal (energy, defense, longevity, or full protocol), age range, and supplement experience — to one of four mechanistic presets: Starter (NRF2 triad), NRF2 Defense, Mito-NAD+, or Hybrid. Each preset is a curated subset of the 9 evidence-graded compounds optimized for synergy coverage across the relevant hallmarks. No black-box algorithm — every mapping is transparent in the methodology section.',
+  },
+  {
+    id: 'faq33',
+    category: 'science' as const,
+    question: 'Can longevity supplements reverse aging or just slow it?',
+    answer: 'Honest answer: current evidence supports slowing measurable aging biomarkers and, in some cases, reversing specific deficits — not reversing aging wholesale. GlyNAC restored glutathione and mitochondrial function to levels resembling younger adults. Ca-AKG reduced epigenetic age by ~8 years in one trial. NMN restored muscle NAD+ metabolism. These are meaningful, measurable changes in specific mechanisms — not the return of youth.',
   },
 ];

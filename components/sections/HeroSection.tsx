@@ -82,7 +82,7 @@ export function HeroSection() {
               className="hero-data-panel mb-8 max-w-xl mx-auto lg:mx-0"
               aria-label="Platform research foundation"
             >
-              <p className="data-readout mb-2">// RESEARCH FOUNDATION</p>
+              <p className="data-readout mb-2">{'// RESEARCH FOUNDATION'}</p>
               <p className="text-sm text-muted-foreground leading-relaxed">
                 Every protocol is mapped to peer-reviewed mechanisms. No compound enters the library without a
                 {' '}<span className="text-accent-cyan font-semibold">PMID citation</span>,
