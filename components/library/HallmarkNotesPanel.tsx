@@ -1,6 +1,5 @@
 'use client';
 
-import Link from 'next/link';
 import { usePlatform } from '@/context/PlatformContext';
 import { NotebookPen, TrendingUp } from 'lucide-react';
 import type { HallmarkLibraryEntry } from '@/lib/types';
@@ -74,13 +73,13 @@ export function HallmarkNotesPanel({ hallmark }: { hallmark: HallmarkLibraryEntr
         ) : (
           <p className="text-xs text-muted-foreground">
             No targeting compounds in your active stack.{' '}
-            <Link href="/#stacks" className="text-accent-cyan hover:underline">Build stack →</Link>
+            <a href="/#stacks" className="text-accent-cyan hover:underline">Build stack →</a>
           </p>
         )}
         <p className="text-[10px] text-caption mt-2">
           Biomarkers: {hallmark.biomarkers.join(' · ')}
           {' — '}
-          <Link href="/labs" className="text-accent-rose hover:underline">Log in Lab Hub</Link>
+          <a href="/labs" className="text-accent-rose hover:underline">Log in Lab Hub</a>
         </p>
       </div>
     </div>

@@ -51,7 +51,6 @@ export default function GlobalError({
             >
               Try again
             </button>
-            {/* eslint-disable-next-line @next/next/no-html-link-for-pages -- global-error replaces the root layout; a full-document navigation deliberately resets all app state to recover from a fatal error. */}
             <a
               href="/"
               style={{

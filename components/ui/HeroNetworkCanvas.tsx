@@ -21,12 +21,7 @@ export function HeroNetworkCanvas() {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const mouse = useMousePosition();
   const mouseRef = useRef(mouse);
-  // Keep the latest mouse position in a ref for the animation loop to read,
-  // without re-running the canvas effect. Writing in an effect (not during
-  // render) satisfies React 19's "no ref mutation during render" rule.
-  useEffect(() => {
-    mouseRef.current = mouse;
-  }, [mouse]);
+  mouseRef.current = mouse;
 
   useEffect(() => {
     const canvas = canvasRef.current;

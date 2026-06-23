@@ -26,12 +26,7 @@ export function useLabOrderWatcher({
 }: UseLabOrderWatcherOptions) {
   const lastCheckRef = useRef(new Date().toISOString());
   const pendingRef = useRef(pendingOrders);
-  // Mirror the latest pending orders into a ref so the polling loop reads
-  // current data without restarting. Updating in an effect (not during render)
-  // satisfies React 19's "no ref mutation during render" rule.
-  useEffect(() => {
-    pendingRef.current = pendingOrders;
-  }, [pendingOrders]);
+  pendingRef.current = pendingOrders;
 
   const markComplete = useCallback(
     (orderId: string) => {

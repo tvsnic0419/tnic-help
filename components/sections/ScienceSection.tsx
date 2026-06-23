@@ -1,7 +1,6 @@
 'use client';
 
 import { useState } from 'react';
-import Link from 'next/link';
 import { motion, AnimatePresence } from 'framer-motion';
 import { SectionShell } from '@/components/SectionShell';
 import { hallmarks } from '@/lib/data';
@@ -86,12 +85,12 @@ export function ScienceSection() {
       className="bg-[#0a0f1a]/60"
     >
       <div className="mb-8 text-center">
-        <Link
+        <a
           href="/library"
           className="inline-flex items-center gap-2 bg-accent-emerald text-black px-6 py-3 rounded-xl text-sm font-semibold hover:bg-accent-cyan transition"
         >
           Open Full Anti-Aging Library →
-        </Link>
+        </a>
       </div>
       <div className="grid lg:grid-cols-12 gap-8">
         <div className="lg:col-span-4 glass rounded-3xl p-8 flex flex-col items-center justify-center">

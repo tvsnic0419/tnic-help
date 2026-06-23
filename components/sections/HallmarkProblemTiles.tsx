@@ -100,18 +100,24 @@ export function HallmarkProblemTiles() {
       <div className="relative max-w-7xl mx-auto px-6">
         <div className="text-center mb-12 md:mb-16 section-header-mesh">
           <div className="inline-flex items-center gap-2 mb-4">
-            <Target className="w-4 h-4 text-accent-violet" />
-            <p className="text-label text-accent-violet">
-              Target what slows with age
+            <Target className="w-4 h-4 text-accent-violet" aria-hidden="true" />
+            <p className="text-eyebrow text-accent-violet">
+              The science of biological aging
             </p>
           </div>
-          <h2 className="heading-section mb-4">
-            Twelve hallmarks. Twelve entry points.
+          <h2 className="headline-editorial mb-5">
+            Twelve hallmarks.<br />
+            <span className="gradient-text-violet">Evidence-mapped solutions.</span>
           </h2>
-          <p className="text-muted-foreground max-w-2xl mx-auto">
-            Each tile maps a biological problem to elevated MDX modules, top interventions, and lab markers.
-            Pick the hallmark that matches your symptoms — not the supplement ad you saw last.
+          <p className="text-body max-w-2xl mx-auto leading-relaxed mb-6">
+            Modern aging science identifies twelve distinct biological processes that drive cellular decline.
+            Each tile maps one hallmark to its mechanism, top evidence-graded interventions, trackable lab markers,
+            and PMID-cited primary research — so you target the problem, not the marketing.
           </p>
+          <div className="pull-quote max-w-xl mx-auto text-left">
+            Aging is not a single disease. It is twelve converging processes — each addressable,
+            each measurable, each linked to specific compounds with human trial data.
+          </div>
         </div>
 
         <motion.div

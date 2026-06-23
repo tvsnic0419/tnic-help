@@ -35,28 +35,33 @@ export function HeroSection() {
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
-              className="inline-flex items-center gap-2 card-premium rounded-full px-5 py-2.5 mb-8 text-sm text-foreground/90"
+              className="flex flex-wrap items-center gap-3 mb-8 justify-center lg:justify-start"
             >
-              <Sparkles className="w-4 h-4 text-accent-emerald animate-pulse-glow" aria-hidden="true" />
-              <span className="font-medium">Anti-Aging Operating System</span>
-              <span className="w-1.5 h-1.5 rounded-full bg-accent-emerald animate-pulse-glow" aria-hidden="true" />
-              <span className="text-caption font-mono hidden sm:inline">v2.0</span>
+              <span className="badge-live">
+                <span className="badge-live-dot" aria-hidden="true" />
+                Platform Active
+              </span>
+              <span className="inline-flex items-center gap-2 card-premium rounded-full px-5 py-2.5 text-sm text-foreground/90">
+                <Sparkles className="w-4 h-4 text-accent-violet animate-pulse-glow" aria-hidden="true" />
+                <span className="font-medium">Anti-Aging Operating System</span>
+                <span className="text-caption font-mono hidden sm:inline text-accent-cyan">v2.0</span>
+              </span>
             </motion.div>
 
             {/* LCP-critical: render visible at first paint (no opacity:0 entrance) so
                 the headline counts toward Largest Contentful Paint immediately. */}
             <motion.h1
               initial={false}
-              className="text-display mb-6"
+              className="headline-editorial mb-5"
             >
               {hero.line1}
               <br />
-              <span className="shimmer-text">{hero.line2}</span>
+              <span className="gradient-sweep-text">{hero.line2}</span>
             </motion.h1>
 
             <motion.p
               initial={false}
-              className="text-body text-lg max-w-xl mb-8 mx-auto lg:mx-0"
+              className="text-body text-lg max-w-xl mb-8 mx-auto lg:mx-0 leading-relaxed"
             >
               {hero.subcopy}
             </motion.p>
@@ -65,9 +70,25 @@ export function HeroSection() {
               initial={{ opacity: 0, y: 16 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.25 }}
-              className="mb-8"
+              className="mb-6"
             >
               <StatStrip stats={[...platformStats]} variant="hero" ariaLabel="Platform scale" />
+            </motion.div>
+
+            <motion.div
+              initial={{ opacity: 0, y: 12 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.3 }}
+              className="hero-data-panel mb-8 max-w-xl mx-auto lg:mx-0"
+              aria-label="Platform research foundation"
+            >
+              <p className="data-readout mb-2">// RESEARCH FOUNDATION</p>
+              <p className="text-sm text-muted-foreground leading-relaxed">
+                Every protocol is mapped to peer-reviewed mechanisms. No compound enters the library without a
+                {' '}<span className="text-accent-cyan font-semibold">PMID citation</span>,
+                {' '}<span className="text-accent-emerald font-semibold">hallmark assignment</span>, and
+                {' '}<span className="text-accent-violet font-semibold">evidence tier rating</span>.
+              </p>
             </motion.div>
 
             <motion.div

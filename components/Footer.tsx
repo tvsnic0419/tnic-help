@@ -44,6 +44,16 @@ export function Footer() {
     <footer className="relative py-14 md:py-20 footer-aurora border-t border-border/50" role="contentinfo">
       <div className="absolute top-0 inset-x-0 h-px bg-gradient-to-r from-transparent via-accent-cyan/50 to-transparent" />
       <div className="container-page">
+        <div className="mb-12 md:mb-16 text-center border-b border-border/40 pb-10 md:pb-14">
+          <p className="footer-manifesto max-w-3xl mx-auto mb-4">
+            Independent longevity intelligence — built on evidence, designed for privacy, free for everyone.
+          </p>
+          <p className="text-body-sm max-w-xl mx-auto">
+            No venture funding to satisfy. No supplement margin to protect. No data to sell.
+            Just the science of human aging, made actionable.
+          </p>
+        </div>
+
         <div className="grid sm:grid-cols-2 lg:grid-cols-5 gap-8 lg:gap-10 mb-10">
           <div className="sm:col-span-2 lg:col-span-1">
             <Link href="/" className="focus-ring inline-flex items-center gap-2.5 mb-4 rounded-lg group">

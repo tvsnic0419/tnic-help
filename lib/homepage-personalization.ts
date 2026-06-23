@@ -12,14 +12,14 @@ export interface QuizProfile {
 export function getHeroPersonalization(quiz: QuizProfile | null | undefined) {
   if (!quiz?.preset || !(quiz.preset in stackPresets)) {
     return {
-      line1: 'Your longevity OS.',
-      line2: 'Local. Cited. Yours.',
+      line1: 'Aging is not inevitable.',
+      line2: 'Your longevity OS starts here.',
       subcopy:
-        'Six evidence-graded modules — stack architect, biomarker tracker, hallmark library, and longevity tools. Every compound rated Tier A, B, or C from human trials. Your data stays in your browser.',
-      primary: { href: '/quiz', label: 'Start 3-Min Quiz' },
+        'The first privacy-first longevity platform built on the 12 Hallmarks of Aging — not supplement marketing. Six evidence-graded modules, every compound rated Tier A/B/C from human trials. Your health data never leaves your browser.',
+      primary: { href: '/quiz', label: 'Build Your Protocol' },
       secondary: { href: '/dashboard', label: 'Open Longevity OS' },
       contextNext:
-        'Take the 3-min quiz for a mechanism-matched stack preset, or open the OS dashboard to start building and tracking your protocol.',
+        'Take the 3-min quiz to get a mechanism-matched stack preset, or open the OS dashboard to start building, tracking, and optimizing your longevity protocol today.',
     };
   }
 

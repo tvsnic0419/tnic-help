@@ -64,8 +64,8 @@ const osPaths = [
   {
     icon: LayoutDashboard,
     title: 'My Longevity OS',
-    desc: 'Command center — active stack, hallmark coverage map, lab status, outcome milestones, and export kit.',
-    context: 'Ties every module together. Your personal protocol hub, visible at a glance.',
+    desc: 'Your personal command center. See your active stack, hallmark coverage map, lab biomarker status, outcome milestones, and protocol export — all unified in one living dashboard.',
+    context: 'The central hub that ties every module together. At a glance: which hallmarks you\'re targeting, whether your biomarkers are trending toward optimal, and what to adjust next.',
     href: '/dashboard',
     cta: 'Open dashboard',
     accent: 'emerald' as AccentKey,
@@ -75,40 +75,40 @@ const osPaths = [
   {
     icon: Layers,
     title: 'Stack Architect',
-    desc: 'Build protocols with live synergy scoring, hallmark coverage, and contraindication checks.',
-    context: 'Every compound is evidence-graded Tier A/B/C before it enters a preset. No random bundling.',
+    desc: 'Design evidence-grade protocols with live synergy scoring, pathway-level contraindication checks, and Tier A/B/C compound ratings from human clinical trials.',
+    context: 'Not a random supplement bundle. Every compound is mechanism-mapped to a hallmark, synergy-checked against others in your stack, and graded before it enters a preset.',
     href: '/stacks',
-    cta: 'Build stack',
+    cta: 'Architect your stack',
     accent: 'violet' as AccentKey,
     step: '02',
   },
   {
     icon: FlaskConical,
     title: 'Lab Hub',
-    desc: 'Log biomarkers locally. Track NAD+, glutathione, hs-CRP. Trends, retest nudges, CSV export.',
-    context: 'Compare your real bloodwork against modeled projections — no cloud, no accounts.',
+    desc: 'Log and trend your real biomarkers — NAD+, hs-CRP, glutathione, HbA1c, IGF-1. Compare your bloodwork against modeled longevity projections with retest nudges and CSV export.',
+    context: 'All data stays in your browser. No cloud accounts, no third-party data sharing. Compare your actual labs to protocol benchmarks and visualize progress over time.',
     href: '/labs',
-    cta: 'Track labs',
+    cta: 'Track your labs',
     accent: 'cyan' as AccentKey,
     step: '03',
   },
   {
     icon: Library,
     title: 'Anti-Aging Library',
-    desc: '12 hallmarks, 9 compound deep-dives, synergy guides — all PMID-cited and evidence-graded.',
-    context: 'Search by compound, hallmark, or pathway. Every entry links to the primary trial.',
+    desc: 'Deep-dive into all 12 Hallmarks of Aging with compound-level evidence dossiers, pathway synergy guides, mechanism diagrams, and primary PMID citations for every claim.',
+    context: 'Every entry links directly to the originating human trial. Search by compound, hallmark, pathway, or symptom. Evidence-graded and updated as the science evolves.',
     href: '/library',
-    cta: 'Search library',
+    cta: 'Explore the library',
     accent: 'amber' as AccentKey,
     step: '04',
   },
   {
     icon: Wand2,
     title: 'Longevity Tools',
-    desc: 'Six interactive tools: stack simulator, interaction network, biomarker forecasts, defense scan.',
-    context: 'All local-first. No paywall, no account required. Run scenarios before you commit to a stack.',
+    desc: 'Six interactive simulators: stack interaction network, biomarker forecasting, defense scan, biological age calculator, hallmark coverage analyzer, and protocol timeline.',
+    context: 'Run scenarios before you commit to a protocol. All local-first, no paywall, no account required. Model how compound combinations affect your hallmark coverage score.',
     href: '/tools',
-    cta: 'Open tools',
+    cta: 'Run the tools',
     accent: 'rose' as AccentKey,
     step: '05',
   },
@@ -132,13 +132,28 @@ export function HomepageOSFunnel() {
     <section id="os" className="py-16 md:py-24 border-b border-border bg-card section-glow-emerald section-mesh">
       <div className="container-page">
         <div className="text-center mb-8 md:mb-10 section-header-mesh">
-          <p className="text-label text-accent-emerald mb-2">Longevity OS</p>
-          <h2 className="heading-section">
-            One operating system. Five entry points.
+          <p className="text-eyebrow text-accent-emerald mb-4">Longevity OS · Platform Architecture</p>
+          <h2 className="headline-editorial mb-5">
+            One OS.<br />
+            <span className="shimmer-text">Five modules. Zero excuses.</span>
           </h2>
-          <p className="text-body-sm mt-3 max-w-xl mx-auto">
-            Every module is free, local-first, and grounded in the same evidence standards that grade the library. No paywall. No accounts. No supplement store agenda.
+          <p className="text-body max-w-2xl mx-auto leading-relaxed">
+            Every module is free, local-first, and held to the same rigorous evidence standard that grades every compound in the library. No paywalls. No accounts. No supplement agenda driving the recommendations.
           </p>
+          <div className="flex items-center justify-center gap-6 mt-6 flex-wrap">
+            <span className="inline-flex items-center gap-1.5 text-caption font-mono text-accent-emerald">
+              <span className="w-1.5 h-1.5 rounded-full bg-accent-emerald" />
+              Free forever
+            </span>
+            <span className="inline-flex items-center gap-1.5 text-caption font-mono text-accent-cyan">
+              <span className="w-1.5 h-1.5 rounded-full bg-accent-cyan" />
+              Local-first · No cloud
+            </span>
+            <span className="inline-flex items-center gap-1.5 text-caption font-mono text-accent-violet">
+              <span className="w-1.5 h-1.5 rounded-full bg-accent-violet" />
+              No accounts required
+            </span>
+          </div>
         </div>
 
         <ContextRail

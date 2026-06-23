@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import Link from 'next/link';
 import { useSearchParams } from 'next/navigation';
 import { motion, AnimatePresence } from 'framer-motion';
@@ -18,13 +18,19 @@ const goalIcons = {
 
 export function StarterQuiz({ variant = 'embedded' }: { variant?: 'embedded' | 'page' }) {
   const searchParams = useSearchParams();
-  // Derive the shared-result state from the URL during render rather than in an
-  // effect — this is deterministic from the query string, so computing the
-  // initial state directly avoids an extra render pass (React 19 guidance).
-  const shared = variant === 'page' ? parseQuizSearchParams(searchParams.toString()) : null;
-  const [step, setStep] = useState(shared ? quizSteps.length - 1 : 0);
-  const [answers, setAnswers] = useState<QuizAnswers>(shared ?? {});
-  const [done, setDone] = useState(Boolean(shared));
+  const [step, setStep] = useState(0);
+  const [answers, setAnswers] = useState<QuizAnswers>({});
+  const [done, setDone] = useState(false);
+
+  useEffect(() => {
+    if (variant !== 'page') return;
+    const shared = parseQuizSearchParams(searchParams.toString());
+    if (shared) {
+      setAnswers(shared);
+      setDone(true);
+      setStep(quizSteps.length - 1);
+    }
+  }, [searchParams, variant]);
 
   const current = quizSteps[step];
   const progress = done ? 100 : ((step + 1) / quizSteps.length) * 100;
