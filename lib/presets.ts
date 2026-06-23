@@ -29,6 +29,11 @@ export const stackPresets = {
     desc: 'AMPK, lipids & glucose',
     ids: ['berberine', 'omega3', 'coq10', 'rala'],
   },
+  full: {
+    label: 'Full-Spectrum 14',
+    desc: 'All 14 evidence-graded compounds',
+    ids: ['glynac', 'sulforaphane', 'nmn', 'cakg', 'rala', 'resveratrol', 'taurine', 'spermidine', 'pterostilbene', 'berberine', 'urolithina', 'fisetin', 'coq10', 'omega3'],
+  },
 } as const;
 
 export type PresetKey = keyof typeof stackPresets;

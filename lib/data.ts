@@ -24,6 +24,7 @@ export const navLinks = [
   { href: '/tools', label: 'Tools', mod: 'MOD-TOL-14' },
   { href: '/trust', label: 'Trust', mod: 'MOD-TRU-08' },
   { href: '/products', label: 'Products', mod: 'MOD-PRD-16' },
+  { href: '/elite-8', label: 'Elite 8', mod: 'MOD-EL8-17' },
 ];
 
 export const communityPulse = [
