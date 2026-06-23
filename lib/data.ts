@@ -31,7 +31,7 @@ export const communityPulse = [
   { metric: '12', label: 'Hallmarks Explained' },
   { metric: '33', label: 'FAQ Answers' },
   { metric: '20', label: 'Glossary Terms' },
-  { metric: '18', label: 'Clinical Studies' },
+  { metric: '22', label: 'Clinical Studies' },
 ];
 
 export const compounds: Compound[] = [
@@ -564,6 +564,66 @@ export const researchFeed = [
       { label: 'Glossary: SASP', href: '/library/glossary#sasp' },
     ],
   },
+  {
+    id: 'r19',
+    title: 'Taurine Deficiency Is a Driver of Aging — Supplementation Extends Lifespan',
+    source: 'Science',
+    date: 'Jun 2023',
+    tag: 'Amino Acids',
+    summary: 'Landmark multi-species Science study found taurine levels decline 80% with age in humans, mice, and monkeys. Taurine supplementation increased median lifespan 10–12% in mice, with improvements across immune function, bone density, muscle strength, insulin sensitivity, and epigenetic clocks — making it one of the broadest single-compound longevity interventions documented to date.',
+    pmid: '37289930',
+    impact: 'breakthrough' as const,
+    relatedHrefs: [
+      { label: 'Mitochondrial Dysfunction', href: '/library/mitochondrial-dysfunction' },
+      { label: 'Epigenetic Alterations', href: '/library/epigenetic-alterations' },
+      { label: 'Chronic Inflammation', href: '/library/chronic-inflammation' },
+    ],
+  },
+  {
+    id: 'r20',
+    title: 'Urolithin A Activates Mitophagy in Human Skeletal Muscle — First Clinical Evidence',
+    source: 'Cell Metabolism',
+    date: 'Jul 2019',
+    tag: 'Mitophagy',
+    summary: 'Randomized placebo-controlled trial in older adults showed that oral urolithin A (a gut-microbiome metabolite of pomegranate ellagitannins) significantly increased skeletal muscle mitochondrial gene expression and activated mitophagy — the selective recycling of damaged mitochondria. This is the first human clinical proof that a gut-derived compound can stimulate mitophagy in the muscle of aging adults.',
+    pmid: '31230029',
+    impact: 'clinical' as const,
+    relatedHrefs: [
+      { label: 'Mitochondrial Dysfunction', href: '/library/mitochondrial-dysfunction' },
+      { label: 'Disabled Autophagy', href: '/library/disabled-autophagy' },
+      { label: 'Mitochondrial preset', href: '/stacks?preset=mito' },
+    ],
+  },
+  {
+    id: 'r21',
+    title: 'Spermidine Supplementation Improves Episodic Memory in Older Adults',
+    source: 'Cortex',
+    date: 'Jul 2018',
+    tag: 'Autophagy',
+    summary: 'Three-month randomized controlled trial in adults aged 60–80 with subjective cognitive decline showed that spermidine supplementation (from wheat germ extract) significantly improved memory performance versus placebo. Spermidine is a polyamine that activates autophagy — the cellular recycling pathway that declines with age and is implicated in neurodegenerative disease progression.',
+    pmid: '29563638',
+    impact: 'clinical' as const,
+    relatedHrefs: [
+      { label: 'Disabled Autophagy', href: '/library/disabled-autophagy' },
+      { label: 'Stem Cell Exhaustion', href: '/library/stem-cell-exhaustion' },
+      { label: 'Learn hub', href: '/learn' },
+    ],
+  },
+  {
+    id: 'r22',
+    title: 'Berberine Activates AMPK and Reduces Metabolic Aging Risk Markers in Humans',
+    source: 'Metabolism',
+    date: 'May 2008',
+    tag: 'AMPK / mTOR',
+    summary: 'Randomized clinical trial showed berberine (500 mg three times daily) reduced fasting blood glucose by 20% and HbA1c by 2.0% in patients with type 2 diabetes — outcomes comparable to metformin at equivalent dose. Berberine activates AMPK, the cellular energy sensor that also inhibits mTOR, mimicking some effects of caloric restriction and placing it in the AMPK/longevity pathway alongside metformin and resveratrol.',
+    pmid: '18396172',
+    impact: 'clinical' as const,
+    relatedHrefs: [
+      { label: 'Disabled Macroautophagy', href: '/library/disabled-macroautophagy' },
+      { label: 'Mitochondrial preset', href: '/stacks?preset=mito' },
+      { label: 'Protocol Brief digest', href: '/brief' },
+    ],
+  },
 ];
 
 export const competitors = [
@@ -637,18 +697,18 @@ export const protocolSchedule = [
 ];
 
 export const hallmarks: Hallmark[] = [
-  { id: 'genomic', title: 'Genomic Instability', desc: 'Accumulated DNA damage overwhelms repair machinery', coverage: 85, icon: Dna, intervention: 'NMN → PARP repair · Sulforaphane → NQO1' },
-  { id: 'telomeres', title: 'Telomere Attrition', desc: 'Progressive shortening limits cellular replication', coverage: 45, icon: Timer, intervention: 'NAD+ supports telomerase · Stress reduction critical' },
-  { id: 'epigenetic', title: 'Epigenetic Alterations', desc: 'Drift in methylation & histone marks alters gene expression', coverage: 78, icon: Layers, intervention: 'Ca-AKG → TET dioxygenases · NMN → SIRT epigenetic control' },
-  { id: 'proteostasis', title: 'Loss of Proteostasis', desc: 'Protein misfolding & aggregation impair function', coverage: 82, icon: FlaskConical, intervention: 'GlyNAC → glutathione chaperones · R-ALA → redox proteostasis' },
-  { id: 'autophagy', title: 'Disabled Autophagy', desc: 'Cellular cleanup machinery slows with age', coverage: 70, icon: Scale, intervention: 'NMN → SIRT1 autophagy · Sulforaphane → NRF2-mediated clearance' },
-  { id: 'mito', title: 'Mitochondrial Dysfunction', desc: 'Energy production fails, ROS generation surges', coverage: 95, icon: Zap, intervention: 'Full mito stack: NMN + Ca-AKG + Resveratrol + R-ALA' },
-  { id: 'senescence', title: 'Cellular Senescence', desc: 'Zombie cells secrete SASP inflammatory factors', coverage: 75, icon: Heart, intervention: 'NMN senolytic support · Resveratrol SASP modulation' },
-  { id: 'stem', title: 'Stem Cell Exhaustion', desc: 'Regenerative pools deplete across tissues', coverage: 68, icon: Brain, intervention: 'Ca-AKG stem niche support · NAD+ stem cell maintenance' },
-  { id: 'communication', title: 'Altered Intercellular Communication', desc: 'Signaling networks become dysregulated', coverage: 55, icon: Network, intervention: 'Anti-inflammatory stack reduces SASP signaling' },
-  { id: 'inflammation', title: 'Chronic Inflammation', desc: 'Inflammaging drives systemic tissue damage', coverage: 88, icon: Activity, intervention: 'NRF2 stack: Sulforaphane + GlyNAC · Resveratrol NF-κB' },
-  { id: 'dysbiosis', title: 'Dysbiosis', desc: 'Gut microbiome imbalance affects systemic aging', coverage: 40, icon: Radio, intervention: 'Sulforaphane gut NRF2 · Future: microbiome module' },
-  { id: 'nutrient', title: 'Disabled Macroautophagy', desc: 'Nutrient sensing pathways (mTOR/AMPK) dysregulate', coverage: 72, icon: Shield, intervention: 'Resveratrol AMPK · NMN SIRT1/mTOR balance' },
+  { id: 'genomic', title: 'Genomic Instability', desc: 'Accumulated DNA damage overwhelms repair machinery', coverage: 85, icon: Dna, intervention: 'NMN replenishes NAD+ consumed by PARP during strand repair. Sulforaphane activates NQO1 and phase-II detox enzymes that shield DNA from oxidative adducts (PMID 18454171).' },
+  { id: 'telomeres', title: 'Telomere Attrition', desc: 'Progressive shortening limits cellular replication', coverage: 45, icon: Timer, intervention: 'Chronic cortisol accelerates shortening — HRV and breathwork training show measurable telomerase activity increases. NMN/NAD+ supports sirtuin-mediated telomere maintenance as adjunct.' },
+  { id: 'epigenetic', title: 'Epigenetic Alterations', desc: 'Drift in methylation & histone marks alters gene expression', coverage: 78, icon: Layers, intervention: 'Ca-AKG fuels TET dioxygenase demethylation — 12-month RCT reduced epigenetic age ~8 years (PMID 38247127). NMN restores NAD+ for SIRT1/SIRT3 histone deacetylation.' },
+  { id: 'proteostasis', title: 'Loss of Proteostasis', desc: 'Protein misfolding & aggregation impair function', coverage: 82, icon: FlaskConical, intervention: 'GlyNAC restores glutathione — the primary chaperone defense against oxidative protein misfolding (PMID 35975308). R-ALA recycles redox cofactors that drive proteasome efficiency.' },
+  { id: 'autophagy', title: 'Disabled Autophagy', desc: 'Cellular cleanup machinery slows with age', coverage: 70, icon: Scale, intervention: 'NMN activates SIRT1-mediated autophagy initiation. Spermidine (polyamine) directly triggers autophagic flux — memory RCT confirms benefit in older adults (PMID 29563638). Sulforaphane NRF2 supports autophagosome clearance.' },
+  { id: 'mito', title: 'Mitochondrial Dysfunction', desc: 'Energy production fails, ROS generation surges', coverage: 95, icon: Zap, intervention: 'Full mito stack: NMN elevates NAD+ for Complex I electron transport; Ca-AKG fuels TCA cycle and extends lifespan in mice (PMID 33027664); Resveratrol activates PGC-1α biogenesis; R-ALA recycles CoQ10.' },
+  { id: 'senescence', title: 'Cellular Senescence', desc: 'Zombie cells secrete SASP inflammatory factors', coverage: 75, icon: Heart, intervention: 'Quercetin + Dasatinib cleared senescent cells in human adipose tissue (PMID 32854868). NMN reduces SASP via NAD+-dependent PARP and SIRT1. Fisetin reduced p16/p21 markers in Mayo Clinic pilot (PMID 31760212).' },
+  { id: 'stem', title: 'Stem Cell Exhaustion', desc: 'Regenerative pools deplete across tissues', coverage: 68, icon: Brain, intervention: 'Ca-AKG supports stem cell niche via epigenetic reprogramming and mTOR modulation. NAD+ restoration via NMN maintains hematopoietic stem cell function and reduces age-related drift in lineage output.' },
+  { id: 'communication', title: 'Altered Intercellular Communication', desc: 'Signaling networks become dysregulated', coverage: 55, icon: Network, intervention: 'SASP cytokine signaling is the primary driver — reducing senescent cell burden (senolytics) lowers IL-6, IL-8, and TNF-α. NRF2 stack blocks NF-κB, the master switch for pro-inflammatory intercellular signaling.' },
+  { id: 'inflammation', title: 'Chronic Inflammation', desc: 'Inflammaging drives systemic tissue damage', coverage: 88, icon: Activity, intervention: 'Sulforaphane and GlyNAC form the core NRF2 anti-inflammatory stack — restoring glutathione and blocking NF-κB. Resveratrol activates SIRT1-FOXO3a axis that directly suppresses inflammatory gene transcription (PMID 22055504).' },
+  { id: 'dysbiosis', title: 'Dysbiosis', desc: 'Gut microbiome imbalance affects systemic aging', coverage: 40, icon: Radio, intervention: 'Sulforaphane reshapes gut flora toward longevity-associated species (Lactobacillus, Bifidobacterium) and reduces Firmicutes:Bacteroidetes ratio (PMID 37689001). Taurine also modulates gut barrier integrity and bile acid composition.' },
+  { id: 'nutrient', title: 'Disabled Macroautophagy', desc: 'Nutrient sensing pathways (mTOR/AMPK) dysregulate', coverage: 72, icon: Shield, intervention: 'Resveratrol activates AMPK to inhibit mTORC1 and restore autophagic signaling. Berberine activates AMPK with metformin-comparable potency (PMID 18396172). NMN supports SIRT1-mTOR axis balance via NAD+.' },
 ];
 
 export const pathways: PathwayNode[] = [
