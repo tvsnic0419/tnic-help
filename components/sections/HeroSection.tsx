@@ -23,6 +23,7 @@ export function HeroSection() {
     >
       <HeroNetworkCanvas />
       <HeroRings />
+      <div className="aurora-beams" aria-hidden="true" />
       <div className="hero-beam" aria-hidden="true" />
       <div className="orb orb-1" />
       <div className="orb orb-2" />

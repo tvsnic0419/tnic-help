@@ -95,15 +95,18 @@ export function HallmarkProblemTiles() {
       id="hallmark-targets"
       className="py-20 md:py-28 border-b border-border section-mesh section-glow-violet relative overflow-hidden"
     >
+      <div className="aurora-beams" aria-hidden="true" />
       <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,_var(--accent-violet)_0%,_transparent_55%)] opacity-[0.07] pointer-events-none" />
+      <div className="bracket-corner bracket-corner-tl" aria-hidden="true" />
+      <div className="bracket-corner bracket-corner-br" aria-hidden="true" />
 
       <div className="relative max-w-7xl mx-auto px-6">
-        <div className="text-center mb-12 md:mb-16 section-header-mesh">
+        <div className="text-center mb-12 md:mb-16 section-spotlight">
           <div className="inline-flex items-center gap-2 mb-4">
-            <Target className="w-4 h-4 text-accent-violet" aria-hidden="true" />
-            <p className="text-eyebrow text-accent-violet">
+            <span className="section-badge-violet">
+              <Target className="w-3 h-3" aria-hidden="true" />
               The science of biological aging
-            </p>
+            </span>
           </div>
           <h2 className="headline-editorial mb-5">
             Twelve hallmarks.<br />
