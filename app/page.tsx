@@ -5,6 +5,7 @@ import { ToolsDock } from '@/components/ToolsDock';
 import { HeroSection } from '@/components/sections/HeroSection';
 import { HomepageOSFunnel } from '@/components/sections/HomepageOSFunnel';
 import { HomepageTrustStrip } from '@/components/sections/HomepageTrustStrip';
+import { PlatformPreview } from '@/components/sections/PlatformPreview';
 import { TrustBanner } from '@/components/TrustBanner';
 import { LibraryHighlights } from '@/components/sections/LibraryHighlights';
 import { ResearchIntel } from '@/components/sections/ResearchIntel';
@@ -33,6 +34,7 @@ export default function HomePage() {
           <PlatformTicker />
           <HomepagePersonalizedRail />
           <HomepageTrustStrip />
+          <PlatformPreview />
           <HomepageOSFunnel />
           <SiteGuide />
           <HallmarkProblemTiles />
