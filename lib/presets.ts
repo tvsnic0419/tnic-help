@@ -19,6 +19,16 @@ export const stackPresets = {
     desc: 'Dual-pathway coverage',
     ids: ['glynac', 'sulforaphane', 'nmn', 'cakg', 'rala'],
   },
+  longevity: {
+    label: 'Longevity Pro',
+    desc: 'Senolytic & healthspan focus',
+    ids: ['urolithina', 'fisetin', 'omega3', 'nmn', 'resveratrol'],
+  },
+  metabolic: {
+    label: 'Cardio-Metabolic',
+    desc: 'AMPK, lipids & glucose',
+    ids: ['berberine', 'omega3', 'coq10', 'rala'],
+  },
 } as const;
 
 export type PresetKey = keyof typeof stackPresets;

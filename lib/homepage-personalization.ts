@@ -58,6 +58,8 @@ const PRESET_COMPOUNDS: Record<PresetKey, string[]> = {
   nrf2: ['glynac', 'sulforaphane', 'rala'],
   mito: ['nmn', 'cakg', 'resveratrol', 'rala'],
   hybrid: ['glynac', 'sulforaphane', 'nmn', 'cakg', 'resveratrol'],
+  longevity: ['urolithina', 'fisetin', 'omega3', 'nmn', 'resveratrol'],
+  metabolic: ['berberine', 'omega3', 'coq10', 'rala'],
 };
 
 export function getPresetCompoundIds(preset?: string): string[] {

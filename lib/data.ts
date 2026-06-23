@@ -905,11 +905,14 @@ export const protocolSchedule = [
   { time: '6:00 AM', period: 'AM' as const, action: 'Wake + Morning Light', compounds: [], rationale: 'Circadian entrainment — sets NAD+ and cortisol rhythm' },
   { time: '6:30 AM', period: 'AM' as const, action: 'NRF2 Activation Stack', compounds: ['glynac', 'sulforaphane'], rationale: 'Empty stomach maximizes isothiocyanate absorption' },
   { time: '7:00 AM', period: 'AM' as const, action: 'Mitochondrial Stack', compounds: ['nmn', 'cakg'], rationale: 'NAD+ precursor timed with morning metabolic peak' },
-  { time: '7:30 AM', period: 'AM' as const, action: 'R-ALA + Breakfast', compounds: ['rala'], rationale: 'Take with fat-containing meal for absorption' },
-  { time: '12:00 PM', period: 'AM' as const, action: 'Final Meal Window', compounds: [], rationale: 'Blueprint principle: last meal 4+ hours before bed' },
-  { time: '8:00 PM', period: 'PM' as const, action: 'Sirtuin Activation', compounds: ['resveratrol'], rationale: 'Evening dosing aligns with SIRT1 circadian peak' },
+  { time: '7:30 AM', period: 'AM' as const, action: 'Breakfast + Fat-Soluble Stack', compounds: ['rala', 'coq10', 'omega3', 'urolithina'], rationale: 'CoQ10, omega-3, and urolithin A require fat co-ingestion for absorption; R-ALA recycles CoQ10 in situ' },
+  { time: '8:00 AM', period: 'AM' as const, action: 'Berberine Dose 1 (of 3)', compounds: ['berberine'], rationale: 'TID dosing maintains stable plasma berberine; first dose with or just after breakfast for AMPK activation at peak glucose window' },
+  { time: '12:30 PM', period: 'AM' as const, action: 'Berberine Dose 2 + Lunch', compounds: ['berberine'], rationale: 'Midday dose sustains AMPK signaling through afternoon; take with lunch to match glucose exposure and avoid GI discomfort' },
+  { time: '6:00 PM', period: 'PM' as const, action: 'Berberine Dose 3 + Dinner', compounds: ['berberine'], rationale: 'Evening dose covers post-dinner glucose and lipid window; complete berberine TID cycle for full 24-hour AMPK coverage' },
+  { time: '8:00 PM', period: 'PM' as const, action: 'Sirtuin Activation', compounds: ['resveratrol'], rationale: 'Evening dosing aligns with SIRT1 circadian peak; avoid high-fat co-ingestion which blunts bioavailability' },
   { time: '9:30 PM', period: 'PM' as const, action: 'Screens Off + Wind Down', compounds: [], rationale: 'RHR reduction protocol for optimal sleep architecture' },
   { time: 'Weekly', period: 'Weekly' as const, action: 'Biomarker Self-Assessment', compounds: [], rationale: 'Track subjective energy, recovery, and inflammation markers' },
+  { time: '2×/Month', period: 'Weekly' as const, action: 'Fisetin Senolytic Pulse (2 days)', compounds: ['fisetin'], rationale: 'Mayo Clinic protocol: 20 mg/kg × 2 consecutive days per month — pulse dosing maximizes senescent cell clearance vs daily low-dose which shows attenuated effect' },
 ];
 
 export const hallmarks: Hallmark[] = [
@@ -962,7 +965,7 @@ export const roadmap: RoadmapItem[] = [
     phase: 'LIVE',
     title: 'Defense Stack Architect',
     desc: 'Synergy-scored compound protocols with AM/PM dosing intelligence.',
-    specs: ['6 elite compounds', 'Synergy matrix', 'Hallmark coverage mapping', 'Evidence tier grading'],
+    specs: ['14 evidence-graded compounds', 'Synergy matrix', 'Hallmark coverage mapping', 'Evidence tier grading'],
     active: true,
   },
   {
@@ -1327,8 +1330,8 @@ export const consumerFAQ = [
   {
     id: 'faq8',
     category: 'products' as const,
-    question: 'Why only 9 compounds? Other sites recommend dozens.',
-    answer: 'More is not better. Each additional compound increases interaction risk and usually means sub-therapeutic doses. TNiC focuses on 9 evidence-graded compounds with the strongest mechanistic coverage across 12 hallmarks. Quality and synergy beat quantity.',
+    question: 'Why 14 compounds and not dozens like other sites?',
+    answer: 'More is not better. Each additional compound increases interaction risk and usually means sub-therapeutic doses. TNiC curates 14 evidence-graded compounds — every one with PubMed-cited human data — selected for the strongest mechanistic coverage across all 12 hallmarks. Quality and synergy beat quantity. A stack of 30 unverified compounds with zero clinical evidence is not a protocol — it is a guess.',
   },
   {
     id: 'faq9',
@@ -1472,7 +1475,7 @@ export const consumerFAQ = [
     id: 'faq32',
     category: 'science' as const,
     question: 'How does the TNiC quiz generate a personalized stack preset?',
-    answer: 'The quiz maps three inputs — primary goal (energy, defense, longevity, or full protocol), age range, and supplement experience — to one of four mechanistic presets: Starter (NRF2 triad), NRF2 Defense, Mito-NAD+, or Hybrid. Each preset is a curated subset of the 9 evidence-graded compounds optimized for synergy coverage across the relevant hallmarks. No black-box algorithm — every mapping is transparent in the methodology section.',
+    answer: 'The quiz maps three inputs — primary goal (energy, defense, longevity, or metabolic health), age range, and supplement experience — to one of six mechanistic presets: Starter (NRF2 triad), NRF2 Defense, Mito-NAD+, Full Hybrid, Longevity Pro (senolytic focus), or Cardio-Metabolic (AMPK/lipid focus). Each preset is a curated subset drawn from 14 evidence-graded compounds optimized for synergy coverage across the relevant hallmarks. No black-box algorithm — every mapping is transparent in the methodology section.',
   },
   {
     id: 'faq33',
