@@ -8,6 +8,7 @@ import { BookOpen, Shield, Zap, Layers } from 'lucide-react';
 import { quizSteps, getQuizResult, type QuizAnswers } from '@/lib/homepage';
 import { QuizResultPanel } from '@/components/quiz/QuizResultPanel';
 import { parseQuizSearchParams } from '@/lib/quiz-share';
+import { usePlatform } from '@/context/PlatformContext';
 
 const goalIcons = {
   book: BookOpen,
@@ -18,6 +19,7 @@ const goalIcons = {
 
 export function StarterQuiz({ variant = 'embedded' }: { variant?: 'embedded' | 'page' }) {
   const searchParams = useSearchParams();
+  const { setQuizResult } = usePlatform();
   // Derive the shared-result state from the URL during render rather than in an
   // effect — this is deterministic from the query string, so computing the
   // initial state directly avoids an extra render pass (React 19 guidance).
@@ -37,6 +39,14 @@ export function StarterQuiz({ variant = 'embedded' }: { variant?: 'embedded' | '
     if (step < quizSteps.length - 1) {
       setStep(step + 1);
     } else {
+      const finalResult = getQuizResult(next);
+      setQuizResult({
+        goal: next.goal ?? '',
+        age: next.age,
+        experience: next.experience,
+        preset: finalResult.preset,
+        completedAt: new Date().toISOString(),
+      });
       setDone(true);
     }
   };

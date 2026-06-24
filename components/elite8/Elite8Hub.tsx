@@ -226,15 +226,35 @@ function CompoundCard({
 
           {product.isRx && <RxDisclaimer />}
 
-          {product.libraryHref && (
-            <Link
-              href={product.libraryHref}
-              onClick={(e) => e.stopPropagation()}
-              className="inline-block mt-4 text-xs font-semibold text-accent-violet hover:underline"
-            >
-              Read evidence module →
-            </Link>
-          )}
+          <div className="mt-4 flex flex-wrap items-center gap-4">
+            {product.libraryHref && (
+              <Link
+                href={product.libraryHref}
+                onClick={(e) => e.stopPropagation()}
+                className="text-xs font-semibold text-accent-violet hover:underline"
+              >
+                Read evidence module →
+              </Link>
+            )}
+            {!product.isRx && (
+              <Link
+                href={`/stacks`}
+                onClick={(e) => e.stopPropagation()}
+                className="text-xs font-semibold text-accent-amber hover:underline"
+              >
+                Build a stack with {product.name} →
+              </Link>
+            )}
+            {product.evidenceTier === 'A' && !product.isRx && (
+              <Link
+                href={`/library/compare`}
+                onClick={(e) => e.stopPropagation()}
+                className="text-xs font-semibold text-accent-cyan hover:underline"
+              >
+                Head-to-head comparisons →
+              </Link>
+            )}
+          </div>
         </div>
       )}
     </button>

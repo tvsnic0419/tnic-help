@@ -83,6 +83,8 @@ export function Dashboard() {
     defense: 'Cellular defense',
     energy: 'Mitochondrial energy',
     full: 'Full longevity optimization',
+    longevity: 'Senolytic & healthspan focus',
+    metabolic: 'Cardio-metabolic health',
   };
 
   return (

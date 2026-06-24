@@ -47,6 +47,8 @@ const OS_HREF_ORDER: Record<string, string[]> = {
   defense: ['/tools', '/stacks', '/labs', '/library', '/dashboard'],
   energy: ['/stacks', '/labs', '/dashboard', '/library', '/tools'],
   full: ['/dashboard', '/stacks', '/labs', '/library', '/tools'],
+  longevity: ['/stacks', '/elite-8', '/library', '/labs', '/dashboard'],
+  metabolic: ['/stacks', '/labs', '/tools', '/library', '/dashboard'],
 };
 
 export function getOsFunnelOrder(goal?: string): string[] {
