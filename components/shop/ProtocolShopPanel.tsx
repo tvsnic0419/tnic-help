@@ -38,6 +38,9 @@ const presetOptions: { key: PresetKey; label: string }[] = [
   { key: 'nrf2', label: 'NRF2 Defense' },
   { key: 'mito', label: 'Mito Renewal' },
   { key: 'hybrid', label: 'Full Hybrid' },
+  { key: 'longevity', label: 'Longevity Pro' },
+  { key: 'metabolic', label: 'Cardio-Metabolic' },
+  { key: 'full', label: 'Full-Spectrum 14' },
 ];
 
 function ProtocolShopPanelInner() {

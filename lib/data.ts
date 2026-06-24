@@ -1476,12 +1476,24 @@ export const consumerFAQ = [
     id: 'faq32',
     category: 'science' as const,
     question: 'How does the TNiC quiz generate a personalized stack preset?',
-    answer: 'The quiz maps three inputs — primary goal (energy, defense, longevity, or metabolic health), age range, and supplement experience — to one of six mechanistic presets: Starter (NRF2 triad), NRF2 Defense, Mito-NAD+, Full Hybrid, Longevity Pro (senolytic focus), or Cardio-Metabolic (AMPK/lipid focus). Each preset is a curated subset drawn from 14 evidence-graded compounds optimized for synergy coverage across the relevant hallmarks. No black-box algorithm — every mapping is transparent in the methodology section.',
+    answer: 'The quiz maps three inputs — primary goal (learn the science, cellular defense, mitochondrial energy, full optimization, longevity/healthspan, or cardio-metabolic health), age range, and supplement experience — to one of six mechanistic presets: Starter, NRF2 Defense, Mito-NAD+, Full Hybrid, Longevity Pro (senolytic focus), or Cardio-Metabolic (AMPK/lipid focus). Each preset is a curated subset drawn from 14 evidence-graded compounds optimized for synergy coverage across the relevant hallmarks. No black-box algorithm — every mapping is transparent in the methodology section.',
   },
   {
     id: 'faq33',
     category: 'science' as const,
     question: 'Can longevity supplements reverse aging or just slow it?',
     answer: 'Honest answer: current evidence supports slowing measurable aging biomarkers and, in some cases, reversing specific deficits — not reversing aging wholesale. GlyNAC restored glutathione and mitochondrial function to levels resembling younger adults. Ca-AKG reduced epigenetic age by ~8 years in one trial. NMN restored muscle NAD+ metabolism. These are meaningful, measurable changes in specific mechanisms — not the return of youth.',
+  },
+  {
+    id: 'faq34',
+    category: 'products' as const,
+    question: 'What are the head-to-head comparison tables and how were they built?',
+    answer: 'TNiC\'s comparison tables are neutral, PMID-anchored side-by-side analyses across key decision dimensions — mechanism, bioavailability, human RCT evidence, timing, cost, and stack synergy. Each row cites a specific published study. There are no sponsored results, undisclosed affiliate arrangements, or score inflation. Current tables: NMN vs NR, GlyNAC vs liposomal glutathione, Resveratrol vs Pterostilbene, Berberine vs Metformin, Urolithin A vs CoQ10, NMN vs Spermidine, and others. Find them at /library/compare.',
+  },
+  {
+    id: 'faq35',
+    category: 'products' as const,
+    question: 'How does the TNiC buyer guide work — and why does it not recommend specific brands?',
+    answer: 'Each compound in the library has a buyer guide that lists: (1) required form on the label (e.g., "ubiquinol" not "CoQ10" without form disclosure); (2) COA demands — the specific assays to request from any manufacturer; (3) evidence-anchored dose range matched to the trial doses that produced results; and (4) red flags that disqualify a product immediately. TNiC earns zero revenue from products. The buyer guide is an intelligence checklist so you can evaluate any brand against objective criteria — not a product recommendation that could be biased by undisclosed compensation.',
   },
 ];

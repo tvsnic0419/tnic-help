@@ -35,9 +35,9 @@ export function HomepageCompareRow() {
         </div>
 
         <ContextRail
-          what="Six evidence comparison tables with PMID-anchored rows and honest verdicts."
+          what={`${evidenceComparisons.length} evidence comparison tables with PMID-anchored rows and honest verdicts.`}
           why="Advanced users need neutral head-to-head data before choosing compounds or stack presets."
-          next="Open NMN vs NR if you are NAD+-curious, or Starter vs Hybrid if you are stack-shopping."
+          next="Open NMN vs NR if you are NAD+-curious, Berberine vs Metformin for metabolic, or Starter vs Hybrid if you are stack-shopping."
           theme="cyan"
           className="mb-8"
         />

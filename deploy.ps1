@@ -44,7 +44,10 @@ param(
   [int]$DeleteThreshold = 40
 )
 
-$ErrorActionPreference = "Stop"
+$ErrorActionPreference = "Continue"
+$ProgressPreference = "SilentlyContinue"
+# Suppress noisy git CRLF warnings for this repo (cosmetic only):
+$null = & git config core.safecrlf false 2>$null
 $RepoRoot = "C:\Users\tnic8\tnic-help"
 $LogFile  = Join-Path $RepoRoot "deploy.log"
 
@@ -77,8 +80,8 @@ if (Test-Path $lock) { Remove-Item $lock -Force -ErrorAction SilentlyContinue; W
 $delBefore = (git diff --cached --name-status 2>$null | Select-String '^D').Count
 if ($delBefore -gt 0) {
   Info "Index shows $delBefore staged deletion(s) - running 'git reset' to re-sync index to HEAD"
-  git reset --quiet 2>$null
-  git add -A 2>$null
+  & git reset --quiet 2>$null
+  & git -c core.autocrlf=false add -A 2>$null
   $delAfter = (git diff --cached --name-status 2>$null | Select-String '^D').Count
   Info "After heal: $delAfter staged deletion(s)"
 }
@@ -101,7 +104,7 @@ if ($behind -and [int]$behind -gt 0) {
 # --- 4. Doctor report ------------------------------------------------------
 $dirty  = (git status --porcelain 2>$null | Measure-Object).Count
 $ahead  = (git rev-list --count "$Remote/$Branch..HEAD" 2>$null)
-git add -A 2>$null
+& git -c core.autocrlf=false add -A 2>$null
 $delNow = (git diff --cached --name-status 2>$null | Select-String '^D').Count
 $addNow = (git diff --cached --name-status 2>$null | Select-String '^[AM]').Count
 Info "Doctor: dirty=$dirty  ahead=$ahead  staged(add/mod)=$addNow  staged(del)=$delNow  HEAD=$(git rev-parse --short HEAD)"

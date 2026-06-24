@@ -21,6 +21,14 @@ const compoundModuleMap: Record<string, { name: string; slug: string; synergy?: 
   resveratrol: { name: 'Trans-Resveratrol', slug: 'resveratrol' },
   cakg: { name: 'Ca-AKG', slug: 'nad-mito-stack', synergy: true },
   rala: { name: 'R-Alpha Lipoic Acid', slug: 'glynac-nrf2-triad', synergy: true },
+  taurine: { name: 'Taurine', slug: 'taurine' },
+  spermidine: { name: 'Spermidine', slug: 'spermidine' },
+  pterostilbene: { name: 'Pterostilbene', slug: 'pterostilbene' },
+  berberine: { name: 'Berberine HCl', slug: 'berberine' },
+  urolithina: { name: 'Urolithin A', slug: 'urolithina' },
+  fisetin: { name: 'Fisetin', slug: 'fisetin' },
+  coq10: { name: 'CoQ10 (Ubiquinol)', slug: 'coq10' },
+  omega3: { name: 'Omega-3 EPA+DHA', slug: 'omega3' },
 };
 
 /** NR alternative shop card when user chose NR over NMN */
@@ -52,8 +60,16 @@ export function getStackShopItems(compoundIds: string[]): StackShopItem[] {
 
       const guide = getBuyerGuide(id);
       const dose = guide?.doseAnchors[0]?.dose ?? 'See module';
-      const timing =
-        id === 'resveratrol' ? 'PM with fat meal' : id === 'nmn' ? 'AM fasted' : 'AM';
+      const timingMap: Record<string, string> = {
+        resveratrol: 'PM with fat meal',
+        nmn: 'AM fasted',
+        berberine: 'TID with meals',
+        omega3: 'AM/PM with fat meal',
+        coq10: 'AM with fat meal',
+        pterostilbene: 'AM with food',
+        fisetin: 'Pulse-dose (see doseNote)',
+      };
+      const timing = timingMap[id] ?? 'AM';
 
       return {
         compoundId: id,
