@@ -12,6 +12,7 @@ import { HeroNetworkCanvas } from '@/components/ui/HeroNetworkCanvas';
 import { platformStats } from '@/lib/platform-stats';
 import { usePlatform } from '@/context/PlatformContext';
 import { getHeroPersonalization } from '@/lib/homepage-personalization';
+import { Logo } from '@/components/ui/Logo';
 
 export function HeroSection() {
   const { quizResult } = usePlatform();
@@ -34,6 +35,21 @@ export function HeroSection() {
       <div className="relative container-page w-full">
         <div className="grid lg:grid-cols-12 gap-10 lg:gap-16 items-center">
           <div className="lg:col-span-7 text-center lg:text-left">
+            {/* Prominent full lockup logo - strong brand presence on first load */}
+            <motion.div
+              initial={{ opacity: 0, y: 12 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+              className="mb-6 lg:mb-8"
+            >
+              <Logo 
+                variant="lockup" 
+                size="hero" 
+                priority 
+                className="mx-auto lg:mx-0 drop-shadow-2xl" 
+              />
+            </motion.div>
+
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}

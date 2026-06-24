@@ -9,6 +9,7 @@ import { navLinks } from '@/lib/data';
 import { SiteSearch } from '@/components/SiteSearch';
 import { COMMAND_PALETTE_EVENT } from '@/components/os/CommandPalette';
 import { ThemeToggle } from '@/components/theme/ThemeToggle';
+import { Logo } from '@/components/ui/Logo';
 
 export function Nav() {
   const pathname = usePathname();
@@ -50,13 +51,7 @@ export function Nav() {
       />
       <div className="relative container-page py-3 md:py-4 flex justify-between items-center gap-4">
         <Link href="/" className="focus-ring interactive flex items-center gap-3 rounded-lg shrink-0 group">
-          <img 
-            src="/tnic-emblem.png" 
-            alt="TNIC Logo - Transformative Nutrition In Cell-Health" 
-            className="w-9 h-9 rounded-xl object-contain logo-glow transition-transform group-hover:scale-105 shadow-sm" 
-            width={36} 
-            height={36}
-          />
+          <Logo variant="emblem" size="nav" className="group-hover:scale-105 transition-transform" />
           <span className="text-xl font-bold tracking-tight text-foreground">
             TN<span className="shimmer-text">i</span>C
           </span>
