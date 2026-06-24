@@ -22,8 +22,8 @@ export function HomepageCompareRow() {
             <p className="text-label text-accent-cyan mb-3">EVIDENCE TOOLS</p>
             <h2 className="heading-section">Head-to-head comparisons</h2>
             <p className="text-muted-foreground mt-3 max-w-xl text-sm">
-              Six neutral tables — NMN vs NR, GlyNAC vs liposomal glutathione, stack vs stack. Every
-              row PMID-anchored. No shop bias.
+              {evidenceComparisons.length} neutral tables — NMN vs NR, Berberine vs Metformin,
+              NMN vs Spermidine, and more. Every row PMID-anchored. No shop bias.
             </p>
           </div>
           <Link
