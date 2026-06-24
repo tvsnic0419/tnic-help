@@ -4,7 +4,7 @@ import { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { ArrowRight, ClipboardList, Dna, Menu, Search, ShoppingBag, X } from 'lucide-react';
+import { ArrowRight, ClipboardList, Menu, Search, ShoppingBag, X } from 'lucide-react';
 import { navLinks } from '@/lib/data';
 import { SiteSearch } from '@/components/SiteSearch';
 import { COMMAND_PALETTE_EVENT } from '@/components/os/CommandPalette';
@@ -49,10 +49,14 @@ export function Nav() {
         className={`absolute inset-0 nav-glass ${scrolled ? 'nav-glass-scrolled' : ''}`}
       />
       <div className="relative container-page py-3 md:py-4 flex justify-between items-center gap-4">
-        <Link href="/" className="focus-ring interactive flex items-center gap-2.5 rounded-lg shrink-0 group">
-          <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-accent-cyan via-accent-emerald to-accent-cyan flex items-center justify-center logo-glow transition-transform group-hover:scale-105">
-            <Dna className="w-5 h-5 text-primary-foreground" aria-hidden="true" />
-          </div>
+        <Link href="/" className="focus-ring interactive flex items-center gap-3 rounded-lg shrink-0 group">
+          <img 
+            src="/tnic-emblem.png" 
+            alt="TNIC Logo - Transformative Nutrition In Cell-Health" 
+            className="w-9 h-9 rounded-xl object-contain logo-glow transition-transform group-hover:scale-105 shadow-sm" 
+            width={36} 
+            height={36}
+          />
           <span className="text-xl font-bold tracking-tight text-foreground">
             TN<span className="shimmer-text">i</span>C
           </span>
@@ -149,7 +153,6 @@ export function Nav() {
                 ) : (
                   <a
                     key={link.href}
-                    href={link.href}
                     onClick={() => setMobileOpen(false)}
                     className="focus-ring interactive flex justify-between items-center text-foreground hover:text-accent-cyan py-3.5 min-h-[var(--space-touch)] text-base font-medium border-b border-border/50 last:border-0"
                   >
