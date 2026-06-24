@@ -14,6 +14,8 @@ const goalLabels: Record<string, string> = {
   defense: 'Cellular defense',
   energy: 'Mitochondrial energy',
   full: 'Full longevity optimization',
+  longevity: 'Senolytic & healthspan focus',
+  metabolic: 'Cardio-metabolic health',
 };
 
 export function DashboardHubHero() {

@@ -455,6 +455,42 @@ export const nextUpImprovements: NextUpItem[] = [
     href: '/',
     tags: ['ui', 'ux'],
   },
+  {
+    id: 'sprint38-synergy-network-aging-ticker',
+    title: 'Sprint 38 — Compound Synergy Network + Biological Age Ticker',
+    desc: 'Interactive SVG network graph (14 compounds, 23 edges, 5 pathways) on homepage. Real-time dual-rate biological age ticker in hero using requestAnimationFrame. Both with depth: glow filters, tier badges, hover tooltips, smooth ms-precision animation.',
+    status: 'shipped',
+    sprint: 'Sprint 38',
+    href: '/',
+    tags: ['ui', 'visualization'],
+  },
+  {
+    id: 'sprint39-quiz-persistence-dashboard-goals',
+    title: 'Sprint 39 — Quiz persistence, NMN vs Spermidine comparison, new goal labels',
+    desc: 'Quiz result saved to PlatformContext on completion. Dashboard and OS funnel handle longevity + metabolic goals. 9th comparison table (NMN vs Spermidine). Comparison row copy dynamicized. Elite 8 cross-links to stack + compare pages.',
+    status: 'shipped',
+    sprint: 'Sprint 39',
+    href: '/library/compare',
+    tags: ['content', 'ux'],
+  },
+  {
+    id: 'sprint40-shop-intelligence-complete',
+    title: 'Sprint 40 — Complete shop intelligence for all 14 compounds',
+    desc: 'Buyer guides (COA checklists, dose anchors, red flags) for all 8 previously missing compounds. All 14 compounds in compoundModuleMap. Shop preset filter shows all 7 presets. Timing logic corrected per compound. MDX sections 5-8 added to taurine, spermidine, pterostilbene.',
+    status: 'shipped',
+    sprint: 'Sprint 40',
+    href: '/shop',
+    tags: ['content', 'products'],
+  },
+  {
+    id: 'sprint41-stack-analysis-complete',
+    title: 'Sprint 41 — Stack analysis complete for all 14 compounds',
+    desc: 'compoundBaseScores, synergyPairMatrix, compoundMonthlyCost, and stackInteractions updated for all 8 new compounds. hallmarkDisplayNames now covers all 11 hallmarks (autophagy, nutrient sensing, intercellular comm., telomeres). Goal labels fixed across DashboardHubHero and UserNextStepsPanel.',
+    status: 'shipped',
+    sprint: 'Sprint 41',
+    href: '/stacks',
+    tags: ['tools', 'content'],
+  },
 ];
 
 export const nextUpByStatus = {
