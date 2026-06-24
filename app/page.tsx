@@ -18,6 +18,7 @@ import { HomepageProductRail } from '@/components/sections/HomepageProductRail';
 import { HomepagePersonalizedRail } from '@/components/sections/HomepagePersonalizedRail';
 import { NextUpSection } from '@/components/sections/NextUpSection';
 import { HallmarkProblemTiles } from '@/components/sections/HallmarkProblemTiles';
+import { HomepageSynergyNetwork } from '@/components/sections/HomepageSynergyNetwork';
 import { PlatformTicker } from '@/components/ui/PlatformTicker';
 import { SiteGuide } from '@/components/SiteGuide';
 import { seoRoutes } from '@/lib/seo-routes';
@@ -38,6 +39,7 @@ export default function HomePage() {
           <HomepageOSFunnel />
           <SiteGuide />
           <HallmarkProblemTiles />
+          <HomepageSynergyNetwork />
           <TrustBanner />
           <LibraryHighlights />
           <HomepageCompareRow />

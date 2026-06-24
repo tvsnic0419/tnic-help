@@ -5,6 +5,7 @@ import Link from 'next/link';
 import { ArrowRight, LayoutDashboard, Sparkles, ClipboardList } from 'lucide-react';
 import { StarterQuiz } from '@/components/sections/StarterQuiz';
 import { StatStrip } from '@/components/ui/StatStrip';
+import { HeroAgingTicker } from '@/components/ui/HeroAgingTicker';
 import { ContextRail } from '@/components/ui/ContextRail';
 import { HeroRings } from '@/components/ui/HeroRings';
 import { HeroNetworkCanvas } from '@/components/ui/HeroNetworkCanvas';
@@ -74,6 +75,14 @@ export function HeroSection() {
               className="mb-6"
             >
               <StatStrip stats={[...platformStats]} variant="hero" ariaLabel="Platform scale" />
+            </motion.div>
+
+            <motion.div
+              initial={{ opacity: 0, y: 12 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.28 }}
+            >
+              <HeroAgingTicker />
             </motion.div>
 
             <motion.div
