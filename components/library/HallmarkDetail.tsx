@@ -1,15 +1,16 @@
 'use client';
 
 import { motion } from 'framer-motion';
-import { ArrowLeft, BookOpen } from 'lucide-react';
+import { ArrowLeft, BookOpen, FlaskConical } from 'lucide-react';
 import Link from 'next/link';
 import type { HallmarkLibraryEntry } from '@/lib/types';
-import { HallmarkVisual } from './HallmarkVisual';
+import { HallmarkIllustration } from '@/components/illustrations/HallmarkIllustration';
 import { InterventionExplorer } from './InterventionExplorer';
 import { HallmarkNotesPanel } from './HallmarkNotesPanel';
 import { MdxRenderer } from './MdxRenderer';
 import { ContextRail } from '@/components/ui/ContextRail';
 import { getHallmarkContext } from '@/lib/hub-context';
+import { getHallmarkVisual } from '@/lib/hallmark-visuals';
 
 export function HallmarkDetail({
   hallmark,
@@ -18,6 +19,8 @@ export function HallmarkDetail({
   hallmark: HallmarkLibraryEntry;
   mdxBody: string | null;
 }) {
+  const meta = getHallmarkVisual(hallmark.visual);
+
   return (
     <div className="min-h-screen bg-background text-foreground pt-6 md:pt-8 pb-20">
       <div className="max-w-7xl mx-auto px-6">
@@ -30,11 +33,51 @@ export function HallmarkDetail({
 
         <div className="grid lg:grid-cols-12 gap-10">
           <div className="lg:col-span-4 space-y-6">
-            <HallmarkVisual
-              visual={hallmark.visual}
-              coverage={hallmark.coverage}
-              number={hallmark.number}
-            />
+            {/* Primary mechanism illustration */}
+            <div className="glass rounded-2xl overflow-hidden ring-1 ring-white/5">
+              <HallmarkIllustration
+                visual={hallmark.visual}
+                slug={hallmark.slug}
+                coverage={hallmark.coverage}
+                number={hallmark.number}
+                variant="card"
+              />
+              {/* Coverage strip below illustration */}
+              <div className="px-4 py-3 border-t border-white/5 flex items-center justify-between">
+                <span className="text-[10px] font-mono text-muted-foreground uppercase tracking-widest">
+                  TNiC Coverage
+                </span>
+                <div className="flex items-center gap-2">
+                  <div className="w-20 h-1.5 rounded-full bg-border overflow-hidden">
+                    <div
+                      className="h-full rounded-full transition-all"
+                      style={{ width: `${hallmark.coverage}%`, background: meta.colorVar }}
+                    />
+                  </div>
+                  <span className="text-[11px] font-semibold" style={{ color: meta.colorVar }}>
+                    {hallmark.coverage}%
+                  </span>
+                </div>
+              </div>
+            </div>
+
+            {/* Biomarkers */}
+            {hallmark.biomarkers.length > 0 && (
+              <div className="glass rounded-xl p-4">
+                <p className="text-[10px] font-mono uppercase tracking-widest mb-3 flex items-center gap-1.5" style={{ color: meta.colorVar }}>
+                  <FlaskConical className="w-3 h-3" /> Key Biomarkers
+                </p>
+                <ul className="space-y-1.5">
+                  {hallmark.biomarkers.map((b) => (
+                    <li key={b} className="text-xs text-muted-foreground flex items-center gap-2">
+                      <span className="w-1 h-1 rounded-full shrink-0" style={{ background: meta.colorVar }} />
+                      {b}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            )}
+
             <HallmarkNotesPanel hallmark={hallmark} />
           </div>
 
