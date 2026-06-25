@@ -2516,3 +2516,92 @@ body {
     animation: none !important;
   }
 }
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   Design System v7 — Premium Layer
+   Photo-background hero, gold accent, and tnic-prefixed button system.
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+:root {
+  --tnic-accent-gold: #F4A261;
+  --tnic-surface-glass: rgba(17, 24, 39, 0.85);
+}
+
+/* ── Premium glass surface (higher opacity than .glass for photo backgrounds) */
+.tnic-glass {
+  background: var(--tnic-surface-glass);
+  backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.35);
+}
+
+/* ── Card with lift-on-hover ── */
+.tnic-card {
+  transition: transform 0.3s cubic-bezier(0.23, 1.0, 0.32, 1),
+              box-shadow 0.3s cubic-bezier(0.23, 1.0, 0.32, 1),
+              border-color 0.3s ease;
+}
+
+@media (hover: hover) {
+  .tnic-card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.4);
+    border-color: rgba(0, 245, 255, 0.15);
+  }
+}
+
+/* ── White solid CTA button ── */
+.tnic-button-primary {
+  background: #ffffff;
+  color: #0A0F1C;
+  font-weight: 600;
+  transition: background 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+@media (hover: hover) {
+  .tnic-button-primary:hover {
+    background: #00F5FF;
+    transform: translateY(-1px);
+    box-shadow: 0 8px 24px rgba(0, 245, 255, 0.35);
+  }
+}
+
+/* ── Ghost glass secondary button ── */
+.tnic-button-secondary {
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  color: rgba(255, 255, 255, 0.85);
+  transition: background 0.2s ease, border-color 0.2s ease, transform 0.2s ease;
+}
+
+@media (hover: hover) {
+  .tnic-button-secondary:hover {
+    background: rgba(255, 255, 255, 0.1);
+    border-color: rgba(0, 245, 255, 0.3);
+    transform: translateY(-1px);
+  }
+}
+
+/* ── Gold accent utilities ── */
+.text-gold  { color: var(--tnic-accent-gold); }
+.border-gold { border-color: var(--tnic-accent-gold); }
+.glow-gold  {
+  box-shadow: 0 0 24px color-mix(in srgb, var(--tnic-accent-gold) 45%, transparent),
+              0 0 48px color-mix(in srgb, var(--tnic-accent-gold) 20%, transparent);
+}
+
+/* ── Photo hero background helper ── */
+.hero-photo-bg {
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+/* ── Tabular numbers shorthand ── */
+.tnic-tabular { font-variant-numeric: tabular-nums; }
+
+@media (prefers-reduced-motion: reduce) {
+  .tnic-card { transition: none; }
+  .tnic-button-primary,
+  .tnic-button-secondary { transition: none; }
+}

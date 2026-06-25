@@ -2,7 +2,7 @@ import { Nav } from '@/components/Nav';
 import { ScrollProgress } from '@/components/ScrollProgress';
 import { Footer } from '@/components/Footer';
 import { ToolsDock } from '@/components/ToolsDock';
-import { HeroSection } from '@/components/sections/HeroSection';
+import Hero from '@/components/Hero';
 import { HomepageOSFunnel } from '@/components/sections/HomepageOSFunnel';
 import { HomepageTrustStrip } from '@/components/sections/HomepageTrustStrip';
 import { PlatformPreview } from '@/components/sections/PlatformPreview';
@@ -31,7 +31,7 @@ export default function HomePage() {
         <ScrollProgress />
         <Nav />
         <main id="main-content" tabIndex={-1}>
-          <HeroSection />
+          <Hero />
           <PlatformTicker />
           <HomepagePersonalizedRail />
           <HomepageTrustStrip />
