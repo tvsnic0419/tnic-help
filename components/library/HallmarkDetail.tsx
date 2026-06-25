@@ -15,9 +15,12 @@ import { getHallmarkVisual } from '@/lib/hallmark-visuals';
 export function HallmarkDetail({
   hallmark,
   mdxBody,
+  illustrationSrc,
 }: {
   hallmark: HallmarkLibraryEntry;
   mdxBody: string | null;
+  /** Verified server-side path to Canva PNG — undefined falls back to SVG */
+  illustrationSrc?: string;
 }) {
   const meta = getHallmarkVisual(hallmark.visual);
 
@@ -41,6 +44,7 @@ export function HallmarkDetail({
                 coverage={hallmark.coverage}
                 number={hallmark.number}
                 variant="card"
+                illustrationSrc={illustrationSrc}
               />
               {/* Coverage strip below illustration */}
               <div className="px-4 py-3 border-t border-white/5 flex items-center justify-between">

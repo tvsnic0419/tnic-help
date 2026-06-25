@@ -4,6 +4,7 @@ import { HallmarkDetail } from '@/components/library/HallmarkDetail';
 import { StructuredData } from '@/components/seo/StructuredData';
 import { getHallmarkBySlug, hallmarkLibrary } from '@/lib/hallmarks-library';
 import { loadMdx } from '@/lib/mdx';
+import { getHallmarkIllustrationSrc } from '@/lib/hallmark-illustrations';
 import { buildBreadcrumbSchema, buildMedicalWebPageSchema } from '@/lib/seo';
 import { seoRoutes } from '@/lib/seo-routes';
 
@@ -37,6 +38,7 @@ export default async function HallmarkPage({
   if (!hallmark) notFound();
 
   const mdx = loadMdx(hallmark.mdxSlug);
+  const illustrationSrc = getHallmarkIllustrationSrc(hallmark.slug);
   const path = `/library/${hallmark.slug}`;
 
   const schemas = [
@@ -56,7 +58,7 @@ export default async function HallmarkPage({
   return (
     <>
       <StructuredData schemas={schemas} />
-      <HallmarkDetail hallmark={hallmark} mdxBody={mdx?.body ?? null} />
+      <HallmarkDetail hallmark={hallmark} mdxBody={mdx?.body ?? null} illustrationSrc={illustrationSrc} />
     </>
   );
 }
