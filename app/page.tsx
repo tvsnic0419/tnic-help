@@ -20,6 +20,7 @@ import { NextUpSection } from '@/components/sections/NextUpSection';
 import { HallmarkProblemTiles } from '@/components/sections/HallmarkProblemTiles';
 import { HomepageSynergyNetwork } from '@/components/sections/HomepageSynergyNetwork';
 import { PlatformTicker } from '@/components/ui/PlatformTicker';
+import { PremiumManifestoSection } from '@/components/sections/PremiumManifestoSection';
 import { SiteGuide } from '@/components/SiteGuide';
 import { seoRoutes } from '@/lib/seo-routes';
 
@@ -33,6 +34,7 @@ export default function HomePage() {
         <main id="main-content" tabIndex={-1}>
           <Hero />
           <PlatformTicker />
+          <PremiumManifestoSection />
           <HomepagePersonalizedRail />
           <HomepageTrustStrip />
           <PlatformPreview />

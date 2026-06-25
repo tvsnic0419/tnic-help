@@ -22,19 +22,35 @@ export default function Hero() {
     <section
       id="hero"
       className="relative min-h-[92vh] md:min-h-[96vh] flex items-center pt-24 md:pt-28 pb-14 md:pb-20 overflow-hidden"
-      style={{ background: '#0A0F1C' }}
+      style={{ background: '#020811' }}
     >
-      {/* Gradient background */}
-      <div className="absolute inset-0 hero-cinematic hero-mesh" aria-hidden="true" />
+      {/* SVG cinematic background — drop hero-premium.jpg here to override */}
+      <div
+        className="absolute inset-0"
+        style={{
+          backgroundImage: "url('/images/premium/hero-premium.jpg'), url('/images/premium/hero-premium.svg')",
+          backgroundSize: 'cover',
+          backgroundPosition: 'center',
+          filter: 'brightness(0.88) contrast(1.06) saturate(1.1)',
+        }}
+        aria-hidden="true"
+      />
 
-      {/* Ambient effects */}
+      {/* Subtle gradient overlay to blend photo into page palette */}
+      <div
+        className="absolute inset-0"
+        style={{
+          background:
+            'linear-gradient(160deg, rgba(2,8,17,0.55) 0%, rgba(6,14,28,0.35) 50%, rgba(11,21,40,0.65) 100%)',
+        }}
+        aria-hidden="true"
+      />
+
+      {/* Grid + hero beam — keep these, drop the noisier scan/noise overlays */}
       <HeroNetworkCanvas />
       <HeroRings />
       <div className="aurora-beams" aria-hidden="true" />
       <div className="hero-beam" aria-hidden="true" />
-      <div className="orb orb-1" aria-hidden="true" />
-      <div className="orb orb-2" aria-hidden="true" />
-      <div className="orb orb-3" aria-hidden="true" />
       <div className="absolute inset-0 grid-overlay" aria-hidden="true" />
 
       <div className="relative container-page w-full">
