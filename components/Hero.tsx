@@ -24,23 +24,8 @@ export default function Hero() {
       className="relative min-h-[92vh] md:min-h-[96vh] flex items-center pt-24 md:pt-28 pb-14 md:pb-20 overflow-hidden"
       style={{ background: '#0A0F1C' }}
     >
-      {/* Premium photo background — add hero-premium.jpg to public/images/premium/ */}
-      <div
-        className="absolute inset-0 hero-photo-bg"
-        style={{
-          backgroundImage: "url('/images/premium/hero-premium.jpg')",
-          filter: 'brightness(0.82) contrast(1.08) saturate(1.1)',
-        }}
-        aria-hidden="true"
-      />
-
-      {/* Gradient overlay — also serves as complete fallback when no image is present */}
+      {/* Gradient background */}
       <div className="absolute inset-0 hero-cinematic hero-mesh" aria-hidden="true" />
-      <div
-        className="absolute inset-0"
-        style={{ background: 'linear-gradient(to bottom, rgba(0,0,0,0.70), rgba(0,0,0,0.48), rgba(0,0,0,0.72))' }}
-        aria-hidden="true"
-      />
 
       {/* Ambient effects */}
       <HeroNetworkCanvas />
