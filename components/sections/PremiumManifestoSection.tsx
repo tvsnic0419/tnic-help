@@ -1,7 +1,7 @@
 'use client';
 
 import { motion, type Variants } from 'framer-motion';
-import { ShieldCheck, Fingerprint, FlaskConical, TrendingUp } from 'lucide-react';
+import { Layers, Pipette, Clock, CalendarDays } from 'lucide-react';
 
 const ACCENT = '#22d3ee';
 const ACCENT_BG = 'rgba(34,211,238,0.05)';
@@ -9,28 +9,32 @@ const ACCENT_BORDER = 'rgba(255,255,255,0.06)';
 
 const pillars = [
   {
-    icon: FlaskConical,
-    stat: '14+',
-    label: 'Compounds',
-    claim: 'Every entry requires a human-trial citation. No PMID, no protocol.',
+    icon: Layers,
+    stat: '2–4×',
+    label: 'Synergy Uplift',
+    claim:
+      'Synergistic pairs — NMN + resveratrol, GlyNAC + sulforaphane — produce 2–4× the outcome of either compound alone in published human-trial data.',
   },
   {
-    icon: TrendingUp,
-    stat: 'A / B / C',
-    label: 'Evidence Tiers',
-    claim: 'RCT-grade, observational, and mechanistic evidence graded separately — never blended.',
+    icon: Pipette,
+    stat: 'Exact',
+    label: 'Trial Doses',
+    claim:
+      'We list the doses the trials actually used — not the label dose, not a proprietary blend. Dose is the difference between a result and a placebo.',
   },
   {
-    icon: Fingerprint,
-    stat: '100%',
-    label: 'Local-First',
-    claim: 'Your biomarkers, stack, and lab results live in your browser. Never on our servers.',
+    icon: Clock,
+    stat: '~30%',
+    label: 'Timing Shift',
+    claim:
+      'NMN in the AM, sulforaphane fasted, resveratrol with fat. Circadian timing shifts published outcomes by up to 30%. We tell you when, not just what.',
   },
   {
-    icon: ShieldCheck,
-    stat: '$0',
-    label: 'Commission',
-    claim: 'We earn nothing from product sales. COA checklists, not affiliate links.',
+    icon: CalendarDays,
+    stat: '90 days',
+    label: 'Clock Response',
+    claim:
+      'Epigenetic clocks like DunedinPACE need ~90 days of adherence before they register change. We track consistency so the clock has something to measure.',
   },
 ] as const;
 
@@ -46,7 +50,6 @@ const fadeUp: Variants = {
 export function PremiumManifestoSection() {
   return (
     <section className="relative py-24 md:py-32 overflow-hidden section-deep">
-      {/* Faint grid overlay */}
       <div className="absolute inset-0 section-deep pointer-events-none" aria-hidden="true" />
 
       <div className="relative container-page">
@@ -58,21 +61,21 @@ export function PremiumManifestoSection() {
           transition={{ duration: 0.75, ease: [0.22, 1, 0.36, 1] }}
           className="max-w-3xl mb-20"
         >
-          <p className="text-eyebrow text-accent-cyan mb-6">Why we built this differently</p>
+          <p className="text-eyebrow text-accent-cyan mb-6">What actually moves the needle</p>
 
           <h2 className="headline-editorial mb-6">
-            Longevity science has a<br />
-            <span className="gradient-sweep-text">transparency problem.</span>
+            Supplements work when<br />
+            <span className="gradient-sweep-text">they're stacked correctly.</span>
           </h2>
 
           <p className="manifesto-text max-w-2xl">
-            Supplement companies cite rodent studies as human proof. Platforms sell protocols
-            before explaining the mechanism. Research is locked behind paywalls. We built TNiC
-            to fix all three — open science, graded evidence, and zero financial conflict.
+            The gap between a supplement that does nothing and one that measurably shifts your
+            biological age is stack, dose, timing, and consistency. Most platforms get none of
+            these right. TNiC is built around all four.
           </p>
         </motion.div>
 
-        {/* Bento grid of proof pillars */}
+        {/* Four-lever bento grid */}
         <div className="bento-grid">
           {pillars.map((p, i) => (
             <motion.div
@@ -97,14 +100,10 @@ export function PremiumManifestoSection() {
               </div>
 
               <div>
-                <span
-                  className="font-mono text-3xl font-black tracking-tight block leading-none mb-1 text-white"
-                >
+                <span className="font-mono text-3xl font-black tracking-tight block leading-none mb-1 text-white">
                   {p.stat}
                 </span>
-                <span
-                  className="font-mono text-xs font-bold tracking-widest uppercase text-white/50"
-                >
+                <span className="font-mono text-xs font-bold tracking-widest uppercase text-white/50">
                   {p.label}
                 </span>
               </div>
@@ -113,9 +112,7 @@ export function PremiumManifestoSection() {
 
               <div
                 className="h-px w-full mt-2"
-                style={{
-                  background: `linear-gradient(90deg, ${ACCENT}30, transparent)`,
-                }}
+                style={{ background: `linear-gradient(90deg, ${ACCENT}30, transparent)` }}
                 aria-hidden="true"
               />
             </motion.div>
