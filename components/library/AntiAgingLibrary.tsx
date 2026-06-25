@@ -7,6 +7,7 @@ import { Search, ArrowRight, Library } from 'lucide-react';
 import { hallmarkLibrary } from '@/lib/hallmarks-library';
 import { PageHeader } from '@/components/ui/PageHeader';
 import { HallmarkVisual } from './HallmarkVisual';
+import { HallmarkIllustration } from '@/components/illustrations/HallmarkVisuals';
 import { InterventionExplorer } from './InterventionExplorer';
 import { HallmarkNotesPanel } from './HallmarkNotesPanel';
 import { usePlatform } from '@/context/PlatformContext';
@@ -67,8 +68,7 @@ export function AntiAgingLibrary({ asPageTitle = false }: AntiAgingLibraryProps)
             value={query}
             onChange={(e) => setQuery(e.target.value)}
             className="input-base pl-11"
-          />
-        </div>
+          </div>
 
         <div className="grid lg:grid-cols-12 gap-6 lg:gap-8">
           {/* Hallmark selector */}
@@ -133,11 +133,20 @@ export function AntiAgingLibrary({ asPageTitle = false }: AntiAgingLibraryProps)
                         Full deep dive + MDX <ArrowRight className="w-4 h-4" aria-hidden="true" />
                       </Link>
                     </div>
-                    <HallmarkVisual
-                      visual={active.visual}
-                      coverage={active.coverage}
-                      number={active.number}
-                    />
+                    {/* v2.0 illustration or legacy visual */}
+                    {active.illustrationV2 ? (
+                      <HallmarkIllustration
+                        slug={active.slug}
+                        illustrationV2={active.illustrationV2}
+                        className="w-full"
+                      />
+                    ) : (
+                      <HallmarkVisual
+                        visual={active.visual}
+                        coverage={active.coverage}
+                        number={active.number}
+                      />
+                    )}
                   </div>
                 </div>
 
