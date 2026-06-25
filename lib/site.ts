@@ -35,12 +35,14 @@ export const SITE = {
 } as const;
 
 export const LONGEVITY_KEYWORDS = [
+  // Core identity
   'longevity',
   'healthspan',
   'anti-aging',
   'hallmarks of aging',
   'biological age',
   'biohacking',
+  // Compounds
   'NAD+',
   'NMN',
   'GlyNAC',
@@ -48,11 +50,28 @@ export const LONGEVITY_KEYWORDS = [
   'NRF2',
   'sulforaphane',
   'resveratrol',
-  'supplement stack',
-  'longevity protocol',
-  'biomarker tracking',
+  'Ca-AKG',
+  'alpha ketoglutarate',
+  'TUDCA',
+  'berberine',
+  'spermidine',
+  'rapamycin longevity',
+  // Mechanisms
   'epigenetic clock',
   'mitochondrial health',
   'cellular senescence',
-  'rapamycin longevity',
+  'mTOR inhibitor',
+  'AMPK activation',
+  'autophagy',
+  'senolytics',
+  // Tools / platform
+  'supplement stack',
+  'longevity protocol',
+  'longevity stack builder',
+  'supplement interaction checker',
+  'biological age calculator',
+  'biomarker tracking',
+  'privacy health tracker',
+  'evidence-graded supplements',
+  'longevity tools free',
 ] as const;

@@ -39,6 +39,7 @@ export async function generateMetadata({
     summary: mod.summary,
     path,
     categoryLabel: libraryCategoryMeta[mod.category].label,
+    compoundId: mod.compoundId,
   });
 }
 

@@ -1,6 +1,5 @@
 import type { Metadata } from 'next';
 import { consumerFAQ } from './data';
-import { PRIORITY_INDEX_PATHS } from './index-priority';
 import { SITE, LONGEVITY_KEYWORDS, SOCIAL_PROFILES } from './site';
 import type { SourceCitation } from './types';
 import { citationRegistry } from './trust';
@@ -61,21 +60,6 @@ export function buildWebSiteSchema() {
       },
       'query-input': 'required name=search_term_string',
     },
-  };
-}
-
-export function buildItemListSchema() {
-  return {
-    '@context': 'https://schema.org',
-    '@type': 'ItemList',
-    name: 'TNiC Priority Longevity Guides',
-    description: 'High-intent evidence guides and comparisons for healthspan optimization.',
-    itemListElement: PRIORITY_INDEX_PATHS.map((path, i) => ({
-      '@type': 'ListItem',
-      position: i + 1,
-      name: path === '/' ? 'Home' : path.replace(/^\//, '').replace(/\//g, ' › '),
-      url: `${SITE.url}${path === '/' ? '' : path}`,
-    })),
   };
 }
 
@@ -167,6 +151,7 @@ export function buildMedicalWebPageSchema({
   citations?: SourceCitation[];
 }) {
   const url = `${SITE.url}${path}`;
+  const resolvedDate = dateModified ?? new Date().toISOString().split('T')[0];
   return {
     '@context': 'https://schema.org',
     '@type': 'MedicalWebPage',
@@ -174,7 +159,8 @@ export function buildMedicalWebPageSchema({
     headline: title,
     description,
     url,
-    dateModified: dateModified ?? new Date().toISOString().split('T')[0],
+    datePublished: resolvedDate,
+    dateModified: resolvedDate,
     author: { '@type': 'Organization', name: SITE.name, url: SITE.url },
     publisher: { '@type': 'Organization', name: SITE.name, url: SITE.url },
     about: {
@@ -212,13 +198,15 @@ export function buildArticleSchema({
   dateModified?: string;
   evidenceTier?: string;
 }) {
+  const resolvedDate = dateModified ?? new Date().toISOString().split('T')[0];
   return {
     '@context': 'https://schema.org',
     '@type': 'Article',
     headline: title,
     description,
     url: `${SITE.url}${path}`,
-    dateModified: dateModified ?? new Date().toISOString().split('T')[0],
+    datePublished: resolvedDate,
+    dateModified: resolvedDate,
     author: { '@type': 'Organization', name: SITE.name },
     publisher: { '@type': 'Organization', name: SITE.name, url: SITE.url },
     about: {

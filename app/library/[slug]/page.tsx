@@ -4,7 +4,7 @@ import { HallmarkDetail } from '@/components/library/HallmarkDetail';
 import { StructuredData } from '@/components/seo/StructuredData';
 import { getHallmarkBySlug, hallmarkLibrary } from '@/lib/hallmarks-library';
 import { loadMdx } from '@/lib/mdx';
-import { buildArticleSchema, buildBreadcrumbSchema } from '@/lib/seo';
+import { buildBreadcrumbSchema, buildMedicalWebPageSchema } from '@/lib/seo';
 import { seoRoutes } from '@/lib/seo-routes';
 
 export function generateStaticParams() {
@@ -40,8 +40,8 @@ export default async function HallmarkPage({
   const path = `/library/${hallmark.slug}`;
 
   const schemas = [
-    buildArticleSchema({
-      title: hallmark.title,
+    buildMedicalWebPageSchema({
+      title: `${hallmark.title} — Hallmark ${hallmark.number} of Aging`,
       description: hallmark.summary,
       path,
       dateModified: mdx?.frontmatter.last_updated,

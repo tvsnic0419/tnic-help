@@ -11,6 +11,91 @@
 
 import { buildPageMetadata } from './seo';
 
+const COMPOUND_SEO_KEYWORDS: Record<string, string[]> = {
+  glynac: [
+    'GlyNAC supplement',
+    'glycine NAC combination',
+    'glutathione precursor supplement',
+    'GlyNAC aging',
+    'GSH restoration',
+    'Kumar GlyNAC trial',
+  ],
+  nmn: [
+    'NMN supplement',
+    'nicotinamide mononucleotide',
+    'NAD+ precursor',
+    'NMN benefits aging',
+    'NMN dosage',
+    'NMN vs NR',
+  ],
+  nr: [
+    'NR supplement',
+    'nicotinamide riboside',
+    'NAD+ precursor alternative',
+    'Tru Niagen',
+    'NR dosage',
+    'NR vs NMN',
+  ],
+  cakg: [
+    'Ca-AKG supplement',
+    'calcium alpha-ketoglutarate',
+    'AKG longevity',
+    'alpha ketoglutarate aging',
+    'epigenetic clock supplement',
+    'TET enzyme cofactor',
+  ],
+  sulforaphane: [
+    'sulforaphane supplement',
+    'NRF2 activator',
+    'broccoli sprout extract',
+    'KEAP1 NRF2 pathway',
+    'sulforaphane benefits',
+    'NRF2 longevity',
+  ],
+  rala: [
+    'R-alpha lipoic acid supplement',
+    'R-ALA vs ALA',
+    'alpha lipoic acid aging',
+    'NRF2 stack antioxidant',
+    'mitochondrial antioxidant',
+    'lipoic acid glutathione',
+  ],
+  resveratrol: [
+    'resveratrol supplement',
+    'trans-resveratrol',
+    'SIRT1 activator',
+    'resveratrol NMN synergy',
+    'caloric restriction mimetic',
+    'resveratrol evidence',
+  ],
+  rapamycin: [
+    'rapamycin longevity',
+    'rapamycin anti-aging',
+    'mTOR inhibitor supplement',
+    'sirolimus aging',
+    'rapamycin dosing protocol',
+    'rapamycin lifespan',
+  ],
+  tudca: [
+    'TUDCA supplement',
+    'tauroursodeoxycholic acid',
+    'TUDCA benefits',
+    'bile acid supplement longevity',
+    'ER stress supplement',
+    'TUDCA proteostasis',
+  ],
+  berberine: [
+    'berberine supplement',
+    'berberine benefits',
+    'berberine AMPK',
+    'berberine vs metformin',
+    'natural metformin alternative',
+    'berberine longevity',
+    'berberine glucose',
+    'berberine HCl',
+  ],
+};
+
 export const seoRoutes = {
   home: () =>
     buildPageMetadata({
@@ -43,16 +128,16 @@ export const seoRoutes = {
     buildPageMetadata({
       title: 'Learn Hub — Getting Started, Glossary & Red Flags',
       description:
-        'Start here before you stack: 5-step onboarding checklist, 20-term longevity glossary, seven supplement red flags to avoid, outcome timelines, and evidence tier explainer.',
+        'Start here before you stack: 5-step onboarding checklist, 15-term longevity glossary, seven supplement red flags to avoid, outcome timelines, and evidence tier explainer.',
       path: '/learn',
       keywords: ['longevity FAQ', 'getting started biohacking', 'supplement red flags', 'longevity glossary', 'evidence tier A B C'],
     }),
 
   faq: () =>
     buildPageMetadata({
-      title: 'FAQ — Twenty-Five Longevity Protocol Questions Answered',
+      title: 'FAQ — Twenty Longevity Protocol Questions Answered',
       description:
-        'Twenty-five honest answers about TNiC evidence tiers, rapamycin safety, epigenetic clocks, sleep and biological aging, daily vs cycling dosing, medications, and how we differ from supplement stores.',
+        'Twenty honest answers about TNiC evidence tiers, rapamycin safety, epigenetic clocks, sleep and biological aging, daily vs cycling dosing, medications, and how we differ from supplement stores.',
       path: '/faq',
       keywords: ['longevity FAQ', 'NMN safety', 'evidence tier A B C', 'rapamycin longevity', 'epigenetic clock', 'supplement protocol questions'],
     }),
@@ -73,21 +158,6 @@ export const seoRoutes = {
         'Stack-filtered supplement verification checklists: COA requirements, clinical trial dose ranges, red flags to reject, and form-specific bioavailability data. TNiC earns $0 from product placement.',
       path: '/shop',
       keywords: ['supplement buyer guide', 'protocol shop', 'NMN COA', 'supplement verification'],
-    }),
-
-  products: () =>
-    buildPageMetadata({
-      title: 'Recommended Products — Verified Supplement Picks',
-      description:
-        'One evidence-aligned product per compound, linked directly to the manufacturer. TNiC earns $0 from sales — pure buyer intelligence, zero conflict.',
-      path: '/products',
-      keywords: [
-        'recommended longevity supplements',
-        'best NMN supplement',
-        'GlyNAC buy',
-        'sulforaphane supplement',
-        'Ca-AKG buy',
-      ],
     }),
 
   brief: () =>
@@ -111,14 +181,14 @@ export const seoRoutes = {
       description:
         'Neutral head-to-head longevity comparison tables with PMID anchors. Compare NMN vs NR, R-ALA vs racemic ALA, NRF2 stack vs mitochondrial stack — graded by human trial evidence.',
       path: '/library/compare',
-      keywords: ['NMN vs NR', 'longevity comparison', 'stack comparison', 'evidence table', 'R-ALA vs ALA'],
+      keywords: ['NMN vs NR', 'longevity comparison', 'stack comparison', 'evidence table', 'R-ALA vs ALA', 'berberine vs metformin'],
     }),
 
   stacks: () =>
     buildPageMetadata({
       title: 'Stack Architect — Build Evidence-Graded Longevity Protocols',
       description:
-        'Interactive stack builder: real-time synergy scoring, hallmark coverage map, contraindication checks, and seven preset protocols — Starter, NRF2 Defense, Mito-NAD+, Full Hybrid, Longevity Pro, Cardio-Metabolic, and Full-Spectrum 14.',
+        'Interactive stack builder: real-time synergy scoring, hallmark coverage map, contraindication checks, and three preset protocols — NRF2 Defense, Mitochondrial Restoration, and Full Hybrid.',
       path: '/stacks',
       keywords: ['longevity stack', 'GlyNAC protocol', 'NRF2 stack', 'supplement synergy', 'mitochondrial stack', 'NMN stack'],
     }),
@@ -141,21 +211,6 @@ export const seoRoutes = {
       keywords: ['longevity calculator', 'supplement interaction graph', 'healthspan estimator', 'biological age calculator'],
     }),
 
-  elite8: () =>
-    buildPageMetadata({
-      title: 'Elite 8 Longevity Rankings — Longevity Quotient',
-      description:
-        'Eight premier longevity interventions ranked by the Longevity Quotient — a weighted synthesis of clinical evidence, epigenetic impact, safety, and bioavailability.',
-      path: '/elite-8',
-      keywords: [
-        'longevity quotient ranking',
-        'best longevity supplements ranked',
-        'rapamycin vs metformin aging',
-        'top anti-aging compounds 2026',
-        'NMN ranking',
-      ],
-    }),
-
   trust: () =>
     buildPageMetadata({
       title: 'Trust & Transparency Hub — Evidence Standards & Methodology',
@@ -176,7 +231,7 @@ export const seoRoutes = {
     buildPageMetadata({
       title: 'Disclaimers — Legal & Educational Notices',
       description:
-        'Medical advice disclaimer, modeled projections labeling, N=1 data policy, zero-commission commerce policy, and data privacy statement. TNiC is an educational platform — not a medical provider.',
+        'Medical advice disclaimer, modeled projections labeling, N=1 data policy, affiliate disclosure, and data privacy statement. TNiC is an educational platform — not a medical provider.',
       path: '/trust/disclaimers',
     }),
 
@@ -203,11 +258,16 @@ export const seoRoutes = {
       keywords: [input.title, `hallmark ${input.number}`, 'hallmarks of aging', input.slug, 'longevity mechanism'],
     }),
 
-  module: (input: { title: string; summary: string; path: string; categoryLabel: string }) =>
+  module: (input: { title: string; summary: string; path: string; categoryLabel: string; compoundId?: string }) =>
     buildPageMetadata({
       title: `${input.title} — ${input.categoryLabel}`,
       description: input.summary,
       path: input.path,
-      keywords: [input.title, input.categoryLabel, 'longevity evidence'],
+      keywords: [
+        input.title,
+        input.categoryLabel,
+        'longevity evidence',
+        ...(COMPOUND_SEO_KEYWORDS[input.compoundId ?? ''] ?? []),
+      ],
     }),
 } as const;
