@@ -14,6 +14,7 @@ import { HomepagePersonalizedRail } from '@/components/sections/HomepagePersonal
 import { HallmarkProblemTiles } from '@/components/sections/HallmarkProblemTiles';
 import { PlatformTicker } from '@/components/ui/PlatformTicker';
 import { PremiumManifestoSection } from '@/components/sections/PremiumManifestoSection';
+import { StackImpactPreview } from '@/components/sections/StackImpactPreview';
 import { SiteGuide } from '@/components/SiteGuide';
 import { seoRoutes } from '@/lib/seo-routes';
 
@@ -28,6 +29,7 @@ export default function HomePage() {
           <Hero />
           <PlatformTicker />
           <PremiumManifestoSection />
+          <StackImpactPreview />
           <HomepagePersonalizedRail />
           <PlatformPreview />
           <HomepageOSFunnel />
