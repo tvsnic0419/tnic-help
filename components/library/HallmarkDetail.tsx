@@ -5,6 +5,7 @@ import { ArrowLeft, BookOpen } from 'lucide-react';
 import Link from 'next/link';
 import type { HallmarkLibraryEntry } from '@/lib/types';
 import { HallmarkVisual } from './HallmarkVisual';
+import { HallmarkIllustration } from '@/components/illustrations/HallmarkVisuals';
 import { InterventionExplorer } from './InterventionExplorer';
 import { HallmarkNotesPanel } from './HallmarkNotesPanel';
 import { MdxRenderer } from './MdxRenderer';
@@ -30,11 +31,20 @@ export function HallmarkDetail({
 
         <div className="grid lg:grid-cols-12 gap-10">
           <div className="lg:col-span-4 space-y-6">
-            <HallmarkVisual
-              visual={hallmark.visual}
-              coverage={hallmark.coverage}
-              number={hallmark.number}
-            />
+            {/* v2.0 high-fidelity illustration (preferred) or legacy visual */}
+            {hallmark.illustrationV2 ? (
+              <HallmarkIllustration
+                slug={hallmark.slug}
+                illustrationV2={hallmark.illustrationV2}
+                className="w-full"
+              />
+            ) : (
+              <HallmarkVisual
+                visual={hallmark.visual}
+                coverage={hallmark.coverage}
+                number={hallmark.number}
+              />
+            )}
             <HallmarkNotesPanel hallmark={hallmark} />
           </div>
 
