@@ -1,5 +1,6 @@
 import { Suspense } from 'react';
 import { AntiAgingLibrary } from '@/components/library/AntiAgingLibrary';
+import { CompoundLibraryBridge } from '@/components/library/CompoundLibraryBridge';
 import { LibraryModulesHub } from '@/components/library/LibraryModulesHub';
 import { LifestylePillarsHub } from '@/components/library/LifestylePillarsHub';
 import { LibrarySearch } from '@/components/library/LibrarySearch';
@@ -31,6 +32,7 @@ export default function LibraryPage() {
         <LibrarySearch />
       </Suspense>
       <AntiAgingLibrary asPageTitle />
+      <CompoundLibraryBridge />
       <LifestylePillarsHub />
       <div className="container-page py-8">
         <ToolsPromoStrip headline="Simulate stacks, build protocols, and project healthspan from library modules" />

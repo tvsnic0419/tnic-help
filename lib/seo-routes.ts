@@ -11,7 +11,7 @@
 
 import { buildPageMetadata } from './seo';
 
-const COMPOUND_SEO_KEYWORDS: Record<string, string[]> = {
+export const COMPOUND_SEO_KEYWORDS: Record<string, string[]> = {
   glynac: [
     'GlyNAC supplement',
     'glycine NAC combination',
