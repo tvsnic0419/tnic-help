@@ -5,19 +5,57 @@ import React from 'react';
 interface HallmarkVisualProps {
   className?: string;
   size?: number;
-  accentColor?: string; // e.g. 'cyan' | 'emerald' | 'violet'
+  accentColor?: string;
+}
+
+interface HallmarkIllustrationProps {
+  slug: string;
+  illustrationV2?: string;
+  className?: string;
+  fallbackVisual?: React.ReactNode;
 }
 
 /**
- * Reusable scientific illustration components for the 12 Hallmarks of Aging.
- * Designed for dark theme (#030712 bg), consistent with TNiC STYLE_GUIDE.
- * Lightweight inline SVGs — no external assets, accessible, reduced-motion friendly.
- * Usage: import { GenomicInstabilityVisual } from '@/components/illustrations/HallmarkVisuals';
- * Then <GenomicInstabilityVisual className="w-full max-w-md mx-auto" accentColor="cyan" />
- * 
- * Future: Extend with all 12 + props for dynamic elements (e.g. coverage % overlay).
+ * v2.0 High-fidelity Hallmark Illustration component.
+ * Prefers new premium illustrations (from Canva) when illustrationV2 is provided.
+ * Falls back to existing lightweight SVGs or custom fallback.
  */
+export const HallmarkIllustration: React.FC<HallmarkIllustrationProps> = ({
+  slug,
+  illustrationV2,
+  className = '',
+  fallbackVisual,
+}) => {
+  // If we have a v2 illustration filename, render the high-quality image
+  if (illustrationV2) {
+    return (
+      <div className={`relative w-full overflow-hidden rounded-xl border border-white/10 bg-[#0a0f1a] ${className}`}>
+        <img
+          src={`/assets/illustrations/hallmarks/${illustrationV2}.png`}
+          alt={`${slug} hallmark illustration`}
+          className="w-full h-auto object-contain"
+          loading="lazy"
+        />
+        {/* Subtle premium overlay for depth */}
+        <div className="absolute inset-0 bg-gradient-to-b from-black/10 via-transparent to-black/20 pointer-events-none" />
+      </div>
+    );
+  }
 
+  // Fallback to legacy SVG visuals or provided fallback
+  if (fallbackVisual) {
+    return <>{fallbackVisual}</>;
+  }
+
+  // Default placeholder if nothing is available
+  return (
+    <div className={`flex items-center justify-center rounded-xl border border-white/10 bg-[#111827] text-[#9ca3af] text-sm p-8 ${className}`}>
+      Illustration coming soon
+    </div>
+  );
+};
+
+// Keep existing SVG components for backward compatibility and lightweight use
 export const GenomicInstabilityVisual: React.FC<HallmarkVisualProps> = ({
   className = '',
   size = 320,
@@ -159,7 +197,6 @@ export const MitochondrialDysfunctionVisual: React.FC<HallmarkVisualProps> = ({
   );
 };
 
-// Example for a third hallmark (Loss of Proteostasis) - can be expanded
 export const ProteostasisVisual: React.FC<HallmarkVisualProps> = ({
   className = '',
   size = 320,
@@ -187,11 +224,9 @@ export const ProteostasisVisual: React.FC<HallmarkVisualProps> = ({
   );
 };
 
-// Add more hallmarks here following the same pattern (cellular-senescence, etc.)
-// Export a map or index for easy access in Library or Hallmark pages
+// Legacy map for backward compatibility
 export const hallmarkVisualMap = {
   'genomic-instability': GenomicInstabilityVisual,
   'mitochondrial-dysfunction': MitochondrialDysfunctionVisual,
   'loss-of-proteostasis': ProteostasisVisual,
-  // ... add the other 9
 };
