@@ -27,7 +27,7 @@ export default function Hero() {
       <div
         className="absolute inset-0"
         style={{
-          backgroundImage: "url('/images/premium/hero-premium.jpg'), url('/images/premium/hero-premium.svg')",
+          backgroundImage: "url('/images/premium/hero-premium.svg')",
           backgroundSize: 'cover',
           backgroundPosition: 'center',
           filter: 'brightness(0.88) contrast(1.06) saturate(1.1)',
