@@ -156,6 +156,8 @@ export interface HallmarkLibraryEntry {
   personalPrompts: string[];
   relatedCompoundIds: string[];
   mdxSlug: string;
+  /** New v2.0 high-fidelity illustration filename (without extension) */
+  illustrationV2?: string;
 }
 
 export interface PathwayNode {
