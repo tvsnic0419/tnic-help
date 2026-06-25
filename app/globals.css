@@ -162,6 +162,20 @@
   --space-touch: 2.75rem;
   --leading-body: 1.65;
   --leading-tight: 1.15;
+
+  /* ── Typography scale (modular, minor third ~1.25) ──
+     Three roles only: DISPLAY (3xl–6xl), BODY (sm–lg), LABEL (xs mono).
+     Hand-picked clamp curves are fluid from mobile → 1440px. */
+  --type-xs:   0.75rem;                                  /* 12px — captions, eyebrows */
+  --type-sm:   0.875rem;                                 /* 14px — body small */
+  --type-base: 1rem;                                     /* 16px — body */
+  --type-lg:   1.125rem;                                 /* 18px — body emphasis */
+  --type-xl:   clamp(1.25rem, 0.5vw + 1.125rem, 1.5rem); /* lede */
+  --type-2xl:  clamp(1.5rem,  1vw + 1.25rem,  2rem);    /* card titles */
+  --type-3xl:  clamp(1.875rem, 2vw + 1.25rem, 2.5rem);  /* section heads */
+  --type-4xl:  clamp(2.25rem, 3vw + 1.25rem, 3.5rem);   /* feature heads */
+  --type-5xl:  clamp(2.75rem, 4.5vw + 1rem,  5rem);     /* editorial / hero */
+  --type-6xl:  clamp(3.25rem, 6vw + 1.25rem, 6rem);     /* display */
 }
 
 html {
@@ -892,9 +906,9 @@ body {
    Design System v3 — Cinematic escalation (Sprint 20)
    ═══════════════════════════════════════════════════════════════════════════ */
 
-/* ── Display typography ── */
+/* ── Display typography (uses --type-6xl scale token) ── */
 .text-display {
-  font-size: clamp(2.5rem, 6vw + 1rem, 4.5rem);
+  font-size: var(--type-6xl);
   font-weight: 800;
   letter-spacing: -0.04em;
   line-height: 1.02;
@@ -1405,29 +1419,16 @@ body {
    Formidable. Cinematic. Evidence-grade.
    ═══════════════════════════════════════════════════════════════════════════ */
 
-/* ── Editorial display type ── */
-.headline-display {
-  font-size: clamp(3rem, 8vw + 1rem, 6rem);
-  font-weight: 900;
-  letter-spacing: -0.05em;
-  line-height: 0.95;
-  color: var(--color-text-primary);
-}
-
+/* ── Editorial display type — uses --type-* scale tokens defined in :root ──
+   .text-display is the absolute largest; .headline-editorial is the
+   workhorse section/hero headline. Removed .headline-display and
+   .feature-headline — both were defined but unused. */
 .headline-editorial {
-  font-size: clamp(2rem, 5vw + 0.5rem, 4rem);
+  font-size: var(--type-5xl);
   font-weight: 800;
   letter-spacing: -0.04em;
   line-height: 1.0;
   color: var(--color-text-primary);
-}
-
-/* ── Feature section headline ── */
-.feature-headline {
-  font-size: clamp(1.75rem, 3.5vw + 0.5rem, 3rem);
-  font-weight: 800;
-  letter-spacing: -0.035em;
-  line-height: 1.05;
 }
 
 /* ── Live status badge ── */
