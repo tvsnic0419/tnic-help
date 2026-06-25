@@ -272,6 +272,32 @@ export function buildCollectionPageSchema(input: {
   };
 }
 
+export function buildItemListSchema() {
+  const items = [
+    { name: 'Anti-Aging Library', path: '/library' },
+    { name: 'Stack Architect', path: '/stacks' },
+    { name: 'Lab Hub', path: '/labs' },
+    { name: 'Longevity Tools', path: '/tools' },
+    { name: 'Evidence Comparisons', path: '/library/compare' },
+    { name: 'Protocol Shop', path: '/shop' },
+    { name: 'Protocol Brief', path: '/brief' },
+    { name: '3-Min Starter Quiz', path: '/quiz' },
+  ];
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'ItemList',
+    name: 'TNiC Longevity OS — Core Features',
+    description: 'Interactive longevity tools, evidence-graded library, and biomarker tracking.',
+    numberOfItems: items.length,
+    itemListElement: items.map((item, i) => ({
+      '@type': 'ListItem',
+      position: i + 1,
+      name: item.name,
+      url: `${SITE.url}${item.path}`,
+    })),
+  };
+}
+
 export function serializeJsonLd(...schemas: object[]) {
   return schemas.map((schema, i) => (
     { key: i, schema }

@@ -94,6 +94,62 @@ const COMPOUND_SEO_KEYWORDS: Record<string, string[]> = {
     'berberine glucose',
     'berberine HCl',
   ],
+  coq10: [
+    'CoQ10 supplement',
+    'ubiquinol vs ubiquinone',
+    'coenzyme Q10 aging',
+    'CoQ10 statin depletion',
+    'mitochondrial electron carrier',
+    'CoQ10 hs-CRP',
+  ],
+  fisetin: [
+    'fisetin supplement',
+    'fisetin senolytic',
+    'senolytic flavonoid',
+    'fisetin pulse dose',
+    'Mayo Clinic fisetin',
+    'fisetin aging',
+  ],
+  omega3: [
+    'omega-3 supplement',
+    'EPA DHA longevity',
+    'fish oil anti-aging',
+    'omega-3 index',
+    'REDUCE-IT trial',
+    'pro-resolving mediators',
+  ],
+  pterostilbene: [
+    'pterostilbene supplement',
+    'pterostilbene vs resveratrol',
+    'methylated resveratrol',
+    'pterostilbene SIRT1',
+    'pterostilbene bioavailability',
+    'pterostilbene aging',
+  ],
+  spermidine: [
+    'spermidine supplement',
+    'spermidine autophagy',
+    'spermidine longevity',
+    'wheat germ spermidine',
+    'spermidine EP300',
+    'spermidine memory',
+  ],
+  taurine: [
+    'taurine supplement',
+    'taurine aging',
+    'taurine longevity Science 2023',
+    'taurine mitochondria',
+    'taurine deficiency aging',
+    'taurine osmolyte',
+  ],
+  urolithina: [
+    'urolithin A supplement',
+    'Mitopure',
+    'urolithin A mitophagy',
+    'urolithin A muscle aging',
+    'mitophagy activator',
+    'urolithin A RCT',
+  ],
 };
 
 export const seoRoutes = {
@@ -248,6 +304,24 @@ export const seoRoutes = {
       title: 'Update History — Platform Changelog',
       description: 'Public changelog of TNiC features, evidence tier revisions, safety updates, content additions, and research feed expansions — with dates and reasoning.',
       path: '/trust/updates',
+    }),
+
+  elite8: () =>
+    buildPageMetadata({
+      title: 'Elite 8 — Core Longevity Compounds',
+      description:
+        'The eight highest-impact longevity compounds in the TNiC library — selected by evidence tier, hallmark coverage, and synergy potential. Start here for your first stack.',
+      path: '/elite-8',
+      keywords: ['longevity compounds', 'best supplements aging', 'top longevity stack', 'elite 8 compounds'],
+    }),
+
+  products: () =>
+    buildPageMetadata({
+      title: 'Products — Verified Supplement Picks',
+      description:
+        'Curated product picks for every TNiC compound — verified buy links, COA requirements, form guidance, and dose-matched recommendations. TNiC earns $0 from product placement.',
+      path: '/products',
+      keywords: ['supplement recommendations', 'verified supplement picks', 'longevity supplement brands', 'COA verified supplements'],
     }),
 
   hallmark: (input: { title: string; summary: string; slug: string; number: number }) =>

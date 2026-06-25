@@ -75,4 +75,3 @@ export const LONGEVITY_KEYWORDS = [
   'evidence-graded supplements',
   'longevity tools free',
 ] as const;
-] as const;

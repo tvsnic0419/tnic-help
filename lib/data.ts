@@ -1201,6 +1201,36 @@ export const safetyNotes = [
     avoidIf: ['Scheduled surgery within 2 weeks (platelet effects, similar to resveratrol)'],
     consultIf: ['Statins or lipid-lowering drugs', 'Diabetes medications', 'Blood thinners'],
   },
+  {
+    compoundId: 'berberine',
+    cautions: ['CYP3A4 substrate — can increase levels of cyclosporine, some statins, macrolide antibiotics', 'GI effects common at initiation — divide doses and take with food'],
+    avoidIf: ['Pregnancy or planning pregnancy — insufficient safety data'],
+    consultIf: ['Currently on metformin — additive hypoglycemia risk', 'Taking warfarin — may potentiate anticoagulant effect', 'Taking cyclosporine or strong CYP3A4 substrates'],
+  },
+  {
+    compoundId: 'urolithina',
+    cautions: ['Generally well-tolerated in human trials at 500–1000 mg/day', 'Use standardized Mitopure form for RCT-matched dosing'],
+    avoidIf: [],
+    consultIf: ['Active cancer treatment', 'Pregnant or nursing', 'Severe kidney disease'],
+  },
+  {
+    compoundId: 'fisetin',
+    cautions: ['Pulse-dose protocol (2 days/month) — not a daily supplement', 'May cause mild GI effects during pulse days'],
+    avoidIf: ['Daily use at high doses — pulse protocol is evidence-based'],
+    consultIf: ['Blood thinners', 'Chemotherapy', 'Liver disease'],
+  },
+  {
+    compoundId: 'coq10',
+    cautions: ['Ubiquinol form preferred over ubiquinone for 3–8x bioavailability', 'Essential for statin users — statins deplete CoQ10 via shared mevalonate pathway'],
+    avoidIf: [],
+    consultIf: ['Blood thinners (warfarin — may reduce anticoagulant effect)', 'Chemotherapy', 'Blood pressure medications'],
+  },
+  {
+    compoundId: 'omega3',
+    cautions: ['High-dose EPA/DHA may increase bleeding time', 'Triglyceride-form fish oil preferred over ethyl ester for bioavailability'],
+    avoidIf: ['Fish or shellfish allergy (use algal DHA alternative)'],
+    consultIf: ['Blood thinners', 'Scheduled surgery within 2 weeks', 'Atrial fibrillation (high-dose EPA trials showed mixed AF signals)'],
+  },
 ];
 
 export const generalSafetyGuidance = [
