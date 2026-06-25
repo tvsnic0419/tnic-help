@@ -1,2 +1,2 @@
-    visual: 'inflammation',
-    illustrationV2: 'chronic-inflammation-v2',
+    visual: 'gut',
+    illustrationV2: 'dysbiosis-v2', // TODO: Replace with final premium illustration
