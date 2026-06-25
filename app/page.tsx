@@ -4,21 +4,14 @@ import { Footer } from '@/components/Footer';
 import { ToolsDock } from '@/components/ToolsDock';
 import Hero from '@/components/Hero';
 import { HomepageOSFunnel } from '@/components/sections/HomepageOSFunnel';
-import { HomepageTrustStrip } from '@/components/sections/HomepageTrustStrip';
 import { PlatformPreview } from '@/components/sections/PlatformPreview';
 import { TrustBanner } from '@/components/TrustBanner';
 import { LibraryHighlights } from '@/components/sections/LibraryHighlights';
 import { ResearchIntel } from '@/components/sections/ResearchIntel';
-import { HomepageBriefRail } from '@/components/sections/HomepageBriefRail';
-import { HomepageCompareRow } from '@/components/sections/HomepageCompareRow';
 import { CompetitiveEdge } from '@/components/sections/CompetitiveEdge';
-import { HomepageTrust } from '@/components/sections/HomepageTrust';
 import { HomepageCTA } from '@/components/sections/HomepageCTA';
-import { HomepageProductRail } from '@/components/sections/HomepageProductRail';
 import { HomepagePersonalizedRail } from '@/components/sections/HomepagePersonalizedRail';
-import { NextUpSection } from '@/components/sections/NextUpSection';
 import { HallmarkProblemTiles } from '@/components/sections/HallmarkProblemTiles';
-import { HomepageSynergyNetwork } from '@/components/sections/HomepageSynergyNetwork';
 import { PlatformTicker } from '@/components/ui/PlatformTicker';
 import { PremiumManifestoSection } from '@/components/sections/PremiumManifestoSection';
 import { SiteGuide } from '@/components/SiteGuide';
@@ -36,22 +29,15 @@ export default function HomePage() {
           <PlatformTicker />
           <PremiumManifestoSection />
           <HomepagePersonalizedRail />
-          <HomepageTrustStrip />
           <PlatformPreview />
           <HomepageOSFunnel />
-          <SiteGuide />
           <HallmarkProblemTiles />
-          <HomepageSynergyNetwork />
-          <TrustBanner />
           <LibraryHighlights />
-          <HomepageCompareRow />
           <ResearchIntel />
-          <HomepageBriefRail />
           <CompetitiveEdge />
-          <HomepageProductRail />
-          <HomepageTrust />
+          <SiteGuide />
+          <TrustBanner />
           <HomepageCTA />
-          <NextUpSection />
         </main>
         <ToolsDock />
         <Footer />

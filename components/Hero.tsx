@@ -7,7 +7,6 @@ import { StarterQuiz } from '@/components/sections/StarterQuiz';
 import { StatStrip } from '@/components/ui/StatStrip';
 import { HeroAgingTicker } from '@/components/ui/HeroAgingTicker';
 import { ContextRail } from '@/components/ui/ContextRail';
-import { HeroRings } from '@/components/ui/HeroRings';
 import { HeroNetworkCanvas } from '@/components/ui/HeroNetworkCanvas';
 import { Logo } from '@/components/ui/Logo';
 import { platformStats } from '@/lib/platform-stats';
@@ -46,11 +45,8 @@ export default function Hero() {
         aria-hidden="true"
       />
 
-      {/* Grid + hero beam — keep these, drop the noisier scan/noise overlays */}
+      {/* Single ambient layer — molecular network only */}
       <HeroNetworkCanvas />
-      <HeroRings />
-      <div className="aurora-beams" aria-hidden="true" />
-      <div className="hero-beam" aria-hidden="true" />
       <div className="absolute inset-0 grid-overlay" aria-hidden="true" />
 
       <div className="relative container-page w-full">

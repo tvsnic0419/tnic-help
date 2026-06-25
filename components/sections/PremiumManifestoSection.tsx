@@ -3,42 +3,34 @@
 import { motion, type Variants } from 'framer-motion';
 import { ShieldCheck, Fingerprint, FlaskConical, TrendingUp } from 'lucide-react';
 
+const ACCENT = '#22d3ee';
+const ACCENT_BG = 'rgba(34,211,238,0.05)';
+const ACCENT_BORDER = 'rgba(255,255,255,0.06)';
+
 const pillars = [
   {
     icon: FlaskConical,
     stat: '14+',
     label: 'Compounds',
     claim: 'Every entry requires a human-trial citation. No PMID, no protocol.',
-    accent: '#22d3ee',
-    accentBg: 'rgba(34,211,238,0.08)',
-    accentBorder: 'rgba(34,211,238,0.18)',
   },
   {
     icon: TrendingUp,
     stat: 'A / B / C',
     label: 'Evidence Tiers',
     claim: 'RCT-grade, observational, and mechanistic evidence graded separately — never blended.',
-    accent: '#34d399',
-    accentBg: 'rgba(52,211,153,0.08)',
-    accentBorder: 'rgba(52,211,153,0.18)',
   },
   {
     icon: Fingerprint,
     stat: '100%',
     label: 'Local-First',
     claim: 'Your biomarkers, stack, and lab results live in your browser. Never on our servers.',
-    accent: '#a78bfa',
-    accentBg: 'rgba(167,139,250,0.08)',
-    accentBorder: 'rgba(167,139,250,0.18)',
   },
   {
     icon: ShieldCheck,
     stat: '$0',
     label: 'Commission',
     claim: 'We earn nothing from product sales. COA checklists, not affiliate links.',
-    accent: '#F4A261',
-    accentBg: 'rgba(244,162,97,0.08)',
-    accentBorder: 'rgba(244,162,97,0.18)',
   },
 ] as const;
 
@@ -92,43 +84,37 @@ export function PremiumManifestoSection() {
               variants={fadeUp}
               className="bento-cell tnic-card p-8 flex flex-col gap-5"
               style={{
-                background: p.accentBg,
-                borderColor: p.accentBorder,
+                background: ACCENT_BG,
+                borderColor: ACCENT_BORDER,
               }}
             >
-              {/* Icon badge */}
               <div
                 className="w-10 h-10 rounded-xl flex items-center justify-center flex-shrink-0"
-                style={{ background: p.accentBg, border: `1px solid ${p.accentBorder}` }}
+                style={{ background: ACCENT_BG, border: `1px solid ${ACCENT_BORDER}` }}
                 aria-hidden="true"
               >
-                <p.icon className="w-5 h-5" style={{ color: p.accent }} />
+                <p.icon className="w-5 h-5" style={{ color: ACCENT }} />
               </div>
 
-              {/* Stat */}
               <div>
                 <span
-                  className="font-mono text-3xl font-black tracking-tight block leading-none mb-1"
-                  style={{ color: p.accent }}
+                  className="font-mono text-3xl font-black tracking-tight block leading-none mb-1 text-white"
                 >
                   {p.stat}
                 </span>
                 <span
-                  className="font-mono text-xs font-bold tracking-widest uppercase"
-                  style={{ color: p.accent, opacity: 0.65 }}
+                  className="font-mono text-xs font-bold tracking-widest uppercase text-white/50"
                 >
                   {p.label}
                 </span>
               </div>
 
-              {/* Claim */}
-              <p className="text-body-sm leading-relaxed mt-auto">{p.claim}</p>
+              <p className="text-body-sm leading-relaxed mt-auto text-white/70">{p.claim}</p>
 
-              {/* Accent line at bottom */}
               <div
                 className="h-px w-full mt-2"
                 style={{
-                  background: `linear-gradient(90deg, ${p.accent}40, transparent)`,
+                  background: `linear-gradient(90deg, ${ACCENT}30, transparent)`,
                 }}
                 aria-hidden="true"
               />
