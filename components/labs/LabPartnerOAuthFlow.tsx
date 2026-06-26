@@ -68,14 +68,15 @@ function LabPartnerOAuthFlowInner() {
       .then((data: { partners?: ConnectablePartner[] }) => {
         const partners = data.partners ?? [];
         setConnectable(partners);
-        if (partners.length > 0 && !partners.find((p) => p.id === selectedPartner)) {
-          setSelectedPartner(partners[0].id);
-        }
+        // Use functional form to read latest selectedPartner without it being a dep
+        setSelectedPartner((prev) =>
+          partners.length > 0 && !partners.find((p) => p.id === prev) ? partners[0].id : prev,
+        );
       })
       .catch(() => {
         setConnectable([{ id: DEMO_PARTNER_ID, name: 'TNiC Demo Lab', status: 'demo' }]);
       });
-  }, [selectedPartner]);
+  }, []);
 
   useEffect(() => {
     try {

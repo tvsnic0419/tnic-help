@@ -11,6 +11,7 @@ import { MdxRenderer } from './MdxRenderer';
 import { ContextRail } from '@/components/ui/ContextRail';
 import { getHallmarkContext } from '@/lib/hub-context';
 import { SystemsSynthesisView } from './SystemsSynthesisView';
+import { HALLMARK_VISUALS } from '@/components/illustrations/HallmarkVisuals';
 
 export function HallmarkDetail({
   hallmark,
@@ -19,6 +20,8 @@ export function HallmarkDetail({
   hallmark: HallmarkLibraryEntry;
   mdxBody: string | null;
 }) {
+  const MechanismVisual = HALLMARK_VISUALS[hallmark.id];
+
   return (
     <div className="min-h-screen bg-background text-foreground pt-6 md:pt-8 pb-20">
       <div className="max-w-7xl mx-auto px-6">
@@ -36,6 +39,14 @@ export function HallmarkDetail({
               coverage={hallmark.coverage}
               number={hallmark.number}
             />
+            {MechanismVisual && (
+              <div className="glass rounded-xl overflow-hidden">
+                <p className="text-[9px] font-mono text-muted-foreground uppercase tracking-wider px-4 pt-3 pb-1">
+                  Mechanism Diagram
+                </p>
+                <MechanismVisual className="w-full" />
+              </div>
+            )}
             <HallmarkNotesPanel hallmark={hallmark} />
           </div>
 
