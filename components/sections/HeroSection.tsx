@@ -29,9 +29,8 @@ export function HeroSection() {
             </motion.div>
 
             <motion.h1
-              initial={{ opacity: 0, y: 30 }}
+              initial={false}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.1 }}
               className="text-4xl sm:text-5xl md:text-[3.25rem] font-bold tracking-tight leading-[1.05] mb-6"
             >
               Your longevity OS.
@@ -40,9 +39,8 @@ export function HeroSection() {
             </motion.h1>
 
             <motion.p
-              initial={{ opacity: 0 }}
+              initial={false}
               animate={{ opacity: 1 }}
-              transition={{ delay: 0.2 }}
               className="text-body max-w-xl mb-10 mx-auto lg:mx-0"
             >
               Initialize your personal command center — stack architect, lab hub, hallmark library,
