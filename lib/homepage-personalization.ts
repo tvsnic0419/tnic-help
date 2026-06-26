@@ -56,10 +56,10 @@ export function getOsFunnelOrder(goal?: string): string[] {
 }
 
 const PRESET_COMPOUNDS: Record<PresetKey, string[]> = {
-  starter: ['glynac', 'sulforaphane', 'rala'],
+  starter: ['glynac', 'sulforaphane', 'nmn'],
   nrf2: ['glynac', 'sulforaphane', 'rala'],
-  mito: ['nmn', 'cakg', 'resveratrol', 'rala'],
-  hybrid: ['glynac', 'sulforaphane', 'nmn', 'cakg', 'resveratrol'],
+  mito: ['nmn', 'cakg', 'resveratrol'],
+  hybrid: ['glynac', 'sulforaphane', 'nmn', 'cakg', 'rala'],
   longevity: ['urolithina', 'fisetin', 'omega3', 'nmn', 'resveratrol'],
   metabolic: ['berberine', 'omega3', 'coq10', 'rala'],
   full: ['glynac', 'sulforaphane', 'nmn', 'cakg', 'rala', 'resveratrol', 'taurine', 'spermidine', 'pterostilbene', 'berberine', 'urolithina', 'fisetin', 'coq10', 'omega3'],

@@ -16,6 +16,7 @@ import { PlatformTicker } from '@/components/ui/PlatformTicker';
 import { PremiumManifestoSection } from '@/components/sections/PremiumManifestoSection';
 import { StackImpactPreview } from '@/components/sections/StackImpactPreview';
 import { NinetyDayCycle } from '@/components/sections/NinetyDayCycle';
+import { ClockImpactSection } from '@/components/sections/ClockImpactSection';
 import { SiteGuide } from '@/components/SiteGuide';
 import { seoRoutes } from '@/lib/seo-routes';
 
@@ -31,6 +32,7 @@ export default function HomePage() {
           <PlatformTicker />
           <PremiumManifestoSection />
           <StackImpactPreview />
+          <ClockImpactSection />
           <NinetyDayCycle />
           <HomepagePersonalizedRail />
           <PlatformPreview />
