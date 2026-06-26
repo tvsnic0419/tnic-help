@@ -1,11 +1,12 @@
 'use client';
 
-import { motion } from 'framer-motion';
+import { motion, useReducedMotion } from 'framer-motion';
 import Link from 'next/link';
 import { ArrowRight, LayoutDashboard, Sparkles, ClipboardList } from 'lucide-react';
 import { StarterQuiz } from '@/components/sections/StarterQuiz';
 
 export function HeroSection() {
+  const prefersReduced = useReducedMotion();
   return (
     <section
       id="hero"
@@ -20,7 +21,7 @@ export function HeroSection() {
         <div className="grid lg:grid-cols-12 gap-10 lg:gap-14 items-center">
           <div className="lg:col-span-7 text-center lg:text-left">
             <motion.div
-              initial={{ opacity: 0, y: 20 }}
+              initial={prefersReduced ? false : { opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               className="inline-flex items-center gap-2 glass rounded-full px-5 py-2 mb-8 text-sm text-foreground/80"
             >
@@ -48,9 +49,9 @@ export function HeroSection() {
             </motion.p>
 
             <motion.div
-              initial={{ opacity: 0, y: 20 }}
+              initial={prefersReduced ? false : { opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.3 }}
+              transition={prefersReduced ? undefined : { delay: 0.3 }}
               className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start"
             >
               <Link
@@ -85,9 +86,9 @@ export function HeroSection() {
 
           <motion.div
             id="starter-quiz"
-            initial={{ opacity: 0, x: 40 }}
+            initial={prefersReduced ? false : { opacity: 0, x: 40 }}
             animate={{ opacity: 1, x: 0 }}
-            transition={{ delay: 0.4, duration: 0.8 }}
+            transition={prefersReduced ? undefined : { delay: 0.4, duration: 0.8 }}
             className="lg:col-span-5 scroll-mt-28"
           >
             <StarterQuiz />

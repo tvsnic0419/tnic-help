@@ -4,6 +4,7 @@ import { motion } from 'framer-motion';
 import { Sparkles, ArrowUpRight } from 'lucide-react';
 import Link from 'next/link';
 import { cn } from '@/lib/utils';
+import { SynergyNetworkVisual } from '@/components/illustrations/SynergyNetworkVisual';
 import { emergentEffects, getEmergentEffectsForHallmark, getEmergentEffectsForCompound } from '@/lib/relations';
 import type { EmergentEffect } from '@/lib/relations';
 
@@ -141,6 +142,12 @@ export function EmergentEffectsView({ hallmarkId, compoundId, showAll = false, c
       <p className="text-xs text-muted-foreground leading-relaxed">
         Emergent effects arise when targeting <span className="text-foreground font-semibold">multiple hallmarks simultaneously</span> — the combined intervention produces benefits greater than the sum of individual effects.
       </p>
+      {showAll && (
+        <div className="rounded-2xl border border-border/50 bg-card/30 p-4 overflow-x-auto">
+          <p className="text-[9px] font-mono text-muted-foreground uppercase mb-3">Compound Synergy Network</p>
+          <SynergyNetworkVisual className="w-full max-w-[540px] mx-auto" />
+        </div>
+      )}
       {effects.map((effect, i) => (
         <EmergentCard key={effect.id} effect={effect} index={i} />
       ))}
