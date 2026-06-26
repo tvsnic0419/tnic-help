@@ -1,7 +1,7 @@
 'use client';
 
 import { motion } from 'framer-motion';
-import { ArrowLeft, BookOpen, FlaskConical } from 'lucide-react';
+import { ArrowLeft, BookOpen, Network } from 'lucide-react';
 import Link from 'next/link';
 import type { HallmarkLibraryEntry } from '@/lib/types';
 import { HallmarkIllustration } from '@/components/illustrations/HallmarkIllustration';
@@ -10,7 +10,8 @@ import { HallmarkNotesPanel } from './HallmarkNotesPanel';
 import { MdxRenderer } from './MdxRenderer';
 import { ContextRail } from '@/components/ui/ContextRail';
 import { getHallmarkContext } from '@/lib/hub-context';
-import { getHallmarkVisual } from '@/lib/hallmark-visuals';
+import { SystemsSynthesisView } from './SystemsSynthesisView';
+import { HALLMARK_VISUALS } from '@/components/illustrations/HallmarkVisuals';
 
 export function HallmarkDetail({
   hallmark,
@@ -22,7 +23,7 @@ export function HallmarkDetail({
   /** Verified server-side path to Canva PNG — undefined falls back to SVG */
   illustrationSrc?: string;
 }) {
-  const meta = getHallmarkVisual(hallmark.visual);
+  const MechanismVisual = HALLMARK_VISUALS[hallmark.id];
 
   return (
     <div className="min-h-screen bg-background text-foreground pt-6 md:pt-8 pb-20">
@@ -36,52 +37,19 @@ export function HallmarkDetail({
 
         <div className="grid lg:grid-cols-12 gap-10">
           <div className="lg:col-span-4 space-y-6">
-            {/* Primary mechanism illustration */}
-            <div className="glass rounded-2xl overflow-hidden ring-1 ring-white/5">
-              <HallmarkIllustration
-                visual={hallmark.visual}
-                slug={hallmark.slug}
-                coverage={hallmark.coverage}
-                number={hallmark.number}
-                variant="card"
-                illustrationSrc={illustrationSrc}
-              />
-              {/* Coverage strip below illustration */}
-              <div className="px-4 py-3 border-t border-white/5 flex items-center justify-between">
-                <span className="text-[10px] font-mono text-muted-foreground uppercase tracking-widest">
-                  TNiC Coverage
-                </span>
-                <div className="flex items-center gap-2">
-                  <div className="w-20 h-1.5 rounded-full bg-border overflow-hidden">
-                    <div
-                      className="h-full rounded-full transition-all"
-                      style={{ width: `${hallmark.coverage}%`, background: meta.colorVar }}
-                    />
-                  </div>
-                  <span className="text-[11px] font-semibold" style={{ color: meta.colorVar }}>
-                    {hallmark.coverage}%
-                  </span>
-                </div>
-              </div>
-            </div>
-
-            {/* Biomarkers */}
-            {hallmark.biomarkers.length > 0 && (
-              <div className="glass rounded-xl p-4">
-                <p className="text-[10px] font-mono uppercase tracking-widest mb-3 flex items-center gap-1.5" style={{ color: meta.colorVar }}>
-                  <FlaskConical className="w-3 h-3" /> Key Biomarkers
+            <HallmarkVisual
+              visual={hallmark.visual}
+              coverage={hallmark.coverage}
+              number={hallmark.number}
+            />
+            {MechanismVisual && (
+              <div className="glass rounded-xl overflow-hidden">
+                <p className="text-[9px] font-mono text-muted-foreground uppercase tracking-wider px-4 pt-3 pb-1">
+                  Mechanism Diagram
                 </p>
-                <ul className="space-y-1.5">
-                  {hallmark.biomarkers.map((b) => (
-                    <li key={b} className="text-xs text-muted-foreground flex items-center gap-2">
-                      <span className="w-1 h-1 rounded-full shrink-0" style={{ background: meta.colorVar }} />
-                      {b}
-                    </li>
-                  ))}
-                </ul>
+                <MechanismVisual className="w-full" />
               </div>
             )}
-
             <HallmarkNotesPanel hallmark={hallmark} />
           </div>
 
@@ -123,6 +91,25 @@ export function HallmarkDetail({
                 interventions={hallmark.interventions}
                 hallmarkTitle={hallmark.title}
               />
+            </div>
+
+            {/* Systems Synthesis */}
+            <div>
+              <div className="flex items-center justify-between gap-3 mb-4">
+                <div className="flex items-center gap-2">
+                  <Network className="w-4 h-4 text-accent-violet" />
+                  <p className="text-[10px] font-mono text-accent-violet uppercase tracking-wider">
+                    System Effects — cross-hallmark synthesis
+                  </p>
+                </div>
+                <Link
+                  href="/library/systems"
+                  className="text-xs font-semibold text-accent-violet hover:text-accent-violet/80 transition shrink-0"
+                >
+                  Full Systems Map →
+                </Link>
+              </div>
+              <SystemsSynthesisView hallmarkId={hallmark.id} />
             </div>
           </div>
         </div>
