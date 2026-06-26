@@ -3,15 +3,31 @@
 import { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import Link from 'next/link';
-import { ArrowRight, Dna, Menu, Search, X } from 'lucide-react';
+import { usePathname } from 'next/navigation';
+import { ArrowRight, ClipboardList, Menu, Search, ShoppingBag, X } from 'lucide-react';
 import { navLinks } from '@/lib/data';
 import { SiteSearch } from '@/components/SiteSearch';
 import { COMMAND_PALETTE_EVENT } from '@/components/os/CommandPalette';
 import { ThemeToggle } from '@/components/theme/ThemeToggle';
+import { Logo } from '@/components/ui/Logo';
 
 export function Nav() {
+  const pathname = usePathname();
   const [mobileOpen, setMobileOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
   const menuRef = useRef<HTMLDivElement>(null);
+
+  const isLinkActive = (href: string) => {
+    if (href === '/') return pathname === '/';
+    return pathname === href || pathname.startsWith(`${href}/`);
+  };
+
+  useEffect(() => {
+    const onScroll = () => setScrolled(window.scrollY > 24);
+    onScroll();
+    window.addEventListener('scroll', onScroll, { passive: true });
+    return () => window.removeEventListener('scroll', onScroll);
+  }, []);
 
   useEffect(() => {
     if (!mobileOpen) return;
@@ -30,46 +46,55 @@ export function Nav() {
 
   return (
     <nav className="fixed top-0 w-full z-50" aria-label="Main navigation">
-      <div className="absolute inset-0 bg-background/85 backdrop-blur-xl border-b border-border" />
+      <div
+        className={`absolute inset-0 nav-glass ${scrolled ? 'nav-glass-scrolled' : ''}`}
+      />
       <div className="relative container-page py-3 md:py-4 flex justify-between items-center gap-4">
-        <Link href="/" className="focus-ring interactive flex items-center gap-2 rounded-lg shrink-0">
-          <div className="w-9 h-9 rounded-lg bg-gradient-to-br from-accent-cyan to-accent-emerald flex items-center justify-center">
-            <Dna className="w-4 h-4 text-primary-foreground" aria-hidden="true" />
-          </div>
+        <Link href="/" className="focus-ring interactive flex items-center gap-3 rounded-lg shrink-0 group">
+          <Logo variant="emblem" size="nav" className="group-hover:scale-105 transition-transform" />
           <span className="text-xl font-bold tracking-tight text-foreground">
-            TN<span className="text-accent-cyan">i</span>C
+            TN<span className="shimmer-text">i</span>C
           </span>
         </Link>
 
-        <div className="hidden lg:flex gap-1 xl:gap-2">
-          {navLinks.map((link) =>
-            isExternal(link.href) ? (
-              <Link
-                key={link.href}
-                href={link.href}
-                className="focus-ring interactive px-3 py-2 rounded-lg text-sm font-medium text-muted-foreground hover:text-accent-cyan"
-              >
+        <div className="hidden lg:flex gap-0.5 xl:gap-1">
+          {navLinks.map((link) => {
+            const active = isLinkActive(link.href);
+            const cls = `focus-ring interactive px-3.5 py-2 rounded-xl text-sm font-medium transition-all ${
+              active
+                ? 'text-accent-cyan bg-accent-cyan/12 shadow-[0_0_20px_-4px_rgba(34,211,238,0.35)]'
+                : 'text-muted-foreground hover:text-foreground hover:bg-accent-cyan/10'
+            }`;
+            return isExternal(link.href) ? (
+              <Link key={link.href} href={link.href} className={cls} aria-current={active ? 'page' : undefined}>
                 {link.label}
               </Link>
             ) : (
-              <a
-                key={link.href}
-                href={link.href}
-                className="focus-ring interactive px-3 py-2 rounded-lg text-sm font-medium text-muted-foreground hover:text-accent-cyan"
-              >
+              <a key={link.href} href={link.href} className={cls}>
                 {link.label}
               </a>
-            ),
-          )}
+            );
+          })}
         </div>
 
-        <div className="hidden md:flex items-center gap-3 shrink-0">
+        <div className="hidden md:flex items-center gap-2 shrink-0">
           <ThemeToggle compact />
           <SiteSearch />
           <Link
-            href="/dashboard"
-            className="focus-ring interactive flex items-center gap-2 bg-foreground text-background px-5 py-2.5 min-h-[var(--space-touch)] rounded-full text-sm font-semibold hover:bg-accent-emerald hover:text-primary-foreground"
+            href="/quiz"
+            className="focus-ring hidden lg:inline-flex items-center gap-1.5 glass glass-hover px-4 py-2 rounded-full text-sm font-semibold text-muted-foreground hover:text-foreground"
           >
+            <ClipboardList className="w-4 h-4 text-accent-violet" aria-hidden="true" />
+            Quiz
+          </Link>
+          <Link
+            href="/shop"
+            className="focus-ring hidden lg:inline-flex items-center gap-1.5 glass glass-hover px-4 py-2 rounded-full text-sm font-semibold text-muted-foreground hover:text-foreground"
+          >
+            <ShoppingBag className="w-4 h-4 text-accent-amber" aria-hidden="true" />
+            Shop
+          </Link>
+          <Link href="/dashboard" className="focus-ring btn-gradient text-sm !py-2.5 !px-5 !min-h-0 rounded-full">
             Open OS
             <ArrowRight className="w-4 h-4" aria-hidden="true" />
           </Link>
@@ -107,7 +132,7 @@ export function Nav() {
             initial={{ opacity: 0, height: 0 }}
             animate={{ opacity: 1, height: 'auto' }}
             exit={{ opacity: 0, height: 0 }}
-            className="lg:hidden relative bg-background/98 backdrop-blur-xl border-b border-border"
+            className="lg:hidden relative nav-glass nav-glass-scrolled border-b border-border"
           >
             <div className="container-page py-4 flex flex-col gap-1">
               {navLinks.map((link) =>
@@ -116,28 +141,43 @@ export function Nav() {
                     key={link.href}
                     href={link.href}
                     onClick={() => setMobileOpen(false)}
-                    className="focus-ring interactive flex justify-between items-center text-foreground hover:text-accent-cyan py-3.5 min-h-[var(--space-touch)] text-base font-medium border-b border-border last:border-0"
+                    className="focus-ring interactive flex justify-between items-center text-foreground hover:text-accent-cyan py-3.5 min-h-[var(--space-touch)] text-base font-medium border-b border-border/50 last:border-0"
                   >
                     {link.label}
                   </Link>
                 ) : (
                   <a
                     key={link.href}
-                    href={link.href}
                     onClick={() => setMobileOpen(false)}
-                    className="focus-ring interactive flex justify-between items-center text-foreground hover:text-accent-cyan py-3.5 min-h-[var(--space-touch)] text-base font-medium border-b border-border last:border-0"
+                    className="focus-ring interactive flex justify-between items-center text-foreground hover:text-accent-cyan py-3.5 min-h-[var(--space-touch)] text-base font-medium border-b border-border/50 last:border-0"
                   >
                     {link.label}
                   </a>
                 ),
               )}
-              <Link
-                href="/dashboard"
-                onClick={() => setMobileOpen(false)}
-                className="focus-ring interactive bg-accent-emerald text-primary-foreground px-5 py-3.5 min-h-[var(--space-touch)] rounded-xl text-sm font-semibold text-center mt-3"
-              >
-                Open Longevity OS
-              </Link>
+              <div className="flex flex-col gap-2 mt-3">
+                <Link
+                  href="/quiz"
+                  onClick={() => setMobileOpen(false)}
+                  className="focus-ring glass glass-hover text-sm text-center py-3 rounded-xl font-semibold"
+                >
+                  3-Min Stack Quiz
+                </Link>
+                <Link
+                  href="/shop"
+                  onClick={() => setMobileOpen(false)}
+                  className="focus-ring glass glass-hover text-sm text-center py-3 rounded-xl font-semibold"
+                >
+                  Protocol Shop
+                </Link>
+                <Link
+                  href="/dashboard"
+                  onClick={() => setMobileOpen(false)}
+                  className="focus-ring btn-gradient text-sm text-center justify-center"
+                >
+                  Open Longevity OS
+                </Link>
+              </div>
             </div>
           </motion.div>
         )}

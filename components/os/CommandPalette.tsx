@@ -1,14 +1,17 @@
 'use client';
+/* eslint-disable react-hooks/set-state-in-effect --
+   The mount/URL-driven effect(s) below set state from client-only sources
+   (localStorage, window, or URL search params) or trigger entrance animations.
+   These cannot run during SSR, so the initial setState is intentional and not a
+   value derivable during render. Reviewed 2026-06-21; safe to keep. */
 
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
-import { useRouter } from 'next/navigation';
-import { Search, Command, ArrowRight } from 'lucide-react';
+import { usePathname, useRouter } from 'next/navigation';
+import { Search, Command, ArrowRight, Lightbulb } from 'lucide-react';
 import { usePlatform } from '@/context/PlatformContext';
-import {
-  searchPalette,
-  paletteKindLabels,
-  type PaletteItem,
-} from '@/lib/command-palette-index';
+import { getPaletteResults, paletteKindLabels } from '@/lib/command-palette-context';
+import type { PaletteItem } from '@/lib/command-palette-index';
+import { readRecentModules } from '@/lib/recent-modules';
 import { cn } from '@/lib/utils';
 import { EXPORT_KIT_EVENT } from './ExportKitModal';
 
@@ -16,14 +19,29 @@ export const COMMAND_PALETTE_EVENT = 'tnic:command-palette-open';
 
 export function CommandPalette() {
   const router = useRouter();
-  const { exportAll } = usePlatform();
+  const pathname = usePathname();
+  const { exportAll, selected } = usePlatform();
   const [open, setOpen] = useState(false);
   const [query, setQuery] = useState('');
   const [activeIndex, setActiveIndex] = useState(0);
+  const [recentModules, setRecentModules] = useState(readRecentModules);
   const inputRef = useRef<HTMLInputElement>(null);
   const listRef = useRef<HTMLUListElement>(null);
 
-  const results = useMemo(() => searchPalette(query), [query]);
+  const palette = useMemo(
+    () =>
+      getPaletteResults({
+        pathname,
+        query,
+        stackIds: selected,
+        recentModules,
+        limit: 14,
+      }),
+    [pathname, query, selected, recentModules],
+  );
+
+  const { flat: results, groups, hubHint } = palette;
+  const hasQuery = query.trim().length > 0;
 
   const close = useCallback(() => {
     setOpen(false);
@@ -60,7 +78,10 @@ export function CommandPalette() {
   );
 
   useEffect(() => {
-    const onOpen = () => setOpen(true);
+    const onOpen = () => {
+      setRecentModules(readRecentModules());
+      setOpen(true);
+    };
     window.addEventListener(COMMAND_PALETTE_EVENT, onOpen);
     return () => window.removeEventListener(COMMAND_PALETTE_EVENT, onOpen);
   }, []);
@@ -68,6 +89,7 @@ export function CommandPalette() {
   useEffect(() => {
     if (open) {
       setActiveIndex(0);
+      setRecentModules(readRecentModules());
       requestAnimationFrame(() => inputRef.current?.focus());
     }
   }, [open]);
@@ -133,6 +155,8 @@ export function CommandPalette() {
 
   if (!open) return null;
 
+  let flatIndex = 0;
+
   return (
     <div
       className="fixed inset-0 z-[100] flex items-start justify-center p-4 pt-[12vh] md:pt-[15vh]"
@@ -157,7 +181,7 @@ export function CommandPalette() {
             aria-expanded="true"
             aria-controls="command-palette-list"
             aria-autocomplete="list"
-            placeholder="Search pages, tools, hallmarks, compounds…"
+            placeholder="Search or pick a contextual shortcut…"
             value={query}
             onChange={(e) => setQuery(e.target.value)}
             className="flex-1 bg-transparent text-sm outline-none placeholder:text-caption"
@@ -166,6 +190,16 @@ export function CommandPalette() {
             esc
           </kbd>
         </div>
+
+        {!hasQuery && hubHint?.next && (
+          <div className="px-4 py-2.5 border-b border-border/60 flex items-start gap-2 bg-accent-cyan/5">
+            <Lightbulb className="w-3.5 h-3.5 text-accent-cyan shrink-0 mt-0.5" aria-hidden="true" />
+            <p className="text-[11px] text-muted-foreground leading-relaxed">
+              <span className="text-accent-cyan font-semibold">Next on this hub: </span>
+              {hubHint.next}
+            </p>
+          </div>
+        )}
 
         <ul
           id="command-palette-list"
@@ -177,37 +211,44 @@ export function CommandPalette() {
             <li className="px-4 py-6 text-sm text-muted-foreground text-center">
               No results. Try &quot;NRF2&quot;, &quot;GlyNAC&quot;, or &quot;protocol&quot;.
             </li>
-          ) : (
+          ) : hasQuery ? (
             results.map((item, i) => (
               <li key={item.id} role="option" aria-selected={i === activeIndex}>
-                <button
-                  type="button"
-                  onClick={() => runItem(item)}
-                  onMouseEnter={() => setActiveIndex(i)}
-                  className={cn(
-                    'focus-ring w-full flex items-center gap-3 px-4 py-2.5 text-left transition-colors',
-                    i === activeIndex ? 'bg-accent-cyan/10' : 'hover:bg-muted/40',
-                  )}
-                >
-                  <span className="text-[10px] font-mono uppercase text-accent-cyan w-16 shrink-0">
-                    {paletteKindLabels[item.kind]}
-                  </span>
-                  <div className="min-w-0 flex-1">
-                    <p className="text-sm font-semibold truncate">{item.title}</p>
-                    {item.subtitle && (
-                      <p className="text-xs text-muted-foreground truncate">{item.subtitle}</p>
-                    )}
-                  </div>
-                  <ArrowRight
-                    className={cn(
-                      'w-3.5 h-3.5 shrink-0 text-muted-foreground',
-                      i === activeIndex && 'text-accent-cyan',
-                    )}
-                    aria-hidden="true"
-                  />
-                </button>
+                <PaletteRow
+                  item={item}
+                  active={i === activeIndex}
+                  onSelect={() => runItem(item)}
+                  onHover={() => setActiveIndex(i)}
+                />
               </li>
             ))
+          ) : (
+            groups.map((group) => {
+              const groupItems = group.items.filter((item) => results.some((r) => r.id === item.id));
+              if (groupItems.length === 0) return null;
+              return (
+                <li key={group.label} role="presentation">
+                  <p className="px-4 pt-2 pb-1 text-[10px] font-mono uppercase tracking-wider text-caption">
+                    {group.label}
+                  </p>
+                  <ul role="group" aria-label={group.label}>
+                    {groupItems.map((item) => {
+                      const i = flatIndex++;
+                      return (
+                        <li key={item.id} role="option" aria-selected={i === activeIndex}>
+                          <PaletteRow
+                            item={item}
+                            active={i === activeIndex}
+                            onSelect={() => runItem(item)}
+                            onHover={() => setActiveIndex(i)}
+                          />
+                        </li>
+                      );
+                    })}
+                  </ul>
+                </li>
+              );
+            })
           )}
         </ul>
 
@@ -221,5 +262,46 @@ export function CommandPalette() {
         </div>
       </div>
     </div>
+  );
+}
+
+function PaletteRow({
+  item,
+  active,
+  onSelect,
+  onHover,
+}: {
+  item: PaletteItem;
+  active: boolean;
+  onSelect: () => void;
+  onHover: () => void;
+}) {
+  return (
+    <button
+      type="button"
+      onClick={onSelect}
+      onMouseEnter={onHover}
+      className={cn(
+        'focus-ring w-full flex items-center gap-3 px-4 py-2.5 text-left transition-colors',
+        active ? 'bg-accent-cyan/10' : 'hover:bg-muted/40',
+      )}
+    >
+      <span className="text-[10px] font-mono uppercase text-accent-cyan w-16 shrink-0">
+        {paletteKindLabels[item.kind]}
+      </span>
+      <div className="min-w-0 flex-1">
+        <p className="text-sm font-semibold truncate">{item.title}</p>
+        {item.subtitle && (
+          <p className="text-xs text-muted-foreground truncate">{item.subtitle}</p>
+        )}
+      </div>
+      <ArrowRight
+        className={cn(
+          'w-3.5 h-3.5 shrink-0 text-muted-foreground',
+          active && 'text-accent-cyan',
+        )}
+        aria-hidden="true"
+      />
+    </button>
   );
 }

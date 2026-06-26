@@ -1,4 +1,4 @@
-import { protocolBriefIssues } from './protocol-brief';
+import { getAllBriefIssues } from './brief-research-sync';
 
 /** ISO week number (1–53) for stable weekly rotation */
 export function getIsoWeekNumber(date = new Date()): number {
@@ -11,12 +11,14 @@ export function getIsoWeekNumber(date = new Date()): number {
 
 /** Rotate through curated issues — one issue per ISO week */
 export function getWeeklyIssueIndex(date = new Date()): number {
-  const count = protocolBriefIssues.length;
+  const issues = getAllBriefIssues();
+  const count = issues.length;
   if (count === 0) return 0;
   return (getIsoWeekNumber(date) - 1) % count;
 }
 
 export function getWeeklyIssueId(date = new Date()): string {
+  const issues = getAllBriefIssues();
   const index = getWeeklyIssueIndex(date);
-  return protocolBriefIssues[index]?.id ?? protocolBriefIssues[0].id;
+  return issues[index]?.id ?? issues[0].id;
 }

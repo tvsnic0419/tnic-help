@@ -14,6 +14,7 @@ export default function MethodologyPage() {
       eyebrow="Trust · Methodology"
       title="TNiC Methodology"
       description="How compounds are selected, evidence is graded, biomarkers are modeled, and conflicts of interest are managed. Published for full transparency."
+      pageKey="methodology"
     >
       <EvidenceTagLegend className="mb-10" />
       {methodologySections.map((section) => (

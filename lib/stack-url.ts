@@ -5,10 +5,12 @@ export function isPresetKey(value: string): value is PresetKey {
   return value in stackPresets;
 }
 
-/** Parse ?stack= — preset key (starter) or comma-separated compound ids */
+/** Parse ?stack= — preset key (starter), nr-only shop mode, or comma-separated compound ids */
 export function parseStackParam(param: string): string[] | null {
   const trimmed = param.trim();
   if (!trimmed) return null;
+
+  if (trimmed === 'nr') return [];
 
   if (!trimmed.includes(',') && isPresetKey(trimmed)) {
     return [...stackPresets[trimmed].ids];

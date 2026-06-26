@@ -5,7 +5,8 @@ import { SkipLink } from '@/components/SkipLink';
 import ErrorBoundary from '@/components/ErrorBoundary';
 import { PlatformProviderWrapper } from '@/components/PlatformProviderWrapper';
 import { ThemeScript } from '@/components/theme/ThemeScript';
-import { SITE, LONGEVITY_KEYWORDS } from '@/lib/site';
+import { buildRootMetadata } from '@/lib/seo';
+import { AmbientLayer } from '@/components/ui/AmbientLayer';
 import './globals.css';
 
 const geistSans = Geist({
@@ -21,32 +22,8 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  metadataBase: new URL(SITE.url),
-  title: {
-    default: SITE.fullName,
-    template: `%s | ${SITE.name}`,
-  },
-  description:
-    'Free educational platform for healthspan optimization. Learn the 12 Hallmarks of Aging, build evidence-graded supplement stacks, track biomarkers locally, and access PubMed-cited longevity research.',
-  keywords: [...LONGEVITY_KEYWORDS],
-  authors: [{ name: SITE.name }],
-  creator: SITE.name,
-  openGraph: {
-    title: SITE.fullName,
-    description:
-      'Authoritative longevity science made accessible. Interactive tools, safety guidance, and PubMed-cited protocols for health-optimized adults.',
-    type: 'website',
-    locale: SITE.locale,
-    siteName: SITE.fullName,
-    url: SITE.url,
-  },
-  twitter: {
-    card: 'summary_large_image',
-    title: SITE.fullName,
-    description: 'Evidence-based longevity education, stacks, labs, and interactive tools.',
-  },
-  robots: { index: true, follow: true },
-  alternates: { canonical: SITE.url },
+  ...buildRootMetadata(),
+  verification: { google: 'JXl9PzynZw-9rloI6NeoW8CNLPJ6wGrpdKu9GdZtAL4' },
 };
 
 export const viewport: Viewport = {
@@ -74,9 +51,12 @@ export default function RootLayout({
         <JsonLd />
       </head>
       <body className="min-h-full">
+        <AmbientLayer />
         <SkipLink />
         <ErrorBoundary fallbackMessage="The Longevity OS encountered an issue loading this section.">
-          <PlatformProviderWrapper>{children}</PlatformProviderWrapper>
+          <PlatformProviderWrapper>
+            <div className="page-canvas">{children}</div>
+          </PlatformProviderWrapper>
         </ErrorBoundary>
       </body>
     </html>

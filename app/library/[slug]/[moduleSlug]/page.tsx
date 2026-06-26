@@ -10,7 +10,12 @@ import {
   type LibraryModuleCategory,
 } from '@/lib/library-modules';
 import { loadMdx } from '@/lib/mdx';
-import { buildArticleSchema, buildBreadcrumbSchema } from '@/lib/seo';
+import {
+  buildArticleSchema,
+  buildBreadcrumbSchema,
+  buildMedicalWebPageSchema,
+  getCompoundCitations,
+} from '@/lib/seo';
 import { seoRoutes } from '@/lib/seo-routes';
 
 const VALID_CATEGORIES = Object.keys(libraryCategoryMeta) as LibraryModuleCategory[];
@@ -51,20 +56,35 @@ export default async function LibraryModulePage({
   const mdx = loadMdx(mod.mdxSlug, mod.category);
   const path = getModulePath(mod);
 
-  const schemas = [
-    buildArticleSchema({
-      title: mod.title,
-      description: mod.summary,
-      path,
-      dateModified: mdx?.frontmatter.last_updated,
-      evidenceTier: mod.evidenceTier,
-    }),
-    buildBreadcrumbSchema([
-      { name: 'Library', path: '/library' },
-      { name: libraryCategoryMeta[mod.category].label, path: `/library#content-modules` },
-      { name: mod.title, path },
-    ]),
-  ];
+  const breadcrumb = buildBreadcrumbSchema([
+    { name: 'Library', path: '/library' },
+    { name: libraryCategoryMeta[mod.category].label, path: `/library#content-modules` },
+    { name: mod.title, path },
+  ]);
+
+  const schemas =
+    mod.category === 'compounds'
+      ? [
+          buildMedicalWebPageSchema({
+            title: mod.title,
+            description: mod.summary,
+            path,
+            dateModified: mdx?.frontmatter.last_updated,
+            evidenceTier: mod.evidenceTier,
+            citations: getCompoundCitations(mod.slug, mod.compoundId),
+          }),
+          breadcrumb,
+        ]
+      : [
+          buildArticleSchema({
+            title: mod.title,
+            description: mod.summary,
+            path,
+            dateModified: mdx?.frontmatter.last_updated,
+            evidenceTier: mod.evidenceTier,
+          }),
+          breadcrumb,
+        ];
 
   return (
     <>

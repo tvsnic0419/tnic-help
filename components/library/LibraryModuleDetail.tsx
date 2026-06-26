@@ -1,5 +1,6 @@
 'use client';
 
+import { useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { ArrowLeft, BookOpen, Layers, FlaskConical, AlertTriangle } from 'lucide-react';
 import Link from 'next/link';
@@ -10,7 +11,11 @@ import { compounds } from '@/lib/data';
 import { EvidenceTag } from '@/components/trust/EvidenceTag';
 import { MdxRenderer } from './MdxRenderer';
 import { CompoundBuyerGuidePanel } from './CompoundBuyerGuide';
+import { LifestylePillarPanel } from './LifestylePillarPanel';
 import { getBuyerGuideByModuleSlug } from '@/lib/buyer-guides';
+import type { LifestyleSlug } from '@/lib/lifestyle-pillars';
+import { ModuleContextStrip } from './ModuleContextStrip';
+import { recordModuleVisit } from '@/lib/recent-modules';
 
 export function LibraryModuleDetail({
   module,
@@ -28,6 +33,10 @@ export function LibraryModuleDetail({
   const buyerGuide =
     module.category === 'compounds' ? getBuyerGuideByModuleSlug(module.slug) : undefined;
 
+  useEffect(() => {
+    recordModuleVisit(module);
+  }, [module]);
+
   return (
     <div className="min-h-screen bg-background text-foreground pt-6 md:pt-8 pb-20">
       <div className="max-w-7xl mx-auto px-6">
@@ -40,6 +49,10 @@ export function LibraryModuleDetail({
 
         <div className="grid lg:grid-cols-12 gap-10">
           <aside className="lg:col-span-4 space-y-6">
+            {module.category === 'lifestyle' && (
+              <LifestylePillarPanel slug={module.slug as LifestyleSlug} />
+            )}
+
             <div className="card-elevated p-6">
               <p className="text-[10px] font-mono text-accent-cyan tracking-widest mb-2 uppercase">
                 {categoryMeta.label}
@@ -136,6 +149,7 @@ export function LibraryModuleDetail({
 
           <div className="lg:col-span-8 space-y-8">
             <motion.div initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }}>
+              <ModuleContextStrip module={module} />
               <h1 className="text-3xl md:text-4xl font-bold tracking-tight mb-2">{module.title}</h1>
               <p className="text-lg text-muted-foreground mb-4">{module.tagline}</p>
               <p className="text-sm text-muted-foreground leading-relaxed">{module.summary}</p>

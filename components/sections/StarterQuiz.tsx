@@ -2,10 +2,13 @@
 
 import { useState } from 'react';
 import Link from 'next/link';
+import { useSearchParams } from 'next/navigation';
 import { motion, AnimatePresence } from 'framer-motion';
 import { BookOpen, Shield, Zap, Layers } from 'lucide-react';
 import { quizSteps, getQuizResult, type QuizAnswers } from '@/lib/homepage';
 import { QuizResultPanel } from '@/components/quiz/QuizResultPanel';
+import { parseQuizSearchParams } from '@/lib/quiz-share';
+import { usePlatform } from '@/context/PlatformContext';
 
 const goalIcons = {
   book: BookOpen,
@@ -15,9 +18,15 @@ const goalIcons = {
 };
 
 export function StarterQuiz({ variant = 'embedded' }: { variant?: 'embedded' | 'page' }) {
-  const [step, setStep] = useState(0);
-  const [answers, setAnswers] = useState<QuizAnswers>({});
-  const [done, setDone] = useState(false);
+  const searchParams = useSearchParams();
+  const { setQuizResult } = usePlatform();
+  // Derive the shared-result state from the URL during render rather than in an
+  // effect — this is deterministic from the query string, so computing the
+  // initial state directly avoids an extra render pass (React 19 guidance).
+  const shared = variant === 'page' ? parseQuizSearchParams(searchParams.toString()) : null;
+  const [step, setStep] = useState(shared ? quizSteps.length - 1 : 0);
+  const [answers, setAnswers] = useState<QuizAnswers>(shared ?? {});
+  const [done, setDone] = useState(Boolean(shared));
 
   const current = quizSteps[step];
   const progress = done ? 100 : ((step + 1) / quizSteps.length) * 100;
@@ -30,6 +39,14 @@ export function StarterQuiz({ variant = 'embedded' }: { variant?: 'embedded' | '
     if (step < quizSteps.length - 1) {
       setStep(step + 1);
     } else {
+      const finalResult = getQuizResult(next);
+      setQuizResult({
+        goal: next.goal ?? '',
+        age: next.age,
+        experience: next.experience,
+        preset: finalResult.preset,
+        completedAt: new Date().toISOString(),
+      });
       setDone(true);
     }
   };
@@ -44,7 +61,7 @@ export function StarterQuiz({ variant = 'embedded' }: { variant?: 'embedded' | '
 
   return (
     <div
-      className={`gradient-border p-6 md:p-8 ${variant === 'page' ? 'shadow-lg shadow-accent-emerald/5' : ''}`}
+      className={`p-6 md:p-8 ${variant === 'page' ? 'card-ultra shadow-lg shadow-accent-emerald/10' : ''}`}
       role="form"
       aria-label="3-minute starter quiz"
     >

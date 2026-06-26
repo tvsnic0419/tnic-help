@@ -1,6 +1,9 @@
 import type { Metadata } from 'next';
 import { consumerFAQ } from './data';
-import { SITE, LONGEVITY_KEYWORDS } from './site';
+import { PRIORITY_INDEX_PATHS } from './index-priority';
+import { SITE, LONGEVITY_KEYWORDS, SOCIAL_PROFILES } from './site';
+import type { SourceCitation } from './types';
+import { citationRegistry } from './trust';
 
 export function buildPageMetadata({
   title,
@@ -61,6 +64,21 @@ export function buildWebSiteSchema() {
   };
 }
 
+export function buildItemListSchema() {
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'ItemList',
+    name: 'TNiC Priority Longevity Guides',
+    description: 'High-intent evidence guides and comparisons for healthspan optimization.',
+    itemListElement: PRIORITY_INDEX_PATHS.map((path, i) => ({
+      '@type': 'ListItem',
+      position: i + 1,
+      name: path === '/' ? 'Home' : path.replace(/^\//, '').replace(/\//g, ' › '),
+      url: `${SITE.url}${path === '/' ? '' : path}`,
+    })),
+  };
+}
+
 export function buildOrganizationSchema() {
   return {
     '@context': 'https://schema.org',
@@ -68,7 +86,49 @@ export function buildOrganizationSchema() {
     name: SITE.name,
     url: SITE.url,
     description: 'Independent educational longevity platform — not a medical provider or supplement retailer.',
-    sameAs: [],
+    sameAs: [...SOCIAL_PROFILES],
+  };
+}
+
+/** Root layout metadata — canonical URL, RSS discovery, optional Search Console verification */
+export function buildRootMetadata(): Metadata {
+  const googleVerification = process.env.GOOGLE_SITE_VERIFICATION?.trim();
+
+  return {
+    metadataBase: new URL(SITE.url),
+    title: {
+      default: SITE.fullName,
+      template: `%s | ${SITE.name}`,
+    },
+    description:
+      'Free educational platform for healthspan optimization. Learn the 12 Hallmarks of Aging, build evidence-graded supplement stacks, track biomarkers locally, and access PubMed-cited longevity research.',
+    keywords: [...LONGEVITY_KEYWORDS],
+    authors: [{ name: SITE.name }],
+    creator: SITE.name,
+    openGraph: {
+      title: SITE.fullName,
+      description:
+        'Authoritative longevity science made accessible. Interactive tools, safety guidance, and PubMed-cited protocols for health-optimized adults.',
+      type: 'website',
+      locale: SITE.locale,
+      siteName: SITE.fullName,
+      url: SITE.url,
+    },
+    twitter: {
+      card: 'summary_large_image',
+      site: SITE.twitter,
+      creator: SITE.twitter,
+      title: SITE.fullName,
+      description: 'Evidence-based longevity education, stacks, labs, and interactive tools.',
+    },
+    robots: { index: true, follow: true },
+    alternates: {
+      canonical: SITE.url,
+      types: {
+        'application/rss+xml': SITE.briefRssUrl,
+      },
+    },
+    ...(googleVerification ? { verification: { google: googleVerification } } : {}),
   };
 }
 
@@ -80,6 +140,61 @@ export function buildFaqSchema() {
       '@type': 'Question',
       name: f.question,
       acceptedAnswer: { '@type': 'Answer', text: f.answer },
+    })),
+  };
+}
+
+/** Map compound module slugs to registry citations for JSON-LD */
+export function getCompoundCitations(slug: string, compoundId?: string): SourceCitation[] {
+  const key = compoundId ?? slug;
+  const prefix = `c-${key.replace('cakg', 'akg').replace('sulforaphane', 'sf').replace('resveratrol', 'resv').replace('glynac', 'glynac').replace('rapamycin', 'rapa')}`;
+  return citationRegistry.filter((c) => c.id.startsWith(prefix));
+}
+
+export function buildMedicalWebPageSchema({
+  title,
+  description,
+  path,
+  dateModified,
+  evidenceTier,
+  citations = [],
+}: {
+  title: string;
+  description: string;
+  path: string;
+  dateModified?: string;
+  evidenceTier?: string;
+  citations?: SourceCitation[];
+}) {
+  const url = `${SITE.url}${path}`;
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'MedicalWebPage',
+    name: title,
+    headline: title,
+    description,
+    url,
+    dateModified: dateModified ?? new Date().toISOString().split('T')[0],
+    author: { '@type': 'Organization', name: SITE.name, url: SITE.url },
+    publisher: { '@type': 'Organization', name: SITE.name, url: SITE.url },
+    about: {
+      '@type': 'MedicalEntity',
+      name: title,
+      description: evidenceTier ? `Evidence tier ${evidenceTier} longevity intervention` : undefined,
+    },
+    isAccessibleForFree: true,
+    educationalUse: 'Longevity education — not medical advice',
+    mainEntityOfPage: { '@type': 'WebPage', '@id': url },
+    citation: citations.map((c) => ({
+      '@type': 'ScholarlyArticle',
+      name: c.title,
+      author: c.authors,
+      datePublished: String(c.year),
+      isPartOf: { '@type': 'Periodical', name: c.journal },
+      identifier: c.pmid
+        ? { '@type': 'PropertyValue', propertyID: 'PMID', value: c.pmid }
+        : undefined,
+      url: c.pmid ? `https://pubmed.ncbi.nlm.nih.gov/${c.pmid}/` : undefined,
     })),
   };
 }

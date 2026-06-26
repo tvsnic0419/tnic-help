@@ -1,8 +1,14 @@
 'use client';
+/* eslint-disable react-hooks/set-state-in-effect --
+   The mount/URL-driven effect(s) below set state from client-only sources
+   (localStorage, window, or URL search params) or trigger entrance animations.
+   These cannot run during SSR, so the initial setState is intentional and not a
+   value derivable during render. Reviewed 2026-06-21; safe to keep. */
 
 import dynamic from 'next/dynamic';
 import { useCallback, useEffect, useState } from 'react';
 import { useSearchParams } from 'next/navigation';
+import Link from 'next/link';
 import {
   Layers,
   Wand2,
@@ -11,6 +17,8 @@ import {
   Calculator,
   Network,
   BarChart3,
+  Trophy,
+  ArrowRight,
 } from 'lucide-react';
 import { PageHeader } from '@/components/ui/PageHeader';
 import { TabBar } from '@/components/ui/TabBar';
@@ -18,6 +26,8 @@ import { SectionSkeleton } from '@/components/ui/SectionSkeleton';
 import { EvidenceTagLegend } from '@/components/trust/EvidenceTag';
 import { toolsRegistry, type ToolId } from '@/lib/registry';
 import { ToolDisclaimer } from './ToolDisclaimer';
+import { ContextRail } from '@/components/ui/ContextRail';
+import { getHubContext, getToolContext } from '@/lib/hub-context';
 
 const StackSimulatorTool = dynamic(
   () => import('./StackSimulatorTool').then((m) => ({ default: m.StackSimulatorTool })),
@@ -92,7 +102,37 @@ export function ToolsHub() {
           description="Six evidence-graded tools that turn library knowledge into actionable protocols. Rule-based engines with transparent reasoning — not generative AI."
           theme="violet"
           as="h1"
+          context={getHubContext('tools')}
         />
+
+        <ContextRail
+          {...getToolContext(active)}
+          theme="cyan"
+          className="mb-8 max-w-4xl"
+        />
+
+        <Link
+          href="/elite-8"
+          className="focus-ring block mb-8 card-premium border border-accent-amber/25 bg-gradient-to-br from-accent-amber/8 to-transparent rounded-2xl p-5 md:p-6 hover:border-accent-amber/40 transition group"
+        >
+          <div className="flex flex-col sm:flex-row sm:items-center gap-4">
+            <div className="flex items-start gap-3 flex-1">
+              <div className="icon-badge-amber w-10 h-10 rounded-xl flex items-center justify-center shrink-0">
+                <Trophy className="w-5 h-5 text-accent-amber" aria-hidden="true" />
+              </div>
+              <div>
+                <p className="text-label text-accent-amber mb-1">Featured tool</p>
+                <h2 className="font-bold text-lg group-hover:text-accent-amber transition">Elite 8 Longevity Quotient</h2>
+                <p className="text-sm text-muted-foreground mt-1 max-w-xl">
+                  Eight interventions ranked by modeled LQ score — head-to-head compare, weight tuner, Rx disclaimers, and links to evidence modules.
+                </p>
+              </div>
+            </div>
+            <span className="inline-flex items-center gap-1.5 text-sm font-semibold text-accent-amber shrink-0">
+              Open ranking <ArrowRight className="w-4 h-4" />
+            </span>
+          </div>
+        </Link>
 
         <div className="mb-8">
           <EvidenceTagLegend />

@@ -3,13 +3,14 @@
 import { useState, useMemo } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import Link from 'next/link';
-import { Search, ArrowRight, Library } from 'lucide-react';
+import { Search, ArrowRight, Library, Network } from 'lucide-react';
 import { hallmarkLibrary } from '@/lib/hallmarks-library';
 import { PageHeader } from '@/components/ui/PageHeader';
 import { HallmarkVisual } from './HallmarkVisual';
 import { InterventionExplorer } from './InterventionExplorer';
 import { HallmarkNotesPanel } from './HallmarkNotesPanel';
 import { usePlatform } from '@/context/PlatformContext';
+import { getHubContext } from '@/lib/hub-context';
 
 interface AntiAgingLibraryProps {
   /** Use h1 when rendered as dedicated /library page */
@@ -51,7 +52,20 @@ export function AntiAgingLibrary({ asPageTitle = false }: AntiAgingLibraryProps)
           meta={notedCount > 0 ? `${notedCount} hallmark${notedCount > 1 ? 's' : ''} with personal notes saved locally` : undefined}
           theme="cyan"
           as={asPageTitle ? 'h1' : 'h2'}
+          context={getHubContext('library')}
         />
+
+        {/* Systems Map CTA */}
+        <div className="flex justify-center mb-6">
+          <Link
+            href="/library/systems"
+            className="inline-flex items-center gap-2 text-sm font-semibold text-accent-violet glass glass-hover px-5 py-2.5 rounded-full glow-hover-violet transition"
+          >
+            <Network className="w-4 h-4" />
+            Explore Systems Map — cross-hallmark synthesis
+            <ArrowRight className="w-3.5 h-3.5" />
+          </Link>
+        </div>
 
         <div className="relative max-w-lg mx-auto mb-8 md:mb-10">
           <label htmlFor="hallmark-search" className="sr-only">

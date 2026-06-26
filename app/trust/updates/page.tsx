@@ -14,6 +14,7 @@ export default function UpdatesPage() {
       eyebrow="Trust · Changelog"
       title="Update History"
       description="Every significant platform change is logged here. Evidence tier revisions and safety updates are never silent."
+      pageKey="updates"
     >
       <div className="mb-16">
         <NextUpPanel

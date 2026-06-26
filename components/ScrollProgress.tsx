@@ -35,9 +35,9 @@ export function ScrollProgress() {
 
   return (
     <>
-      <div className="fixed top-0 left-0 right-0 h-[2px] z-[60] bg-transparent">
+      <div className="fixed top-0 left-0 right-0 h-[3px] z-[60] bg-transparent">
         <div
-          className="h-full bg-gradient-to-r from-accent-cyan via-emerald-400 to-violet-400 transition-all duration-150"
+          className="scroll-progress-glow h-full transition-all duration-150"
           style={{ width: `${progress}%` }}
         />
       </div>
@@ -58,13 +58,13 @@ export function ScrollProgress() {
                   isActive ? 'text-accent-cyan opacity-100' : 'text-caption opacity-0 group-hover:opacity-100'
                 }`}
               >
-                {link.mod}
+                {link.label}
               </span>
               <span
-                className={`w-2 h-2 rounded-full transition-all duration-300 ${
+                className={`w-2.5 h-2.5 rounded-full transition-all duration-300 ${
                   isActive
-                    ? 'bg-accent-cyan scale-150 shadow-[0_0_12px_rgba(34,211,238,0.6)]'
-                    : 'bg-zinc-700 group-hover:bg-zinc-500'
+                    ? 'bg-accent-cyan scale-150 shadow-[0_0_16px_rgba(34,211,238,0.8)] ring-2 ring-accent-cyan/30'
+                    : 'bg-zinc-700/80 group-hover:bg-accent-cyan/40 group-hover:scale-110'
                 }`}
               />
             </a>

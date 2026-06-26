@@ -1,13 +1,16 @@
 'use client';
 
 import { motion } from 'framer-motion';
-import { ArrowLeft, BookOpen } from 'lucide-react';
+import { ArrowLeft, BookOpen, Network } from 'lucide-react';
 import Link from 'next/link';
 import type { HallmarkLibraryEntry } from '@/lib/types';
 import { HallmarkVisual } from './HallmarkVisual';
 import { InterventionExplorer } from './InterventionExplorer';
 import { HallmarkNotesPanel } from './HallmarkNotesPanel';
 import { MdxRenderer } from './MdxRenderer';
+import { ContextRail } from '@/components/ui/ContextRail';
+import { getHallmarkContext } from '@/lib/hub-context';
+import { SystemsSynthesisView } from './SystemsSynthesisView';
 
 export function HallmarkDetail({
   hallmark,
@@ -54,6 +57,8 @@ export function HallmarkDetail({
               </div>
             </motion.div>
 
+            <ContextRail {...getHallmarkContext(hallmark)} theme="cyan" />
+
             {mdxBody && (
               <div className="gradient-border p-6 md:p-8">
                 <div className="flex items-center gap-2 mb-4">
@@ -72,6 +77,25 @@ export function HallmarkDetail({
                 interventions={hallmark.interventions}
                 hallmarkTitle={hallmark.title}
               />
+            </div>
+
+            {/* Systems Synthesis */}
+            <div>
+              <div className="flex items-center justify-between gap-3 mb-4">
+                <div className="flex items-center gap-2">
+                  <Network className="w-4 h-4 text-accent-violet" />
+                  <p className="text-[10px] font-mono text-accent-violet uppercase tracking-wider">
+                    System Effects — cross-hallmark synthesis
+                  </p>
+                </div>
+                <Link
+                  href="/library/systems"
+                  className="text-xs font-semibold text-accent-violet hover:text-accent-violet/80 transition shrink-0"
+                >
+                  Full Systems Map →
+                </Link>
+              </div>
+              <SystemsSynthesisView hallmarkId={hallmark.id} />
             </div>
           </div>
         </div>

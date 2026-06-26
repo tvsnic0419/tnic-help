@@ -262,7 +262,7 @@ function buildRecommendations(
       priority: 'low',
       category: 'monitoring',
       title: 'Expand your biomarker panel',
-      rationale: `Only ${snapshots.length} of 6 TNiC longevity markers logged. Broader data improves hallmark risk accuracy.`,
+      rationale: `Only ${snapshots.length} of 8 TNiC longevity markers logged. Broader data improves hallmark risk accuracy.`,
       action: 'Add hs-CRP, glutathione, and NAD+ index from your next blood draw.',
       hallmarkIds: [],
     });

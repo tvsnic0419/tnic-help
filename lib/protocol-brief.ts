@@ -115,3 +115,5 @@ export const protocolBriefIssues: ProtocolBriefEntry[] = [
 export function getLatestBriefs(limit = 6): ProtocolBriefEntry[] {
   return protocolBriefIssues.slice(0, limit);
 }
+
+export { getAllBriefIssues, getResearchBriefIssues } from './brief-research-sync';

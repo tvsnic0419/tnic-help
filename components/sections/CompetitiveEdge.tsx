@@ -4,6 +4,7 @@ import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Check, X, Crown } from 'lucide-react';
 import { SectionShell } from '@/components/SectionShell';
+import { ContextRail } from '@/components/ui/ContextRail';
 import { competitors } from '@/lib/data';
 
 const featureMatrix = [
@@ -17,6 +18,9 @@ const featureMatrix = [
   { feature: 'Zero Lab Cost Entry', tnic: true, blueprint: false, donotage: true, insidetracker: false, lifespan: true },
   { feature: 'Daily Protocol Timeline', tnic: true, blueprint: true, donotage: true, insidetracker: false, lifespan: false },
   { feature: 'Evidence Tier Grading', tnic: true, blueprint: false, donotage: false, insidetracker: false, lifespan: false },
+  { feature: 'Local-First Data Privacy', tnic: true, blueprint: false, donotage: false, insidetracker: false, lifespan: false },
+  { feature: 'Quiz-Based Personalization', tnic: true, blueprint: false, donotage: false, insidetracker: true, lifespan: false },
+  { feature: 'Compound Interaction Checker', tnic: true, blueprint: false, donotage: false, insidetracker: false, lifespan: false },
 ];
 
 export function CompetitiveEdge() {
@@ -33,6 +37,14 @@ export function CompetitiveEdge() {
       subtitle="We studied Blueprint, DoNotAge, InsideTracker, Lifespan.io, and Function Health — then built what none of them offer alone."
       className="bg-background"
     >
+      <ContextRail
+        what="Side-by-side competitive intelligence — strengths, gaps, and TNiC's differentiated stack."
+        why="Longevity buyers compare Blueprint, InsideTracker, and affiliate stores without a unified evidence lens."
+        next="Pick a competitor tab, then load your preset in Stack Architect to see what TNiC models that they do not."
+        theme="amber"
+        className="mb-8"
+      />
+
       <div className="flex flex-wrap gap-2 mb-10">
         {competitors.map((c, i) => (
           <button
@@ -55,7 +67,7 @@ export function CompetitiveEdge() {
           exit={{ opacity: 0, y: -15 }}
           className="grid lg:grid-cols-2 gap-8 mb-16"
         >
-          <div className="gradient-border p-8">
+          <div className="card-premium border border-border/60 p-8 glow-hover-amber">
             <p className="text-[10px] font-mono text-muted-foreground uppercase mb-2">Competitor</p>
             <h3 className="text-2xl font-bold mb-2">{comp.name}</h3>
             <p className="text-sm text-muted-foreground mb-6">{comp.focus}</p>
@@ -80,7 +92,7 @@ export function CompetitiveEdge() {
             </div>
           </div>
 
-          <div className="gradient-border p-8 relative overflow-hidden">
+          <div className="card-premium border border-accent-amber/25 p-8 relative overflow-hidden glow-hover-amber">
             <div className="absolute top-0 right-0 w-40 h-40 bg-accent-amber/5 rounded-full blur-3xl" />
             <div className="relative">
               <div className="flex items-center gap-2 mb-4">

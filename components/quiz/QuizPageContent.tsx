@@ -4,6 +4,7 @@ import Link from 'next/link';
 import { ClipboardList, Clock, ArrowLeft } from 'lucide-react';
 import { StarterQuiz } from '@/components/sections/StarterQuiz';
 import { PageHeader } from '@/components/ui/PageHeader';
+import { getHubContext } from '@/lib/hub-context';
 
 export function QuizPageContent() {
   return (
@@ -24,6 +25,7 @@ export function QuizPageContent() {
           description="Answer three quick questions. Get an evidence-graded stack preset, your next OS step, and a personalized insight — no account required."
           meta="Goal · Age range · Experience"
           theme="emerald"
+          context={getHubContext('quiz')}
         />
 
         <StarterQuiz variant="page" />

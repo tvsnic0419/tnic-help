@@ -21,7 +21,33 @@ const compoundModuleMap: Record<string, { name: string; slug: string; synergy?: 
   resveratrol: { name: 'Trans-Resveratrol', slug: 'resveratrol' },
   cakg: { name: 'Ca-AKG', slug: 'nad-mito-stack', synergy: true },
   rala: { name: 'R-Alpha Lipoic Acid', slug: 'glynac-nrf2-triad', synergy: true },
+  taurine: { name: 'Taurine', slug: 'taurine' },
+  spermidine: { name: 'Spermidine', slug: 'spermidine' },
+  pterostilbene: { name: 'Pterostilbene', slug: 'pterostilbene' },
+  berberine: { name: 'Berberine HCl', slug: 'berberine' },
+  urolithina: { name: 'Urolithin A', slug: 'urolithina' },
+  fisetin: { name: 'Fisetin', slug: 'fisetin' },
+  coq10: { name: 'CoQ10 (Ubiquinol)', slug: 'coq10' },
+  omega3: { name: 'Omega-3 EPA+DHA', slug: 'omega3' },
 };
+
+/** NR alternative shop card when user chose NR over NMN */
+export function getNrAlternativeShopItem(): StackShopItem | null {
+  const guide = getBuyerGuide('nr');
+  if (!guide) return null;
+
+  return {
+    compoundId: 'nr',
+    compoundName: 'NR (Nicotinamide Riboside)',
+    dose: guide.doseAnchors[0]?.dose ?? '300–1000 mg/day',
+    timing: 'AM',
+    buyerGuide: guide,
+    moduleHref: '/library/compounds/nr',
+    compareHref: '/library/compare/nmn-vs-nr',
+    priority: 'optional',
+    productPick: getProductPick('nr'),
+  };
+}
 
 /** Map active stack IDs to shop intelligence — no affiliate URLs, buyer-guide driven */
 export function getStackShopItems(compoundIds: string[]): StackShopItem[] {
@@ -34,8 +60,16 @@ export function getStackShopItems(compoundIds: string[]): StackShopItem[] {
 
       const guide = getBuyerGuide(id);
       const dose = guide?.doseAnchors[0]?.dose ?? 'See module';
-      const timing =
-        id === 'resveratrol' ? 'PM with fat meal' : id === 'nmn' ? 'AM fasted' : 'AM';
+      const timingMap: Record<string, string> = {
+        resveratrol: 'PM with fat meal',
+        nmn: 'AM fasted',
+        berberine: 'TID with meals',
+        omega3: 'AM/PM with fat meal',
+        coq10: 'AM with fat meal',
+        pterostilbene: 'AM with food',
+        fisetin: 'Pulse-dose (see doseNote)',
+      };
+      const timing = timingMap[id] ?? 'AM';
 
       return {
         compoundId: id,
@@ -56,9 +90,22 @@ export function getStackShopItems(compoundIds: string[]): StackShopItem[] {
     .filter(Boolean) as StackShopItem[];
 }
 
+/** Shop items for ?stack=nr deep link or NR-only verification */
+export function getNrShopItems(): StackShopItem[] {
+  const nr = getNrAlternativeShopItem();
+  return nr ? [nr] : [];
+}
+
+/** Canonical commerce language — import everywhere; do not contradict elsewhere */
+export const commerceDisclosure = {
+  headline: 'TNiC earns $0 from product links',
+  body: 'TNiC does not sell supplements or hold inventory. Verified picks link directly to manufacturer websites — always request batch COA before purchase.',
+  policy:
+    'No Amazon affiliate CTAs. Any future commercial relationship would be disclosed per product before activation.',
+};
+
 export const shopDisclosure = {
   title: 'Zero inventory conflict',
-  body: 'TNiC does not sell supplements or hold inventory. Verified picks link directly to manufacturer websites — always request batch COA before purchase.',
-  affiliateNote:
-    'Product photos are served locally with illustrated fallbacks. Clicking a pick opens the brand site in a new tab. Affiliate relationships, if added later, will be disclosed per product.',
+  body: commerceDisclosure.body,
+  affiliateNote: `${commerceDisclosure.headline}. ${commerceDisclosure.policy}`,
 };

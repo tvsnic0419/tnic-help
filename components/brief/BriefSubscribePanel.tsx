@@ -1,15 +1,20 @@
 'use client';
+/* eslint-disable react-hooks/set-state-in-effect --
+   The mount/URL-driven effect(s) below set state from client-only sources
+   (localStorage, window, or URL search params) or trigger entrance animations.
+   These cannot run during SSR, so the initial setState is intentional and not a
+   value derivable during render. Reviewed 2026-06-21; safe to keep. */
 
 import { Suspense, useEffect, useState } from 'react';
 import Link from 'next/link';
 import { useSearchParams } from 'next/navigation';
-import { Mail, Bell, CheckCircle2, X, Rss } from 'lucide-react';
+import { Mail, Bell, CheckCircle2, X, Rss, AlertCircle } from 'lucide-react';
 import { SITE } from '@/lib/site';
 import {
   getBriefSubscription,
-  saveBriefSubscription,
   clearBriefSubscription,
 } from '@/lib/brief-subscribe';
+import { submitBriefSubscription } from '@/lib/brief-subscribe-client';
 
 function BriefSubscribePanelInner() {
   const searchParams = useSearchParams();
@@ -20,6 +25,7 @@ function BriefSubscribePanelInner() {
   const [loading, setLoading] = useState(false);
   const [unsubNotice, setUnsubNotice] = useState<string | null>(null);
   const [welcomeSent, setWelcomeSent] = useState(false);
+  const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
     const record = getBriefSubscription();
@@ -56,41 +62,35 @@ function BriefSubscribePanelInner() {
 
     setLoading(true);
     setUnsubNotice(null);
-    saveBriefSubscription(email.trim());
+    setError(null);
 
-    try {
-      const res = await fetch('/api/brief/subscribe', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ email: email.trim() }),
-      });
-      const data = await res.json();
-      if (data.ok) {
-        const mode = data.mode === 'resend' || data.mode === 'webhook' ? data.mode : 'feed';
-        setDeliveryMode(mode);
-        setWelcomeSent(Boolean(data.welcomeSent));
-        setSubscribed(true);
-        setSavedEmail(email.trim());
-        setLoading(false);
-        return;
-      }
-    } catch {
-      /* fallback below */
+    const result = await submitBriefSubscription(email.trim());
+    setLoading(false);
+
+    if (result.ok) {
+      setDeliveryMode(result.mode ?? 'feed');
+      setWelcomeSent(Boolean(result.welcomeSent));
+      setSubscribed(true);
+      setSavedEmail(email.trim());
+      if (result.message) setUnsubNotice(result.message);
+      return;
     }
 
-    setDeliveryMode('feed');
-    setSubscribed(true);
-    setSavedEmail(email.trim());
-    setLoading(false);
+    setError(result.error ?? 'Subscription failed.');
   };
 
   const unsubscribe = () => {
-    clearBriefSubscription();
+    const cleared = clearBriefSubscription();
     setSubscribed(false);
     setSavedEmail(null);
     setEmail('');
     setDeliveryMode(null);
-    setUnsubNotice('Local preference cleared — use the email unsubscribe link to leave the Resend list.');
+    setError(null);
+    setUnsubNotice(
+      cleared
+        ? 'Local preference cleared — use the email unsubscribe link to leave the Resend list.'
+        : 'Could not clear local preference — check browser storage settings.',
+    );
   };
 
   return (
@@ -175,7 +175,14 @@ function BriefSubscribePanelInner() {
           </button>
         </div>
       ) : (
-        <form onSubmit={subscribe} className="flex flex-col sm:flex-row gap-3 max-w-lg">
+        <form onSubmit={subscribe} className="flex flex-col gap-2 max-w-lg">
+          {error && (
+            <p role="alert" className="flex items-center gap-1.5 text-xs text-accent-rose">
+              <AlertCircle className="w-3.5 h-3.5 shrink-0" />
+              {error}
+            </p>
+          )}
+          <div className="flex flex-col sm:flex-row gap-3">
           <div className="relative flex-1">
             <Mail className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
             <input
@@ -196,6 +203,7 @@ function BriefSubscribePanelInner() {
             <Bell className="w-4 h-4" />
             {loading ? 'Subscribing…' : 'Subscribe'}
           </button>
+          </div>
         </form>
       )}
     </section>

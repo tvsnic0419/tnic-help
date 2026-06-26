@@ -12,6 +12,7 @@ import {
   supplementRedFlags,
 } from '@/lib/data';
 import { usePlatform } from '@/context/PlatformContext';
+import { getHubContext } from '@/lib/hub-context';
 
 const tabs = [
   { id: 'start', label: 'Start Here', icon: MapPin },
@@ -50,6 +51,8 @@ export function LearnCenter({ defaultTab }: { defaultTab?: TabId }) {
       badge="Consumer Intelligence"
       title="Learn Before You Stack"
       subtitle="Intelligent consumers ask hard questions. TNiC answers them openly — from first-time basics to supplement industry red flags. Quick answers also live at /faq."
+      context={getHubContext('learn')}
+      mesh
       className="bg-background"
     >
       <div className="flex flex-wrap gap-2 mb-10">

@@ -16,6 +16,7 @@ export default function JourneyPage() {
       eyebrow="Trust · Journey"
       title="Personal Journey Timeline"
       description="Real protocol evolution with honest N=1 vs. population science labeling. Plus a template for tracking your own longevity journey."
+      pageKey="journey"
     >
       <DisclaimerBanner disclaimer={disclaimers[2]} showAppliesTo />
       <section className="mt-10 mb-12">

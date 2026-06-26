@@ -1,6 +1,12 @@
 'use client';
+/* eslint-disable react-hooks/set-state-in-effect --
+   The mount/URL-driven effect(s) below set state from client-only sources
+   (localStorage, window, or URL search params) or trigger entrance animations.
+   These cannot run during SSR, so the initial setState is intentional and not a
+   value derivable during render. Reviewed 2026-06-21; safe to keep. */
 
-import { useMemo, useState } from 'react';
+import { useMemo, useState, useEffect } from 'react';
+import { useSearchParams } from 'next/navigation';
 import { motion } from 'framer-motion';
 import { FlaskConical, LineChart, Lightbulb, Dna, Shield, Download, FileJson } from 'lucide-react';
 import { exportLabsPartnerJsonString } from '@/lib/lab-partner-export';
@@ -19,6 +25,7 @@ import { LabRecommendations } from './LabRecommendations';
 import { PrivacyPanel } from './PrivacyPanel';
 import { ToolsPromoStrip } from '@/components/tools/ToolsPromoStrip';
 import { LabPartnerPanel } from './LabPartnerPanel';
+import { getHubContext } from '@/lib/hub-context';
 
 type Tab = 'input' | 'trends' | 'risk' | 'insights' | 'privacy';
 
@@ -32,7 +39,17 @@ const tabs = [
 
 export function LabHub() {
   const { labs, selected, exportLabsCsv } = usePlatform();
-  const [tab, setTab] = useState<Tab>('input');
+  const searchParams = useSearchParams();
+  const tabParam = searchParams.get('tab');
+  const initialTab =
+    tabParam && tabs.some((t) => t.id === tabParam) ? (tabParam as Tab) : 'input';
+  const [tab, setTab] = useState<Tab>(initialTab);
+
+  useEffect(() => {
+    if (tabParam && tabs.some((t) => t.id === tabParam)) {
+      setTab(tabParam as Tab);
+    }
+  }, [tabParam]);
 
   const analysis = useMemo(() => analyzeLabs(labs, selected), [labs, selected]);
 
@@ -65,6 +82,7 @@ export function LabHub() {
         title="Your Biomarkers. Your Data. Your Insights."
         description="Log lab results, visualize trends, map risks to the 12 Hallmarks of Aging, and get stack-aware recommendations — all processed locally in your browser."
         theme="rose"
+        context={getHubContext('labs')}
       />
 
       {analysis.markersTracked > 0 && (

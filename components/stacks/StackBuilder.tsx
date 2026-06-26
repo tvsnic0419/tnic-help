@@ -29,6 +29,9 @@ const COMPOUND_LIBRARY_HREF: Record<string, string> = {
   rapamycin: '/library/compounds/rapamycin',
   rala: '/library/compounds/rala',
   cakg: '/library/compounds/cakg',
+  taurine: '/library/compounds/taurine',
+  spermidine: '/library/compounds/spermidine',
+  pterostilbene: '/library/compounds/pterostilbene',
 };
 
 interface StackBuilderProps {
