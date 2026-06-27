@@ -70,7 +70,7 @@ export const seoRoutes = {
     buildPageMetadata({
       title: 'Protocol Shop — Verify Before You Buy',
       description:
-        'Stack-filtered supplement verification checklists: COA requirements, clinical trial dose ranges, red flags to reject, and form-specific bioavailability data. TNiC earns $0 from product placement.',
+        'Stack-filtered supplement verification checklists: COA requirements, clinical trial dose ranges, red flags to reject, and form-specific bioavailability data. Affiliate links disclosed — commission never influences listings.',
       path: '/shop',
       keywords: ['supplement buyer guide', 'protocol shop', 'NMN COA', 'supplement verification'],
     }),
@@ -79,7 +79,7 @@ export const seoRoutes = {
     buildPageMetadata({
       title: 'Recommended Products — Verified Supplement Picks',
       description:
-        'One evidence-aligned product per compound, linked directly to the manufacturer. TNiC earns $0 from sales — pure buyer intelligence, zero conflict.',
+        'One evidence-aligned product per compound. TNiC may earn a commission on purchases via affiliate links — no extra cost to you, and commission never influences product selection.',
       path: '/products',
       keywords: [
         'recommended longevity supplements',

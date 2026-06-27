@@ -16,7 +16,7 @@ const libraryOnlyCompounds = compounds.filter((c) => !PRODUCT_PICKS[c.id]);
 function ProductCard({ pick }: { pick: ProductPick }) {
   return (
     <a
-      href={pick.purchaseUrl}
+      href={`/api/go/${pick.compoundId}`}
       target="_blank"
       rel="noopener noreferrer sponsored"
       className="group card-premium glow-hover-emerald rounded-2xl border border-border/80 overflow-hidden flex flex-col focus-ring h-full"
@@ -74,7 +74,7 @@ export function ProductsHub() {
         icon={Package}
         eyebrow="Verified Picks"
         title="Recommended Products"
-        description="One evidence-aligned product per compound, linked directly to the manufacturer. TNiC earns $0 from sales — pure buyer intelligence, zero conflict."
+        description="One evidence-aligned product per compound. TNiC may earn a commission on purchases — it never influences which products are listed or their evidence tier."
         theme="emerald"
         align="left"
         context={getHubContext('products')}
@@ -83,8 +83,10 @@ export function ProductsHub() {
       <div className="rounded-xl border border-accent-amber/25 bg-accent-amber/5 p-4 mb-10 flex gap-3 text-sm">
         <ShieldCheck className="w-5 h-5 text-accent-amber shrink-0 mt-0.5" />
         <p className="text-muted-foreground leading-relaxed">
-          <strong className="text-foreground">Zero inventory conflict.</strong> TNiC does not sell,
-          stock, or receive commission on any product listed here. Always request a{' '}
+          <strong className="text-foreground">Zero inventory conflict.</strong> TNiC does not sell or
+          stock supplements. Picks link to manufacturers and may include an affiliate token —{' '}
+          <strong className="text-foreground">no extra cost to you</strong>, and commission never
+          influences listings or evidence tiers. Always request a{' '}
           <strong className="text-foreground">Certificate of Analysis (COA)</strong> before purchasing.
         </p>
       </div>

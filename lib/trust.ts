@@ -383,7 +383,7 @@ export const methodologySections = [
     title: 'Conflict of Interest Policy',
     steps: [
       { step: '01', title: 'No Pay-for-Placement', desc: 'Brands cannot purchase inclusion or tier upgrades.' },
-      { step: '02', title: 'Zero Commission', desc: 'TNiC earns $0 from product links. Manufacturer-direct picks only — never affiliate CTAs on evidence surfaces.' },
+      { step: '02', title: 'Transparent Affiliate', desc: 'TNiC may earn a commission on verified picks via affiliate links — disclosed here and at point of purchase. Commission never influences product selection, evidence tiers, or buyer-guide criteria.' },
       { step: '03', title: 'No Proprietary Products', desc: 'TNiC does not manufacture supplements. Independent curation only.' },
     ],
   },

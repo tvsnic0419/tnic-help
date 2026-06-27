@@ -1140,7 +1140,7 @@ export const selectionCriteria = [
 
 export const transparencyPledge = [
   { title: 'No Pay-for-Placement', desc: 'Brands cannot pay for inclusion. Compounds earn placement through evidence grading only.' },
-  { title: 'Zero Commission', desc: 'TNiC earns $0 from every product link. Verified picks go to manufacturer sites only — never Amazon affiliate CTAs.' },
+  { title: 'Transparent Affiliate', desc: 'TNiC may earn a commission on verified picks via affiliate links — disclosed at every point of purchase. Commission never influences product selection or evidence tiers.' },
   { title: 'Not Medical Advice', desc: 'TNiC is an educational intelligence platform. Always consult your physician before starting any protocol.' },
   { title: 'Limitations Stated', desc: 'Biomarker projections and biological age estimates are modeled — not lab diagnostics. We say so clearly.' },
   { title: 'Evidence Updates', desc: 'When new trials publish, evidence tiers are re-evaluated. Outdated recommendations are revised publicly.' },
@@ -1308,7 +1308,7 @@ export const consumerFAQ = [
     id: 'faq4',
     category: 'products' as const,
     question: 'Does TNiC sell its own supplements?',
-    answer: 'No. TNiC is an independent intelligence platform. We curate third-party products that meet our evidence and bioavailability standards. TNiC earns $0 from sales — verified picks link to manufacturer sites only, with batch COA guidance.',
+    answer: 'No. TNiC is an independent intelligence platform. We curate third-party products that meet our evidence and bioavailability standards. Picks link to manufacturer sites and may include an affiliate token — TNiC may earn a commission on purchases at no extra cost to you. Commission never influences which products are listed or their evidence tier.',
   },
   {
     id: 'faq5',

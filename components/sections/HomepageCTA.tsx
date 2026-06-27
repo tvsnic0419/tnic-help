@@ -37,7 +37,7 @@ const basePaths = [
   {
     icon: ShoppingBag,
     title: 'Verify at Protocol Shop',
-    desc: 'Stack-filtered COA checklists and red flags — TNiC earns $0 from products.',
+    desc: 'Stack-filtered COA checklists and red flags — affiliate links disclosed, commission never influences listings.',
     href: '/shop',
     cta: 'Open Shop',
     accent: 'amber' as AccentKey,
