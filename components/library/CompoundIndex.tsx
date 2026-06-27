@@ -6,7 +6,7 @@ import Link from 'next/link';
 import { Search, ArrowRight } from 'lucide-react';
 import { compounds } from '@/lib/data';
 import { hallmarkLibrary } from '@/lib/hallmarks-library';
-import { getHallmarkVisual } from '@/lib/hallmark-visuals';
+
 import { EvidenceTag } from '@/components/trust/EvidenceTag';
 import { HallmarkIcon } from './HallmarkIcon';
 import { PageHeader } from '@/components/ui/PageHeader';
@@ -66,14 +66,11 @@ function CompoundCard({ compound, index }: { compound: (typeof compounds)[0]; in
 
         {/* Hallmark icons */}
         <div className="flex items-center gap-1.5 mb-4">
-          {coveredHallmarks.slice(0, 6).map((h) => {
-            const meta = getHallmarkVisual(h.visual);
-            return (
-              <div key={h.id} title={h.title}>
-                <HallmarkIcon type={h.visual} size={18} ring={false} />
-              </div>
-            );
-          })}
+          {coveredHallmarks.slice(0, 6).map((h) => (
+            <div key={h.id} title={h.title}>
+              <HallmarkIcon type={h.visual} size={18} ring={false} />
+            </div>
+          ))}
           {coveredHallmarks.length > 6 && (
             <span className="text-[9px] font-mono text-muted-foreground">
               +{coveredHallmarks.length - 6}

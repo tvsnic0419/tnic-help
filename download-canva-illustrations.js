@@ -1,5 +1,6 @@
 // download-canva-illustrations.js
 // Run with: node download-canva-illustrations.js
+/* eslint-disable @typescript-eslint/no-require-imports */
 
 const { exec } = require('child_process');
 

@@ -4,7 +4,6 @@ import { useState, useMemo } from 'react';
 import { Filter, ArrowRight } from 'lucide-react';
 import Link from 'next/link';
 import type { HallmarkIntervention } from '@/lib/types';
-import { compounds } from '@/lib/data';
 import { EvidenceTag } from '@/components/trust/EvidenceTag';
 import { PmidLink } from '@/components/trust/SourceCitation';
 

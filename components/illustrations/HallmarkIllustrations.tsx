@@ -20,11 +20,13 @@ function Base({
   id,
   accent,
   arrowFill = '#6b7280',
+  className = '',
   children,
 }: {
   id: string;
   accent: string;
   arrowFill?: string;
+  className?: string;
   children: React.ReactNode;
 }) {
   return (
@@ -33,7 +35,7 @@ function Base({
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
       role="img"
-      className="w-full h-full"
+      className={`w-full h-full${className ? ` ${className}` : ''}`}
     >
       <defs>
         <pattern id={`grid-${id}`} width="24" height="24" patternUnits="userSpaceOnUse">
@@ -67,9 +69,6 @@ const Lbl = ({ x, y, children, accent, dim }: { x: number; y: number; children: 
   <text x={x} y={y} textAnchor="middle" fill={accent ?? (dim ? '#4b5563' : '#9ca3af')} fontSize="9" fontFamily="ui-monospace,monospace">{children}</text>
 );
 
-const Node = ({ cx, cy, r, fill, stroke, opacity = 1 }: { cx: number; cy: number; r: number; fill: string; stroke?: string; opacity?: number }) => (
-  <circle cx={cx} cy={cy} r={r} fill={fill} stroke={stroke} strokeWidth={stroke ? 1.5 : 0} opacity={opacity} />
-);
 
 /* ══════════════════════════════════════
    1. GENOMIC INSTABILITY
@@ -117,7 +116,7 @@ export function GenomicInstability({ className = '' }: Props) {
   };
 
   return (
-    <Base id={id} accent={acc} arrowFill={acc}>
+    <Base id={id} accent={acc} arrowFill={acc} className={className}>
       {/* LEFT — damaged helix */}
       {helix(95, '#4b5563', true)}
       {/* Break site marker */}
@@ -155,23 +154,24 @@ export function GenomicInstability({ className = '' }: Props) {
    2. TELOMERE ATTRITION
    Accent: violet #a78bfa
 ══════════════════════════════════════ */
-export function TelomereAttrition({ className = '' }: Props) {
-  const acc = '#a78bfa';
-  const id = 'ta';
-  const Arm = ({ x, capLen, capColor, label }: { x: number; capLen: number; capColor: string; label: string }) => (
+function TelomereArm({ x, capLen, capColor, label }: { x: number; capLen: number; capColor: string; label: string }) {
+  return (
     <g>
       <rect x={x - 10} y={80} width={20} height={160} rx="10" fill="#1e293b" stroke="#374151" strokeWidth="1.5" />
-      {/* Cap top */}
       <rect x={x - 12} y={80 - capLen} width={24} height={capLen} rx="4" fill={capColor} opacity="0.8" />
-      {/* Cap bottom */}
       <rect x={x - 12} y={240} width={24} height={capLen} rx="4" fill={capColor} opacity="0.8" />
       <Lbl x={x} y={80 - capLen - 8} accent={capColor}>{label}</Lbl>
     </g>
   );
+}
+
+export function TelomereAttrition({ className = '' }: Props) {
+  const acc = '#a78bfa';
+  const id = 'ta';
   return (
-    <Base id={id} accent={acc} arrowFill={acc}>
+    <Base id={id} accent={acc} arrowFill={acc} className={className}>
       {/* LEFT: short telomeres (critical) */}
-      <Arm x={85} capLen={8} capColor="#ef4444" label="critical" />
+      <TelomereArm x={85} capLen={8} capColor="#ef4444" label="critical" />
       <Lbl x={85} y={268} dim>2–5 kb</Lbl>
       <text x="85" y="258" textAnchor="middle" fill="#ef4444" fontSize="8" fontFamily="ui-monospace,monospace" opacity="0.8">p53/p21 ↑</text>
 
@@ -186,7 +186,7 @@ export function TelomereAttrition({ className = '' }: Props) {
       <line x1="225" y1="200" x2="260" y2="180" stroke={acc} strokeWidth="1" markerEnd={`url(#arr-acc-${id})`} opacity="0.7" />
 
       {/* RIGHT: longer telomeres */}
-      <Arm x={315} capLen={28} capColor={acc} label="protected" />
+      <TelomereArm x={315} capLen={28} capColor={acc} label="protected" />
       {/* TERT glow */}
       <circle cx="315" cy="66" r="18" fill={acc} opacity="0.1" filter={`url(#glow-${id})`} />
       <Lbl x={315} y={268} accent={acc}>10–15 kb</Lbl>
@@ -204,33 +204,32 @@ export function TelomereAttrition({ className = '' }: Props) {
    3. EPIGENETIC ALTERATIONS
    Accent: emerald #34d399
 ══════════════════════════════════════ */
+function EpigeneticNucleosome({ cx, cy, ordered, accent }: { cx: number; cy: number; ordered: boolean; accent: string }) {
+  const markPositions = ordered
+    ? [[-18, -8], [-8, -16], [8, -16], [18, -8], [18, 8], [8, 16], [-8, 16], [-18, 8]]
+    : [[-22, 0], [-14, -18], [5, -20], [18, -5], [20, 10], [4, 20], [-16, 14], [-20, -12]];
+  return (
+    <g>
+      <circle cx={cx} cy={cy} r="22" fill="#0f172a" stroke={ordered ? accent : '#374151'} strokeWidth="2" opacity={ordered ? 0.9 : 0.6} />
+      <circle cx={cx} cy={cy} r="14" fill={ordered ? accent : '#1f2937'} opacity={ordered ? 0.15 : 0.3} />
+      <text x={cx} y={cy + 4} textAnchor="middle" fill={ordered ? accent : '#6b7280'} fontSize="8" fontFamily="ui-monospace,monospace">H3K4</text>
+      {markPositions.map(([dx, dy], i) => (
+        <circle key={i} cx={cx + dx} cy={cy + dy} r="3.5"
+          fill={ordered ? accent : (i % 3 === 0 ? '#ef4444' : '#6b7280')}
+          opacity={ordered ? 0.75 : (i % 3 === 0 ? 0.7 : 0.4)}
+        />
+      ))}
+    </g>
+  );
+}
+
 export function EpigeneticAlterations({ className = '' }: Props) {
   const acc = '#34d399';
   const id = 'ea';
-  const Nucleosome = ({ cx, cy, ordered, accent }: { cx: number; cy: number; ordered: boolean; accent: string }) => {
-    const markPositions = ordered
-      ? [[-18, -8], [-8, -16], [8, -16], [18, -8], [18, 8], [8, 16], [-8, 16], [-18, 8]]
-      : [[-22, 0], [-14, -18], [5, -20], [18, -5], [20, 10], [4, 20], [-16, 14], [-20, -12]];
-    return (
-      <g>
-        {/* DNA wrap path */}
-        <circle cx={cx} cy={cy} r="22" fill="#0f172a" stroke={ordered ? accent : '#374151'} strokeWidth="2" opacity={ordered ? 0.9 : 0.6} />
-        <circle cx={cx} cy={cy} r="14" fill={ordered ? accent : '#1f2937'} opacity={ordered ? 0.15 : 0.3} />
-        <text x={cx} y={cy + 4} textAnchor="middle" fill={ordered ? accent : '#6b7280'} fontSize="8" fontFamily="ui-monospace,monospace">H3K4</text>
-        {/* Methylation marks */}
-        {markPositions.map(([dx, dy], i) => (
-          <circle key={i} cx={cx + dx} cy={cy + dy} r="3.5"
-            fill={ordered ? accent : (i % 3 === 0 ? '#ef4444' : '#6b7280')}
-            opacity={ordered ? 0.75 : (i % 3 === 0 ? 0.7 : 0.4)}
-          />
-        ))}
-      </g>
-    );
-  };
   return (
-    <Base id={id} accent={acc} arrowFill={acc}>
+    <Base id={id} accent={acc} arrowFill={acc} className={className}>
       {/* LEFT: disordered nucleosome */}
-      <Nucleosome cx={90} cy={155} ordered={false} accent={acc} />
+      <EpigeneticNucleosome cx={90} cy={155} ordered={false} accent={acc} />
       <Lbl x={90} y={200} dim>Drifting 5mC</Lbl>
       <circle cx="90" cy="102" r="5" fill="#ef4444" opacity="0.5" />
       <Lbl x={90} y={99} dim>DNMT3↓</Lbl>
@@ -244,7 +243,7 @@ export function EpigeneticAlterations({ className = '' }: Props) {
       <line x1="200" y1="108" x2="200" y2="118" stroke={acc} strokeWidth="1" markerEnd={`url(#arr-acc-${id})`} />
 
       {/* RIGHT: ordered nucleosome */}
-      <Nucleosome cx={310} cy={155} ordered={true} accent={acc} />
+      <EpigeneticNucleosome cx={310} cy={155} ordered={true} accent={acc} />
       <Lbl x={310} y={200} accent={acc}>Youthful pattern</Lbl>
       <circle cx="310" cy="155" r="30" fill={acc} opacity="0.05" filter={`url(#glow-${id})`} />
 
@@ -265,7 +264,7 @@ export function LossOfProteostasis({ className = '' }: Props) {
   const acc = '#fbbf24';
   const id = 'lp';
   return (
-    <Base id={id} accent={acc} arrowFill={acc}>
+    <Base id={id} accent={acc} arrowFill={acc} className={className}>
       {/* LEFT: misfolded protein aggregate */}
       <g opacity="0.7">
         {/* Tangled protein blobs */}
@@ -317,7 +316,7 @@ export function DisabledAutophagy({ className = '' }: Props) {
   const acc = '#f43f5e';
   const id = 'da';
   return (
-    <Base id={id} accent={acc} arrowFill={acc}>
+    <Base id={id} accent={acc} arrowFill={acc} className={className}>
       {/* LEFT: damaged organelles floating, no clearance */}
       {/* Damaged mitochondrion */}
       <ellipse cx="80" cy="120" rx="28" ry="14" fill="#1f2937" stroke="#4b5563" strokeWidth="1.5" />
@@ -368,7 +367,7 @@ export function MitochondrialDysfunction({ className = '' }: Props) {
   const acc = '#22d3ee';
   const id = 'md';
   return (
-    <Base id={id} accent={acc} arrowFill={acc}>
+    <Base id={id} accent={acc} arrowFill={acc} className={className}>
       {/* LEFT: fragmented mitochondria with ROS leak */}
       {/* Fragmented mito 1 */}
       <ellipse cx="75" cy="115" rx="30" ry="14" fill="#1f2937" stroke="#4b5563" strokeWidth="1.5" />
@@ -422,7 +421,7 @@ export function CellularSenescence({ className = '' }: Props) {
   const acc = '#fbbf24';
   const id = 'cs';
   return (
-    <Base id={id} accent={acc} arrowFill={acc}>
+    <Base id={id} accent={acc} arrowFill={acc} className={className}>
       {/* LEFT: large flat senescent cell */}
       <ellipse cx="90" cy="160" rx="65" ry="48" fill="#1a1207" stroke="#92400e" strokeWidth="1.5" opacity="0.85" />
       {/* Irregular nucleus */}
@@ -472,7 +471,7 @@ export function StemCellExhaustion({ className = '' }: Props) {
   const acc = '#34d399';
   const id = 'sce';
   return (
-    <Base id={id} accent={acc} arrowFill={acc}>
+    <Base id={id} accent={acc} arrowFill={acc} className={className}>
       {/* LEFT: depleted niche (mostly empty wells) */}
       {/* Niche scaffold */}
       <rect x="30" y="100" width="140" height="150" rx="12" fill="#0a0f0a" stroke="#1f2937" strokeWidth="1.5" opacity="0.8" />
@@ -527,7 +526,7 @@ export function AlteredIntercellularCommunication({ className = '' }: Props) {
   const acc = '#a78bfa';
   const id = 'aic';
   return (
-    <Base id={id} accent={acc} arrowFill={acc}>
+    <Base id={id} accent={acc} arrowFill={acc} className={className}>
       {/* LEFT: chaotic signaling */}
       {/* Three cells */}
       {[[65, 100], [95, 175], [55, 225]].map(([x, y], i) => (
@@ -577,7 +576,7 @@ export function ChronicInflammation({ className = '' }: Props) {
   const acc = '#f43f5e';
   const id = 'ci';
   return (
-    <Base id={id} accent={acc} arrowFill={acc}>
+    <Base id={id} accent={acc} arrowFill={acc} className={className}>
       {/* LEFT: NLRP3 inflammasome */}
       {/* Inflammasome complex */}
       <circle cx="90" cy="145" r="35" fill="#200000" stroke="#b91c1c" strokeWidth="1.5" opacity="0.9" />
@@ -621,44 +620,44 @@ export function ChronicInflammation({ className = '' }: Props) {
    11. DYSBIOSIS
    Accent: emerald #34d399
 ══════════════════════════════════════ */
+function DysbiosisGutWall({ x, leaky, accent }: { x: number; leaky: boolean; accent: string }) {
+  const color = leaky ? '#374151' : accent;
+  return (
+    <g>
+      {/* Villi */}
+      {[x, x + 22, x + 44, x + 66, x + 88].map((vx, i) => (
+        <g key={i}>
+          <rect x={vx + 2} y={90 - (i % 2 === 0 ? 20 : 10)} width="18" height={i % 2 === 0 ? 45 : 35}
+            rx="8" fill={leaky ? '#1a1a1a' : '#061a10'} stroke={color} strokeWidth="1.2" opacity="0.85" />
+          {leaky && i % 2 === 0 && (
+            <line x1={vx + 11} y1={90} x2={vx + 11} y2={110} stroke="#ef4444" strokeWidth="1.5" strokeDasharray="2 2" opacity="0.6" />
+          )}
+        </g>
+      ))}
+      {/* Epithelial layer */}
+      <rect x={x} y={110} width={110} height={18} rx="3" fill={leaky ? '#0f0f0f' : '#061a10'} stroke={color} strokeWidth={leaky ? 1 : 2} />
+      {/* Tight junctions (intact or broken) */}
+      {[0, 1, 2, 3].map((i) => (
+        <line key={i} x1={x + 18 + i * 25} y1={110} x2={x + 18 + i * 25} y2={128}
+          stroke={leaky && i % 2 === 0 ? '#ef4444' : color}
+          strokeWidth={leaky && i % 2 === 0 ? 1 : 1.5}
+          strokeDasharray={leaky && i % 2 === 0 ? '2 3' : undefined}
+          opacity={leaky && i % 2 === 0 ? 0.5 : 0.8}
+        />
+      ))}
+      {/* Mucus layer */}
+      <rect x={x} y={128} width={110} height={14} rx="3" fill={leaky ? '#0a0a00' : '#061a10'} stroke={leaky ? '#4b5563' : accent} strokeWidth="1" opacity={leaky ? 0.4 : 0.7} />
+    </g>
+  );
+}
+
 export function Dysbiosis({ className = '' }: Props) {
   const acc = '#34d399';
   const id = 'dysbio';
-  const GutWall = ({ x, leaky, accent }: { x: number; leaky: boolean; accent: string }) => {
-    const color = leaky ? '#374151' : accent;
-    return (
-      <g>
-        {/* Villi */}
-        {[x, x + 22, x + 44, x + 66, x + 88].map((vx, i) => (
-          <g key={i}>
-            <rect x={vx + 2} y={90 - (i % 2 === 0 ? 20 : 10)} width="18" height={i % 2 === 0 ? 45 : 35}
-              rx="8" fill={leaky ? '#1a1a1a' : '#061a10'} stroke={color} strokeWidth="1.2" opacity="0.85" />
-            {leaky && i % 2 === 0 && (
-              <line x1={vx + 11} y1={90} x2={vx + 11} y2={110} stroke="#ef4444" strokeWidth="1.5" strokeDasharray="2 2" opacity="0.6" />
-            )}
-          </g>
-        ))}
-        {/* Epithelial layer */}
-        <rect x={x} y={110} width={110} height={18} rx="3" fill={leaky ? '#0f0f0f' : '#061a10'} stroke={color} strokeWidth={leaky ? 1 : 2} />
-        {/* Tight junctions (intact or broken) */}
-        {[0, 1, 2, 3].map((i) => (
-          <line key={i} x1={x + 18 + i * 25} y1={110} x2={x + 18 + i * 25} y2={128}
-            stroke={leaky && i % 2 === 0 ? '#ef4444' : color}
-            strokeWidth={leaky && i % 2 === 0 ? 1 : 1.5}
-            strokeDasharray={leaky && i % 2 === 0 ? '2 3' : undefined}
-            opacity={leaky && i % 2 === 0 ? 0.5 : 0.8}
-          />
-        ))}
-        {/* Mucus layer */}
-        <rect x={x} y={128} width={110} height={14} rx="3" fill={leaky ? '#0a0a00' : '#061a10'} stroke={leaky ? '#4b5563' : acc} strokeWidth="1" opacity={leaky ? 0.4 : 0.7} />
-      </g>
-    );
-  };
-
   return (
-    <Base id={id} accent={acc} arrowFill={acc}>
+    <Base id={id} accent={acc} arrowFill={acc} className={className}>
       {/* LEFT: leaky gut */}
-      <GutWall x={30} leaky={true} accent={acc} />
+      <DysbiosisGutWall x={30} leaky={true} accent={acc} />
       {/* LPS translocation */}
       {[[60, 155], [85, 160], [100, 165], [50, 165]].map(([x, y], i) => (
         <circle key={i} cx={x} cy={y} r="3.5" fill="#ef4444" opacity="0.5" />
@@ -679,7 +678,7 @@ export function Dysbiosis({ className = '' }: Props) {
       <text x="200" y="215" textAnchor="middle" fill="#6b7280" fontSize="8" fontFamily="ui-monospace,monospace">Akkermansia ✓</text>
 
       {/* RIGHT: intact gut */}
-      <GutWall x={232} leaky={false} accent={acc} />
+      <DysbiosisGutWall x={232} leaky={false} accent={acc} />
       {/* SCFA production */}
       {[[255, 160], [280, 165], [305, 162], [328, 158]].map(([x, y], i) => (
         <circle key={i} cx={x} cy={y} r="4" fill={acc} opacity={0.3 + i * 0.1} />
@@ -705,7 +704,7 @@ export function DisabledMacroautophagy({ className = '' }: Props) {
   const acc = '#fbbf24';
   const id = 'dma';
   return (
-    <Base id={id} accent={acc} arrowFill={acc}>
+    <Base id={id} accent={acc} arrowFill={acc} className={className}>
       {/* LEFT: mTOR dominant, AMPK suppressed */}
       {/* mTOR overactive (large glowing) */}
       <circle cx="90" cy="140" r="48" fill="#1a0a00" stroke="#d97706" strokeWidth="2" opacity="0.9" />

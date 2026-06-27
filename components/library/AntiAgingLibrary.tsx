@@ -7,7 +7,7 @@ import { Search, ArrowRight, Library, Network } from 'lucide-react';
 import { hallmarkLibrary } from '@/lib/hallmarks-library';
 import { PageHeader } from '@/components/ui/PageHeader';
 import { HallmarkIllustration, HallmarkIllustrationThumb } from '@/components/illustrations/HallmarkIllustration';
-import { HallmarkVisual } from './HallmarkVisual';
+
 import { InterventionExplorer } from './InterventionExplorer';
 import { HallmarkNotesPanel } from './HallmarkNotesPanel';
 import { usePlatform } from '@/context/PlatformContext';

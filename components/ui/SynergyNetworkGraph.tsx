@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useId, useEffect, useRef } from 'react';
+import { useState, useId, useRef, useSyncExternalStore } from 'react';
 import Link from 'next/link';
 import { ExternalLink } from 'lucide-react';
 
@@ -111,11 +111,9 @@ function getTierBadgeColor(tier: 'A' | 'B') {
 
 export function SynergyNetworkGraph() {
   const [hovered, setHovered] = useState<string | null>(null);
-  const [mounted, setMounted] = useState(false);
   const uid = useId().replace(/:/g, 's');
   const svgRef = useRef<SVGSVGElement>(null);
-
-  useEffect(() => { setMounted(true); }, []);
+  const mounted = useSyncExternalStore(() => () => {}, () => true, () => false);
 
   const nodeMap = Object.fromEntries(NODES.map(n => [n.id, n]));
 
@@ -195,11 +193,6 @@ export function SynergyNetworkGraph() {
           const isStrong = edge.strength === 'strong';
 
           const aColor = PATHWAY_COLOR[a.pathway];
-          const bColor = PATHWAY_COLOR[b.pathway];
-
-          // Midpoint for label positioning
-          const mx = (a.x + b.x) / 2;
-          const my = (a.y + b.y) / 2;
 
           return (
             <g key={`${edge.a}-${edge.b}`}>
@@ -238,7 +231,6 @@ export function SynergyNetworkGraph() {
           const isActive = hovered === node.id;
 
           const lx = node.x + (node.labelDx ?? 0);
-          const ly = node.y + (node.labelDy ?? (node.labelAnchor === 'middle' ? 0 : 0));
           const labelBaseline = node.labelAnchor === 'middle'
             ? (node.labelDy && node.labelDy < 0 ? node.y + node.labelDy - 6 : node.y + (node.labelDy ?? 0) + 6)
             : node.y + 4;

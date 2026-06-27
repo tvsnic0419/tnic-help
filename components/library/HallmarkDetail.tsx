@@ -4,7 +4,7 @@ import { motion } from 'framer-motion';
 import { ArrowLeft, BookOpen, Network } from 'lucide-react';
 import Link from 'next/link';
 import type { HallmarkLibraryEntry } from '@/lib/types';
-import { HallmarkIllustration } from '@/components/illustrations/HallmarkIllustration';
+import { HallmarkVisual } from './HallmarkVisual';
 import { InterventionExplorer } from './InterventionExplorer';
 import { HallmarkNotesPanel } from './HallmarkNotesPanel';
 import { MdxRenderer } from './MdxRenderer';
@@ -16,7 +16,7 @@ import { HALLMARK_VISUALS } from '@/components/illustrations/HallmarkVisuals';
 export function HallmarkDetail({
   hallmark,
   mdxBody,
-  illustrationSrc,
+  illustrationSrc: _illustrationSrc,
 }: {
   hallmark: HallmarkLibraryEntry;
   mdxBody: string | null;

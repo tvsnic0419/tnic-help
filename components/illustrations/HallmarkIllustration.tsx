@@ -40,7 +40,6 @@ const VARIANT_CLASSES: Record<IllustrationVariant, string> = {
 
 export function HallmarkIllustration({
   visual,
-  slug,
   coverage,
   number,
   variant = 'card',
