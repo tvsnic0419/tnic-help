@@ -93,6 +93,16 @@ export function AntiAgingLibrary({ asPageTitle = false }: AntiAgingLibraryProps)
               {filtered.map((h) => {
                 const hasNotes = !!hallmarkNotes[h.id]?.notes;
                 const isActive = selected === h.id;
+                const coverageColor =
+                  h.coverage >= 70
+                    ? 'var(--accent-emerald)'
+                    : h.coverage >= 40
+                    ? 'var(--accent-cyan)'
+                    : 'var(--accent-amber)';
+                const arcPct = h.coverage / 100;
+                const r = 14;
+                const circ = Math.PI * r; // semicircle circumference
+                const dashOffset = circ * (1 - arcPct);
                 return (
                   <button
                     key={h.id}
@@ -105,10 +115,49 @@ export function AntiAgingLibrary({ asPageTitle = false }: AntiAgingLibraryProps)
                         : 'glass glass-hover'
                     }`}
                   >
-                    <span className="text-label">#{h.number}</span>
-                    <h3 className="heading-card mt-1 leading-snug">{h.title}</h3>
+                    <div className="flex items-start justify-between gap-2">
+                      <div className="flex-1 min-w-0">
+                        <span className="text-label">#{h.number}</span>
+                        <h3 className="heading-card mt-1 leading-snug">{h.title}</h3>
+                      </div>
+                      {/* Mini coverage arc */}
+                      <svg
+                        width="38" height="22"
+                        viewBox="0 0 38 22"
+                        aria-label={`${h.coverage}% coverage`}
+                        className="shrink-0 mt-0.5"
+                      >
+                        <path
+                          d={`M 5,19 A ${r},${r} 0 0,1 33,19`}
+                          fill="none"
+                          stroke="currentColor"
+                          strokeOpacity="0.12"
+                          strokeWidth="3.5"
+                          strokeLinecap="round"
+                        />
+                        <path
+                          d={`M 5,19 A ${r},${r} 0 0,1 33,19`}
+                          fill="none"
+                          stroke={coverageColor}
+                          strokeWidth="3.5"
+                          strokeLinecap="round"
+                          strokeDasharray={`${circ}`}
+                          strokeDashoffset={`${dashOffset}`}
+                        />
+                        <text
+                          x="19" y="16"
+                          textAnchor="middle"
+                          fontSize="7"
+                          fontFamily="monospace"
+                          fill={coverageColor}
+                          fontWeight="700"
+                        >
+                          {h.coverage}
+                        </text>
+                      </svg>
+                    </div>
                     <div className="flex items-center justify-between mt-2">
-                      <span className="text-label text-accent-cyan">{h.coverage}% coverage</span>
+                      <span className="text-label" style={{ color: coverageColor }}>{h.coverage}% covered</span>
                       {hasNotes && (
                         <span className="w-2 h-2 rounded-full bg-accent-emerald" title="Has personal notes" />
                       )}

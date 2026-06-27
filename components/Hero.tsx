@@ -57,14 +57,23 @@ export default function Hero() {
               initial={{ opacity: 0, y: 12 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
-              className="mb-6 lg:mb-8"
+              className="mb-6 lg:mb-8 flex items-center gap-4 mx-auto lg:mx-0 w-fit"
             >
-              <Logo
-                variant="lockup"
-                size="hero"
-                priority
-                className="mx-auto lg:mx-0 drop-shadow-2xl"
-              />
+              <Logo variant="emblem" size="hero" className="drop-shadow-2xl" />
+              <div className="text-left">
+                <p
+                  className="font-black leading-none tracking-tight"
+                  style={{ fontSize: 'clamp(2.5rem, 5vw, 3.5rem)', color: 'var(--foreground)' }}
+                >
+                  TN<span style={{ color: 'var(--accent-cyan)' }}>i</span>C
+                </p>
+                <p
+                  className="font-mono uppercase tracking-[0.22em] text-muted-foreground mt-1"
+                  style={{ fontSize: '0.68rem' }}
+                >
+                  Longevity OS
+                </p>
+              </div>
             </motion.div>
 
             <motion.div
