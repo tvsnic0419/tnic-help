@@ -117,7 +117,7 @@ export function LabHub() {
 
       {analysis.topConcern && (
         <div className="card-base px-4 py-3 mb-6 border-accent-amber/20 text-body-sm" role="status">
-          <strong className="text-amber-300">Top concern:</strong> {analysis.topConcern}
+          <strong className="text-accent-amber">Top concern:</strong> {analysis.topConcern}
           {analysis.topWin && <span className="text-muted-foreground"> · Win: {analysis.topWin}</span>}
         </div>
       )}
