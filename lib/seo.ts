@@ -298,6 +298,39 @@ export function buildItemListSchema() {
   };
 }
 
+export function buildDrugSchema(input: {
+  name: string;
+  description: string;
+  pathway: string;
+  dose: string;
+  path: string;
+  evidenceTier: 'A' | 'B' | 'C';
+}) {
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'Drug',
+    name: input.name,
+    description: input.description,
+    url: `${SITE.url}${input.path}`,
+    drugClass: input.pathway,
+    dosageForm: input.dose,
+    isAvailableGenerically: true,
+    legalStatus: 'OTC',
+    recognizingAuthority: {
+      '@type': 'Organization',
+      name: 'TNiC.help',
+      url: SITE.url,
+    },
+    medicineSystem: 'Western',
+    relevantSpecialty: 'Geriatric',
+    study: {
+      '@type': 'MedicalStudy',
+      studySubject: { '@type': 'Drug', name: input.name },
+    },
+    warning: 'This information is for educational purposes only and is not medical advice. Consult a qualified healthcare provider before using any supplement.',
+  };
+}
+
 export function serializeJsonLd(...schemas: object[]) {
   return schemas.map((schema, i) => (
     { key: i, schema }

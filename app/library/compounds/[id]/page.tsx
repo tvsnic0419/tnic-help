@@ -4,7 +4,7 @@ import { compounds } from '@/lib/data';
 import { loadMdx } from '@/lib/mdx';
 import { CompoundDetail } from '@/components/library/CompoundDetail';
 import { StructuredData } from '@/components/seo/StructuredData';
-import { buildPageMetadata, buildMedicalWebPageSchema, buildBreadcrumbSchema } from '@/lib/seo';
+import { buildPageMetadata, buildMedicalWebPageSchema, buildBreadcrumbSchema, buildDrugSchema } from '@/lib/seo';
 import { COMPOUND_SEO_KEYWORDS } from '@/lib/seo-routes';
 
 export function generateStaticParams() {
@@ -58,6 +58,14 @@ export default async function CompoundPage({
       { name: 'Compounds', path: '/library/compounds' },
       { name: compound.name, path },
     ]),
+    buildDrugSchema({
+      name: compound.name,
+      description: compound.desc,
+      pathway: compound.pathway,
+      dose: compound.dose,
+      path,
+      evidenceTier: compound.evidence,
+    }),
   ];
 
   return (

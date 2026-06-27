@@ -1,7 +1,7 @@
 'use client';
 
 import { motion } from 'framer-motion';
-import { ArrowLeft, BookOpen, Network } from 'lucide-react';
+import { ArrowLeft, BookOpen, Network, FlaskConical, ArrowRight } from 'lucide-react';
 import Link from 'next/link';
 import type { HallmarkLibraryEntry } from '@/lib/types';
 import { HallmarkVisual } from './HallmarkVisual';
@@ -9,6 +9,8 @@ import { InterventionExplorer } from './InterventionExplorer';
 import { HallmarkNotesPanel } from './HallmarkNotesPanel';
 import { MdxRenderer } from './MdxRenderer';
 import { ContextRail } from '@/components/ui/ContextRail';
+import { Breadcrumb } from '@/components/ui/Breadcrumb';
+import { MedicalDisclaimer } from '@/components/trust/MedicalDisclaimer';
 import { getHallmarkContext } from '@/lib/hub-context';
 import { SystemsSynthesisView } from './SystemsSynthesisView';
 import { HALLMARK_VISUALS } from '@/components/illustrations/HallmarkVisuals';
@@ -28,12 +30,13 @@ export function HallmarkDetail({
   return (
     <div className="min-h-screen bg-background text-foreground pt-6 md:pt-8 pb-20">
       <div className="max-w-7xl mx-auto px-6">
-        <Link
-          href="/library"
-          className="inline-flex items-center gap-2 text-sm text-muted-foreground hover:text-accent-cyan transition mb-8"
-        >
-          <ArrowLeft className="w-4 h-4" /> Back to Anti-Aging Library
-        </Link>
+        <Breadcrumb
+          items={[
+            { label: 'Home', href: '/' },
+            { label: 'Library', href: '/library' },
+            { label: hallmark.title },
+          ]}
+        />
 
         <div className="grid lg:grid-cols-12 gap-10">
           <div className="lg:col-span-4 space-y-6">
@@ -110,6 +113,32 @@ export function HallmarkDetail({
                 </Link>
               </div>
               <SystemsSynthesisView hallmarkId={hallmark.id} />
+            </div>
+
+            <MedicalDisclaimer context="hallmark" />
+
+            {/* Protocol CTA */}
+            <div className="glass rounded-2xl p-6 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-5">
+              <div className="flex items-start gap-3">
+                <div className="w-9 h-9 rounded-xl bg-accent-emerald/10 border border-accent-emerald/20 flex items-center justify-center shrink-0 mt-0.5">
+                  <FlaskConical className="w-4 h-4 text-accent-emerald" aria-hidden="true" />
+                </div>
+                <div>
+                  <p className="text-sm font-semibold mb-0.5">
+                    Build a protocol targeting {hallmark.title}
+                  </p>
+                  <p className="text-[11px] text-muted-foreground leading-relaxed max-w-sm">
+                    Stack Architect shows synergy scores, dosing windows, and contraindications for compounds that address this hallmark.
+                  </p>
+                </div>
+              </div>
+              <Link
+                href={`/stacks?hallmark=${hallmark.id}`}
+                className="shrink-0 inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-accent-emerald text-black text-sm font-bold transition hover:bg-accent-cyan whitespace-nowrap"
+              >
+                Stack Architect
+                <ArrowRight className="w-3.5 h-3.5" aria-hidden="true" />
+              </Link>
             </div>
           </div>
         </div>

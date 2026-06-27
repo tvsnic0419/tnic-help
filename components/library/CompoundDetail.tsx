@@ -1,7 +1,7 @@
 'use client';
 
 import { motion } from 'framer-motion';
-import { ArrowLeft, BookOpen, ExternalLink, FlaskConical, Zap, Clock, Link2 } from 'lucide-react';
+import { ArrowLeft, ArrowRight, BookOpen, ExternalLink, FlaskConical, Zap, Clock, Link2 } from 'lucide-react';
 import Link from 'next/link';
 import type { Compound } from '@/lib/types';
 import { hallmarkLibrary } from '@/lib/hallmarks-library';
@@ -11,6 +11,8 @@ import { stackInteractions } from '@/lib/stack-analysis';
 import { MdxRenderer } from './MdxRenderer';
 import { HallmarkIcon } from './HallmarkIcon';
 import { EvidenceTag } from '@/components/trust/EvidenceTag';
+import { Breadcrumb } from '@/components/ui/Breadcrumb';
+import { MedicalDisclaimer } from '@/components/trust/MedicalDisclaimer';
 
 const BADGE_META: Record<string, { label: string; color: string; bg: string }> = {
   nrf2:      { label: 'NRF2 Axis',            color: 'var(--accent-emerald)', bg: 'bg-accent-emerald/10 border-accent-emerald/30 text-accent-emerald' },
@@ -167,12 +169,14 @@ export function CompoundDetail({
   return (
     <div className="min-h-screen bg-background text-foreground pt-6 md:pt-8 pb-20">
       <div className="max-w-7xl mx-auto px-6">
-        <Link
-          href="/library/compounds"
-          className="inline-flex items-center gap-2 text-sm text-muted-foreground hover:text-accent-cyan transition mb-8"
-        >
-          <ArrowLeft className="w-4 h-4" /> Back to Compound Library
-        </Link>
+        <Breadcrumb
+          items={[
+            { label: 'Home', href: '/' },
+            { label: 'Library', href: '/library' },
+            { label: 'Compounds', href: '/library/compounds' },
+            { label: compound.name },
+          ]}
+        />
 
         <div className="grid lg:grid-cols-12 gap-10">
           {/* Sidebar */}
@@ -288,18 +292,28 @@ export function CompoundDetail({
               </div>
             )}
 
-            <div className="glass rounded-xl p-5 flex items-center justify-between gap-4">
-              <div>
-                <p className="text-xs font-semibold mb-0.5">Build a stack with {compound.name.split(' ')[0]}</p>
-                <p className="text-[11px] text-muted-foreground">
-                  See synergy scores, contraindications, and protocol timing alongside your other compounds.
-                </p>
+            <MedicalDisclaimer context="compound" />
+
+            <div className="glass rounded-2xl p-6 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-5">
+              <div className="flex items-start gap-3">
+                <div className="w-9 h-9 rounded-xl bg-accent-cyan/10 border border-accent-cyan/20 flex items-center justify-center shrink-0 mt-0.5">
+                  <Zap className="w-4 h-4 text-accent-cyan" aria-hidden="true" />
+                </div>
+                <div>
+                  <p className="text-sm font-semibold mb-0.5">
+                    Add {compound.name.split(' ')[0]} to Stack Architect
+                  </p>
+                  <p className="text-[11px] text-muted-foreground leading-relaxed max-w-sm">
+                    See synergy scores, contraindications, and optimised dosing windows alongside your other compounds.
+                  </p>
+                </div>
               </div>
               <Link
-                href="/stacks"
-                className="shrink-0 inline-flex items-center gap-1.5 px-4 py-2 rounded-lg bg-accent-cyan text-black text-xs font-bold transition hover:bg-accent-emerald"
+                href={`/stacks?add=${compound.id}`}
+                className="shrink-0 inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-accent-cyan text-black text-sm font-bold transition hover:bg-accent-emerald whitespace-nowrap"
               >
-                Stack Builder
+                Stack Architect
+                <ArrowRight className="w-3.5 h-3.5" aria-hidden="true" />
               </Link>
             </div>
           </div>

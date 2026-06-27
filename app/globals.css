@@ -314,8 +314,7 @@ body {
 
 /* ── Surfaces ── */
 .glass {
-  background: var(--glass-bg);
-  backdrop-filter: blur(20px);
+  background: var(--color-bg-elevated);
   border: 1px solid var(--glass-border);
   box-shadow: var(--glass-shadow);
 }
@@ -333,8 +332,7 @@ body {
 }
 
 .card-base {
-  background: var(--glass-bg);
-  backdrop-filter: blur(20px);
+  background: var(--color-bg-elevated);
   border: 1px solid var(--color-border-subtle);
   border-radius: var(--radius-xl);
 }
@@ -578,21 +576,6 @@ body {
 .animate-pulse-glow { animation: pulse-glow 3s ease-in-out infinite; }
 .animate-breathe { animation: breathe 4s ease-in-out infinite; }
 .animate-gradient { animation: gradient-drift 6s ease infinite; background-size: 200% 200%; }
-
-/* ── Scan line overlay ── */
-.scan-overlay::after {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(
-    180deg,
-    transparent 0%,
-    rgba(34, 211, 238, 0.025) 50%,
-    transparent 100%
-  );
-  background-size: 100% 4px;
-  pointer-events: none;
-}
 
 .shimmer-text {
   background: linear-gradient(90deg, var(--accent-cyan), var(--accent-emerald), #6ee7b7, var(--accent-emerald), var(--accent-cyan));
@@ -869,8 +852,7 @@ body {
   position: relative;
   padding: 1rem 1.25rem;
   border-radius: var(--radius-xl);
-  background: color-mix(in srgb, var(--glass-bg) 80%, transparent);
-  backdrop-filter: blur(16px);
+  background: var(--color-bg-elevated);
   border: 1px solid color-mix(in srgb, var(--accent-cyan) 10%, var(--color-border-subtle));
   transition: border-color 0.25s, background 0.25s, transform 0.25s, box-shadow 0.25s;
 }
@@ -963,7 +945,7 @@ body {
   position: absolute;
   border-radius: 50%;
   filter: blur(100px);
-  opacity: 0.45;
+  opacity: 0.12;
   animation: aurora-drift 28s ease-in-out infinite;
 }
 
@@ -1161,8 +1143,7 @@ body {
   border-radius: 1rem;
   font-weight: 500;
   font-size: 0.9375rem;
-  background: color-mix(in srgb, var(--glass-bg) 90%, transparent);
-  backdrop-filter: blur(20px);
+  background: var(--color-bg-elevated);
   border: 1px solid color-mix(in srgb, var(--accent-cyan) 20%, var(--color-border-subtle));
   color: var(--color-text-primary);
   transition: border-color 0.25s, background 0.25s, transform 0.25s, box-shadow 0.25s;
@@ -1240,8 +1221,7 @@ body {
 /* ── Stat card v3 ── */
 .stat-card-v3 {
   position: relative;
-  background: color-mix(in srgb, var(--glass-bg) 85%, transparent);
-  backdrop-filter: blur(24px);
+  background: var(--color-bg-elevated);
   border: 1px solid color-mix(in srgb, var(--accent-cyan) 12%, var(--color-border-subtle));
   border-radius: var(--radius-xl);
   padding: 1.25rem 1rem;
@@ -1274,9 +1254,9 @@ body {
 }
 
 /* ── Enhanced orbs ── */
-.orb-1 { filter: blur(80px); opacity: 0.9; }
-.orb-2 { filter: blur(70px); opacity: 0.85; }
-.orb-3 { filter: blur(60px); opacity: 0.8; }
+.orb-1 { filter: blur(80px); opacity: 0.22; }
+.orb-2 { filter: blur(70px); opacity: 0.18; }
+.orb-3 { filter: blur(60px); opacity: 0.14; }
 
 /* ═══════════════════════════════════════════════════════════════════════════
    Design System v4 — Experimental visual upconvert (Sprint 21)
@@ -1385,8 +1365,7 @@ body {
   width: 100%;
   height: 100%;
   border-radius: 50%;
-  background: color-mix(in srgb, var(--glass-bg) 90%, transparent);
-  backdrop-filter: blur(12px);
+  background: var(--color-bg-elevated);
   border: 1px solid color-mix(in srgb, var(--accent-cyan) 20%, var(--color-border-subtle));
   transition: transform 0.25s, border-color 0.25s, box-shadow 0.25s, background 0.25s;
 }

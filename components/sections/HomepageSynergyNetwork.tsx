@@ -1,6 +1,11 @@
 'use client';
 
-import { SynergyNetworkGraph } from '@/components/ui/SynergyNetworkGraph';
+import dynamic from 'next/dynamic';
+
+const SynergyNetworkGraph = dynamic(
+  () => import('@/components/ui/SynergyNetworkGraph').then((m) => m.SynergyNetworkGraph),
+  { ssr: false },
+);
 
 export function HomepageSynergyNetwork() {
   return (
