@@ -47,18 +47,36 @@ function Base({
         <marker id={`arr-acc-${id}`} markerWidth="7" markerHeight="7" refX="6" refY="3.5" orient="auto">
           <path d="M0,1 L0,6 L6,3.5 z" fill={accent} />
         </marker>
-        <filter id={`glow-${id}`} x="-40%" y="-40%" width="180%" height="180%">
-          <feGaussianBlur stdDeviation="4" result="blur" />
-          <feMerge><feMergeNode in="blur" /><feMergeNode in="SourceGraphic" /></feMerge>
+        {/* Enhanced dual-layer glow — soft halo + tight source bloom */}
+        <filter id={`glow-${id}`} x="-50%" y="-50%" width="200%" height="200%">
+          <feGaussianBlur in="SourceGraphic" stdDeviation="9" result="halo" />
+          <feGaussianBlur in="SourceGraphic" stdDeviation="3" result="bloom" />
+          <feMerge>
+            <feMergeNode in="halo" />
+            <feMergeNode in="bloom" />
+            <feMergeNode in="SourceGraphic" />
+          </feMerge>
         </filter>
+        {/* Panel ambient depth gradients */}
+        <radialGradient id={`left-bg-${id}`} cx="100" cy="150" r="160" gradientUnits="userSpaceOnUse">
+          <stop offset="0%" stopColor="#1a2d40" stopOpacity="0.55" />
+          <stop offset="100%" stopColor="#030712" stopOpacity="0" />
+        </radialGradient>
+        <radialGradient id={`right-bg-${id}`} cx="300" cy="150" r="150" gradientUnits="userSpaceOnUse">
+          <stop offset="0%" stopColor={accent} stopOpacity="0.1" />
+          <stop offset="100%" stopColor={accent} stopOpacity="0" />
+        </radialGradient>
       </defs>
       <rect width={W} height={H} fill="#030712" />
-      <rect width={W} height={H} fill={`url(#grid-${id})`} opacity="0.45" />
+      <rect width={W} height={H} fill={`url(#grid-${id})`} opacity="0.38" />
+      {/* Panel depth layers */}
+      <rect x="0" y="0" width={W} height={H} fill={`url(#left-bg-${id})`} />
+      <rect x="0" y="0" width={W} height={H} fill={`url(#right-bg-${id})`} />
       {/* Divider */}
-      <line x1="200" y1="32" x2="200" y2="268" stroke="#1e293b" strokeWidth="1" strokeDasharray="4 4" />
+      <line x1="200" y1="28" x2="200" y2="272" stroke="#1e293b" strokeWidth="1" strokeDasharray="3 3" opacity="0.65" />
       {/* Panel labels */}
-      <text x="100" y="22" textAnchor="middle" fill="#374151" fontSize="7.5" fontFamily="ui-monospace,monospace" letterSpacing="1.5">AGING STATE</text>
-      <text x="300" y="22" textAnchor="middle" fill={accent} fontSize="7.5" fontFamily="ui-monospace,monospace" letterSpacing="1.5" opacity="0.85">INTERVENTION</text>
+      <text x="100" y="20" textAnchor="middle" fill="#374151" fontSize="7.5" fontFamily="ui-monospace,monospace" letterSpacing="1.5">AGING STATE</text>
+      <text x="300" y="20" textAnchor="middle" fill={accent} fontSize="7.5" fontFamily="ui-monospace,monospace" letterSpacing="1.5" opacity="0.85">INTERVENTION</text>
       {children}
     </svg>
   );

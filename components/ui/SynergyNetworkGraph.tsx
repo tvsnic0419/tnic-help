@@ -105,6 +105,17 @@ function hex2rgba(hex: string, alpha: number) {
   return `rgba(${r},${g},${b},${alpha})`;
 }
 
+// Cubic bezier that bows toward the hub center — gives organic "radial spoke" curves
+const HUB_CX = 350, HUB_CY = 245;
+function curvePath(x1: number, y1: number, x2: number, y2: number): string {
+  const pull = 0.26;
+  const c1x = x1 + (HUB_CX - x1) * pull;
+  const c1y = y1 + (HUB_CY - y1) * pull;
+  const c2x = x2 + (HUB_CX - x2) * pull;
+  const c2y = y2 + (HUB_CY - y2) * pull;
+  return `M ${x1} ${y1} C ${c1x.toFixed(1)} ${c1y.toFixed(1)} ${c2x.toFixed(1)} ${c2y.toFixed(1)} ${x2} ${y2}`;
+}
+
 function getTierBadgeColor(tier: 'A' | 'B') {
   return tier === 'A' ? '#34d399' : '#fbbf24';
 }
@@ -183,6 +194,9 @@ export function SynergyNetworkGraph() {
         {/* Subtle center ambient glow */}
         <ellipse cx="350" cy="245" rx="120" ry="80" fill={`url(#center-glow-${uid})`} />
 
+        {/* Outer reference ring — faint guide circle showing the node ring layout */}
+        <circle cx="350" cy="245" r="200" fill="none" stroke="#1e293b" strokeWidth="0.75" strokeOpacity="0.5" strokeDasharray="2 6" />
+
         {/* ── Edges ── */}
         {EDGES.map((edge) => {
           const a = nodeMap[edge.a];
@@ -191,28 +205,29 @@ export function SynergyNetworkGraph() {
           const highlighted = isEdgeHighlighted(edge);
           const dimmed = hovered && !highlighted;
           const isStrong = edge.strength === 'strong';
-
           const aColor = PATHWAY_COLOR[a.pathway];
+          const d = curvePath(a.x, a.y, b.x, b.y);
 
           return (
             <g key={`${edge.a}-${edge.b}`}>
               {/* Glow layer for highlighted edges */}
               {highlighted && (
-                <line
-                  x1={a.x} y1={a.y} x2={b.x} y2={b.y}
+                <path
+                  d={d}
+                  fill="none"
                   stroke={aColor}
-                  strokeWidth={isStrong ? 8 : 5}
-                  strokeOpacity={0.25}
+                  strokeWidth={isStrong ? 9 : 6}
+                  strokeOpacity={0.22}
                   strokeLinecap="round"
                 />
               )}
-              {/* Main edge */}
-              <line
-                x1={a.x} y1={a.y}
-                x2={b.x} y2={b.y}
+              {/* Main edge — bezier curve */}
+              <path
+                d={d}
+                fill="none"
                 stroke={highlighted ? aColor : (isStrong ? '#4b5563' : '#374151')}
                 strokeWidth={highlighted ? (isStrong ? 2.5 : 1.8) : (isStrong ? 1.2 : 0.7)}
-                strokeOpacity={dimmed ? 0.06 : (highlighted ? 0.95 : (isStrong ? 0.35 : 0.2))}
+                strokeOpacity={dimmed ? 0.05 : (highlighted ? 0.95 : (isStrong ? 0.35 : 0.18))}
                 strokeLinecap="round"
                 strokeDasharray={isStrong ? undefined : '4 3'}
                 style={{ transition: 'stroke-opacity 0.2s, stroke-width 0.2s' }}
