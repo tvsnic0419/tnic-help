@@ -471,7 +471,7 @@ export function Elite8Hub() {
         <div className="container-page relative text-center">
           <p className="text-label text-accent-emerald mb-4">EVIDENCE-BASED · MODELED RANKING</p>
           <h1 className="text-display mb-4">
-            The Elite <span className="shimmer-text">8</span>
+            The Elite <span className="text-accent-amber">8</span>
           </h1>
           <p className="text-body text-lg max-w-2xl mx-auto text-muted-foreground">
             Eight premier longevity interventions ranked by the{' '}

@@ -318,7 +318,7 @@ export function PlatformPreview() {
           </span>
           <h2 className="headline-editorial mt-4 mb-3">
             See the OS you&apos;re building.<br />
-            <span className="shimmer-text">Three modules. Zero accounts.</span>
+            <span className="text-accent-emerald">Three modules. Zero accounts.</span>
           </h2>
           <p className="text-body max-w-xl mx-auto">
             Every module runs locally in your browser. Your data never leaves your device.

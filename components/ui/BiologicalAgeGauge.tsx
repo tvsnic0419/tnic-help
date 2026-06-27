@@ -120,7 +120,9 @@ export function BiologicalAgeGauge({
   }, [scanned, bioAge, defenseScore, chronoAge]);
 
   const displayProgress = ageToProgress(animatedBio, minAge, maxAge);
-  const ageDelta = chronoAge - animatedBio;
+  // Use final bioAge (not the animated value) for the label so the delta text
+  // doesn't jitter character-by-character while the number counts up/down.
+  const ageDelta = chronoAge - bioAge;
   const tone =
     ageDelta > 2 ? 'emerald' : ageDelta < -2 ? 'rose' : 'cyan';
 

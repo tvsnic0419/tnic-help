@@ -37,7 +37,7 @@ export function LibraryHubHero() {
             <h1 className="heading-page mb-4">
               Evidence-graded longevity
               <br />
-              <span className="shimmer-text">intelligence hub</span>
+              <span className="text-accent-cyan">intelligence hub</span>
             </h1>
             <p className="text-body max-w-xl mb-8">
               {hallmarkLibrary.length} hallmarks, {libraryModules.length} deep-dive modules, PMID citations on every claim.

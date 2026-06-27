@@ -577,18 +577,9 @@ body {
 .animate-breathe { animation: breathe 4s ease-in-out infinite; }
 .animate-gradient { animation: gradient-drift 6s ease infinite; background-size: 200% 200%; }
 
+/* .shimmer-text — animation removed; use solid accent color classes instead */
 .shimmer-text {
-  background: linear-gradient(90deg, var(--accent-cyan), var(--accent-emerald), #6ee7b7, var(--accent-emerald), var(--accent-cyan));
-  background-size: 200% auto;
-  -webkit-background-clip: text;
-  background-clip: text;
-  -webkit-text-fill-color: transparent;
-  animation: shimmer 4s linear infinite;
-}
-
-@keyframes shimmer {
-  0% { background-position: 0% center; }
-  100% { background-position: 200% center; }
+  color: var(--accent-cyan);
 }
 
 /* ── Gradient text variants ── */
