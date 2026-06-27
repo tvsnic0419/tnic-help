@@ -234,6 +234,11 @@ const toolContexts: Record<ToolId, HubContext> = {
     why: 'Subjective wellness needs a baseline. The scan anchors your dashboard bio-age and defense score.',
     next: 'Complete the scan, review your OS profile on the dashboard, then fix sleep and exercise pillars first.',
   },
+  coverage: {
+    what: 'Maps your active stack against all 12 hallmarks of aging — shows covered hallmarks and gaps with compound suggestions.',
+    why: 'Most stacks cluster around one or two pathways. Coverage Analyzer reveals blind spots before they become bottlenecks.',
+    next: 'Toggle compounds to close the top-priority gap, then run the Simulator to confirm the interaction profile is clean.',
+  },
 };
 
 const moduleCategoryDefaults: Record<LibraryModuleCategory, HubContext> = {

@@ -12,7 +12,8 @@ export type ToolId =
   | 'protocol'
   | 'biomarker'
   | 'impact'
-  | 'healthspan';
+  | 'healthspan'
+  | 'coverage';
 
 export interface ToolRegistryEntry {
   id: ToolId;
@@ -96,6 +97,18 @@ export const toolsRegistry: ToolRegistryEntry[] = [
     href: '/tools?tab=healthspan',
     keywords: ['healthspan calculator', 'biological age estimate', 'longevity projection'],
     evidenceNote: 'Educational model based on trial timelines — not a medical prediction.',
+  },
+  {
+    id: 'coverage',
+    slug: 'coverage',
+    label: 'Coverage Analyzer',
+    shortLabel: 'Gap finder',
+    description:
+      'Map your active stack against all 12 hallmarks of aging — see what is covered, which hallmarks have gaps, and which compounds would close them.',
+    href: '/tools?tab=coverage',
+    keywords: ['hallmark coverage', 'stack gap analysis', 'compound coverage map', 'hallmarks of aging'],
+    evidenceNote: 'Coverage mapping from TNiC hallmark–compound database. Physician review required before changing protocols.',
+    badge: 'New',
   },
 ];
 

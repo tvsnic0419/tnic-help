@@ -19,6 +19,7 @@ import {
   BarChart3,
   Trophy,
   ArrowRight,
+  PieChart,
 } from 'lucide-react';
 import { PageHeader } from '@/components/ui/PageHeader';
 import { TabBar } from '@/components/ui/TabBar';
@@ -53,6 +54,10 @@ const BiomarkerImpactTool = dynamic(
   () => import('./BiomarkerImpactTool').then((m) => ({ default: m.BiomarkerImpactTool })),
   { loading: () => <SectionSkeleton height="lg" /> },
 );
+const StackCoverageTool = dynamic(
+  () => import('./StackCoverageTool').then((m) => ({ default: m.StackCoverageTool })),
+  { loading: () => <SectionSkeleton height="lg" /> },
+);
 
 const tabIcons = {
   simulator: Layers,
@@ -61,6 +66,7 @@ const tabIcons = {
   biomarker: FlaskConical,
   impact: BarChart3,
   healthspan: TrendingUp,
+  coverage: PieChart,
 } as const;
 
 const tabs = toolsRegistry.map((t) => ({
@@ -157,6 +163,7 @@ export function ToolsHub() {
           {active === 'biomarker' && <BiomarkerDashboardTool />}
           {active === 'impact' && <BiomarkerImpactTool />}
           {active === 'healthspan' && <HealthspanEstimatorTool />}
+          {active === 'coverage' && <StackCoverageTool />}
         </div>
 
         <div className="mt-12">
