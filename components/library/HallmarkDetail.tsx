@@ -58,7 +58,7 @@ export function HallmarkDetail({
               <p className="font-mono text-[10px] text-accent-cyan tracking-widest mb-2">
                 HALLMARK {hallmark.number} OF 12
               </p>
-              <h1 className="text-3xl md:text-4xl font-bold tracking-tight mb-2">{hallmark.title}</h1>
+              <h1 className="font-display text-3xl md:text-4xl font-bold tracking-tight mb-2">{hallmark.title}</h1>
               <p className="text-lg text-muted-foreground mb-6">{hallmark.tagline}</p>
               <p className="text-sm text-muted-foreground leading-relaxed mb-4">{hallmark.summary}</p>
               <div className="glass rounded-xl p-5 mb-4">

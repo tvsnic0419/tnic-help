@@ -150,7 +150,7 @@ export function LibraryModuleDetail({
           <div className="lg:col-span-8 space-y-8">
             <motion.div initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }}>
               <ModuleContextStrip module={module} />
-              <h1 className="text-3xl md:text-4xl font-bold tracking-tight mb-2">{module.title}</h1>
+              <h1 className="font-display text-3xl md:text-4xl font-bold tracking-tight mb-2">{module.title}</h1>
               <p className="text-lg text-muted-foreground mb-4">{module.tagline}</p>
               <p className="text-sm text-muted-foreground leading-relaxed">{module.summary}</p>
             </motion.div>

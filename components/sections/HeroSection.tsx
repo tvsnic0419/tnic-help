@@ -32,7 +32,7 @@ export function HeroSection() {
             <motion.h1
               initial={false}
               animate={{ opacity: 1, y: 0 }}
-              className="text-4xl sm:text-5xl md:text-[3.25rem] font-bold tracking-tight leading-[1.05] mb-6"
+              className="font-display text-4xl sm:text-5xl md:text-[3.25rem] font-bold tracking-tight leading-[1.05] mb-6"
             >
               Your longevity OS.
               <br />

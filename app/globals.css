@@ -60,10 +60,17 @@
   /* Effects */
   --glass-bg: rgba(15, 23, 42, 0.6);
   --glass-border: rgba(255, 255, 255, 0.06);
+  --glass-shadow: 0 0 0 1px rgba(255,255,255,0.05), 0 4px 24px rgba(0,0,0,0.45), 0 1px 4px rgba(0,0,0,0.3);
   --hero-mesh-1: rgba(34, 211, 238, 0.18);
   --hero-mesh-2: rgba(52, 211, 153, 0.1);
   --grid-line: rgba(34, 211, 238, 0.03);
   --scrollbar-thumb: rgba(34, 211, 238, 0.3);
+
+  /* Gradient presets */
+  --gradient-cyan-emerald: linear-gradient(135deg, var(--accent-cyan), var(--accent-emerald));
+  --gradient-violet-cyan: linear-gradient(135deg, var(--accent-violet), var(--accent-cyan));
+  --gradient-amber-rose: linear-gradient(135deg, var(--accent-amber), var(--accent-rose));
+  --gradient-display: linear-gradient(135deg, var(--color-text-primary) 0%, color-mix(in srgb, var(--accent-cyan) 60%, var(--color-text-primary)) 100%);
 }
 
 /* ── Light theme ── */
@@ -114,15 +121,23 @@
 
   --glass-bg: rgba(255, 255, 255, 0.75);
   --glass-border: rgba(15, 23, 42, 0.08);
+  --glass-shadow: 0 0 0 1px rgba(15,23,42,0.06), 0 4px 24px rgba(15,23,42,0.08), 0 1px 4px rgba(15,23,42,0.06);
   --hero-mesh-1: rgba(8, 145, 178, 0.12);
   --hero-mesh-2: rgba(5, 150, 105, 0.08);
   --grid-line: rgba(8, 145, 178, 0.06);
   --scrollbar-thumb: rgba(8, 145, 178, 0.35);
+
+  /* Gradient presets */
+  --gradient-cyan-emerald: linear-gradient(135deg, var(--accent-cyan), var(--accent-emerald));
+  --gradient-violet-cyan: linear-gradient(135deg, var(--accent-violet), var(--accent-cyan));
+  --gradient-amber-rose: linear-gradient(135deg, var(--accent-amber), var(--accent-rose));
+  --gradient-display: linear-gradient(135deg, var(--color-text-primary) 0%, color-mix(in srgb, var(--accent-cyan) 60%, var(--color-text-primary)) 100%);
 }
 
 @theme {
   --font-sans: var(--font-geist-sans), system-ui, sans-serif;
-  --font-mono: var(--font-geist-mono), ui-monospace, monospace;
+  --font-display: var(--font-space-grotesk), var(--font-geist-sans), system-ui, sans-serif;
+  --font-mono: var(--font-jetbrains-mono), ui-monospace, monospace;
 
   --color-background: var(--color-bg-base);
   --color-foreground: var(--color-text-primary);
@@ -152,6 +167,10 @@
   --color-status-optimal: var(--status-optimal);
   --color-status-watch: var(--status-watch);
   --color-status-critical: var(--status-critical);
+
+  --background-gradient-cyan-emerald: var(--gradient-cyan-emerald);
+  --background-gradient-violet-cyan: var(--gradient-violet-cyan);
+  --background-gradient-amber-rose: var(--gradient-amber-rose);
 
   --radius-sm: 0.5rem;
   --radius-md: 0.75rem;
@@ -207,6 +226,7 @@ body {
 
 /* ── Typography scale ── */
 .heading-page {
+  font-family: var(--font-display);
   font-size: clamp(2rem, 4.5vw + 0.75rem, 3.25rem);
   font-weight: 700;
   letter-spacing: -0.03em;
@@ -215,16 +235,19 @@ body {
 }
 
 .heading-section {
+  font-family: var(--font-display);
   font-size: clamp(1.5rem, 3vw + 0.5rem, 2.5rem);
   font-weight: 700;
-  letter-spacing: -0.02em;
-  line-height: 1.2;
+  letter-spacing: -0.025em;
+  line-height: 1.18;
   color: var(--color-text-primary);
 }
 
 .heading-card {
+  font-family: var(--font-display);
   font-size: 1rem;
   font-weight: 600;
+  letter-spacing: -0.01em;
   line-height: 1.35;
   color: var(--color-text-primary);
 }
@@ -294,6 +317,7 @@ body {
   background: var(--glass-bg);
   backdrop-filter: blur(20px);
   border: 1px solid var(--glass-border);
+  box-shadow: var(--glass-shadow);
 }
 
 .glass-hover { transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1); }
@@ -598,6 +622,31 @@ body {
   background-clip: text;
   -webkit-text-fill-color: transparent;
 }
+
+.gradient-text-cyan-emerald {
+  background: var(--gradient-cyan-emerald);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.gradient-text-violet-cyan {
+  background: var(--gradient-violet-cyan);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.gradient-text-display {
+  background: var(--gradient-display);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.bg-gradient-cyan-emerald { background: var(--gradient-cyan-emerald); }
+.bg-gradient-violet-cyan  { background: var(--gradient-violet-cyan); }
+.bg-gradient-amber-rose   { background: var(--gradient-amber-rose); }
 
 .section-divider {
   height: 1px;

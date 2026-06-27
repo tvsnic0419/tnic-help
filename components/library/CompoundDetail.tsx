@@ -235,7 +235,7 @@ export function CompoundDetail({
               <p className="font-mono text-[10px] tracking-widest mb-2" style={{ color: badge.color }}>
                 {badge.label.toUpperCase()} — {compound.pathway.toUpperCase()}
               </p>
-              <h1 className="text-3xl md:text-4xl font-bold tracking-tight mb-3">{compound.name}</h1>
+              <h1 className="font-display text-3xl md:text-4xl font-bold tracking-tight mb-3">{compound.name}</h1>
               <div className="glass rounded-xl p-5 mb-4">
                 <p className="text-[10px] font-mono text-accent-violet uppercase mb-2">Mechanism</p>
                 <p className="text-sm text-foreground/80 leading-relaxed">{compound.mechanism}</p>
