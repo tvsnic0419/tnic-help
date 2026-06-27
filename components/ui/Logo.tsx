@@ -74,8 +74,8 @@ export function Logo({
             src="/tnic-logo.jpg"
             alt={altText}
             fill
+            sizes={`${w}px`}
             className="object-contain"
-            // screen blend melts the navy bg into the dark site canvas
             style={{ mixBlendMode: 'screen' }}
             priority={priority}
           />
