@@ -2,7 +2,7 @@
 
 import { useEffect } from 'react';
 import { motion } from 'framer-motion';
-import { ArrowLeft, BookOpen, Layers, FlaskConical, AlertTriangle } from 'lucide-react';
+import { BookOpen, Layers, FlaskConical, AlertTriangle, ChevronRight } from 'lucide-react';
 import Link from 'next/link';
 import type { LibraryModule } from '@/lib/library-modules';
 import { libraryCategoryMeta } from '@/lib/library-modules';
@@ -40,12 +40,15 @@ export function LibraryModuleDetail({
   return (
     <div className="min-h-screen bg-background text-foreground pt-6 md:pt-8 pb-20">
       <div className="max-w-7xl mx-auto px-6">
-        <Link
-          href="/library#content-modules"
-          className="inline-flex items-center gap-2 text-sm text-muted-foreground hover:text-accent-cyan transition mb-8"
-        >
-          <ArrowLeft className="w-4 h-4" /> Back to Library
-        </Link>
+        <nav aria-label="Breadcrumb" className="flex items-center gap-1.5 text-[11px] text-muted-foreground mb-6">
+          <Link href="/" className="hover:text-foreground transition">Home</Link>
+          <ChevronRight className="w-3 h-3 shrink-0" aria-hidden="true" />
+          <Link href="/library" className="hover:text-foreground transition">Library</Link>
+          <ChevronRight className="w-3 h-3 shrink-0" aria-hidden="true" />
+          <Link href="/library#content-modules" className="hover:text-foreground transition">{categoryMeta.label}</Link>
+          <ChevronRight className="w-3 h-3 shrink-0" aria-hidden="true" />
+          <span className="text-foreground font-medium truncate">{module.title}</span>
+        </nav>
 
         <div className="grid lg:grid-cols-12 gap-10">
           <aside className="lg:col-span-4 space-y-6">
