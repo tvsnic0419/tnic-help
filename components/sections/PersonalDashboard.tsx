@@ -1,6 +1,7 @@
 'use client';
 
 import { useState, useRef } from 'react';
+import Link from 'next/link';
 import { motion } from 'framer-motion';
 import {
   LayoutDashboard,
@@ -154,7 +155,7 @@ export function PersonalDashboard() {
             <p className="text-[10px] font-mono text-accent-emerald uppercase">Active Stack</p>
           </div>
           {selectedCompounds.length === 0 ? (
-            <p className="text-sm text-muted-foreground">No compounds selected. <a href="#stacks" className="text-accent-emerald hover:underline">Build your stack</a></p>
+            <p className="text-sm text-muted-foreground">No compounds selected. <Link href="#stacks" className="text-accent-emerald hover:underline">Build your stack</Link></p>
           ) : (
             <div className="grid sm:grid-cols-2 gap-3">
               {selectedCompounds.map((c) => (

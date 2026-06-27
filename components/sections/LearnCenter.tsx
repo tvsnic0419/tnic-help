@@ -1,6 +1,7 @@
 'use client';
 
 import { useState } from 'react';
+import Link from 'next/link';
 import { motion, AnimatePresence } from 'framer-motion';
 import { BookOpen, HelpCircle, Flag, MapPin, ChevronDown, ArrowRight } from 'lucide-react';
 import { SectionShell } from '@/components/SectionShell';
@@ -101,15 +102,15 @@ export function LearnCenter({ defaultTab }: { defaultTab?: TabId }) {
                       {done ? '✓' : step.step}
                     </span>
                   </label>
-                  <a href={step.link} className="flex-1 block">
+                  <Link href={step.link} className="flex-1 block">
                     <h3 className={`font-bold group-hover:text-accent-cyan transition-colors ${done ? 'line-through text-muted-foreground' : ''}`}>
                       {step.title}
                     </h3>
                     <p className="text-sm text-muted-foreground mt-1">{step.desc}</p>
-                  </a>
-                  <a href={step.link} className="shrink-0 mt-1">
+                  </Link>
+                  <Link href={step.link} className="shrink-0 mt-1" aria-hidden="true" tabIndex={-1}>
                     <ArrowRight className="w-5 h-5 text-caption group-hover:text-accent-cyan transition-colors" />
-                  </a>
+                  </Link>
                 </div>
               );
             })}

@@ -128,9 +128,9 @@ export function Footer() {
             </p>
             <p className="text-caption">
               Consult a physician before starting any protocol.{' '}
-              <a href="/trust/disclaimers" className="text-accent-cyan hover:underline focus-ring rounded">
+              <Link href="/trust/disclaimers" className="text-accent-cyan hover:underline focus-ring rounded">
                 Transparency Pledge
-              </a>
+              </Link>
             </p>
           </div>
         </div>
