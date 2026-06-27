@@ -369,9 +369,19 @@ export const pathwayGroups: PathwayGroup[] = [
     tagline: 'Microbiome integrity as the upstream controller of systemic inflammation',
     accent: 'amber',
     hallmarkIds: ['dysbiosis', 'inflammation', 'communication', 'nutrient'],
-    compoundIds: ['urolithina', 'omega3'],
+    compoundIds: ['urolithina', 'omega3', 'taurine'],
     keyMolecules: ['LPS', 'SCFA', 'Butyrate', 'TLR4', 'Treg cells'],
-    synergy: 'Restoring microbial diversity lowers LPS translocation while urolithin A (gut-converted) directly triggers mitophagy in intestinal and muscle cells — a gut-to-tissue signaling cascade.',
+    synergy: 'Restoring microbial diversity lowers LPS translocation while urolithin A (gut-converted) directly triggers mitophagy in intestinal and muscle cells. Taurine then reinforces the gut barrier and GABA signaling, completing a gut-to-tissue signaling cascade.',
+  },
+  {
+    id: 'mito-biogenesis',
+    name: 'Mitochondrial Biogenesis Axis',
+    tagline: 'CoQ10 + Berberine restore electron transport and AMPK-driven renewal',
+    accent: 'emerald',
+    hallmarkIds: ['mito', 'nutrient', 'autophagy', 'stem'],
+    compoundIds: ['coq10', 'berberine', 'nmn'],
+    keyMolecules: ['CoQ10', 'Complex I', 'AMPK', 'PGC-1α', 'SIRT3', 'TFAM'],
+    synergy: 'CoQ10 replenishes the electron transport chain acceptor pool while berberine activates AMPK — together they drive PGC-1α-mediated mitochondrial biogenesis beyond what either compound achieves alone, and NMN ensures the NAD+ substrate is not the bottleneck.',
   },
 ];
 
@@ -601,6 +611,28 @@ export const emergentEffects: EmergentEffect[] = [
     synergyMultiplier: 1.7,
     evidence: 'B',
   },
+  {
+    id: 'mito-energy-restoration',
+    title: 'Mitochondrial Energy Restoration',
+    tagline: 'CoQ10 + Berberine + NMN rebuild the energy axis from three angles',
+    compoundIds: ['coq10', 'berberine', 'nmn'],
+    hallmarkIds: ['mito', 'nutrient', 'epigenetic', 'stem'],
+    mechanism: 'CoQ10 restores electron transport chain efficiency at Complex I/III. Berberine activates AMPK, which drives PGC-1α-mediated mitochondrial biogenesis and fat oxidation. NMN replenishes NAD+, the sirtuin substrate that links mitochondrial output to epigenetic regulation.',
+    emergentBenefit: 'Triple-axis mitochondrial rescue: electron transport efficiency (CoQ10) + biogenesis signal (berberine/AMPK) + metabolite supply (NMN/NAD+). Clinical berberine data shows glucose control and lipid normalization comparable to metformin; combined with CoQ10/NMN, the predicted effect spans mito health, metabolic sensing, and epigenetic clock reversal simultaneously.',
+    synergyMultiplier: 1.9,
+    evidence: 'B',
+  },
+  {
+    id: 'taurine-gut-neuro-axis',
+    title: 'Taurine–Gut–Neuro Axis',
+    tagline: 'Taurine bridges gut barrier integrity with neurological resilience',
+    compoundIds: ['taurine', 'omega3', 'urolithina'],
+    hallmarkIds: ['dysbiosis', 'inflammation', 'communication', 'mito'],
+    mechanism: 'Taurine (shown in 2023 Science paper) declines dramatically with age and supplementation extends lifespan in worms/mice. Mechanistically, taurine restores gut tight junctions, reduces systemic LPS burden, and acts as a GABA-ergic neuromodulator. Omega-3 resolves SASP-driven inflammation while urolithin A triggers mitophagy in gut epithelial cells. Together they address the gut-brain-inflammation triangle.',
+    emergentBenefit: 'First multi-hallmark protocol with strong human aging biomarker evidence (taurine, 2023) combined with established gut-mitochondria signaling (urolithin A) and inflammatory resolution (EPA/DHA). Addresses dysbiosis, chronic inflammation, intercellular communication, and mitochondrial quality in a unified gut-first approach.',
+    synergyMultiplier: 1.7,
+    evidence: 'B',
+  },
 ];
 
 // ─── Query Helpers ────────────────────────────────────────────────────────────
@@ -644,4 +676,86 @@ export function getRelatedHallmarks(hallmarkId: string): string[] {
     if (r.to === hallmarkId) ids.add(r.from);
   });
   return Array.from(ids);
+}
+
+// ─── Compound → Hallmark Reverse Lookups ─────────────────────────────────────
+
+/** All hallmark IDs targeted by a compound (via pathway groups + emergent effects). */
+export function getHallmarksForCompound(compoundId: string): string[] {
+  const ids = new Set<string>();
+  pathwayGroups
+    .filter((g) => g.compoundIds.includes(compoundId))
+    .forEach((g) => g.hallmarkIds.forEach((h) => ids.add(h)));
+  emergentEffects
+    .filter((e) => e.compoundIds.includes(compoundId))
+    .forEach((e) => e.hallmarkIds.forEach((h) => ids.add(h)));
+  return Array.from(ids);
+}
+
+/** All compound IDs that target a given hallmark (via pathway groups + emergent effects). */
+export function getCompoundsForHallmark(hallmarkId: string): string[] {
+  const ids = new Set<string>();
+  pathwayGroups
+    .filter((g) => g.hallmarkIds.includes(hallmarkId))
+    .forEach((g) => g.compoundIds.forEach((c) => ids.add(c)));
+  emergentEffects
+    .filter((e) => e.hallmarkIds.includes(hallmarkId))
+    .forEach((e) => e.compoundIds.forEach((c) => ids.add(c)));
+  return Array.from(ids);
+}
+
+/** Returns compound IDs that target ALL of the specified hallmarks (intersection). */
+export function getCompoundsThatHitHallmarks(hallmarkIds: string[]): string[] {
+  if (hallmarkIds.length === 0) return [];
+  const coverageSets = hallmarkIds.map((h) => new Set(getCompoundsForHallmark(h)));
+  const [first, ...rest] = coverageSets;
+  return Array.from(first).filter((cId) => rest.every((s) => s.has(cId)));
+}
+
+export interface HallmarkCoverage {
+  hallmarkId: string;
+  compounds: string[];
+  pathways: string[];
+  covered: boolean;
+}
+
+/** Given a list of compound IDs, returns coverage data for all 12 hallmarks. */
+export function hallmarkCoverageForCompounds(compoundIds: string[]): HallmarkCoverage[] {
+  const ALL_HALLMARKS = [
+    'genomic', 'telomeres', 'epigenetic', 'proteostasis', 'autophagy',
+    'mito', 'senescence', 'stem', 'communication', 'inflammation', 'dysbiosis', 'nutrient',
+  ];
+  return ALL_HALLMARKS.map((hallmarkId) => {
+    const allCompoundsForHallmark = new Set(getCompoundsForHallmark(hallmarkId));
+    const matchingCompounds = compoundIds.filter((c) => allCompoundsForHallmark.has(c));
+    const matchingPathways = pathwayGroups
+      .filter((g) => g.hallmarkIds.includes(hallmarkId) && g.compoundIds.some((c) => compoundIds.includes(c)))
+      .map((g) => g.id);
+    return {
+      hallmarkId,
+      compounds: matchingCompounds,
+      pathways: matchingPathways,
+      covered: matchingCompounds.length > 0,
+    };
+  });
+}
+
+/** Summary stats for a stack: how many hallmarks covered, which are gaps. */
+export function analyzeStackCoverage(compoundIds: string[]): {
+  coverage: HallmarkCoverage[];
+  coveredCount: number;
+  gapIds: string[];
+  coveredIds: string[];
+  coveragePct: number;
+} {
+  const coverage = hallmarkCoverageForCompounds(compoundIds);
+  const coveredIds = coverage.filter((c) => c.covered).map((c) => c.hallmarkId);
+  const gapIds = coverage.filter((c) => !c.covered).map((c) => c.hallmarkId);
+  return {
+    coverage,
+    coveredCount: coveredIds.length,
+    coveredIds,
+    gapIds,
+    coveragePct: Math.round((coveredIds.length / coverage.length) * 100),
+  };
 }

@@ -9,7 +9,7 @@ import { chromium } from 'playwright';
 import { mkdirSync } from 'node:fs';
 import { homedir } from 'node:os';
 import { join } from 'node:path';
-import { addDnsTxt, upsertVercelEnv, SITE_URL } from './lib/vercel.mjs';
+import { addDnsTxt, upsertVercelEnv } from './lib/vercel.mjs';
 import { PRIORITY_INDEX_URLS } from './lib/seo-constants.mjs';
 
 const TIMEOUT = 120_000;
@@ -204,6 +204,7 @@ async function requestIndexingApi(token, url) {
   console.log(`Inspected ${url}: ${verdict}`);
 }
 
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 async function fallbackHtmlVerification(page, token) {
   await page.goto('https://www.google.com/webmasters/verification/verification', {
     waitUntil: 'domcontentloaded',

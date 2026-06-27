@@ -1,4 +1,7 @@
 'use client';
+/* eslint-disable react-hooks/set-state-in-effect --
+   setMounted(true) is intentional SSR hydration guard — cannot derive from render.
+   Reviewed 2026-06-27; safe to keep. */
 
 import { useState, useId, useEffect, useRef } from 'react';
 import Link from 'next/link';
@@ -195,11 +198,6 @@ export function SynergyNetworkGraph() {
           const isStrong = edge.strength === 'strong';
 
           const aColor = PATHWAY_COLOR[a.pathway];
-          const bColor = PATHWAY_COLOR[b.pathway];
-
-          // Midpoint for label positioning
-          const mx = (a.x + b.x) / 2;
-          const my = (a.y + b.y) / 2;
 
           return (
             <g key={`${edge.a}-${edge.b}`}>
@@ -238,7 +236,6 @@ export function SynergyNetworkGraph() {
           const isActive = hovered === node.id;
 
           const lx = node.x + (node.labelDx ?? 0);
-          const ly = node.y + (node.labelDy ?? (node.labelAnchor === 'middle' ? 0 : 0));
           const labelBaseline = node.labelAnchor === 'middle'
             ? (node.labelDy && node.labelDy < 0 ? node.y + node.labelDy - 6 : node.y + (node.labelDy ?? 0) + 6)
             : node.y + 4;
