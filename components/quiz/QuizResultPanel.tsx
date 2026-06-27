@@ -79,7 +79,7 @@ export function QuizResultPanel({ result, answers, onRetake }: QuizResultPanelPr
             return c ? (
               <span
                 key={id}
-                className="text-[10px] bg-accent-violet/10 text-violet-300 px-2 py-0.5 rounded font-semibold"
+                className="text-[10px] bg-accent-violet/10 text-accent-violet px-2 py-0.5 rounded font-semibold"
               >
                 {c.name}
               </span>
