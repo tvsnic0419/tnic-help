@@ -32,6 +32,7 @@ const resourceLinks = [
   { href: '/#hallmark-targets', label: 'Hallmark Targets', icon: Dna },
   { href: '/#next-up', label: "What's Next", icon: Rocket },
   { href: '/faq', label: 'FAQ', icon: HelpCircle },
+  { href: '/about', label: 'About / Founder', icon: HelpCircle },
   { href: '/trust', label: 'Trust & Transparency', icon: Shield },
   { href: '/trust/methodology', label: 'Methodology', icon: BookOpen },
   { href: '/trust/disclaimers', label: 'Disclaimers', icon: BookOpen },
