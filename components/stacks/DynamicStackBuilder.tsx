@@ -7,6 +7,7 @@ import { analyzeStack } from '@/lib/stack-analysis';
 import { StackBuilder } from './StackBuilder';
 import { SynergyScorePanel } from './SynergyScorePanel';
 import { StackInteractionsPanel } from './StackInteractionsPanel';
+import { CompoundStackAnalyzer } from '@/components/library/CompoundStackAnalyzer';
 
 export function DynamicStackBuilder() {
   const { selected, score, selectedCompounds } = useStack();
@@ -33,6 +34,11 @@ export function DynamicStackBuilder() {
               className="space-y-4"
             >
               <StackInteractionsPanel analysis={analysis} />
+
+              <div className="glass rounded-2xl p-5">
+                <p className="text-label text-muted-foreground mb-4">Hallmark Coverage</p>
+                <CompoundStackAnalyzer compoundIds={selected} showGapRecommendations={false} />
+              </div>
 
               <div className="glass rounded-2xl p-5">
                 <p className="text-label text-muted-foreground mb-3">Dosing protocol</p>

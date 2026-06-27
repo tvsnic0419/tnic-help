@@ -1,8 +1,9 @@
 'use client';
 
 import { useState, useMemo } from 'react';
+import Link from 'next/link';
 import { Filter } from 'lucide-react';
-import type { HallmarkIntervention } from '@/lib/types';
+import type { HallmarkIntervention, EvidenceTier } from '@/lib/types';
 import { compounds } from '@/lib/data';
 import { EvidenceTag } from '@/components/trust/EvidenceTag';
 import { PmidLink } from '@/components/trust/SourceCitation';
@@ -22,39 +23,57 @@ export function InterventionExplorer({
   hallmarkTitle: string;
 }) {
   const [filter, setFilter] = useState<'all' | HallmarkIntervention['category']>('all');
+  const [tier, setTier] = useState<'all' | EvidenceTier>('all');
   const [tnicOnly, setTnicOnly] = useState(false);
 
   const sorted = useMemo(() => {
     let list = [...interventions].sort((a, b) => a.rank - b.rank);
     if (filter !== 'all') list = list.filter((i) => i.category === filter);
+    if (tier !== 'all') list = list.filter((i) => i.evidence === tier);
     if (tnicOnly) list = list.filter((i) => i.tnicAvailable);
     return list;
-  }, [interventions, filter, tnicOnly]);
+  }, [interventions, filter, tier, tnicOnly]);
 
   return (
     <div>
-      <div className="flex flex-wrap items-center gap-3 mb-5">
-        <Filter className="w-4 h-4 text-muted-foreground" />
-        {(['all', 'compound', 'lifestyle', 'clinical', 'emerging'] as const).map((cat) => (
-          <button
-            key={cat}
-            onClick={() => setFilter(cat)}
-            className={`px-3 py-1.5 rounded-lg text-[10px] font-semibold transition ${
-              filter === cat ? 'bg-accent-cyan text-black' : 'glass text-muted-foreground hover:text-foreground'
-            }`}
-          >
-            {cat === 'all' ? 'All' : categoryLabels[cat]}
-          </button>
-        ))}
-        <label className="flex items-center gap-2 text-[10px] text-muted-foreground ml-auto cursor-pointer">
-          <input
-            type="checkbox"
-            checked={tnicOnly}
-            onChange={(e) => setTnicOnly(e.target.checked)}
-            className="accent-cyan-400"
-          />
-          TNiC compounds only
-        </label>
+      <div className="space-y-2 mb-5">
+        <div className="flex flex-wrap items-center gap-2">
+          <Filter className="w-4 h-4 text-muted-foreground shrink-0" aria-hidden="true" />
+          {(['all', 'compound', 'lifestyle', 'clinical', 'emerging'] as const).map((cat) => (
+            <button
+              key={cat}
+              onClick={() => setFilter(cat)}
+              className={`px-3 py-1.5 rounded-lg text-[10px] font-semibold transition ${
+                filter === cat ? 'bg-accent-cyan text-black' : 'glass text-muted-foreground hover:text-foreground'
+              }`}
+            >
+              {cat === 'all' ? 'All types' : categoryLabels[cat]}
+            </button>
+          ))}
+        </div>
+        <div className="flex flex-wrap items-center gap-2">
+          <span className="text-[10px] text-muted-foreground font-mono w-[1rem] invisible" aria-hidden="true" />
+          {(['all', 'A', 'B', 'C'] as const).map((t) => (
+            <button
+              key={t}
+              onClick={() => setTier(t)}
+              className={`px-3 py-1.5 rounded-lg text-[10px] font-semibold transition ${
+                tier === t ? 'bg-accent-emerald text-black' : 'glass text-muted-foreground hover:text-foreground'
+              }`}
+            >
+              {t === 'all' ? 'All tiers' : `Tier ${t}`}
+            </button>
+          ))}
+          <label className="flex items-center gap-2 text-[10px] text-muted-foreground ml-auto cursor-pointer">
+            <input
+              type="checkbox"
+              checked={tnicOnly}
+              onChange={(e) => setTnicOnly(e.target.checked)}
+              className="accent-cyan-400"
+            />
+            TNiC only
+          </label>
+        </div>
       </div>
 
       <div className="space-y-2">
@@ -79,9 +98,9 @@ export function InterventionExplorer({
               <div className="flex flex-wrap gap-3 mt-2">
                 <span className="text-[10px] font-mono text-caption">Impact: {item.impact}/10</span>
                 {item.compoundId && (
-                  <a href={`/#compounds`} className="text-[10px] text-accent-violet hover:underline">
+                  <Link href={`/library/compounds/${item.compoundId}`} className="text-[10px] text-accent-violet hover:underline focus-ring rounded">
                     View {compounds.find((c) => c.id === item.compoundId)?.name}
-                  </a>
+                  </Link>
                 )}
                 {item.pmid && <PmidLink pmid={item.pmid} />}
               </div>

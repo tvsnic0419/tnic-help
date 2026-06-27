@@ -5,6 +5,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import Link from 'next/link';
 import { Search, ArrowRight, Library, Network } from 'lucide-react';
 import { hallmarkLibrary } from '@/lib/hallmarks-library';
+import type { EvidenceTier } from '@/lib/types';
 import { PageHeader } from '@/components/ui/PageHeader';
 import { HallmarkVisual } from './HallmarkVisual';
 import { InterventionExplorer } from './InterventionExplorer';
@@ -20,18 +21,25 @@ interface AntiAgingLibraryProps {
 export function AntiAgingLibrary({ asPageTitle = false }: AntiAgingLibraryProps) {
   const [selected, setSelected] = useState(hallmarkLibrary[0].id);
   const [query, setQuery] = useState('');
+  const [tierFilter, setTierFilter] = useState<'all' | EvidenceTier>('all');
   const { hallmarkNotes } = usePlatform();
 
   const filtered = useMemo(() => {
-    if (!query.trim()) return hallmarkLibrary;
-    const q = query.toLowerCase();
-    return hallmarkLibrary.filter(
-      (h) =>
-        h.title.toLowerCase().includes(q) ||
-        h.summary.toLowerCase().includes(q) ||
-        h.interventions.some((i) => i.name.toLowerCase().includes(q)),
-    );
-  }, [query]);
+    let list = hallmarkLibrary;
+    if (query.trim()) {
+      const q = query.toLowerCase();
+      list = list.filter(
+        (h) =>
+          h.title.toLowerCase().includes(q) ||
+          h.summary.toLowerCase().includes(q) ||
+          h.interventions.some((i) => i.name.toLowerCase().includes(q)),
+      );
+    }
+    if (tierFilter !== 'all') {
+      list = list.filter((h) => h.interventions.some((i) => i.evidence === tierFilter));
+    }
+    return list;
+  }, [query, tierFilter]);
 
   const active = hallmarkLibrary.find((h) => h.id === selected)!;
   const notedCount = Object.keys(hallmarkNotes).filter((k) => hallmarkNotes[k]?.notes).length;
@@ -67,19 +75,45 @@ export function AntiAgingLibrary({ asPageTitle = false }: AntiAgingLibraryProps)
           </Link>
         </div>
 
-        <div className="relative max-w-lg mx-auto mb-8 md:mb-10">
-          <label htmlFor="hallmark-search" className="sr-only">
-            Search hallmarks or interventions
-          </label>
-          <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground pointer-events-none" aria-hidden="true" />
-          <input
-            id="hallmark-search"
-            type="search"
-            placeholder="Search hallmarks or interventions…"
-            value={query}
-            onChange={(e) => setQuery(e.target.value)}
-            className="input-base pl-11"
-          />
+        <div className="max-w-lg mx-auto mb-8 md:mb-10 space-y-3">
+          <div className="relative">
+            <label htmlFor="hallmark-search" className="sr-only">
+              Search hallmarks or interventions
+            </label>
+            <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground pointer-events-none" aria-hidden="true" />
+            <input
+              id="hallmark-search"
+              type="search"
+              placeholder="Search hallmarks or interventions…"
+              value={query}
+              onChange={(e) => setQuery(e.target.value)}
+              className="input-base pl-11"
+            />
+          </div>
+          <div className="flex flex-wrap items-center gap-2">
+            <span className="text-[10px] font-mono text-muted-foreground uppercase tracking-wider">Best evidence:</span>
+            {(['all', 'A', 'B', 'C'] as const).map((t) => (
+              <button
+                key={t}
+                onClick={() => setTierFilter(t)}
+                className={`px-3 py-1 rounded-full text-[10px] font-semibold transition ${
+                  tierFilter === t
+                    ? 'bg-accent-cyan text-black'
+                    : 'glass text-muted-foreground hover:text-foreground'
+                }`}
+              >
+                {t === 'all' ? 'All tiers' : `Tier ${t}`}
+              </button>
+            ))}
+            {(query || tierFilter !== 'all') && (
+              <button
+                onClick={() => { setQuery(''); setTierFilter('all'); }}
+                className="ml-auto text-[10px] text-muted-foreground hover:text-foreground underline"
+              >
+                Clear
+              </button>
+            )}
+          </div>
         </div>
 
         <div className="grid lg:grid-cols-12 gap-6 lg:gap-8">
