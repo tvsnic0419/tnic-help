@@ -2,12 +2,13 @@
 
 import { useEffect } from 'react';
 import { motion } from 'framer-motion';
-import { BookOpen, Layers, FlaskConical, AlertTriangle, ChevronRight } from 'lucide-react';
+import { BookOpen, Layers, FlaskConical, AlertTriangle, ChevronRight, Plus, X } from 'lucide-react';
 import Link from 'next/link';
 import type { LibraryModule } from '@/lib/library-modules';
 import { libraryCategoryMeta } from '@/lib/library-modules';
 import { hallmarkLibrary } from '@/lib/hallmarks-library';
 import { compounds } from '@/lib/data';
+import { useStack } from '@/context/PlatformContext';
 import { EvidenceTag } from '@/components/trust/EvidenceTag';
 import { MdxRenderer } from './MdxRenderer';
 import { CompoundBuyerGuidePanel } from './CompoundBuyerGuide';
@@ -32,6 +33,9 @@ export function LibraryModuleDetail({
     .filter(Boolean) ?? [];
   const buyerGuide =
     module.category === 'compounds' ? getBuyerGuideByModuleSlug(module.slug) : undefined;
+
+  const { selected, toggle } = useStack();
+  const isInStack = relatedCompound ? selected.includes(relatedCompound.id) : false;
 
   useEffect(() => {
     recordModuleVisit(module);
@@ -95,9 +99,21 @@ export function LibraryModuleDetail({
                 <p className="text-[10px] font-mono text-accent-emerald uppercase mb-3">TNiC compound</p>
                 <p className="text-sm font-semibold text-foreground">{relatedCompound.name}</p>
                 <p className="text-xs text-muted-foreground mt-1">{relatedCompound.dose} · {relatedCompound.timing}</p>
-                <Link href="/stacks" className="text-xs text-accent-cyan hover:text-accent-emerald mt-3 inline-block">
-                  Add to stack →
-                </Link>
+                <button
+                  type="button"
+                  onClick={() => toggle(relatedCompound.id)}
+                  className={`focus-ring interactive inline-flex items-center gap-1.5 mt-3 text-xs font-semibold px-3 py-1.5 rounded-lg border transition ${
+                    isInStack
+                      ? 'border-accent-rose/30 bg-accent-rose/10 text-accent-rose hover:bg-accent-rose/20'
+                      : 'border-accent-emerald/30 bg-accent-emerald/10 text-accent-emerald hover:bg-accent-emerald/20'
+                  }`}
+                >
+                  {isInStack ? (
+                    <><X className="w-3 h-3" aria-hidden="true" /> Remove from stack</>
+                  ) : (
+                    <><Plus className="w-3 h-3" aria-hidden="true" /> Add to stack</>
+                  )}
+                </button>
               </div>
             )}
 
@@ -105,15 +121,27 @@ export function LibraryModuleDetail({
               <div className="glass rounded-xl p-5">
                 <p className="text-[10px] font-mono text-accent-emerald uppercase mb-3">Stack compounds</p>
                 <ul className="space-y-2">
-                  {synergyCompounds.map((c) => (
-                    <li key={c!.id} className="text-sm text-muted-foreground">
-                      {c!.name}
-                    </li>
-                  ))}
+                  {synergyCompounds.map((c) => {
+                    const inStack = selected.includes(c!.id);
+                    return (
+                      <li key={c!.id} className="flex items-center justify-between gap-2">
+                        <span className="text-sm text-muted-foreground">{c!.name}</span>
+                        <button
+                          type="button"
+                          onClick={() => toggle(c!.id)}
+                          className={`focus-ring text-[10px] font-semibold px-2 py-1 rounded border transition shrink-0 ${
+                            inStack
+                              ? 'border-accent-rose/30 text-accent-rose hover:bg-accent-rose/10'
+                              : 'border-accent-emerald/30 text-accent-emerald hover:bg-accent-emerald/10'
+                          }`}
+                          aria-label={`${inStack ? 'Remove' : 'Add'} ${c!.name} ${inStack ? 'from' : 'to'} stack`}
+                        >
+                          {inStack ? '−' : '+'}
+                        </button>
+                      </li>
+                    );
+                  })}
                 </ul>
-                <Link href="/stacks" className="text-xs text-accent-cyan hover:text-accent-emerald mt-3 inline-block">
-                  Open Stack Architect →
-                </Link>
               </div>
             )}
 
