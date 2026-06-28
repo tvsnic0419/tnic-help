@@ -126,7 +126,23 @@ export function AntiAgingLibrary({ asPageTitle = false }: AntiAgingLibraryProps)
                     {/* Text below thumbnail */}
                     <div className="p-3 pt-2.5">
                       <h3 className="text-[11px] font-semibold leading-tight text-foreground">{h.title}</h3>
-                      <div className="flex items-center gap-1.5 mt-1.5">
+                      {/* Intervention stats */}
+                      <div className="flex items-center gap-2 mt-1.5 mb-1.5">
+                        <span className="text-[9px] font-mono text-muted-foreground">
+                          {h.interventions.length} interventions
+                        </span>
+                        {h.interventions.filter((i) => i.evidence === 'A').length > 0 && (
+                          <span className="text-[9px] font-mono font-semibold text-accent-emerald">
+                            {h.interventions.filter((i) => i.evidence === 'A').length}×A
+                          </span>
+                        )}
+                        {h.interventions.some((i) => i.category === 'compound' && i.tnicAvailable) && (
+                          <span className="text-[9px] font-mono text-accent-cyan">
+                            {h.interventions.filter((i) => i.category === 'compound' && i.tnicAvailable).length} compounds
+                          </span>
+                        )}
+                      </div>
+                      <div className="flex items-center gap-1.5">
                         <div className="flex-1 h-0.5 rounded-full bg-border overflow-hidden">
                           <div className="h-full rounded-full" style={{ width: `${h.coverage}%`, background: meta.colorVar }} />
                         </div>

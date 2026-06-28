@@ -7,6 +7,7 @@ import { LibrarySearch } from '@/components/library/LibrarySearch';
 import { ToolsPromoStrip } from '@/components/tools/ToolsPromoStrip';
 import { StructuredData } from '@/components/seo/StructuredData';
 import { SectionSkeleton } from '@/components/ui/SectionSkeleton';
+import { LibraryStatsStrip } from '@/components/library/LibraryStatsStrip';
 import { hallmarkLibrary } from '@/lib/hallmarks-library';
 import { libraryModules } from '@/lib/library-modules';
 import { buildCollectionPageSchema } from '@/lib/seo';
@@ -28,6 +29,7 @@ export default function LibraryPage() {
   return (
     <>
       <StructuredData schemas={schemas} />
+      <LibraryStatsStrip />
       <Suspense fallback={<SectionSkeleton height="sm" />}>
         <LibrarySearch />
       </Suspense>
