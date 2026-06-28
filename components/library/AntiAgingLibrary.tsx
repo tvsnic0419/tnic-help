@@ -57,14 +57,21 @@ export function AntiAgingLibrary({ asPageTitle = false }: AntiAgingLibraryProps)
           context={getHubContext('library')}
         />
 
-        {/* Systems Map CTA */}
-        <div className="flex justify-center mb-6">
+        {/* Secondary CTAs */}
+        <div className="flex flex-wrap justify-center gap-3 mb-6">
           <Link
             href="/library/systems"
             className="inline-flex items-center gap-2 text-sm font-semibold text-accent-violet glass glass-hover px-5 py-2.5 rounded-full glow-hover-violet transition"
           >
             <Network className="w-4 h-4" />
             Explore Systems Map — cross-hallmark synthesis
+            <ArrowRight className="w-3.5 h-3.5" />
+          </Link>
+          <Link
+            href="/library/synergy-matrix"
+            className="inline-flex items-center gap-2 text-sm font-semibold text-accent-cyan glass glass-hover px-5 py-2.5 rounded-full glow-hover-cyan transition"
+          >
+            14×14 Synergy Matrix
             <ArrowRight className="w-3.5 h-3.5" />
           </Link>
         </div>

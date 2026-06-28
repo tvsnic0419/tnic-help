@@ -1,13 +1,13 @@
 'use client';
 
 import { motion } from 'framer-motion';
-import { ArrowLeft, ArrowRight, BookOpen, ExternalLink, FlaskConical, Zap, Clock, Link2 } from 'lucide-react';
+import { ArrowLeft, ArrowRight, BookOpen, ExternalLink, FlaskConical, Zap, Clock, Link2, AlertTriangle } from 'lucide-react';
 import Link from 'next/link';
 import type { Compound } from '@/lib/types';
 import { hallmarkLibrary } from '@/lib/hallmarks-library';
 import { getHallmarkVisual } from '@/lib/hallmark-visuals';
-import { biomarkers } from '@/lib/data';
-import { stackInteractions } from '@/lib/stack-analysis';
+import { biomarkers, compounds } from '@/lib/data';
+import { stackInteractions, synergyPairMatrix } from '@/lib/stack-analysis';
 import { MdxRenderer } from './MdxRenderer';
 import { HallmarkIcon } from './HallmarkIcon';
 import { EvidenceTag } from '@/components/trust/EvidenceTag';
@@ -91,36 +91,99 @@ function HallmarkCoverageGrid({ coveredIds }: { coveredIds: string[] }) {
 }
 
 function SynergyPanel({ compoundId }: { compoundId: string }) {
-  const synergies = stackInteractions.filter(
-    (i) =>
-      i.type === 'synergy' &&
-      (i.compoundIds[0] === compoundId || i.compoundIds[1] === compoundId),
+  const allInteractions = stackInteractions.filter(
+    (i) => i.compoundIds[0] === compoundId || i.compoundIds[1] === compoundId,
   );
-  if (synergies.length === 0) return null;
+  const synergies = allInteractions.filter((i) => i.type === 'synergy');
+  const cautions = allInteractions.filter((i) => i.type !== 'synergy');
+
+  if (allInteractions.length === 0) return null;
+
+  function partnerScore(partnerId: string): number {
+    return synergyPairMatrix[compoundId]?.[partnerId] ?? synergyPairMatrix[partnerId]?.[compoundId] ?? 5;
+  }
+
+  function partnerName(partnerId: string): string {
+    return compounds.find((c) => c.id === partnerId)?.name ?? partnerId;
+  }
 
   return (
-    <div className="glass rounded-xl p-4">
-      <p className="text-[10px] font-mono uppercase tracking-widest mb-3 flex items-center gap-1.5 text-accent-violet">
-        <Link2 className="w-3 h-3" /> Synergies
-      </p>
-      <div className="space-y-2">
-        {synergies.map((syn) => {
-          const partnerId = syn.compoundIds[0] === compoundId ? syn.compoundIds[1] : syn.compoundIds[0];
-          return (
-            <div key={syn.compoundIds.join('-')} className="text-xs">
-              <div className="flex items-start justify-between gap-2 mb-0.5">
-                <Link
-                  href={`/library/compounds/${partnerId}`}
-                  className="font-semibold text-foreground hover:text-accent-violet transition-colors"
-                >
-                  {syn.title}
-                </Link>
-              </div>
-              <p className="text-muted-foreground text-[11px] leading-relaxed">{syn.detail}</p>
-            </div>
-          );
-        })}
-      </div>
+    <div className="space-y-3">
+      {synergies.length > 0 && (
+        <div className="glass rounded-xl p-4">
+          <p className="text-[10px] font-mono uppercase tracking-widest mb-3 flex items-center gap-1.5 text-accent-violet">
+            <Link2 className="w-3 h-3" /> Synergy Pairs
+          </p>
+          <div className="space-y-2.5">
+            {synergies
+              .sort((a, b) => {
+                const pA = a.compoundIds[0] === compoundId ? a.compoundIds[1] : a.compoundIds[0];
+                const pB = b.compoundIds[0] === compoundId ? b.compoundIds[1] : b.compoundIds[0];
+                return partnerScore(pB) - partnerScore(pA);
+              })
+              .map((syn) => {
+                const partnerId = syn.compoundIds[0] === compoundId ? syn.compoundIds[1] : syn.compoundIds[0];
+                const score = partnerScore(partnerId);
+                const scoreColor =
+                  score >= 8 ? 'var(--accent-emerald)' : score >= 6 ? 'var(--accent-cyan)' : 'var(--accent-amber)';
+                return (
+                  <div key={syn.compoundIds.join('-')} className="rounded-lg bg-muted/20 p-3">
+                    <div className="flex items-center gap-2 mb-1.5">
+                      <span
+                        className="font-mono text-[11px] font-black px-2 py-0.5 rounded-md shrink-0"
+                        style={{ color: scoreColor, background: `${scoreColor}20` }}
+                      >
+                        {score}/10
+                      </span>
+                      <Link
+                        href={`/library/compounds/${partnerId}`}
+                        className="text-xs font-semibold text-foreground hover:text-accent-violet transition-colors"
+                      >
+                        + {partnerName(partnerId)}
+                      </Link>
+                    </div>
+                    <p className="text-[10px] font-semibold text-muted-foreground/80 mb-0.5 ml-0.5">{syn.title}</p>
+                    <p className="text-[11px] text-muted-foreground leading-relaxed ml-0.5">{syn.detail}</p>
+                  </div>
+                );
+              })}
+          </div>
+        </div>
+      )}
+
+      {cautions.length > 0 && (
+        <div className="glass rounded-xl p-4 border border-accent-amber/15">
+          <p className="text-[10px] font-mono uppercase tracking-widest mb-3 flex items-center gap-1.5 text-accent-amber">
+            <AlertTriangle className="w-3 h-3" /> Pair Cautions
+          </p>
+          <div className="space-y-2.5">
+            {cautions.map((c) => {
+              const partnerId = c.compoundIds[0] === compoundId ? c.compoundIds[1] : c.compoundIds[0];
+              const sColor = c.severity === 'high' ? 'var(--accent-rose)' : 'var(--accent-amber)';
+              return (
+                <div key={c.compoundIds.join('-')} className="rounded-lg bg-muted/20 p-3">
+                  <div className="flex items-center gap-2 mb-1.5">
+                    <span
+                      className="font-mono text-[9px] font-bold px-2 py-0.5 rounded-md uppercase tracking-wider shrink-0"
+                      style={{ color: sColor, background: `${sColor}20` }}
+                    >
+                      {c.severity}
+                    </span>
+                    <Link
+                      href={`/library/compounds/${partnerId}`}
+                      className="text-xs font-medium text-foreground hover:text-accent-amber transition-colors"
+                    >
+                      with {partnerName(partnerId)}
+                    </Link>
+                  </div>
+                  <p className="text-[10px] font-semibold text-muted-foreground/80 mb-0.5 ml-0.5">{c.title}</p>
+                  <p className="text-[11px] text-muted-foreground leading-relaxed ml-0.5">{c.detail}</p>
+                </div>
+              );
+            })}
+          </div>
+        </div>
+      )}
     </div>
   );
 }
