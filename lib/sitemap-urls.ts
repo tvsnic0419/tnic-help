@@ -72,6 +72,7 @@ export function buildSitemapEntries(lastModified = new Date()): MetadataRoute.Si
   }));
 
   const longevityGuideRoute = [
+    { url: `${base}/supplement-guides`, lastModified, changeFrequency: 'weekly' as const, priority: 0.91 },
     { url: `${base}/longevity-supplements-guide`, lastModified, changeFrequency: 'monthly' as const, priority: 0.92 },
     { url: `${base}/nad-supplement-guide`, lastModified, changeFrequency: 'monthly' as const, priority: 0.92 },
     { url: `${base}/glynac-supplement-guide`, lastModified, changeFrequency: 'monthly' as const, priority: 0.91 },

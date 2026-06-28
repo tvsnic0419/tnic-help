@@ -1,6 +1,7 @@
 /** High-intent routes — request indexing in GSC and surface in footer/HTML sitemap first */
 export const PRIORITY_INDEX_PATHS = [
   '/',
+  '/supplement-guides',
   '/longevity-supplements-guide',
   '/library',
   '/library/compare',
@@ -46,6 +47,7 @@ export const PRIORITY_INDEX_PATHS = [
 ] as const;
 
 export const POPULAR_GUIDE_LINKS = [
+  { href: '/supplement-guides', label: 'All Supplement Guides Hub' },
   { href: '/longevity-supplements-guide', label: 'Best Longevity Supplements 2026' },
   { href: '/nad-supplement-guide', label: 'NAD+ Supplement Guide 2026' },
   { href: '/glynac-supplement-guide', label: 'GlyNAC Supplement Guide 2026' },
