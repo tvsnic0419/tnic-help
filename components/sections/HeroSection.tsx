@@ -2,7 +2,7 @@
 
 import { motion, useReducedMotion } from 'framer-motion';
 import Link from 'next/link';
-import { ArrowRight, LayoutDashboard, Sparkles, ClipboardList } from 'lucide-react';
+import { ArrowRight, LayoutDashboard, Sparkles, ClipboardList, BookOpen } from 'lucide-react';
 import { StarterQuiz } from '@/components/sections/StarterQuiz';
 
 export function HeroSection() {
@@ -71,6 +71,13 @@ export function HeroSection() {
               >
                 <LayoutDashboard className="w-4 h-4" aria-hidden="true" />
                 Open Longevity OS
+              </Link>
+              <Link
+                href="/longevity-supplements-guide"
+                className="focus-ring interactive glass px-6 md:px-8 py-4 min-h-[var(--space-touch)] rounded-2xl font-medium hover:border-accent-cyan/30 text-accent-cyan flex items-center justify-center gap-2"
+              >
+                <BookOpen className="w-4 h-4" aria-hidden="true" />
+                2026 Supplement Guide
               </Link>
             </motion.div>
 

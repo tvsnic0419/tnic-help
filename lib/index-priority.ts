@@ -9,6 +9,9 @@ export const PRIORITY_INDEX_PATHS = [
   '/library/compare/sulforaphane-vs-curcumin',
   '/library/compare/resveratrol-vs-pterostilbene',
   '/library/compare/berberine-vs-metformin',
+  '/library/compare/fisetin-vs-quercetin',
+  '/library/compare/taurine-vs-nmn',
+  '/library/compare/cakg-vs-spermidine',
   '/library/compounds/nmn',
   '/library/compounds/nr',
   '/library/compounds/glynac',
@@ -48,6 +51,8 @@ export const POPULAR_GUIDE_LINKS = [
   { href: '/library/compounds/pterostilbene', label: 'Pterostilbene Guide' },
   { href: '/elite-8', label: 'Elite 8 LQ Ranking' },
   { href: '/library/mitochondrial-dysfunction', label: 'Mitochondrial Health' },
+  { href: '/library/compare/fisetin-vs-quercetin', label: 'Fisetin vs Quercetin' },
+  { href: '/library/compare/taurine-vs-nmn', label: 'Taurine vs NMN' },
   { href: '/library/compare', label: 'All Comparisons' },
   { href: '/faq', label: 'Longevity FAQ' },
 ] as const;
