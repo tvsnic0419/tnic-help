@@ -10,6 +10,11 @@ import { HomepageSynergyNetwork } from '@/components/sections/HomepageSynergyNet
 import { CompetitiveEdge } from '@/components/sections/CompetitiveEdge';
 import { LibraryHighlights } from '@/components/sections/LibraryHighlights';
 import { HomepageCTA } from '@/components/sections/HomepageCTA';
+import { PlatformTicker } from '@/components/ui/PlatformTicker';
+import { PremiumManifestoSection } from '@/components/sections/PremiumManifestoSection';
+import { StackImpactPreview } from '@/components/sections/StackImpactPreview';
+import { ClockImpactSection } from '@/components/sections/ClockImpactSection';
+import { NinetyDayCycle } from '@/components/sections/NinetyDayCycle';
 import { seoRoutes } from '@/lib/seo-routes';
 
 export const metadata = seoRoutes.home();
@@ -22,11 +27,16 @@ export default function HomePage() {
       <main id="main-content" tabIndex={-1}>
         <HeroSection />
         <HomepageTrustStrip />
+        <PlatformTicker />
+        <PremiumManifestoSection />
+        <StackImpactPreview />
+        <ClockImpactSection />
+        <NinetyDayCycle />
         <PlatformPreview />
         <HallmarkProblemTiles />
         <HomepageSynergyNetwork />
-        <CompetitiveEdge />
         <LibraryHighlights />
+        <CompetitiveEdge />
         <HomepageCTA />
       </main>
       <ToolsDock />
