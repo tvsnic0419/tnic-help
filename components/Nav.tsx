@@ -52,7 +52,7 @@ export function Nav() {
       <div className="relative container-page py-3 md:py-4 flex justify-between items-center gap-4">
         <Link href="/" className="focus-ring interactive flex items-center gap-3 rounded-lg shrink-0 group">
           <Logo variant="emblem" size="nav" className="group-hover:scale-105 transition-transform" />
-          <span className="text-xl font-bold tracking-tight text-foreground">
+          <span className="text-xl font-bold tracking-tight" style={{ color: '#ffffff' }}>
             TN<span className="shimmer-text">i</span>C
           </span>
         </Link>
