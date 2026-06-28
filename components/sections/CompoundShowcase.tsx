@@ -22,7 +22,7 @@ const CONFIDENCE_COLORS = {
 
 export function CompoundShowcase() {
   const scored = ELITE_8_COMPOUNDS
-    .map((c) => ({ ...c, score: Math.round(calcLQScore(c) * 10) }))
+    .map((c) => ({ ...c, score: Math.round(calcLQScore(c)) }))
     .sort((a, b) => b.score - a.score);
 
   return (
