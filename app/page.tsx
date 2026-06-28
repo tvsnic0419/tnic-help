@@ -15,6 +15,7 @@ import { PremiumManifestoSection } from '@/components/sections/PremiumManifestoS
 import { StackImpactPreview } from '@/components/sections/StackImpactPreview';
 import { ClockImpactSection } from '@/components/sections/ClockImpactSection';
 import { NinetyDayCycle } from '@/components/sections/NinetyDayCycle';
+import { CompoundShowcase } from '@/components/sections/CompoundShowcase';
 import { seoRoutes } from '@/lib/seo-routes';
 
 export const metadata = seoRoutes.home();
@@ -30,6 +31,7 @@ export default function HomePage() {
         <PlatformTicker />
         <PremiumManifestoSection />
         <StackImpactPreview />
+        <CompoundShowcase />
         <ClockImpactSection />
         <NinetyDayCycle />
         <PlatformPreview />
