@@ -76,6 +76,7 @@ export function buildSitemapEntries(lastModified = new Date()): MetadataRoute.Si
     { url: `${base}/nad-supplement-guide`, lastModified, changeFrequency: 'monthly' as const, priority: 0.92 },
     { url: `${base}/glynac-supplement-guide`, lastModified, changeFrequency: 'monthly' as const, priority: 0.91 },
     { url: `${base}/berberine-supplement-guide`, lastModified, changeFrequency: 'monthly' as const, priority: 0.91 },
+    { url: `${base}/taurine-supplement-guide`, lastModified, changeFrequency: 'monthly' as const, priority: 0.91 },
   ];
 
   const quizShareRoutes = PRESET_KEYS.map((preset) => ({
