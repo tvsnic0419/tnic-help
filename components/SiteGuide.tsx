@@ -17,10 +17,13 @@ const paths = [
     steps: [
       { label: '3-Min starter quiz', href: '/quiz' },
       { label: 'Learn hub', href: '/learn' },
+      { label: 'Best supplements 2026 guide', href: '/longevity-supplements-guide' },
+      { label: 'NAD+ supplement guide 2026', href: '/nad-supplement-guide' },
       { label: 'FAQ — 15 answers', href: '/faq' },
       { label: 'Research digest', href: '/brief' },
       { label: 'Search library', href: '/library' },
       { label: 'Compound deep-dives', href: '/library/compounds/glynac' },
+      { label: 'Head-to-head comparisons', href: '/library/compare' },
       { label: 'Delivery systems guide', href: '/library/delivery-systems' },
     ],
   },

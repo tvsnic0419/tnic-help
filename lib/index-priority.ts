@@ -34,11 +34,13 @@ export const PRIORITY_INDEX_PATHS = [
   '/products',
   '/shop',
   '/elite-8',
+  '/nad-supplement-guide',
   '/site-map',
 ] as const;
 
 export const POPULAR_GUIDE_LINKS = [
   { href: '/longevity-supplements-guide', label: 'Best Longevity Supplements 2026' },
+  { href: '/nad-supplement-guide', label: 'NAD+ Supplement Guide 2026' },
   { href: '/library/compare/nmn-vs-nr', label: 'NMN vs NR' },
   { href: '/library/compounds/nmn', label: 'NMN Guide' },
   { href: '/library/compounds/nr', label: 'NR Guide' },
