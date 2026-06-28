@@ -61,6 +61,19 @@ export function HallmarkDetail({
               <div className="glass rounded-xl p-5 mb-4">
                 <p className="text-[10px] font-mono text-accent-violet uppercase mb-2">Mechanism</p>
                 <p className="text-sm text-foreground/80 leading-relaxed">{hallmark.mechanism}</p>
+                {hallmark.keyMolecules && hallmark.keyMolecules.length > 0 && (
+                  <div className="flex flex-wrap gap-1.5 mt-3 pt-3 border-t border-border/30">
+                    <span className="text-[9px] font-mono text-muted-foreground uppercase tracking-wider self-center mr-1">Key targets:</span>
+                    {hallmark.keyMolecules.map((mol) => (
+                      <span
+                        key={mol}
+                        className="font-mono text-[10px] px-2 py-0.5 rounded-md bg-accent-violet/10 text-accent-violet border border-accent-violet/25 select-all"
+                      >
+                        {mol}
+                      </span>
+                    ))}
+                  </div>
+                )}
               </div>
               <div className="glass rounded-xl p-5">
                 <p className="text-[10px] font-mono text-accent-amber uppercase mb-2">Why it matters</p>
