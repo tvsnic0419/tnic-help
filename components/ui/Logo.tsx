@@ -1,3 +1,4 @@
+import Image from 'next/image';
 import type { SVGProps } from 'react';
 
 interface LogoProps {
@@ -7,6 +8,14 @@ interface LogoProps {
   priority?: boolean;
   alt?: string;
 }
+
+const lockupDims: Record<NonNullable<LogoProps['size']>, { w: number; h: number }> = {
+  nav:  { w: 160, h: 90  },
+  sm:   { w: 140, h: 79  },
+  md:   { w: 200, h: 113 },
+  lg:   { w: 260, h: 146 },
+  hero: { w: 400, h: 225 },
+};
 
 function EmblemSvg(props: SVGProps<SVGSVGElement>) {
   return (
@@ -20,7 +29,6 @@ function EmblemSvg(props: SVGProps<SVGSVGElement>) {
           <stop offset="0%" stopColor="#6ee7b7" />
           <stop offset="100%" stopColor="#34d399" />
         </linearGradient>
-        {/* Soft glow — low stdDeviation so strands stay crisp */}
         <filter id="tnic-glow" x="-20%" y="-20%" width="140%" height="140%">
           <feGaussianBlur stdDeviation="1" result="blur" />
           <feMerge><feMergeNode in="blur" /><feMergeNode in="SourceGraphic" /></feMerge>
@@ -68,9 +76,29 @@ export function Logo({
   variant = 'emblem',
   size = 'md',
   className = '',
+  priority,
   alt,
 }: LogoProps) {
-  const altText = alt || 'TNiC emblem';
+  const altText = alt || (variant === 'lockup' ? 'TNiC – Longevity OS' : 'TNiC emblem');
+
+  if (variant === 'lockup') {
+    const { w, h } = lockupDims[size];
+    return (
+      <div className={`inline-flex items-center ${className}`} role="img" aria-label={altText}>
+        <div className="relative" style={{ width: w, height: h }}>
+          <Image
+            src="/tnic-logo.jpg"
+            alt={altText}
+            fill
+            sizes={`${w}px`}
+            className="object-contain"
+            style={{ mixBlendMode: 'screen' }}
+            priority={priority}
+          />
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div
