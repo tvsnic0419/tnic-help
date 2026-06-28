@@ -24,18 +24,14 @@ const hubLinks = [
 ];
 
 const resourceLinks = [
+  { href: '/elite-8', label: 'Elite 8 Compounds', icon: Rocket },
+  { href: '/products', label: 'Products', icon: BookOpen },
   { href: '/shop', label: 'Protocol Shop', icon: BookOpen },
-  { href: '/brief', label: 'Protocol Brief', icon: BookOpen },
-  { href: '/labs#lab-partner-oauth', label: 'Lab Partner OAuth', icon: FlaskConical },
-  { href: '/contact', label: 'Contact', icon: HelpCircle },
-  { href: '/library/compare', label: 'Comparisons', icon: BookOpen },
-  { href: '/#hallmark-targets', label: 'Hallmark Targets', icon: Dna },
-  { href: '/#next-up', label: "What's Next", icon: Rocket },
   { href: '/faq', label: 'FAQ', icon: HelpCircle },
   { href: '/trust', label: 'Trust & Transparency', icon: Shield },
   { href: '/trust/methodology', label: 'Methodology', icon: BookOpen },
   { href: '/trust/disclaimers', label: 'Disclaimers', icon: BookOpen },
-  { href: '/trust/updates', label: 'Update History', icon: BookOpen },
+  { href: '/contact', label: 'Contact', icon: HelpCircle },
   { href: '/site-map', label: 'Site Map', icon: BookOpen },
 ];
 
