@@ -17,6 +17,7 @@ import { NextUpSection } from '@/components/sections/NextUpSection';
 import { HallmarkProblemTiles } from '@/components/sections/HallmarkProblemTiles';
 import { HomepageSynergyNetwork } from '@/components/sections/HomepageSynergyNetwork';
 import { EliteCompoundsShowcase } from '@/components/sections/EliteCompoundsShowcase';
+import { PopularGuidesStrip } from '@/components/sections/PopularGuidesStrip';
 import { PlatformTicker } from '@/components/ui/PlatformTicker';
 import { ParallaxSection } from '@/components/ui/ParallaxSection';
 import { SiteGuide } from '@/components/SiteGuide';
@@ -26,6 +27,7 @@ export function HomepageMain() {
   return (
     <>
       <HeroSection />
+      <PopularGuidesStrip />
       <PlatformTicker />
 
       <ParallaxSection depth={1} theme="violet">
