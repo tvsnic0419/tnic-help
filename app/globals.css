@@ -33,37 +33,42 @@
   --radius: 0.75rem;
 
   /* TNiC semantic tokens */
-  --color-bg-base: #030712;
-  --color-bg-elevated: #0a0f1a;
-  --color-bg-surface: rgba(15, 23, 42, 0.65);
+  --color-bg-base: #020811;
+  --color-bg-elevated: #080f1c;
+  --color-bg-surface: rgba(12, 20, 40, 0.65);
   --color-bg-muted: rgba(255, 255, 255, 0.03);
-  --color-border-subtle: rgba(255, 255, 255, 0.06);
-  --color-border-strong: rgba(255, 255, 255, 0.12);
-  --color-border-focus: rgba(34, 211, 238, 0.6);
+  --color-border-subtle: rgba(255, 255, 255, 0.07);
+  --color-border-strong: rgba(255, 255, 255, 0.14);
+  --color-border-focus: rgba(0, 224, 255, 0.75);
   --color-text-primary: #fafafa;
   --color-text-secondary: #d4d4d8;
   --color-text-muted: #a1a1aa;
   --color-text-faint: #71717a;
 
-  /* Hub accents */
-  --accent-cyan: #22d3ee;
+  /* Hub accents — v2.1 sharp pop */
+  --accent-cyan: #00e0ff;
   --accent-emerald: #34d399;
-  --accent-violet: #a78bfa;
-  --accent-rose: #fb7185;
+  --accent-violet: #c084fc;
+  --accent-rose: #f472b6;
   --accent-amber: #fbbf24;
 
   /* Status */
   --status-optimal: #34d399;
   --status-watch: #fbbf24;
-  --status-critical: #fb7185;
+  --status-critical: #f472b6;
+
+  /* Luminous glow tokens */
+  --glow-cyan: 0 0 24px rgba(0, 224, 255, 0.22), 0 0 48px rgba(0, 224, 255, 0.08);
+  --glow-violet: 0 0 24px rgba(192, 132, 252, 0.18), 0 0 48px rgba(192, 132, 252, 0.07);
+  --glow-emerald: 0 0 24px rgba(52, 211, 153, 0.18), 0 0 48px rgba(52, 211, 153, 0.07);
 
   /* Effects */
-  --glass-bg: rgba(15, 23, 42, 0.6);
-  --glass-border: rgba(255, 255, 255, 0.06);
-  --hero-mesh-1: rgba(34, 211, 238, 0.18);
-  --hero-mesh-2: rgba(52, 211, 153, 0.1);
-  --grid-line: rgba(34, 211, 238, 0.03);
-  --scrollbar-thumb: rgba(34, 211, 238, 0.3);
+  --glass-bg: rgba(12, 20, 40, 0.62);
+  --glass-border: rgba(255, 255, 255, 0.07);
+  --hero-mesh-1: rgba(0, 224, 255, 0.22);
+  --hero-mesh-2: rgba(52, 211, 153, 0.12);
+  --grid-line: rgba(0, 224, 255, 0.04);
+  --scrollbar-thumb: rgba(0, 224, 255, 0.38);
 }
 
 /* ── Light theme ── */
@@ -450,16 +455,16 @@ body::after {
 /* ── Hero & ambient ── */
 .hero-mesh {
   background:
-    radial-gradient(ellipse 90% 60% at 50% -10%, rgba(34, 211, 238, 0.22), transparent),
+    radial-gradient(ellipse 90% 60% at 50% -10%, rgba(0, 224, 255, 0.22), transparent),
     radial-gradient(ellipse 70% 50% at 85% 50%, rgba(52, 211, 153, 0.14), transparent),
-    radial-gradient(ellipse 60% 40% at 15% 80%, rgba(167, 139, 250, 0.10), transparent),
+    radial-gradient(ellipse 60% 40% at 15% 80%, rgba(192, 132, 252, 0.10), transparent),
     linear-gradient(180deg, var(--color-bg-base) 0%, var(--color-bg-elevated) 50%, var(--color-bg-base) 100%);
 }
 
 .grid-overlay {
   background-image:
-    linear-gradient(rgba(34, 211, 238, 0.055) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(34, 211, 238, 0.055) 1px, transparent 1px);
+    linear-gradient(rgba(0, 224, 255, 0.055) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0, 224, 255, 0.055) 1px, transparent 1px);
   background-size: 64px 64px;
   mask-image: radial-gradient(ellipse 80% 70% at 50% 40%, black 10%, transparent 75%);
 }
@@ -472,9 +477,9 @@ body::after {
   animation: float 14s ease-in-out infinite;
 }
 
-.orb-1 { width: 520px; height: 520px; background: radial-gradient(circle, rgba(34,211,238,0.28) 0%, transparent 70%); top: -5%; left: 5%; }
-.orb-2 { width: 380px; height: 380px; background: radial-gradient(circle, rgba(52,211,153,0.22) 0%, transparent 70%); top: 35%; right: 3%; animation-delay: -5s; }
-.orb-3 { width: 300px; height: 300px; background: radial-gradient(circle, rgba(167,139,250,0.18) 0%, transparent 70%); bottom: 10%; left: 35%; animation-delay: -9s; }
+.orb-1 { width: 520px; height: 520px; background: radial-gradient(circle, rgba(0,224,255,0.38) 0%, transparent 70%); top: -5%; left: 5%; }
+.orb-2 { width: 380px; height: 380px; background: radial-gradient(circle, rgba(52,211,153,0.30) 0%, transparent 70%); top: 35%; right: 3%; animation-delay: -5s; }
+.orb-3 { width: 300px; height: 300px; background: radial-gradient(circle, rgba(192,132,252,0.24) 0%, transparent 70%); bottom: 10%; left: 35%; animation-delay: -9s; }
 
 @keyframes float {
   0%, 100% { transform: translate(0, 0) scale(1); }
@@ -594,7 +599,7 @@ body::after {
   background: linear-gradient(
     180deg,
     transparent 0%,
-    rgba(34, 211, 238, 0.025) 50%,
+    rgba(0, 224, 255, 0.025) 50%,
     transparent 100%
   );
   background-size: 100% 4px;
@@ -956,7 +961,7 @@ body::after {
   max-height: 700px;
   top: -15%;
   left: -10%;
-  background: radial-gradient(circle, color-mix(in srgb, var(--accent-cyan) 35%, transparent), transparent 70%);
+  background: radial-gradient(circle, color-mix(in srgb, var(--accent-cyan) 48%, transparent), transparent 70%);
 }
 
 .ambient-orb-2 {
@@ -966,7 +971,7 @@ body::after {
   max-height: 560px;
   bottom: -10%;
   right: -8%;
-  background: radial-gradient(circle, color-mix(in srgb, var(--accent-violet) 28%, transparent), transparent 70%);
+  background: radial-gradient(circle, color-mix(in srgb, var(--accent-violet) 38%, transparent), transparent 70%);
   animation-delay: -12s;
 }
 
@@ -977,7 +982,7 @@ body::after {
   max-height: 420px;
   top: 40%;
   left: 45%;
-  background: radial-gradient(circle, color-mix(in srgb, var(--accent-emerald) 22%, transparent), transparent 70%);
+  background: radial-gradient(circle, color-mix(in srgb, var(--accent-emerald) 30%, transparent), transparent 70%);
   animation-delay: -20s;
 }
 
@@ -1178,8 +1183,9 @@ body::after {
 
 .logo-glow {
   box-shadow:
-    0 0 0 1px color-mix(in srgb, var(--accent-cyan) 30%, transparent),
-    0 0 24px color-mix(in srgb, var(--accent-cyan) 35%, transparent);
+    0 0 0 1px color-mix(in srgb, var(--accent-cyan) 40%, transparent),
+    0 0 28px color-mix(in srgb, var(--accent-cyan) 50%, transparent),
+    0 0 56px color-mix(in srgb, var(--accent-cyan) 18%, transparent);
 }
 
 /* ── Scroll progress glow ── */
@@ -1446,7 +1452,7 @@ body::after {
   letter-spacing: -0.04em;
   line-height: 1.0;
   color: var(--color-text-primary);
-  text-shadow: 0 0 120px rgba(34, 211, 238, 0.18), 0 2px 8px rgba(0, 0, 0, 0.6);
+  text-shadow: 0 0 80px rgba(0, 224, 255, 0.28), 0 0 160px rgba(0, 224, 255, 0.10), 0 2px 8px rgba(0, 0, 0, 0.6);
 }
 
 /* ── Live status badge ── */
@@ -2278,8 +2284,8 @@ body::after {
   position: absolute;
   inset: 0;
   background-image:
-    linear-gradient(rgba(34, 211, 238, 0.03) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(34, 211, 238, 0.03) 1px, transparent 1px);
+    linear-gradient(rgba(0, 224, 255, 0.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0, 224, 255, 0.03) 1px, transparent 1px);
   background-size: 80px 80px;
   mask-image: radial-gradient(ellipse 95% 80% at 50% 40%, black 5%, transparent 80%);
   pointer-events: none;
@@ -2568,12 +2574,12 @@ body::after {
 @media (hover: hover) {
   .tnic-card:hover {
     transform: translateY(-6px);
-    border-color: rgba(34, 211, 238, 0.22) !important;
+    border-color: rgba(0, 224, 255, 0.22) !important;
     box-shadow:
       inset 0 1px 0 rgba(255, 255, 255, 0.08),
-      0 0 0 1px rgba(34, 211, 238, 0.05),
+      0 0 0 1px rgba(0, 224, 255, 0.05),
       0 20px 60px -12px rgba(0, 0, 0, 0.65),
-      0 0 60px -20px rgba(34, 211, 238, 0.14);
+      0 0 60px -20px rgba(0, 224, 255, 0.14);
   }
 }
 
