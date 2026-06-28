@@ -12,55 +12,52 @@ function EmblemSvg(props: SVGProps<SVGSVGElement>) {
   return (
     <svg viewBox="0 0 80 80" fill="none" aria-hidden="true" {...props}>
       <defs>
-        <radialGradient id="tnic-bg" cx="50%" cy="50%" r="50%">
-          <stop offset="0%" stopColor="#0d2137" />
-          <stop offset="100%" stopColor="#050c18" />
-        </radialGradient>
         <linearGradient id="tnic-c" x1="0%" y1="0%" x2="0%" y2="100%">
-          <stop offset="0%" stopColor="#38e8ff" />
-          <stop offset="100%" stopColor="#06b6d4" />
+          <stop offset="0%" stopColor="#67f3ff" />
+          <stop offset="100%" stopColor="#22d3ee" />
         </linearGradient>
         <linearGradient id="tnic-e" x1="0%" y1="0%" x2="0%" y2="100%">
-          <stop offset="0%" stopColor="#4ade80" />
-          <stop offset="100%" stopColor="#10b981" />
+          <stop offset="0%" stopColor="#6ee7b7" />
+          <stop offset="100%" stopColor="#34d399" />
         </linearGradient>
+        {/* Soft glow — low stdDeviation so strands stay crisp */}
         <filter id="tnic-glow" x="-20%" y="-20%" width="140%" height="140%">
-          <feGaussianBlur stdDeviation="1.5" result="blur" />
+          <feGaussianBlur stdDeviation="1" result="blur" />
           <feMerge><feMergeNode in="blur" /><feMergeNode in="SourceGraphic" /></feMerge>
         </filter>
       </defs>
 
-      {/* Background disc */}
-      <circle cx="40" cy="40" r="38" fill="url(#tnic-bg)" />
-      {/* Outer glow ring */}
-      <circle cx="40" cy="40" r="37" stroke="#22d3ee" strokeWidth="1.4" strokeOpacity="0.75" />
+      {/* Disc — visibly different from nav background */}
+      <circle cx="40" cy="40" r="39" fill="#0e2040" />
+      {/* Bright cyan ring */}
+      <circle cx="40" cy="40" r="37.5" stroke="#22d3ee" strokeWidth="3" />
 
-      {/* Strand 1 — cyan, S-curve left side */}
+      {/* Strand 1 — cyan */}
       <path
-        d="M 25 14 C 57 20, 57 33, 25 40 C 57 47, 57 60, 25 66"
-        stroke="url(#tnic-c)" strokeWidth="3.6" strokeLinecap="round" fill="none"
+        d="M 26 13 C 58 21, 58 32, 26 40 C 58 48, 58 59, 26 67"
+        stroke="url(#tnic-c)" strokeWidth="4" strokeLinecap="round" fill="none"
         filter="url(#tnic-glow)"
       />
-      {/* Strand 2 — emerald, S-curve right side (mirror) */}
+      {/* Strand 2 — emerald (mirror) */}
       <path
-        d="M 55 14 C 23 20, 23 33, 55 40 C 23 47, 23 60, 55 66"
-        stroke="url(#tnic-e)" strokeWidth="3.6" strokeLinecap="round" fill="none"
+        d="M 54 13 C 22 21, 22 32, 54 40 C 22 48, 22 59, 54 67"
+        stroke="url(#tnic-e)" strokeWidth="4" strokeLinecap="round" fill="none"
         filter="url(#tnic-glow)"
       />
 
       {/* Base-pair rungs */}
-      <line x1="25" y1="27" x2="55" y2="27" stroke="#22d3ee" strokeWidth="1.6" strokeOpacity="0.55" strokeLinecap="round" />
-      <line x1="25" y1="40" x2="55" y2="40" stroke="#34d399" strokeWidth="1.6" strokeOpacity="0.5"  strokeLinecap="round" />
-      <line x1="25" y1="53" x2="55" y2="53" stroke="#22d3ee" strokeWidth="1.6" strokeOpacity="0.45" strokeLinecap="round" />
+      <line x1="26" y1="26.5" x2="54" y2="26.5" stroke="#22d3ee" strokeWidth="2" strokeLinecap="round" />
+      <line x1="26" y1="40"   x2="54" y2="40"   stroke="#34d399" strokeWidth="2" strokeLinecap="round" />
+      <line x1="26" y1="53.5" x2="54" y2="53.5" stroke="#22d3ee" strokeWidth="2" strokeLinecap="round" />
 
-      {/* Center crossover highlight */}
-      <circle cx="40" cy="40" r="3.5" fill="#22d3ee" fillOpacity="0.7" filter="url(#tnic-glow)" />
+      {/* Center node */}
+      <circle cx="40" cy="40" r="3.5" fill="#22d3ee" />
     </svg>
   );
 }
 
 const emblemSizeClass: Record<NonNullable<LogoProps['size']>, string> = {
-  nav:  'w-10 h-10',
+  nav:  'w-12 h-12',
   sm:   'w-8 h-8',
   md:   'w-12 h-12',
   lg:   'w-16 h-16 md:w-20 md:h-20',
