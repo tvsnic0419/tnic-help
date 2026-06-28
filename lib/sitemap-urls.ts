@@ -50,6 +50,9 @@ export function buildSitemapEntries(lastModified = new Date()): MetadataRoute.Si
     'taurine-vs-nmn',
     'urolithina-vs-coq10',
     'sulforaphane-vs-curcumin',
+    'rapamycin-vs-metformin',
+    'coq10-vs-ubiquinol',
+    'omega3-vs-krill-oil',
   ]);
 
   const compareRoutes = getAllComparisonSlugs().map((slug) => ({
