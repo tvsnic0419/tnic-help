@@ -2,75 +2,187 @@
 title: NR (Nicotinamide Riboside)
 evidence_tier: A
 compound_id: nr
-last_updated: 2026-06-19
+last_updated: 2026-06-28
 ---
 
-> **TL;DR** — NR is a legitimate NAD+ precursor with human RCT data. TNiC standardizes on NMN for stack integration, but NR is defensible if your physician prefers it or you already respond. Never combine high-dose NR + NMN without oversight.
+> **TL;DR** — NR (Nicotinamide Riboside) is a legitimate NAD+ precursor with Tier A human pharmacokinetic data from multiple RCTs. NR raises whole-blood NAD+ metabolites in healthy adults at 300–1000 mg/day. TNiC defaults to NMN for stack integration, but NR is a valid choice if your physician prefers it or you already have confirmed response data. The two compounds reach the same destination (NAD+) via slightly different enzymatic routes. Never stack high-dose NR + NMN simultaneously without oversight.
 
-## 1. NR vs NMN — same destination, different molecule
+## 1. What NR does — and how it compares to NMN
 
-Both nicotinamide riboside (NR) and NMN feed the NAD+ salvage pathway:
+NAD+ (nicotinamide adenine dinucleotide) declines approximately **50% between ages 40 and 60** — a fall linked to mitochondrial dysfunction, impaired DNA repair, SIRT1 silencing, and accelerated SASP production from senescent cells. Restoring NAD+ is one of the most mechanistically well-supported longevity interventions available.
+
+Nicotinamide Riboside (NR) is a naturally occurring form of vitamin B3 found in small amounts in milk and yeast. Unlike niacin (which causes flush) or nicotinamide (which can inhibit sirtuins at high doses), NR is efficiently taken up by cells and converted to NAD+ via the Preiss-Handler salvage pathway:
 
 ```
-NR → NMN → NAD+ → SIRT1/3, PARP, CD38 balance
+NR → NMN (via NRK1/2 enzymes) → NAD+ → SIRT1/3, PARP, CD38 balance
 ```
 
-NR requires one enzymatic step (NRK) before becoming NMN. In practice, **both raise NAD+ metabolites in humans** — the debate is dose economics, stack integration, and individual response — not whether NAD+ restoration works.
+The key difference from NMN: NR requires one additional enzymatic step (nicotinamide riboside kinase, NRK) before becoming NMN. Both ultimately restore NAD+ pools. The practical differences are in bioavailability, dose economics, and stack integration — not in whether NAD+ restoration itself works.
+
+**Primary hallmarks targeted:** Mitochondrial Dysfunction · Genomic Instability (PARP-mediated DNA repair) · Epigenetic Alterations (SIRT1/SIRT3) · Cellular Senescence (SASP suppression via NAD+)
 
 :::evidence tier="A"
-Martens 2018 (PMID 29514064): NR elevated NAD+ in healthy adults. Trammell 2016 and subsequent RCTs confirm human PK. Compare head-to-head in [NMN vs NR](/library/compare/nmn-vs-nr).
+Martens 2018 (Cell Metabolism, PMID 29514064): First randomized, placebo-controlled trial in healthy older adults (n=24). NR 1000 mg/day × 6 weeks. Primary outcome: whole-blood NAD+ metabolomes via mass spectrometry. Result: significant NAD+ elevation confirmed in all participants. No serious adverse events.
 :::
 
-## 2. When to choose NR over NMN
+:::pathway title="NR → NAD+ Restoration Pathway" nodes="NR (Nicotinamide Riboside)|B3 vitamin form|cyan],[NRK1/NRK2|Nicotinamide riboside kinase|amber],[NMN intermediate|Nucleotide phosphorylation|cyan],[NAD+|Final product|emerald],[SIRT1/SIRT3 activation|Epigenetic + mito repair|violet"
+:::
 
-| Choose NR when | Choose NMN when |
-| --- | --- |
-| Physician already prescribed NR | Running TNiC Mito or SIRT1 stacks |
-| Prior NR trial with confirmed NAD+ rise | Matching Igarashi 250 mg protocol |
-| Trusted NR-Cl brand with batch COA | Stack Architect native integration |
+## 2. NR vs NMN — the honest comparison
 
-:::decision title="NR or NMN for your stack?"
-node | Physician prescribed NR or you have week-4 NAD+ proof on NR?
-yes | Continue NR — log in Lab Hub; do not add NMN without clearance
-no | node | Running TNiC NAD+ stack (Mito / Starter / Hybrid)?
-  yes | Default NMN 250 mg AM — [NMN module](/library/compounds/nmn)
-  no | Run [3-Min Quiz](/quiz) → compare table → pick one precursor only
-redflag | Combining 500 mg+ NR with 500 mg+ NMN → physician oversight required
+Both are legitimate. The choice between them depends on your situation, not marketing.
+
+| Factor | NR | NMN |
+| --- | --- | --- |
+| Enzymatic steps to NAD+ | 2 (NR → NMN → NAD+) | 1 (NMN → NAD+) |
+| Human NAD+ elevation confirmed | Yes (Martens 2018, Trammell 2016, others) | Yes (Igarashi 2022, Yi 2023, others) |
+| Dose in trials | 300–1000 mg/day | 250–900 mg/day |
+| Research volume | ~20 human trials | ~15 human trials |
+| Resveratrol synergy in stack | Same mechanism (SIRT1 activation) | Same mechanism |
+| TNiC stack integration | Manual substitution required | Native compound ID |
+| Head-to-head comparison | See compare table | See compare table |
+
+**Bottom line:** NMN is TNiC's default because stack integration is native and the dose economics are better at 250–500 mg. NR is a defensible substitute — particularly if your physician is familiar with it through Thorne or Chromadex research.
+
+:::practical title="When NR is the right choice"
+Choose NR over NMN when **two or more** apply:
+
+- Your physician prescribed NR and is familiar with the Chromadex/Tru Niagen clinical data
+- You have week-4 NAD+ index or whole-blood data confirming response on NR
+- You prefer a compound with longer commercial history and more independent replication
+- GI tolerance to NMN is poor at effective doses
+- NMN from your verified vendor is temporarily unavailable
+
+**Choose NMN** if you are building a fresh stack from TNiC presets — it's the native compound ID and requires no manual substitution.
 :::
 
 ## 3. Evidence summary
 
-| Study | Molecule | Dose | Outcome | Tier |
-| --- | --- | --- | --- | --- |
-| Martens 2018 | NR | 1000 mg | ↑ whole-blood NAD+ | A |
-| Trammell 2016 | NR | 100–1000 mg | ↑ NAD+ metabolites | A |
-| Igarashi 2022 | NMN | 250 mg | ↑ NAD+, functional signal | A |
+| Study | Design | N | Dose | Duration | Key outcomes | Tier |
+| --- | --- | --- | --- | --- | --- | --- |
+| Martens 2018 (PMID 29514064) | RCT, placebo-controlled | 24 healthy adults | 1000 mg/day | 6 weeks | Whole-blood NAD+ metabolomes significantly elevated; no AEs | A |
+| Trammell 2016 (PMID 27721479) | First-in-human dose-escalation | 12 healthy adults | 100, 300, 1000 mg | Single dose | Dose-dependent NAD+ rise; NR-Cl preferred form for stability | A |
+| Elhassan 2019 (Cell Reports) | RCT, muscle tissue | 12 healthy older adults | 1000 mg/day | 21 days | Skeletal muscle NAD+ ↑; no change in mitochondrial function markers in 3 weeks | B |
+| Remie 2020 (Cell Metabolism) | RCT | 13 healthy overweight adults | 1000 mg/day | 6 weeks | NAD+ ↑; hepatic and adipose fat oxidation genes upregulated | A |
+| Dollerup 2018 (Nat Commun) | RCT | 40 obese adults | 2000 mg/day | 12 weeks | NAD+ ↑; no significant change in insulin sensitivity in this population | B |
+| Conze 2019 (Sci Reports) | Safety/PK | 140 healthy adults | 100–1000 mg | Up to 8 weeks | Confirmed safety at all doses; NR-Cl most bioavailable form | A |
+| Dellinger 2017 (NPJ Aging) | Preclinical crossover | Mice → biomarker bridging | — | — | NAD+ restoration protected against metabolic decline in aging mice | B |
 
-**Honest framing:** Tier A for NAD+ elevation. No human longevity endpoint trial for either precursor. Mouse data supports both.
+**Consensus:** Tier A for NAD+ elevation in humans — this is as clean as supplement evidence gets for pharmacokinetics. What we *don't* have: a large Phase 3 RCT with longevity endpoints (healthspan, disease incidence, cognitive decline) as primary outcomes. The mechanistic case for NAD+ in aging is strong; the clinical outcomes in humans at standard doses are still accumulating. This is the same limitation as NMN.
 
-## 4. Dosing protocol (NR)
-
-| Parameter | Recommendation |
-| --- | --- |
-| Dose | 300–1000 mg/day (trial-matched) |
-| Form | Nicotinamide riboside chloride (NR-Cl) |
-| Timing | AM, consistent daily |
-| Duration | Minimum 12 weeks before judging |
-| Retest | NAD+ index at week 4 |
-
-See the [NR buyer guide](#buyer-guide) for COA demands and red flags.
-
-## 5. Stack integration on TNiC
-
-NR is **not a native compound ID** in Stack Architect — substitute manually if you chose NR:
-
-1. Build your preset in [Stack Architect](/stacks)
-2. Swap NMN for NR in your personal log (Lab Hub notes)
-3. Keep PM resveratrol pairing if running [NAD+ Mito Stack](/library/synergies/nad-mito-stack)
-
-:::practical title="Shop verification for NR"
-If you chose NR, use the [Protocol Shop NR pick](/shop?stack=nr) — same COA checklist as NMN, different molecule verification (NR-Cl identity, not β-NMN).
+:::decision title="Should you start NR?"
+node | Do you already have physician-prescribed NR or week-4 NAD+ confirmation on NR?
+yes | Continue NR at your confirmed dose. Log in Lab Hub. Do not add NMN concurrently.
+no | node | Building a new stack from TNiC presets?
+  yes | Default to NMN 250 mg AM — see NMN module and stack presets. NR is a drop-in substitute.
+  no | Run the 3-Min Quiz → compare table → choose one NAD+ precursor only
+redflag | Combining 500 mg+ NR with 500 mg+ NMN concurrently → physician oversight required; excess NAD+ metabolites may stress methyl donor reserves
 :::
 
-:::cta href="/library/compare/nmn-vs-nr" title="Full evidence comparison" label="NMN vs NR compare table"
+## 4. Dosing protocol
+
+| Parameter | Recommendation | Notes |
+| --- | --- | --- |
+| Dose | 300–500 mg/day (standard) or 1000 mg/day (trial-matched) | Most human trials used 1000 mg; 300–500 mg is a practical entry point |
+| Form | Nicotinamide Riboside Chloride (NR-Cl) | NR-Cl is more stable than free-base NR; verify on COA |
+| Timing | Morning, with or without food | Consistent daily timing is more important than food state |
+| Duration | Minimum 12 weeks before judging response | NAD+ kinetics take weeks; cognitive/energy signals lag further |
+| Retest | NAD+ index or whole-blood NAD+ at week 4 | Confirms you're a responder before committing 12-week protocol |
+| Cycling | No evidence required | Unlike some compounds, no tolerance data exists; continuous use acceptable |
+
+:::practical title="Week-one NR compliance checklist"
+- [ ] Confirm form: label must say NR-Cl (Nicotinamide Riboside Chloride) — free-base NR is less shelf-stable
+- [ ] Order baseline NAD+ index (available via InsideTracker, Jinfiniti, or Marek Health) before starting
+- [ ] Set week-4 reminder for NAD+ retest to confirm response
+- [ ] Log dose, timing, and any methyl donor support (B12, folate, choline) — NAD+ restoration can increase methylation demand
+- [ ] If pairing with resveratrol: confirm PM timing for resveratrol, AM for NR (same as NMN protocol)
+:::
+
+:::cta href="/stacks" title="Build your NAD+ stack" label="Open Stack Architect"
+NR substitutes directly for NMN in all TNiC stack presets — swap the compound in your personal log and keep the same timing and synergy partners (resveratrol PM, Ca-AKG if in Full Hybrid).
+:::
+
+## 5. Monitoring
+
+| Biomarker | Target | Frequency | Action if off-target |
+| --- | --- | --- | --- |
+| NAD+ index (whole blood or plasma) | ≥2× baseline elevation | Week 4, then every 6 months | No rise at week 4 → check NR-Cl form, dose, and consistent timing |
+| Homocysteine | <9 μmol/L | Baseline + 6 months | NAD+ salvage consumes methyl donors; elevated homocysteine = add methylfolate + B12 |
+| Fasting glucose / insulin | FG 70–90 mg/dL | Baseline + 3 months | NAD+ restoration supports insulin sensitivity via SIRT3; track response |
+| hs-CRP (inflammation proxy) | <1.0 mg/L | Baseline + 6 months | PARP activity (NAD+-dependent) repairs inflammation-associated DNA damage; trend should improve |
+| Subjective energy / cognitive clarity | Trend up | Weekly self-log | Most users report energy signal within 4–8 weeks at 500 mg+ |
+
+:::cta href="/labs" title="Track NAD+ and methylation markers" label="Open Labs hub"
+Log NAD+ index, homocysteine, and glucose at baseline and week 4 — these are the primary NR response indicators.
+:::
+
+## 6. Methyl donor consideration — the hidden risk
+
+NAD+ salvage pathway recycling consumes S-adenosylmethionine (SAM) and can deplete methyl donors (folate, B12, choline) if dietary intake is inadequate. This is clinically relevant at doses ≥1000 mg/day over many months.
+
+**Signs of methyl donor depletion:**
+- Rising homocysteine (>12 μmol/L) on NAD+ precursor protocol
+- Sleep quality changes (methylation supports melatonin synthesis)
+- Mood changes (methylation supports dopamine/serotonin metabolism)
+
+**Protocol fix:** Add methylfolate 400–800 mcg + methylcobalamin (B12) 500 mcg + choline 300–500 mg to NAD+ protocols lasting >12 weeks. This is especially important at 1000 mg/day doses.
+
+## 7. Safety, red flags, and contraindications
+
+- **Excellent human safety record** — Conze 2019 confirmed safety across 140 subjects, 8 weeks, up to 1000 mg/day
+- **No niacin flush** — unlike nicotinic acid; this is the primary reason to choose NR over cheaper B3 forms
+- **No sirtuin inhibition** — unlike high-dose nicotinamide/niacinamide (which block SIRT1 at high concentrations)
+
+:::redflag title="NR safety notes"
+- **Concurrent high-dose NMN (>500 mg)** — combining both at high doses may strain methyl donors and is not studied; choose one NAD+ precursor
+- **Chemotherapy patients** — NAD+ is consumed in DNA repair; some oncologists prefer to not modulate during treatment → oncologist clearance required
+- **Elevated homocysteine at baseline** — address methylation deficiency (B12/folate) before starting NAD+ protocol; starting NR will worsen homocysteine without cofactor support
+- **Pregnancy/lactation** — insufficient safety data at supplemental doses; defer
+:::
+
+## 8. Buyer guide — what to verify before buying NR
+
+NR quality varies enormously. The Chromadex patent on Niagen (NR-Cl) has resulted in licensing to major brands, but third-party manufacturers sell undisclosed forms of variable stability.
+
+**Verification checklist:**
+1. **Form**: Must say "Nicotinamide Riboside Chloride" or "NR-Cl" — free-base NR degrades faster in humidity
+2. **COA from independent lab**: HPLC identity confirmation (NR-Cl purity >98%), heavy metals, microbial limits
+3. **Chromadex licensing**: Tru Niagen, Thorne NiaCel, and Life Extension NAD+ Cell Regenerator use licensed Niagen NR-Cl — highest confidence for the active form
+4. **Dose per capsule**: Verify vs label claim — 300 mg capsule should contain ≥295 mg NR-Cl by HPLC
+5. **Enteric coating**: Not required for NR (unlike some pH-sensitive compounds) — capsule form fine
+6. **Storage**: Cool, dry; NR-Cl is more shelf-stable than free-base, but avoid heat
+
+## 9. Synergies
+
+| Partner | Rationale | Guide |
+| --- | --- | --- |
+| Trans-Resveratrol (PM) | Resveratrol activates SIRT1; NR (AM) provides the NAD+ fuel SIRT1 runs on — timing-separated sirtuin stack | SIRT1 Stack / NMN-Resveratrol Synergy guide |
+| Ca-AKG | AKG modulates TET/JMJ epigenetic enzymes; NAD+ from NR fuels SIRT3 histone deacetylation — parallel epigenetic maintenance | NAD+ Mito Stack |
+| GlyNAC | GlyNAC restores glutathione (redox protection); NR restores NAD+ (repair capacity) — two independent anti-aging substrate pathways | Full Hybrid preset |
+| Pterostilbene | Pterostilbene (PM) + NR (AM) = SIRT1 activator + fuel, with pterostilbene's superior bioavailability over resveratrol | Full Hybrid variant |
+| Methylfolate + B12 | Prevents methyl donor depletion at ≥1000 mg/day NR doses — essential co-supplementation at high doses | Methylation support |
+
+## 10. Personal results template
+
+:::personal title="My NR NAD+ protocol log"
+
+| Date | Week | Dose | Timing | NAD+ Index | Homocysteine | Energy (1–10) | Notes |
+| --- | --- | --- | --- | --- | --- | --- | --- |
+| YYYY-MM-DD | 0 | — | — | — | — | — | Baseline |
+| YYYY-MM-DD | 4 | — | AM | — | — | — | NAD+ retest checkpoint |
+| YYYY-MM-DD | 12 | — | AM | — | — | — | Primary endpoint |
+| YYYY-MM-DD | 24 | — | AM | — | — | — | 6-month trend |
+
+**Response criteria (personal, not clinical):**
+- **Meaningful:** NAD+ index ≥2× baseline at week 4; subjective energy +2 points sustained to week 12; homocysteine stable or down
+- **Plateau:** No NAD+ rise at week 4 → verify NR-Cl form; consider increasing to 1000 mg/day or switching to NMN
+- **Adverse:** Rising homocysteine → add methylfolate + B12; homocysteine >15 → stop NAD+ precursor and recheck with physician
+:::
+
+:::cta href="/library/compare/nmn-vs-nr" title="Full NMN vs NR evidence comparison" label="Read head-to-head"
+The side-by-side table covers bioavailability, cost-per-dose, human trial count, and stack integration — everything you need to make the call.
+:::
+
+:::cta href="/trust/journey" title="Log your NR experiment" label="Personal journey"
+Track NAD+ index before and after 4 weeks — compare to Martens 2018 benchmark (whole-blood NAD+ metabolomes).
 :::

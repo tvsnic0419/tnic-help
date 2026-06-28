@@ -53,7 +53,7 @@ export function ToolsDock() {
               <div className="flex items-center gap-2">
                 <span className="text-[10px] font-mono text-accent-emerald">LONGEVITY OS</span>
                 {selected.length > 0 && (
-                  <span className="text-[10px] font-mono bg-accent-violet/20 text-violet-300 px-2 py-0.5 rounded-full">
+                  <span className="text-[10px] font-mono bg-accent-violet/20 text-accent-violet px-2 py-0.5 rounded-full">
                     {selected.length} · {score}
                   </span>
                 )}

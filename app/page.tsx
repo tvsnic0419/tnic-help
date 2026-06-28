@@ -2,24 +2,21 @@ import { Nav } from '@/components/Nav';
 import { ScrollProgress } from '@/components/ScrollProgress';
 import { Footer } from '@/components/Footer';
 import { ToolsDock } from '@/components/ToolsDock';
-import { HeroSection } from '@/components/sections/HeroSection';
+import Hero from '@/components/Hero';
 import { HomepageOSFunnel } from '@/components/sections/HomepageOSFunnel';
-import { HomepageTrustStrip } from '@/components/sections/HomepageTrustStrip';
 import { PlatformPreview } from '@/components/sections/PlatformPreview';
 import { TrustBanner } from '@/components/TrustBanner';
 import { LibraryHighlights } from '@/components/sections/LibraryHighlights';
 import { ResearchIntel } from '@/components/sections/ResearchIntel';
-import { HomepageBriefRail } from '@/components/sections/HomepageBriefRail';
-import { HomepageCompareRow } from '@/components/sections/HomepageCompareRow';
 import { CompetitiveEdge } from '@/components/sections/CompetitiveEdge';
-import { HomepageTrust } from '@/components/sections/HomepageTrust';
 import { HomepageCTA } from '@/components/sections/HomepageCTA';
-import { HomepageProductRail } from '@/components/sections/HomepageProductRail';
 import { HomepagePersonalizedRail } from '@/components/sections/HomepagePersonalizedRail';
-import { NextUpSection } from '@/components/sections/NextUpSection';
 import { HallmarkProblemTiles } from '@/components/sections/HallmarkProblemTiles';
-import { HomepageSynergyNetwork } from '@/components/sections/HomepageSynergyNetwork';
 import { PlatformTicker } from '@/components/ui/PlatformTicker';
+import { PremiumManifestoSection } from '@/components/sections/PremiumManifestoSection';
+import { StackImpactPreview } from '@/components/sections/StackImpactPreview';
+import { NinetyDayCycle } from '@/components/sections/NinetyDayCycle';
+import { ClockImpactSection } from '@/components/sections/ClockImpactSection';
 import { SiteGuide } from '@/components/SiteGuide';
 import { seoRoutes } from '@/lib/seo-routes';
 
@@ -31,25 +28,22 @@ export default function HomePage() {
         <ScrollProgress />
         <Nav />
         <main id="main-content" tabIndex={-1}>
-          <HeroSection />
+          <Hero />
           <PlatformTicker />
+          <PremiumManifestoSection />
+          <StackImpactPreview />
+          <ClockImpactSection />
+          <NinetyDayCycle />
           <HomepagePersonalizedRail />
-          <HomepageTrustStrip />
           <PlatformPreview />
           <HomepageOSFunnel />
-          <SiteGuide />
           <HallmarkProblemTiles />
-          <HomepageSynergyNetwork />
-          <TrustBanner />
           <LibraryHighlights />
-          <HomepageCompareRow />
           <ResearchIntel />
-          <HomepageBriefRail />
           <CompetitiveEdge />
-          <HomepageProductRail />
-          <HomepageTrust />
+          <SiteGuide />
+          <TrustBanner />
           <HomepageCTA />
-          <NextUpSection />
         </main>
         <ToolsDock />
         <Footer />

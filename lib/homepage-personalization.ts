@@ -12,10 +12,10 @@ export interface QuizProfile {
 export function getHeroPersonalization(quiz: QuizProfile | null | undefined) {
   if (!quiz?.preset || !(quiz.preset in stackPresets)) {
     return {
-      line1: 'Aging is not inevitable.',
-      line2: 'Your longevity OS starts here.',
+      line1: 'Compounds compound.',
+      line2: 'Subtract years from your biological age.',
       subcopy:
-        'The first privacy-first longevity platform built on the 12 Hallmarks of Aging — not supplement marketing. Six evidence-graded modules, every compound rated Tier A/B/C from human trials. Your health data never leaves your browser.',
+        'When the right stack hits the right dose at the right time, biological-age clocks move. TNiC grades every protocol against the human-trial evidence — and tells you exactly what to pair, when to take it, and how much.',
       primary: { href: '/quiz', label: 'Build Your Protocol' },
       secondary: { href: '/dashboard', label: 'Open Longevity OS' },
       contextNext:
@@ -56,10 +56,10 @@ export function getOsFunnelOrder(goal?: string): string[] {
 }
 
 const PRESET_COMPOUNDS: Record<PresetKey, string[]> = {
-  starter: ['glynac', 'sulforaphane', 'rala'],
+  starter: ['glynac', 'sulforaphane', 'nmn'],
   nrf2: ['glynac', 'sulforaphane', 'rala'],
-  mito: ['nmn', 'cakg', 'resveratrol', 'rala'],
-  hybrid: ['glynac', 'sulforaphane', 'nmn', 'cakg', 'resveratrol'],
+  mito: ['nmn', 'cakg', 'resveratrol'],
+  hybrid: ['glynac', 'sulforaphane', 'nmn', 'cakg', 'rala'],
   longevity: ['urolithina', 'fisetin', 'omega3', 'nmn', 'resveratrol'],
   metabolic: ['berberine', 'omega3', 'coq10', 'rala'],
   full: ['glynac', 'sulforaphane', 'nmn', 'cakg', 'rala', 'resveratrol', 'taurine', 'spermidine', 'pterostilbene', 'berberine', 'urolithina', 'fisetin', 'coq10', 'omega3'],

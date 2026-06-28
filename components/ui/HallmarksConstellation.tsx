@@ -38,8 +38,8 @@ export function HallmarksConstellation() {
 
         {hallmarkLibrary.map((h, i) => {
           const angle = (i / count) * Math.PI * 2 - Math.PI / 2;
-          const cx = 50 + Math.cos(angle) * radius * 0.55;
-          const cy = 50 + Math.sin(angle) * radius * 0.55;
+          const cx = +(50 + Math.cos(angle) * radius * 0.55).toFixed(4);
+          const cy = +(50 + Math.sin(angle) * radius * 0.55).toFixed(4);
           const visual = hallmarkVisualRegistry[h.visual];
           const stroke = themeStroke[visual.theme];
           const isActive = active === h.id;
