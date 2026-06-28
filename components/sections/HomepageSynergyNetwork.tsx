@@ -1,6 +1,11 @@
 'use client';
 
-import { SynergyNetworkGraph } from '@/components/ui/SynergyNetworkGraph';
+import dynamic from 'next/dynamic';
+
+const SynergyNetworkGraph = dynamic(
+  () => import('@/components/ui/SynergyNetworkGraph').then((m) => m.SynergyNetworkGraph),
+  { ssr: false },
+);
 
 export function HomepageSynergyNetwork() {
   return (
@@ -12,7 +17,7 @@ export function HomepageSynergyNetwork() {
         {/* Header */}
         <div className="text-center mb-14">
           <div className="section-badge mb-4">Compound Intelligence</div>
-          <h2 className="text-3xl sm:text-4xl font-bold tracking-tight text-foreground mb-4">
+          <h2 className="font-display text-3xl sm:text-4xl font-bold tracking-tight text-foreground mb-4">
             14 Compounds.{' '}
             <span className="gradient-text-violet">23 Synergy Edges.</span>
           </h2>

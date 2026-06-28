@@ -1,9 +1,9 @@
 'use client';
 
 import { useState, useMemo } from 'react';
-import { Filter } from 'lucide-react';
+import { Filter, ArrowRight } from 'lucide-react';
+import Link from 'next/link';
 import type { HallmarkIntervention } from '@/lib/types';
-import { compounds } from '@/lib/data';
 import { EvidenceTag } from '@/components/trust/EvidenceTag';
 import { PmidLink } from '@/components/trust/SourceCitation';
 
@@ -76,14 +76,18 @@ export function InterventionExplorer({
                 )}
               </div>
               <p className="text-xs text-muted-foreground leading-relaxed">{item.description}</p>
-              <div className="flex flex-wrap gap-3 mt-2">
+              <div className="flex flex-wrap items-center gap-3 mt-2">
                 <span className="text-[10px] font-mono text-caption">Impact: {item.impact}/10</span>
-                {item.compoundId && (
-                  <a href={`/#compounds`} className="text-[10px] text-accent-violet hover:underline">
-                    View {compounds.find((c) => c.id === item.compoundId)?.name}
-                  </a>
-                )}
                 {item.pmid && <PmidLink pmid={item.pmid} />}
+                {item.compoundId && item.tnicAvailable && (
+                  <Link
+                    href={`/library/compounds/${item.compoundId}`}
+                    className="inline-flex items-center gap-1 text-[10px] font-semibold text-accent-violet hover:text-accent-cyan transition-colors ml-auto"
+                  >
+                    Full reference
+                    <ArrowRight className="w-3 h-3" aria-hidden="true" />
+                  </Link>
+                )}
               </div>
             </div>
           </div>

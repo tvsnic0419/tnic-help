@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
+import Link from 'next/link';
 import { LayoutDashboard, Layers, FlaskConical, Check } from 'lucide-react';
 
 type TabId = 'dashboard' | 'stack' | 'labs';
@@ -317,7 +318,7 @@ export function PlatformPreview() {
           </span>
           <h2 className="headline-editorial mt-4 mb-3">
             See the OS you&apos;re building.<br />
-            <span className="shimmer-text">Three modules. Zero accounts.</span>
+            <span className="text-accent-emerald">Three modules. Zero accounts.</span>
           </h2>
           <p className="text-body max-w-xl mx-auto">
             Every module runs locally in your browser. Your data never leaves your device.
@@ -392,12 +393,12 @@ export function PlatformPreview() {
             Stack pre-loaded, hallmarks mapped, biomarker templates ready.
           </p>
           <div className="flex items-center gap-4 flex-wrap justify-center">
-            <a href="/#starter-quiz" className="btn-gradient text-sm">
+            <Link href="/#starter-quiz" className="btn-gradient text-sm">
               Build Your Protocol
-            </a>
-            <a href="/dashboard" className="btn-ghost-premium text-sm">
+            </Link>
+            <Link href="/dashboard" className="btn-ghost-premium text-sm">
               Open Dashboard
-            </a>
+            </Link>
           </div>
         </div>
       </div>

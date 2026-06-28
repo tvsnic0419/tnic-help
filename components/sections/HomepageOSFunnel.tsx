@@ -245,7 +245,7 @@ export function HomepageOSFunnel() {
           <p className="text-eyebrow text-accent-emerald mb-4">Longevity OS · Platform Architecture</p>
           <h2 className="headline-editorial mb-5">
             One OS.<br />
-            <span className="shimmer-text">Five modules. Zero excuses.</span>
+            <span className="text-accent-emerald">Five modules. Zero excuses.</span>
           </h2>
           <p className="text-body max-w-2xl mx-auto leading-relaxed">
             Every module is free, local-first, and held to the same rigorous evidence standard that grades every compound in the library. No paywalls. No accounts. No supplement agenda driving the recommendations.

@@ -33,7 +33,7 @@ export function NetworkCTA() {
           className="max-w-lg mx-auto px-6 text-center"
         >
           <CheckCircle2 className="w-16 h-16 text-accent-emerald mx-auto mb-6" />
-          <h2 className="text-3xl font-bold mb-3">You&apos;re In The Network</h2>
+          <h2 className="font-display text-3xl font-bold mb-3">You&apos;re In The Network</h2>
           <p className="text-muted-foreground">
             Defense protocols and intelligence briefs will arrive at {email}.
             Your first stack recommendation is being calibrated.
@@ -49,7 +49,7 @@ export function NetworkCTA() {
       <div className="max-w-xl mx-auto px-6">
         <div className="text-center mb-10">
           <p className="font-mono text-[10px] text-accent-cyan tracking-widest mb-3">MOD-NET-07</p>
-          <h2 className="text-3xl md:text-4xl font-bold tracking-tight mb-3">
+          <h2 className="font-display text-3xl md:text-4xl font-bold tracking-tight mb-3">
             Join The Defense Network
           </h2>
           <p className="text-muted-foreground text-sm">

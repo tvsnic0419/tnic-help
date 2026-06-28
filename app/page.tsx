@@ -2,22 +2,20 @@ import { Nav } from '@/components/Nav';
 import { ScrollProgress } from '@/components/ScrollProgress';
 import { Footer } from '@/components/Footer';
 import { ToolsDock } from '@/components/ToolsDock';
-import Hero from '@/components/Hero';
-import { HomepageOSFunnel } from '@/components/sections/HomepageOSFunnel';
+import { HeroSection } from '@/components/sections/HeroSection';
+import { HomepageTrustStrip } from '@/components/sections/HomepageTrustStrip';
 import { PlatformPreview } from '@/components/sections/PlatformPreview';
-import { TrustBanner } from '@/components/TrustBanner';
-import { LibraryHighlights } from '@/components/sections/LibraryHighlights';
-import { ResearchIntel } from '@/components/sections/ResearchIntel';
-import { CompetitiveEdge } from '@/components/sections/CompetitiveEdge';
-import { HomepageCTA } from '@/components/sections/HomepageCTA';
-import { HomepagePersonalizedRail } from '@/components/sections/HomepagePersonalizedRail';
 import { HallmarkProblemTiles } from '@/components/sections/HallmarkProblemTiles';
+import { HomepageSynergyNetwork } from '@/components/sections/HomepageSynergyNetwork';
+import { CompetitiveEdge } from '@/components/sections/CompetitiveEdge';
+import { LibraryHighlights } from '@/components/sections/LibraryHighlights';
+import { HomepageCTA } from '@/components/sections/HomepageCTA';
 import { PlatformTicker } from '@/components/ui/PlatformTicker';
 import { PremiumManifestoSection } from '@/components/sections/PremiumManifestoSection';
 import { StackImpactPreview } from '@/components/sections/StackImpactPreview';
-import { NinetyDayCycle } from '@/components/sections/NinetyDayCycle';
 import { ClockImpactSection } from '@/components/sections/ClockImpactSection';
-import { SiteGuide } from '@/components/SiteGuide';
+import { NinetyDayCycle } from '@/components/sections/NinetyDayCycle';
+import { CompoundShowcase } from '@/components/sections/CompoundShowcase';
 import { seoRoutes } from '@/lib/seo-routes';
 
 export const metadata = seoRoutes.home();
@@ -25,28 +23,26 @@ export const metadata = seoRoutes.home();
 export default function HomePage() {
   return (
     <div className="min-h-screen bg-background text-foreground overflow-x-hidden">
-        <ScrollProgress />
-        <Nav />
-        <main id="main-content" tabIndex={-1}>
-          <Hero />
-          <PlatformTicker />
-          <PremiumManifestoSection />
-          <StackImpactPreview />
-          <ClockImpactSection />
-          <NinetyDayCycle />
-          <HomepagePersonalizedRail />
-          <PlatformPreview />
-          <HomepageOSFunnel />
-          <HallmarkProblemTiles />
-          <LibraryHighlights />
-          <ResearchIntel />
-          <CompetitiveEdge />
-          <SiteGuide />
-          <TrustBanner />
-          <HomepageCTA />
-        </main>
-        <ToolsDock />
-        <Footer />
+      <ScrollProgress />
+      <Nav />
+      <main id="main-content" tabIndex={-1}>
+        <HeroSection />
+        <HomepageTrustStrip />
+        <PlatformTicker />
+        <PremiumManifestoSection />
+        <StackImpactPreview />
+        <CompoundShowcase />
+        <ClockImpactSection />
+        <NinetyDayCycle />
+        <PlatformPreview />
+        <HallmarkProblemTiles />
+        <HomepageSynergyNetwork />
+        <LibraryHighlights />
+        <CompetitiveEdge />
+        <HomepageCTA />
+      </main>
+      <ToolsDock />
+      <Footer />
     </div>
   );
 }

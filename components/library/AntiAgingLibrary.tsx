@@ -3,14 +3,16 @@
 import { useState, useMemo } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import Link from 'next/link';
-import { Search, ArrowRight, Library, Network } from 'lucide-react';
+import { Search, ArrowRight, Library, Network, LayoutGrid } from 'lucide-react';
 import { hallmarkLibrary } from '@/lib/hallmarks-library';
 import { PageHeader } from '@/components/ui/PageHeader';
-import { HallmarkVisual } from './HallmarkVisual';
+import { HallmarkIllustration, HallmarkIllustrationThumb } from '@/components/illustrations/HallmarkIllustration';
+
 import { InterventionExplorer } from './InterventionExplorer';
 import { HallmarkNotesPanel } from './HallmarkNotesPanel';
 import { usePlatform } from '@/context/PlatformContext';
 import { getHubContext } from '@/lib/hub-context';
+import { getHallmarkVisual } from '@/lib/hallmark-visuals';
 
 interface AntiAgingLibraryProps {
   /** Use h1 when rendered as dedicated /library page */
@@ -55,14 +57,29 @@ export function AntiAgingLibrary({ asPageTitle = false }: AntiAgingLibraryProps)
           context={getHubContext('library')}
         />
 
-        {/* Systems Map CTA */}
-        <div className="flex justify-center mb-6">
+        {/* Secondary CTAs */}
+        <div className="flex flex-wrap justify-center gap-3 mb-6">
           <Link
             href="/library/systems"
             className="inline-flex items-center gap-2 text-sm font-semibold text-accent-violet glass glass-hover px-5 py-2.5 rounded-full glow-hover-violet transition"
           >
             <Network className="w-4 h-4" />
             Explore Systems Map — cross-hallmark synthesis
+            <ArrowRight className="w-3.5 h-3.5" />
+          </Link>
+          <Link
+            href="/library/synergy-matrix"
+            className="inline-flex items-center gap-2 text-sm font-semibold text-accent-cyan glass glass-hover px-5 py-2.5 rounded-full glow-hover-cyan transition"
+          >
+            14×14 Synergy Matrix
+            <ArrowRight className="w-3.5 h-3.5" />
+          </Link>
+          <Link
+            href="/library/coverage"
+            className="inline-flex items-center gap-2 text-sm font-semibold text-accent-emerald glass glass-hover px-5 py-2.5 rounded-full glow-hover-emerald transition"
+          >
+            <LayoutGrid className="w-4 h-4" />
+            Coverage Matrix
             <ArrowRight className="w-3.5 h-3.5" />
           </Link>
         </div>
@@ -93,25 +110,59 @@ export function AntiAgingLibrary({ asPageTitle = false }: AntiAgingLibraryProps)
               {filtered.map((h) => {
                 const hasNotes = !!hallmarkNotes[h.id]?.notes;
                 const isActive = selected === h.id;
+                const meta = getHallmarkVisual(h.visual);
                 return (
                   <button
                     key={h.id}
                     role="listitem"
                     aria-current={isActive ? 'true' : undefined}
                     onClick={() => setSelected(h.id)}
-                    className={`focus-ring interactive text-left p-4 min-h-[var(--space-touch)] rounded-xl ${
+                    className={`focus-ring interactive text-left rounded-xl overflow-hidden transition-all ${
                       isActive
-                        ? 'bg-accent-cyan/10 border border-accent-cyan/30'
+                        ? 'ring-1 ring-accent-cyan/40 shadow-lg shadow-accent-cyan/5'
                         : 'glass glass-hover'
                     }`}
                   >
-                    <span className="text-label">#{h.number}</span>
-                    <h3 className="heading-card mt-1 leading-snug">{h.title}</h3>
-                    <div className="flex items-center justify-between mt-2">
-                      <span className="text-label text-accent-cyan">{h.coverage}% coverage</span>
-                      {hasNotes && (
-                        <span className="w-2 h-2 rounded-full bg-accent-emerald" title="Has personal notes" />
+                    {/* Mini illustration thumbnail */}
+                    <div className="relative w-full h-20 bg-[#030712]">
+                      <HallmarkIllustrationThumb visual={h.visual} className="w-full h-full rounded-none" />
+                      {/* Active overlay */}
+                      {isActive && (
+                        <div className="absolute inset-0 bg-accent-cyan/8 ring-inset ring-1 ring-accent-cyan/20 rounded-none" />
                       )}
+                      {/* Number badge */}
+                      <span className="absolute top-1.5 left-2 text-[9px] font-mono tracking-widest" style={{ color: meta.colorVar }} aria-hidden="true">
+                        #{h.number}
+                      </span>
+                      {hasNotes && (
+                        <span className="absolute top-1.5 right-2 w-1.5 h-1.5 rounded-full bg-accent-emerald" title="Has personal notes" />
+                      )}
+                    </div>
+                    {/* Text below thumbnail */}
+                    <div className="p-3 pt-2.5">
+                      <h3 className="text-[11px] font-semibold leading-tight text-foreground">{h.title}</h3>
+                      {/* Intervention stats */}
+                      <div className="flex items-center gap-2 mt-1.5 mb-1.5">
+                        <span className="text-[9px] font-mono text-muted-foreground">
+                          {h.interventions.length} interventions
+                        </span>
+                        {h.interventions.filter((i) => i.evidence === 'A').length > 0 && (
+                          <span className="text-[9px] font-mono font-semibold text-accent-emerald">
+                            {h.interventions.filter((i) => i.evidence === 'A').length}×A
+                          </span>
+                        )}
+                        {h.interventions.some((i) => i.category === 'compound' && i.tnicAvailable) && (
+                          <span className="text-[9px] font-mono text-accent-cyan">
+                            {h.interventions.filter((i) => i.category === 'compound' && i.tnicAvailable).length} compounds
+                          </span>
+                        )}
+                      </div>
+                      <div className="flex items-center gap-1.5">
+                        <div className="flex-1 h-0.5 rounded-full bg-border overflow-hidden">
+                          <div className="h-full rounded-full" style={{ width: `${h.coverage}%`, background: meta.colorVar }} />
+                        </div>
+                        <span className="text-[9px] font-mono shrink-0" style={{ color: meta.colorVar }}>{h.coverage}%</span>
+                      </div>
                     </div>
                   </button>
                 );
@@ -129,27 +180,34 @@ export function AntiAgingLibrary({ asPageTitle = false }: AntiAgingLibraryProps)
                 exit={{ opacity: 0, y: -10 }}
                 className="space-y-8"
               >
-                <div className="card-elevated p-6 md:p-8">
-                  <div className="grid md:grid-cols-2 gap-6 md:gap-8">
-                    <div>
-                      <p className="text-label text-accent-cyan mb-2">Hallmark {active.number}</p>
-                      <h3 className="heading-section text-2xl md:text-3xl mb-3">
-                        {active.title}
-                      </h3>
-                      <p className="text-body-sm mb-4">{active.tagline}</p>
-                      <p className="text-body-sm text-muted-foreground">{active.summary}</p>
-                      <Link
-                        href={`/library/${active.slug}`}
-                        className="focus-ring interactive inline-flex items-center gap-2 mt-6 text-sm font-semibold text-accent-cyan hover:text-accent-emerald rounded-md"
-                      >
-                        Full deep dive + MDX <ArrowRight className="w-4 h-4" aria-hidden="true" />
-                      </Link>
-                    </div>
-                    <HallmarkVisual
+                <div className="card-elevated overflow-hidden">
+                  {/* Full-width illustration header */}
+                  <div className="relative w-full h-52 bg-[#030712]">
+                    <HallmarkIllustration
                       visual={active.visual}
+                      slug={active.slug}
                       coverage={active.coverage}
                       number={active.number}
+                      variant="card"
+                      className="!rounded-none !aspect-auto w-full h-full"
                     />
+                    {/* Gradient fade at bottom for text overlay */}
+                    <div className="absolute inset-x-0 bottom-0 h-20 bg-gradient-to-t from-[#0d1117] to-transparent" />
+                    <div className="absolute bottom-0 inset-x-0 px-6 pb-4">
+                      <p className="text-[10px] font-mono text-muted-foreground tracking-widest">HALLMARK {active.number} OF 12</p>
+                    </div>
+                  </div>
+                  {/* Text content below illustration */}
+                  <div className="p-6 md:p-8">
+                    <h3 className="heading-section text-2xl md:text-3xl mb-2">{active.title}</h3>
+                    <p className="text-body-sm text-muted-foreground mb-3">{active.tagline}</p>
+                    <p className="text-body-sm text-muted-foreground leading-relaxed">{active.summary}</p>
+                    <Link
+                      href={`/library/${active.slug}`}
+                      className="focus-ring interactive inline-flex items-center gap-2 mt-5 text-sm font-semibold text-accent-cyan hover:text-accent-emerald rounded-md"
+                    >
+                      Full deep dive + mechanism maps <ArrowRight className="w-4 h-4" aria-hidden="true" />
+                    </Link>
                   </div>
                 </div>
 

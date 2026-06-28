@@ -79,7 +79,6 @@ export function BiologicalAgeGauge({
 
   const minAge = chronoAge - 12;
   const maxAge = chronoAge + 18;
-  const bioProgress = ageToProgress(bioAge, minAge, maxAge);
   const chronoProgress = ageToProgress(chronoAge, minAge, maxAge);
 
   const [animatedBio, setAnimatedBio] = useState(scanned ? bioAge : chronoAge);
@@ -121,7 +120,9 @@ export function BiologicalAgeGauge({
   }, [scanned, bioAge, defenseScore, chronoAge]);
 
   const displayProgress = ageToProgress(animatedBio, minAge, maxAge);
-  const ageDelta = chronoAge - animatedBio;
+  // Use final bioAge (not the animated value) for the label so the delta text
+  // doesn't jitter character-by-character while the number counts up/down.
+  const ageDelta = chronoAge - bioAge;
   const tone =
     ageDelta > 2 ? 'emerald' : ageDelta < -2 ? 'rose' : 'cyan';
 
@@ -156,8 +157,17 @@ export function BiologicalAgeGauge({
               <stop offset="50%" stopColor="var(--accent-emerald)" />
               <stop offset="100%" stopColor="var(--accent-violet)" />
             </linearGradient>
+            {/* Age spectrum: emerald (young) → cyan → amber → rose (old)
+                x1/x2 map to the arc start/end points in the 120×120 viewBox */}
+            <linearGradient id="bio-age-spectrum" gradientUnits="userSpaceOnUse"
+              x1="18.65" y1="46.95" x2="101.35" y2="46.95">
+              <stop offset="0%"   stopColor="#34d399" />
+              <stop offset="38%"  stopColor="#22d3ee" />
+              <stop offset="70%"  stopColor="#fbbf24" />
+              <stop offset="100%" stopColor="#fb7185" />
+            </linearGradient>
             <filter id="bio-gauge-glow">
-              <feGaussianBlur stdDeviation="2" result="blur" />
+              <feGaussianBlur in="SourceGraphic" stdDeviation="2.5" result="blur" />
               <feMerge>
                 <feMergeNode in="blur" />
                 <feMergeNode in="SourceGraphic" />
@@ -165,15 +175,46 @@ export function BiologicalAgeGauge({
             </filter>
           </defs>
 
-          {/* Track */}
+          {/* Track — flat gray base */}
           <path
             d={arcPath(cx, cy, r, startDeg, endDeg)}
             fill="none"
             stroke="currentColor"
-            strokeOpacity={0.12}
+            strokeOpacity={0.08}
             strokeWidth={s.stroke}
             strokeLinecap="round"
           />
+          {/* Track — age spectrum tint (always visible, very faint) */}
+          <path
+            d={arcPath(cx, cy, r, startDeg, endDeg)}
+            fill="none"
+            stroke="url(#bio-age-spectrum)"
+            strokeOpacity={0.2}
+            strokeWidth={s.stroke}
+            strokeLinecap="round"
+          />
+          {/* Tick marks every 5 years */}
+          {Array.from({ length: Math.floor((maxAge - minAge) / 5) + 1 }, (_, i) => {
+            const age = Math.ceil(minAge / 5) * 5 + i * 5;
+            if (age > maxAge) return null;
+            const p = ageToProgress(age, minAge, maxAge);
+            const tickAngle = startDeg + (endDeg - startDeg) * p;
+            const rad = (tickAngle * Math.PI) / 180;
+            const major = age % 10 === 0;
+            const cosA = Math.cos(rad), sinA = Math.sin(rad);
+            const rInner = r - s.stroke * 0.55 - (major ? 2.5 : 1);
+            const rOuter = r + s.stroke * 0.55 + (major ? 3.5 : 1.5);
+            return (
+              <line key={age}
+                x1={cx + rInner * cosA} y1={cy + rInner * sinA}
+                x2={cx + rOuter * cosA} y2={cy + rOuter * sinA}
+                stroke="currentColor"
+                strokeOpacity={major ? 0.3 : 0.15}
+                strokeWidth={major ? 1.5 : 0.75}
+                strokeLinecap="round"
+              />
+            );
+          })}
 
           {/* Defense inner ring */}
           <circle
@@ -214,14 +255,23 @@ export function BiologicalAgeGauge({
             opacity={scanned ? 1 : 0.35}
           />
 
-          {/* Chrono age tick */}
+          {/* Chronological age needle — a line crossing through the arc track + dot */}
+          <line
+            x1={cx + (r - s.stroke * 0.7 - 3) * Math.cos(chronoRad)}
+            y1={cy + (r - s.stroke * 0.7 - 3) * Math.sin(chronoRad)}
+            x2={cx + (r + s.stroke * 0.7 + 5) * Math.cos(chronoRad)}
+            y2={cy + (r + s.stroke * 0.7 + 5) * Math.sin(chronoRad)}
+            stroke="var(--color-text-faint)"
+            strokeWidth={2}
+            strokeLinecap="round"
+          />
           <circle
             cx={tickX}
             cy={tickY}
-            r={3.5}
+            r={2.5}
             fill="var(--color-text-faint)"
             stroke="var(--color-bg-base)"
-            strokeWidth={1.5}
+            strokeWidth={1}
           />
 
           {/* Center glow */}

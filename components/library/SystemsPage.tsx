@@ -71,7 +71,7 @@ export function SystemsPage() {
             </div>
             <p className="font-mono text-[10px] text-accent-violet tracking-widest uppercase">Systems Synthesis</p>
           </div>
-          <h1 className="text-3xl md:text-4xl font-bold tracking-tight mb-3">
+          <h1 className="font-display text-3xl md:text-4xl font-bold tracking-tight mb-3">
             Hallmark Systems Map
           </h1>
           <p className="text-muted-foreground max-w-2xl leading-relaxed">

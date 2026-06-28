@@ -61,7 +61,7 @@ export function StarterStackCTA() {
         <div className="grid lg:grid-cols-2 gap-10 items-center">
           <div>
             <p className="font-mono text-[10px] text-accent-violet tracking-widest mb-3">FREE LEAD MAGNET</p>
-            <h2 className="text-3xl md:text-4xl font-bold mb-4">
+            <h2 className="font-display text-3xl md:text-4xl font-bold mb-4">
               Get the Starter Defense Stack
             </h2>
             <p className="text-muted-foreground mb-6 leading-relaxed">
