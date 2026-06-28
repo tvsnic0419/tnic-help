@@ -10,7 +10,6 @@ import { HallmarkVisual } from './HallmarkVisual';
 import { InterventionExplorer } from './InterventionExplorer';
 import { HallmarkNotesPanel } from './HallmarkNotesPanel';
 import { usePlatform } from '@/context/PlatformContext';
-import { getHubContext } from '@/lib/hub-context';
 
 interface AntiAgingLibraryProps {
   /** Use h1 when rendered as dedicated /library page */
@@ -40,7 +39,7 @@ export function AntiAgingLibrary({ asPageTitle = false }: AntiAgingLibraryProps)
     <section
       id="anti-aging-library"
       aria-labelledby="library-heading"
-      className="py-16 md:py-24 lg:py-28 bg-background border-b border-border"
+      className="py-8 md:py-12 bg-background border-b border-border"
     >
       <div className="container-page">
         <PageHeader
@@ -52,7 +51,6 @@ export function AntiAgingLibrary({ asPageTitle = false }: AntiAgingLibraryProps)
           meta={notedCount > 0 ? `${notedCount} hallmark${notedCount > 1 ? 's' : ''} with personal notes saved locally` : undefined}
           theme="cyan"
           as={asPageTitle ? 'h1' : 'h2'}
-          context={getHubContext('library')}
         />
 
         {/* Systems Map CTA */}
@@ -67,20 +65,22 @@ export function AntiAgingLibrary({ asPageTitle = false }: AntiAgingLibraryProps)
           </Link>
         </div>
 
-        <div className="relative max-w-lg mx-auto mb-8 md:mb-10">
-          <label htmlFor="hallmark-search" className="sr-only">
-            Search hallmarks or interventions
-          </label>
-          <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground pointer-events-none" aria-hidden="true" />
-          <input
-            id="hallmark-search"
-            type="search"
-            placeholder="Search hallmarks or interventions…"
-            value={query}
-            onChange={(e) => setQuery(e.target.value)}
-            className="input-base pl-11"
-          />
-        </div>
+        {!asPageTitle && (
+          <div className="relative max-w-lg mx-auto mb-8 md:mb-10">
+            <label htmlFor="hallmark-search" className="sr-only">
+              Search hallmarks or interventions
+            </label>
+            <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground pointer-events-none" aria-hidden="true" />
+            <input
+              id="hallmark-search"
+              type="search"
+              placeholder="Search hallmarks or interventions…"
+              value={query}
+              onChange={(e) => setQuery(e.target.value)}
+              className="input-base pl-11"
+            />
+          </div>
+        )}
 
         <div className="grid lg:grid-cols-12 gap-6 lg:gap-8">
           {/* Hallmark selector */}
