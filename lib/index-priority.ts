@@ -41,6 +41,7 @@ export const PRIORITY_INDEX_PATHS = [
   '/glynac-supplement-guide',
   '/berberine-supplement-guide',
   '/taurine-supplement-guide',
+  '/sulforaphane-supplement-guide',
   '/site-map',
 ] as const;
 
@@ -50,6 +51,7 @@ export const POPULAR_GUIDE_LINKS = [
   { href: '/glynac-supplement-guide', label: 'GlyNAC Supplement Guide 2026' },
   { href: '/berberine-supplement-guide', label: "Berberine Guide — Nature's Ozempic Reality Check" },
   { href: '/taurine-supplement-guide', label: 'Taurine Longevity Guide — Science 2023 Paper' },
+  { href: '/sulforaphane-supplement-guide', label: 'Sulforaphane & NRF2 Guide' },
   { href: '/library/compare/nmn-vs-nr', label: 'NMN vs NR' },
   { href: '/library/compounds/nmn', label: 'NMN Guide' },
   { href: '/library/compounds/nr', label: 'NR Guide' },

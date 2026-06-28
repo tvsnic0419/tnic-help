@@ -375,6 +375,32 @@ export default function LongevitySupplementsGuidePage() {
               </Link>
             </div>
           </div>
+
+          {/* Deep-dive guide links */}
+          <div className="mt-8">
+            <p className="text-xs font-mono uppercase tracking-widest text-muted-foreground mb-4 text-center">Compound-specific guides</p>
+            <div className="grid sm:grid-cols-2 gap-3">
+              {[
+                { href: '/nad-supplement-guide', label: 'NAD+ Supplement Guide', desc: 'NMN vs NR, precursor dosing, and the NAD+ decline curve' },
+                { href: '/glynac-supplement-guide', label: 'GlyNAC Guide', desc: '9 hallmarks reversed in 24-week RCT — Sekhar 2021' },
+                { href: '/berberine-supplement-guide', label: 'Berberine Guide', desc: "The real evidence behind 'nature's Ozempic'" },
+                { href: '/taurine-supplement-guide', label: 'Taurine Guide', desc: '80% decline by 60 — the Singh 2023 Science paper explained' },
+                { href: '/sulforaphane-supplement-guide', label: 'Sulforaphane Guide', desc: 'NRF2 activation, form guide, and broccoli sprout protocol' },
+              ].map((g) => (
+                <Link
+                  key={g.href}
+                  href={g.href}
+                  className="group rounded-xl border border-border/50 bg-card/40 hover:border-accent-cyan/30 hover:bg-accent-cyan/[0.03] p-4 transition-all"
+                >
+                  <div className="flex items-center justify-between mb-1">
+                    <p className="font-semibold text-sm text-foreground group-hover:text-accent-cyan transition-colors">{g.label}</p>
+                    <ArrowRight className="w-3.5 h-3.5 text-muted-foreground group-hover:text-accent-cyan transition-colors" aria-hidden="true" />
+                  </div>
+                  <p className="text-xs text-muted-foreground">{g.desc}</p>
+                </Link>
+              ))}
+            </div>
+          </div>
         </div>
       </section>
     </SubPageLayout>

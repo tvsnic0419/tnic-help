@@ -22,6 +22,7 @@ const paths = [
       { label: 'GlyNAC supplement guide', href: '/glynac-supplement-guide' },
       { label: "Berberine guide — nature's Ozempic?", href: '/berberine-supplement-guide' },
       { label: 'Taurine longevity guide (Science 2023)', href: '/taurine-supplement-guide' },
+      { label: 'Sulforaphane & NRF2 guide', href: '/sulforaphane-supplement-guide' },
       { label: 'FAQ — 15 answers', href: '/faq' },
       { label: 'Research digest', href: '/brief' },
       { label: 'Search library', href: '/library' },
