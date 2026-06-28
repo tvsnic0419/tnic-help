@@ -19,7 +19,7 @@ export function buildSitemapEntries(lastModified = new Date()): MetadataRoute.Si
     { url: `${base}/stacks`, lastModified, changeFrequency: 'weekly', priority: 0.9 },
     { url: `${base}/labs`, lastModified, changeFrequency: 'weekly', priority: 0.9 },
     { url: `${base}/tools`, lastModified, changeFrequency: 'weekly', priority: 0.9 },
-    { url: `${base}/elite-8`, lastModified, changeFrequency: 'monthly', priority: 0.75 },
+    { url: `${base}/elite-8`, lastModified, changeFrequency: 'monthly', priority: 0.90 },
     { url: `${base}/dashboard`, lastModified, changeFrequency: 'weekly', priority: 0.92 },
     { url: `${base}/quiz`, lastModified, changeFrequency: 'weekly', priority: 0.94 },
     { url: `${base}/shop`, lastModified, changeFrequency: 'weekly', priority: 0.88 },
@@ -43,11 +43,20 @@ export function buildSitemapEntries(lastModified = new Date()): MetadataRoute.Si
     priority: 0.85,
   }));
 
+  const TOP_COMPARISONS = new Set([
+    'nmn-vs-nr',
+    'berberine-vs-metformin',
+    'fisetin-vs-quercetin',
+    'taurine-vs-nmn',
+    'urolithina-vs-coq10',
+    'sulforaphane-vs-curcumin',
+  ]);
+
   const compareRoutes = getAllComparisonSlugs().map((slug) => ({
     url: `${base}/library/compare/${slug}`,
     lastModified,
     changeFrequency: 'monthly' as const,
-    priority: 0.86,
+    priority: TOP_COMPARISONS.has(slug) ? 0.92 : 0.86,
   }));
 
   const TOP_COMPOUNDS = new Set(['nmn', 'glynac', 'sulforaphane', 'taurine', 'berberine', 'spermidine', 'cakg', 'urolithina', 'pterostilbene', 'rapamycin', 'coq10', 'omega3', 'fisetin', 'rala']);
