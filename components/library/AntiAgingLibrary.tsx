@@ -3,7 +3,7 @@
 import { useState, useMemo } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import Link from 'next/link';
-import { Search, ArrowRight, Library, Network } from 'lucide-react';
+import { Search, ArrowRight, Library, Network, LayoutGrid } from 'lucide-react';
 import { hallmarkLibrary } from '@/lib/hallmarks-library';
 import { PageHeader } from '@/components/ui/PageHeader';
 import { HallmarkIllustration, HallmarkIllustrationThumb } from '@/components/illustrations/HallmarkIllustration';
@@ -72,6 +72,14 @@ export function AntiAgingLibrary({ asPageTitle = false }: AntiAgingLibraryProps)
             className="inline-flex items-center gap-2 text-sm font-semibold text-accent-cyan glass glass-hover px-5 py-2.5 rounded-full glow-hover-cyan transition"
           >
             14×14 Synergy Matrix
+            <ArrowRight className="w-3.5 h-3.5" />
+          </Link>
+          <Link
+            href="/library/coverage"
+            className="inline-flex items-center gap-2 text-sm font-semibold text-accent-emerald glass glass-hover px-5 py-2.5 rounded-full glow-hover-emerald transition"
+          >
+            <LayoutGrid className="w-4 h-4" />
+            Coverage Matrix
             <ArrowRight className="w-3.5 h-3.5" />
           </Link>
         </div>
