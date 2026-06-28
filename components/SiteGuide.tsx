@@ -19,6 +19,7 @@ const paths = [
       { label: 'Learn hub', href: '/learn' },
       { label: 'Best supplements 2026 guide', href: '/longevity-supplements-guide' },
       { label: 'NAD+ supplement guide 2026', href: '/nad-supplement-guide' },
+      { label: 'GlyNAC supplement guide', href: '/glynac-supplement-guide' },
       { label: 'FAQ — 15 answers', href: '/faq' },
       { label: 'Research digest', href: '/brief' },
       { label: 'Search library', href: '/library' },
