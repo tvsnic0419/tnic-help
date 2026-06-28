@@ -14,7 +14,7 @@ export function HomepageSynergyNetwork() {
           <div className="section-badge mb-4">Compound Intelligence</div>
           <h2 className="text-3xl sm:text-4xl font-bold tracking-tight text-foreground mb-4">
             14 Compounds.{' '}
-            <span className="gradient-text-violet">23 Synergy Edges.</span>
+            <span className="gradient-sweep-text">23 Synergy Edges.</span>
           </h2>
           <p className="text-muted-foreground text-base sm:text-lg max-w-2xl mx-auto leading-relaxed">
             Every compound in our library was selected not just for its solo efficacy, but for

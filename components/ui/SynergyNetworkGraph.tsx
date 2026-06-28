@@ -8,11 +8,11 @@ import { ExternalLink } from 'lucide-react';
 type Pathway = 'nrf2' | 'nad' | 'sirtuin' | 'ampk' | 'senolytic';
 
 const PATHWAY_COLOR: Record<Pathway, string> = {
-  nrf2:      '#22d3ee',
+  nrf2:      '#00e0ff',
   nad:       '#34d399',
-  sirtuin:   '#a78bfa',
+  sirtuin:   '#c084fc',
   ampk:      '#fbbf24',
-  senolytic: '#fb7185',
+  senolytic: '#f472b6',
 };
 
 const PATHWAY_LABEL: Record<Pathway, string> = {
@@ -172,8 +172,8 @@ export function SynergyNetworkGraph() {
           </filter>
           {/* Edge gradient */}
           <linearGradient id={`edge-strong-${uid}`} x1="0%" y1="0%" x2="100%" y2="0%">
-            <stop offset="0%" stopColor="#22d3ee" stopOpacity="0.6" />
-            <stop offset="100%" stopColor="#a78bfa" stopOpacity="0.6" />
+            <stop offset="0%" stopColor="#00e0ff" stopOpacity="0.6" />
+            <stop offset="100%" stopColor="#c084fc" stopOpacity="0.6" />
           </linearGradient>
           {/* Radial center glow */}
           <radialGradient id={`center-glow-${uid}`} cx="50%" cy="50%" r="50%">

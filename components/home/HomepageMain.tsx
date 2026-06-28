@@ -15,6 +15,8 @@ import { HomepageProductRail } from '@/components/sections/HomepageProductRail';
 import { HomepagePersonalizedRail } from '@/components/sections/HomepagePersonalizedRail';
 import { NextUpSection } from '@/components/sections/NextUpSection';
 import { HallmarkProblemTiles } from '@/components/sections/HallmarkProblemTiles';
+import { HomepageSynergyNetwork } from '@/components/sections/HomepageSynergyNetwork';
+import { EliteCompoundsShowcase } from '@/components/sections/EliteCompoundsShowcase';
 import { PlatformTicker } from '@/components/ui/PlatformTicker';
 import { ParallaxSection } from '@/components/ui/ParallaxSection';
 import { SiteGuide } from '@/components/SiteGuide';
@@ -52,6 +54,14 @@ export function HomepageMain() {
 
       <ParallaxSection depth={2} theme="cyan">
         <LibraryHighlights />
+      </ParallaxSection>
+
+      <ParallaxSection depth={2} theme="cyan">
+        <EliteCompoundsShowcase />
+      </ParallaxSection>
+
+      <ParallaxSection depth={1} theme="violet">
+        <HomepageSynergyNetwork />
       </ParallaxSection>
 
       <ParallaxSection depth={1}>
