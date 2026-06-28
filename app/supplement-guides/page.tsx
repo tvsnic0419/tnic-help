@@ -1,6 +1,6 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
-import { ArrowRight, BookOpen, FlaskConical, Microscope, Shield, Zap, Leaf } from 'lucide-react';
+import { ArrowRight, BookOpen, FlaskConical, Microscope, Shield, Zap, Leaf, Recycle } from 'lucide-react';
 import { StructuredData } from '@/components/seo/StructuredData';
 import { buildPageMetadata, buildCollectionPageSchema, buildBreadcrumbSchema } from '@/lib/seo';
 import { SITE } from '@/lib/site';
@@ -125,6 +125,22 @@ const guides = [
     glowHover: 'glow-hover-cyan',
     borderHover: 'hover:border-accent-cyan/40',
   },
+  {
+    href: '/spermidine-supplement-guide',
+    icon: Recycle,
+    iconBadge: 'icon-badge-emerald',
+    iconText: 'text-accent-emerald',
+    badge: 'ITP Mouse Data',
+    badgeColor: 'bg-accent-emerald/15 text-accent-emerald',
+    title: 'Spermidine Guide — Autophagy & ITP Data',
+    subtitle: '~10% ITP lifespan extension and 40% cardiovascular mortality reduction',
+    description:
+      'Spermidine is one of the few OTC longevity compounds with NIA Interventions Testing Program lifespan data (~10% in female mice). The Kiechl 2018 20-year cohort found a 40% reduction in cardiovascular mortality in the highest dietary spermidine tertile. Covers EP300 inhibition mechanism, dosing, and the autophagy triad.',
+    pills: ['ITP mouse data', 'Kiechl 2018 cohort', 'EP300 inhibition'],
+    evidenceTier: 'B',
+    glowHover: 'glow-hover-emerald',
+    borderHover: 'hover:border-accent-emerald/40',
+  },
 ];
 
 const comparisons = [
@@ -154,7 +170,7 @@ const compoundDeepDives = [
 
 const collectionSchema = buildCollectionPageSchema({
   name: 'Longevity Supplement Guides — TNiC',
-  description: 'Evidence-based supplement guides covering NAD+, GlyNAC, berberine, taurine, sulforaphane, and top longevity compounds. Each guide is built on PubMed citations and includes honest dosing protocols.',
+  description: 'Evidence-based supplement guides covering NAD+, GlyNAC, berberine, taurine, sulforaphane, spermidine, and top longevity compounds. Each guide is built on PubMed citations and includes honest dosing protocols.',
   path: '/supplement-guides',
   itemCount: guides.length,
 });
@@ -223,7 +239,7 @@ export default function SupplementGuidesPage() {
           <div className="container-page">
             <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
               {[
-                { stat: '6', label: 'In-depth guides' },
+                { stat: '7', label: 'In-depth guides' },
                 { stat: '11', label: 'Compound profiles' },
                 { stat: '8+', label: 'Head-to-head comparisons' },
                 { stat: '50+', label: 'PubMed citations' },

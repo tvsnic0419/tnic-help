@@ -43,6 +43,7 @@ export const PRIORITY_INDEX_PATHS = [
   '/berberine-supplement-guide',
   '/taurine-supplement-guide',
   '/sulforaphane-supplement-guide',
+  '/spermidine-supplement-guide',
   '/site-map',
 ] as const;
 
@@ -54,6 +55,7 @@ export const POPULAR_GUIDE_LINKS = [
   { href: '/berberine-supplement-guide', label: "Berberine Guide — Nature's Ozempic Reality Check" },
   { href: '/taurine-supplement-guide', label: 'Taurine Longevity Guide — Science 2023 Paper' },
   { href: '/sulforaphane-supplement-guide', label: 'Sulforaphane & NRF2 Guide' },
+  { href: '/spermidine-supplement-guide', label: 'Spermidine Guide — Autophagy & ITP Data' },
   { href: '/library/compare/nmn-vs-nr', label: 'NMN vs NR' },
   { href: '/library/compounds/nmn', label: 'NMN Guide' },
   { href: '/library/compounds/nr', label: 'NR Guide' },

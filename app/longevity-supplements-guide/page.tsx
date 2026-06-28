@@ -386,6 +386,8 @@ export default function LongevitySupplementsGuidePage() {
                 { href: '/berberine-supplement-guide', label: 'Berberine Guide', desc: "The real evidence behind 'nature's Ozempic'" },
                 { href: '/taurine-supplement-guide', label: 'Taurine Guide', desc: '80% decline by 60 — the Singh 2023 Science paper explained' },
                 { href: '/sulforaphane-supplement-guide', label: 'Sulforaphane Guide', desc: 'NRF2 activation, form guide, and broccoli sprout protocol' },
+                { href: '/spermidine-supplement-guide', label: 'Spermidine Guide', desc: 'ITP mouse data + Kiechl 2018 — the autophagy activator case' },
+                { href: '/supplement-guides', label: 'All Supplement Guides', desc: 'Hub for every compound guide on TNiC' },
               ].map((g) => (
                 <Link
                   key={g.href}
