@@ -20,6 +20,7 @@ const paths = [
       { label: 'Best supplements 2026 guide', href: '/longevity-supplements-guide' },
       { label: 'NAD+ supplement guide 2026', href: '/nad-supplement-guide' },
       { label: 'GlyNAC supplement guide', href: '/glynac-supplement-guide' },
+      { label: "Berberine guide — nature's Ozempic?", href: '/berberine-supplement-guide' },
       { label: 'FAQ — 15 answers', href: '/faq' },
       { label: 'Research digest', href: '/brief' },
       { label: 'Search library', href: '/library' },

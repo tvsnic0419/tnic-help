@@ -39,6 +39,7 @@ export const PRIORITY_INDEX_PATHS = [
   '/elite-8',
   '/nad-supplement-guide',
   '/glynac-supplement-guide',
+  '/berberine-supplement-guide',
   '/site-map',
 ] as const;
 
@@ -46,6 +47,7 @@ export const POPULAR_GUIDE_LINKS = [
   { href: '/longevity-supplements-guide', label: 'Best Longevity Supplements 2026' },
   { href: '/nad-supplement-guide', label: 'NAD+ Supplement Guide 2026' },
   { href: '/glynac-supplement-guide', label: 'GlyNAC Supplement Guide 2026' },
+  { href: '/berberine-supplement-guide', label: "Berberine Guide — Nature's Ozempic Reality Check" },
   { href: '/library/compare/nmn-vs-nr', label: 'NMN vs NR' },
   { href: '/library/compounds/nmn', label: 'NMN Guide' },
   { href: '/library/compounds/nr', label: 'NR Guide' },
