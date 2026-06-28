@@ -210,4 +210,24 @@ export const seoRoutes = {
       path: input.path,
       keywords: [input.title, input.categoryLabel, 'longevity evidence'],
     }),
+
+  longevityGuide: () =>
+    buildPageMetadata({
+      title: 'Best Longevity Supplements 2026 — Evidence-Ranked Guide',
+      description:
+        'Ranked by clinical evidence, epigenetic clock data, and biological mechanism: the 8 longevity supplements with the strongest human trial footprints. NMN, GlyNAC, Rapamycin, Spermidine, Taurine, and more — with dosing, synergies, and Tier A/B grading.',
+      path: '/longevity-supplements-guide',
+      keywords: [
+        'best longevity supplements',
+        'anti-aging supplements 2026',
+        'longevity supplement stack',
+        'NMN supplement guide',
+        'GlyNAC dosing',
+        'rapamycin longevity',
+        'epigenetic clock supplements',
+        'evidence-based anti-aging',
+        'healthspan supplements ranked',
+        'top longevity compounds',
+      ],
+    }),
 } as const;

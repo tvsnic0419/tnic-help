@@ -50,12 +50,18 @@ export function buildSitemapEntries(lastModified = new Date()): MetadataRoute.Si
     priority: 0.86,
   }));
 
+  const TOP_COMPOUNDS = new Set(['nmn', 'glynac', 'sulforaphane', 'taurine', 'berberine', 'spermidine', 'cakg', 'urolithina', 'pterostilbene', 'rapamycin', 'coq10', 'omega3', 'fisetin', 'rala']);
+
   const moduleRoutes = getAllModuleParams().map(({ slug: category, moduleSlug }) => ({
     url: `${base}/library/${category}/${moduleSlug}`,
     lastModified,
     changeFrequency: 'monthly' as const,
-    priority: 0.88,
+    priority: category === 'compounds' && TOP_COMPOUNDS.has(moduleSlug) ? 0.93 : 0.88,
   }));
+
+  const longevityGuideRoute = [
+    { url: `${base}/longevity-supplements-guide`, lastModified, changeFrequency: 'monthly' as const, priority: 0.92 },
+  ];
 
   const quizShareRoutes = PRESET_KEYS.map((preset) => ({
     url: `${base}/quiz/share/${preset}`,
@@ -71,5 +77,5 @@ export function buildSitemapEntries(lastModified = new Date()): MetadataRoute.Si
     priority: 0.82,
   }));
 
-  return [...coreRoutes, ...quizShareRoutes, ...toolTabRoutes, ...hallmarkRoutes, ...compareRoutes, ...moduleRoutes];
+  return [...coreRoutes, ...longevityGuideRoute, ...quizShareRoutes, ...toolTabRoutes, ...hallmarkRoutes, ...compareRoutes, ...moduleRoutes];
 }
