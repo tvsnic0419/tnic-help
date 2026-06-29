@@ -1,29 +1,40 @@
+import { Suspense } from 'react';
+import dynamic from 'next/dynamic';
 import { Hero } from '@/components/Hero';
-import { PlatformTicker } from '@/components/PlatformTicker';
-import { PremiumManifestoSection } from '@/components/sections/PremiumManifestoSection';
-import { StackImpactPreview } from '@/components/sections/StackImpactPreview';
-import { ClockImpactSection } from '@/components/sections/ClockImpactSection';
-import { NinetyDayCycle } from '@/components/sections/NinetyDayCycle';
-import { HomepagePersonalizedRail } from '@/components/sections/HomepagePersonalizedRail';
-import { PlatformPreview } from '@/components/sections/PlatformPreview';
-import { HomepageOSFunnel } from '@/components/sections/HomepageOSFunnel';
-import { HallmarkProblemTiles } from '@/components/sections/HallmarkProblemTiles';
-import { LibraryHighlights } from '@/components/sections/LibraryHighlights';
-import { ResearchIntel } from '@/components/sections/ResearchIntel';
-import { CompetitiveEdge } from '@/components/sections/CompetitiveEdge';
-import { SiteGuide } from '@/components/sections/SiteGuide';
-import { TrustBanner } from '@/components/sections/TrustBanner';
-import { HomepageCTA } from '@/components/sections/HomepageCTA';
-import { HowItWorks } from '@/components/ui/HowItWorks';
+
+// Lazy loaded components for better performance
+const HowItWorks = dynamic(() => import('@/components/ui/HowItWorks').then(mod => ({ default: mod.HowItWorks })), {
+  loading: () => <div className="h-96 animate-pulse bg-white/5 rounded-2xl mx-auto max-w-6xl" />,
+  ssr: false
+});
+
+const PlatformTicker = dynamic(() => import('@/components/PlatformTicker'), { ssr: false });
+const PremiumManifestoSection = dynamic(() => import('@/components/sections/PremiumManifestoSection'), { ssr: false });
+const StackImpactPreview = dynamic(() => import('@/components/sections/StackImpactPreview'), { ssr: false });
+const ClockImpactSection = dynamic(() => import('@/components/sections/ClockImpactSection'), { ssr: false });
+const NinetyDayCycle = dynamic(() => import('@/components/sections/NinetyDayCycle'), { ssr: false });
+const HomepagePersonalizedRail = dynamic(() => import('@/components/sections/HomepagePersonalizedRail'), { ssr: false });
+const PlatformPreview = dynamic(() => import('@/components/sections/PlatformPreview'), { ssr: false });
+const HomepageOSFunnel = dynamic(() => import('@/components/sections/HomepageOSFunnel'), { ssr: false });
+const HallmarkProblemTiles = dynamic(() => import('@/components/sections/HallmarkProblemTiles'), { ssr: false });
+const LibraryHighlights = dynamic(() => import('@/components/sections/LibraryHighlights'), { ssr: false });
+const ResearchIntel = dynamic(() => import('@/components/sections/ResearchIntel'), { ssr: false });
+const CompetitiveEdge = dynamic(() => import('@/components/sections/CompetitiveEdge'), { ssr: false });
+const SiteGuide = dynamic(() => import('@/components/sections/SiteGuide'), { ssr: false });
+const TrustBanner = dynamic(() => import('@/components/sections/TrustBanner'), { ssr: false });
+const HomepageCTA = dynamic(() => import('@/components/sections/HomepageCTA'), { ssr: false });
 
 export default function HomePage() {
   return (
     <>
       <Hero />
       
-      {/* NEW: Clear 3-step onboarding guidance right after hero */}
-      <HowItWorks />
+      {/* Critical above-the-fold content */}
+      <Suspense fallback={<div className="h-96 animate-pulse bg-white/5 rounded-2xl mx-auto max-w-6xl" />}>
+        <HowItWorks />
+      </Suspense>
 
+      {/* Lazy loaded below-the-fold sections */}
       <PlatformTicker />
       <PremiumManifestoSection />
       <StackImpactPreview />
