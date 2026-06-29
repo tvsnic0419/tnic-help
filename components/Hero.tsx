@@ -54,8 +54,9 @@ export function Hero() {
                 <span className="gradient-sweep-text">{hero.line2}</span>
               </h1>
 
-              {/* IMPROVED: Stronger saturation + subtle shimmer effect */}
-              <p className="max-w-2xl mx-auto lg:mx-0 mb-6 text-[26px] md:text-[30px] leading-[1.15] font-semibold tracking-[-0.02em] bg-gradient-to-r from-[#f4f4f5] via-[#e0f7ff] to-[#f4f4f5] bg-clip-text text-transparent">
+              {/* REFINED SHIMMER GRADIENT */}
+              <p className="max-w-2xl mx-auto lg:mx-0 mb-6 text-[26px] md:text-[30px] leading-[1.1] font-semibold tracking-[-0.025em] 
+                 bg-gradient-to-r from-[#f8fafc] via-[#67f6ff] to-[#f8fafc] bg-clip-text text-transparent">
                 Subtract years from your biological age.
               </p>
 
