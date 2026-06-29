@@ -1,4 +1,5 @@
 import { Suspense } from 'react';
+import Link from 'next/link';
 import { AntiAgingLibrary } from '@/components/library/AntiAgingLibrary';
 import { LibraryModulesHub } from '@/components/library/LibraryModulesHub';
 import { LifestylePillarsHub } from '@/components/library/LifestylePillarsHub';
@@ -11,6 +12,10 @@ import { libraryModules } from '@/lib/library-modules';
 import { buildCollectionPageSchema } from '@/lib/seo';
 import { seoRoutes } from '@/lib/seo-routes';
 
+// New high-detail hallmark visuals (premium mechanistic SVGs)
+import { CellularSenescenceVisual } from '@/components/illustrations/CellularSenescenceVisual';
+import { LossOfProteostasisVisual } from '@/components/illustrations/LossOfProteostasisVisual';
+
 export const metadata = seoRoutes.library();
 
 export default function LibraryPage() {
@@ -18,7 +23,7 @@ export default function LibraryPage() {
     buildCollectionPageSchema({
       name: 'TNiC Anti-Aging Library',
       description:
-        'Searchable longevity library: 12 hallmarks, compounds, synergies, lifestyle guides, and testing protocols.',
+        'Searchable longevity library: 12 hallmarks, compounds, synergies, lifestyle guides, and testing protocols. Explore visual mechanisms for each hallmark.',
       path: '/library',
       itemCount: hallmarkLibrary.length + libraryModules.length,
     }),
@@ -27,14 +32,66 @@ export default function LibraryPage() {
   return (
     <>
       <StructuredData schemas={schemas} />
+
       <Suspense fallback={<SectionSkeleton height="sm" />}>
         <LibrarySearch />
       </Suspense>
+
       <AntiAgingLibrary asPageTitle />
+
+      {/* NEW: Featured Hallmark Visual Mechanisms Section - Integrated showcase with internal linking */}
+      <section className="container-page py-12 md:py-16 border-t border-[var(--color-border-subtle)]">
+        <div className="max-w-5xl mx-auto">
+          <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-4 mb-8">
+            <div>
+              <div className="text-label text-[var(--accent-cyan)] mb-1.5">VISUAL MECHANISMS</div>
+              <h2 className="heading-section">Featured Hallmark Visuals</h2>
+              <p className="text-body text-[var(--color-text-secondary)] max-w-prose mt-2">
+                Mechanistic clarity for priority hallmarks. Each visualization reveals key pathways, intervention points, and evidence-aligned strategies.
+              </p>
+            </div>
+            <Link 
+              href="/library" 
+              className="inline-flex items-center gap-2 text-sm text-[var(--accent-cyan)] hover:underline group mt-2 md:mt-0"
+            >
+              Explore all 12 hallmarks 
+              <span className="group-hover:translate-x-0.5 transition-transform">→</span>
+            </Link>
+          </div>
+
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+            <CellularSenescenceVisual 
+              accentColor="#f472b6" 
+              showLabels={true} 
+              interactive={true} 
+            />
+            <LossOfProteostasisVisual 
+              accentColor="#67f6ff" 
+              showLabels={true} 
+              interactive={true} 
+            />
+          </div>
+
+          <div className="mt-6 text-center">
+            <p className="text-sm text-[var(--color-text-muted)]">
+              These visuals are part of the expanding TNiC illustration system. More hallmarks (Genomic Instability, Mitochondrial Dysfunction, and others) available in the full library.
+            </p>
+            <Link 
+              href="/library" 
+              className="mt-3 inline-block text-xs uppercase tracking-[1.5px] text-[var(--color-text-faint)] hover:text-[var(--accent-cyan)] transition-colors"
+            >
+              View complete hallmark library with faceted search &amp; visuals →
+            </Link>
+          </div>
+        </div>
+      </section>
+
       <LifestylePillarsHub />
+
       <div className="container-page py-8">
         <ToolsPromoStrip headline="Simulate stacks, build protocols, and project healthspan from library modules" />
       </div>
+
       <LibraryModulesHub />
     </>
   );
