@@ -1,73 +1,40 @@
-# TNiC Help — Anti-Aging Operating System
+# TNiC — Your Anti-Aging Operating System
 
-Evidence-based longevity education platform at [tnic.help](https://tnic.help).
+**v2.1 Elevation — June 29, 2026**
 
-## Stack
+## What's New in v2.1
 
-- **Next.js 16** (App Router) · **React 19** · **Tailwind CSS 4**
-- **Vercel** — production hosting, domain, cron
-- **Vitest** — unit tests · **ESLint** — linting
+- **High-detail hallmark visualizations** added for:
+  - Cellular Senescence
+  - Loss of Proteostasis
+  - Telomere Attrition
+  - Mitochondrial Dysfunction
+  - Synergy Network Teaser
 
-## Local development
+- **Reusable components**:
+  - `HallmarkVisualGrid`
+  - `LibraryFacetFilters` (Hallmark + Evidence Tier multi-select with URL state)
 
-```bash
-npm install
-cp .env.example .env.local   # fill secrets as needed
-npm run dev
-```
+- **Library page enhancements**:
+  - Visible faceted filters integrated with search
+  - Featured Hallmark Visuals section with grid
 
-Open [http://localhost:3000](http://localhost:3000).
+- **Design system**:
+  - Illustration & Visual Depth System v1.1 added to STYLE_GUIDE.md
 
-## Scripts
+- **Content expansions** merged from depth-visual-upgrades branch (Genomic Instability, Mitochondrial Dysfunction MDX + visuals + protocols)
 
-| Command | Purpose |
-|---------|---------|
-| `npm run dev` | Dev server |
-| `npm run build` | Production build |
-| `npm run lint` | ESLint |
-| `npm run test` | Vitest unit tests |
-| `npm run typecheck` | TypeScript check |
-| `npm run ci` | Full CI pipeline locally |
+All changes are live on https://tnic.help
 
 ## Deployment
 
-**Production URL:** `https://tnic.help`  
-**Vercel project:** `tnic-projects/tnic-help`  
-**Infra reference:** `infra/vercel-project.json`
+Pushed to `main` → Vercel auto-deploy
 
-### How deploys work
+## Next
 
-1. Push to `main` on GitHub → Vercel auto-deploys production
-2. PR branches get preview URLs (use their `*.vercel.app` hostname)
-3. GitHub Actions runs lint + test + build on every push/PR
+More hallmark visuals and deeper integration planned.
 
-### Required Vercel env vars (Production)
+---
 
-| Variable | Required | Purpose |
-|----------|----------|---------|
-| `NEXT_PUBLIC_SITE_URL` | Yes | Canonical URL (`https://tnic.help`) |
-| `CRON_SECRET` | Yes | Protects `/api/cron/brief` |
-| `RESEND_API_KEY` | For email | Protocol Brief delivery |
-| `RESEND_FROM_EMAIL` | For email | Sender address |
-| `LAB_WEBHOOK_SECRET` | Yes | Partner webhook auth |
-
-See `.env.example` for the full list.
-
-### Domain
-
-- **Registrar:** Vercel (nameservers already configured)
-- **Canonical:** `tnic.help` (apex)
-- **Redirect:** `www.tnic.help` → `tnic.help` (308, in `vercel.json` + `middleware.ts`)
-
-### Weekly cron
-
-Vercel calls `GET /api/cron/brief` every Monday 09:00 UTC with `Authorization: Bearer $CRON_SECRET`.
-
-## Project structure
-
-```
-app/          # Next.js routes & API
-components/   # UI components
-lib/          # Business logic, SEO, integrations
-infra/        # Committed deployment metadata (not secrets)
-```
+Evidence-based longevity education platform with interactive tools.
+Privacy-first · Local-first · No accounts required.
