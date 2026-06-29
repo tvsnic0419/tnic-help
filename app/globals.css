@@ -1,14 +1,14 @@
-/* Homepage compound & graphic sections - stronger coloring */
+/* Homepage compound & graphic sections - stronger cyan saturation */
 .home-compound-card,
 .compound-graphic {
-  border-color: rgba(103, 246, 255, 0.25);
+  border-color: rgba(103, 246, 255, 0.35);
   transition: all 0.2s ease;
 }
 
 .home-compound-card:hover,
 .compound-graphic:hover {
-  border-color: var(--accent-cyan);
-  box-shadow: 0 10px 30px -15px rgba(103, 246, 255, 0.2);
+  border-color: #00f0ff; /* More saturated cyan */
+  box-shadow: 0 10px 30px -10px rgba(0, 240, 255, 0.35);
 }
 
 /* Stronger text after graphics */
@@ -26,7 +26,12 @@
   letter-spacing: -0.01em;
 }
 
-/* Improved glow on key graphics */
+/* Improved glow on key graphics - stronger cyan */
 .graphic-glow {
-  box-shadow: 0 0 20px rgba(103, 246, 255, 0.15);
+  box-shadow: 0 0 25px rgba(0, 240, 255, 0.25);
+}
+
+/* Homepage specific stronger cyan accents */
+.home-accent-cyan {
+  color: #00f0ff;
 }
