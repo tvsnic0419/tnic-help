@@ -1,52 +1,44 @@
-import { Nav } from '@/components/Nav';
-import { ScrollProgress } from '@/components/ScrollProgress';
-import { Footer } from '@/components/Footer';
-import { ToolsDock } from '@/components/ToolsDock';
-import Hero from '@/components/Hero';
-import { HomepageOSFunnel } from '@/components/sections/HomepageOSFunnel';
+import { Hero } from '@/components/Hero';
+import { PlatformTicker } from '@/components/PlatformTicker';
+import { PremiumManifestoSection } from '@/components/sections/PremiumManifestoSection';
+import { StackImpactPreview } from '@/components/sections/StackImpactPreview';
+import { ClockImpactSection } from '@/components/sections/ClockImpactSection';
+import { NinetyDayCycle } from '@/components/sections/NinetyDayCycle';
+import { HomepagePersonalizedRail } from '@/components/sections/HomepagePersonalizedRail';
 import { PlatformPreview } from '@/components/sections/PlatformPreview';
-import { TrustBanner } from '@/components/TrustBanner';
+import { HomepageOSFunnel } from '@/components/sections/HomepageOSFunnel';
+import { HallmarkProblemTiles } from '@/components/sections/HallmarkProblemTiles';
 import { LibraryHighlights } from '@/components/sections/LibraryHighlights';
 import { ResearchIntel } from '@/components/sections/ResearchIntel';
 import { CompetitiveEdge } from '@/components/sections/CompetitiveEdge';
+import { SiteGuide } from '@/components/sections/SiteGuide';
+import { TrustBanner } from '@/components/sections/TrustBanner';
 import { HomepageCTA } from '@/components/sections/HomepageCTA';
-import { HomepagePersonalizedRail } from '@/components/sections/HomepagePersonalizedRail';
-import { HallmarkProblemTiles } from '@/components/sections/HallmarkProblemTiles';
-import { PlatformTicker } from '@/components/ui/PlatformTicker';
-import { PremiumManifestoSection } from '@/components/sections/PremiumManifestoSection';
-import { StackImpactPreview } from '@/components/sections/StackImpactPreview';
-import { NinetyDayCycle } from '@/components/sections/NinetyDayCycle';
-import { ClockImpactSection } from '@/components/sections/ClockImpactSection';
-import { SiteGuide } from '@/components/SiteGuide';
-import { seoRoutes } from '@/lib/seo-routes';
-
-export const metadata = seoRoutes.home();
+import { HowItWorks } from '@/components/ui/HowItWorks';
 
 export default function HomePage() {
   return (
-    <div className="min-h-screen bg-background text-foreground overflow-x-hidden">
-        <ScrollProgress />
-        <Nav />
-        <main id="main-content" tabIndex={-1}>
-          <Hero />
-          <PlatformTicker />
-          <PremiumManifestoSection />
-          <StackImpactPreview />
-          <ClockImpactSection />
-          <NinetyDayCycle />
-          <HomepagePersonalizedRail />
-          <PlatformPreview />
-          <HomepageOSFunnel />
-          <HallmarkProblemTiles />
-          <LibraryHighlights />
-          <ResearchIntel />
-          <CompetitiveEdge />
-          <SiteGuide />
-          <TrustBanner />
-          <HomepageCTA />
-        </main>
-        <ToolsDock />
-        <Footer />
-    </div>
+    <>
+      <Hero />
+      
+      {/* NEW: Clear 3-step onboarding guidance right after hero */}
+      <HowItWorks />
+
+      <PlatformTicker />
+      <PremiumManifestoSection />
+      <StackImpactPreview />
+      <ClockImpactSection />
+      <NinetyDayCycle />
+      <HomepagePersonalizedRail />
+      <PlatformPreview />
+      <HomepageOSFunnel />
+      <HallmarkProblemTiles />
+      <LibraryHighlights />
+      <ResearchIntel />
+      <CompetitiveEdge />
+      <SiteGuide />
+      <TrustBanner />
+      <HomepageCTA />
+    </>
   );
 }
