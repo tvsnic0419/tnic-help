@@ -12,9 +12,12 @@ import { libraryModules } from '@/lib/library-modules';
 import { buildCollectionPageSchema } from '@/lib/seo';
 import { seoRoutes } from '@/lib/seo-routes';
 
-// New high-detail hallmark visuals (premium mechanistic SVGs)
+// High-detail hallmark visuals
 import { CellularSenescenceVisual } from '@/components/illustrations/CellularSenescenceVisual';
 import { LossOfProteostasisVisual } from '@/components/illustrations/LossOfProteostasisVisual';
+
+// New faceted filters
+import { LibraryFacetFilters } from '@/components/library/LibraryFacetFilters';
 
 export const metadata = seoRoutes.library();
 
@@ -37,9 +40,14 @@ export default function LibraryPage() {
         <LibrarySearch />
       </Suspense>
 
+      {/* NEW: Visible Faceted Filters for enhanced discovery */}
+      <div className="container-page pb-6">
+        <LibraryFacetFilters />
+      </div>
+
       <AntiAgingLibrary asPageTitle />
 
-      {/* NEW: Featured Hallmark Visual Mechanisms Section - Integrated showcase with internal linking */}
+      {/* Featured Hallmark Visuals Section (integrated with faceted context) */}
       <section className="container-page py-12 md:py-16 border-t border-[var(--color-border-subtle)]">
         <div className="max-w-5xl mx-auto">
           <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-4 mb-8">
@@ -47,7 +55,7 @@ export default function LibraryPage() {
               <div className="text-label text-[var(--accent-cyan)] mb-1.5">VISUAL MECHANISMS</div>
               <h2 className="heading-section">Featured Hallmark Visuals</h2>
               <p className="text-body text-[var(--color-text-secondary)] max-w-prose mt-2">
-                Mechanistic clarity for priority hallmarks. Each visualization reveals key pathways, intervention points, and evidence-aligned strategies.
+                Mechanistic clarity for priority hallmarks. Use the filters above to narrow results, then explore detailed visuals and interventions.
               </p>
             </div>
             <Link 
@@ -74,14 +82,8 @@ export default function LibraryPage() {
 
           <div className="mt-6 text-center">
             <p className="text-sm text-[var(--color-text-muted)]">
-              These visuals are part of the expanding TNiC illustration system. More hallmarks (Genomic Instability, Mitochondrial Dysfunction, and others) available in the full library.
+              These visuals are part of the expanding TNiC illustration system. Filter above or browse the full library for more.
             </p>
-            <Link 
-              href="/library" 
-              className="mt-3 inline-block text-xs uppercase tracking-[1.5px] text-[var(--color-text-faint)] hover:text-[var(--accent-cyan)] transition-colors"
-            >
-              View complete hallmark library with faceted search &amp; visuals →
-            </Link>
           </div>
         </div>
       </section>
