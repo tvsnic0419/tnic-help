@@ -1,209 +1,107 @@
 'use client';
 
-import { motion } from 'framer-motion';
-import { ArrowRight, ClipboardList, LayoutDashboard, Sparkles } from 'lucide-react';
+import React from 'react';
 import Link from 'next/link';
-import { StarterQuiz } from '@/components/sections/StarterQuiz';
+import { motion } from 'framer-motion';
+import { ClipboardList, LayoutDashboard, ArrowRight, Sparkles } from 'lucide-react';
+import { usePlatform } from '@/lib/platform';
+import { getHeroPersonalization } from '@/lib/hero-personalization';
 import { StatStrip } from '@/components/ui/StatStrip';
-import { HeroAgingTicker } from '@/components/ui/HeroAgingTicker';
 import { ContextRail } from '@/components/ui/ContextRail';
-import { HeroNetworkCanvas } from '@/components/ui/HeroNetworkCanvas';
-import { Logo } from '@/components/ui/Logo';
-import { platformStats } from '@/lib/platform-stats';
-import { usePlatform } from '@/context/PlatformContext';
-import { getHeroPersonalization } from '@/lib/homepage-personalization';
+import { HeroNetworkCanvas } from '@/components/hero/HeroNetworkCanvas';
+import { HeroAgingTicker } from '@/components/hero/HeroAgingTicker';
+import { StarterQuiz } from '@/components/quiz/StarterQuiz';
 
-export default function Hero() {
+export function Hero() {
   const { quizResult } = usePlatform();
   const hero = getHeroPersonalization(quizResult);
 
   return (
-    <section
-      id="hero"
-      className="relative min-h-[92vh] md:min-h-[96vh] flex items-center pt-24 md:pt-28 pb-14 md:pb-20 overflow-hidden"
-      style={{ background: '#020811' }}
-    >
-      {/* SVG cinematic background — drop hero-premium.jpg here to override */}
-      <div
-        className="absolute inset-0"
-        style={{
-          backgroundImage: "url('/images/premium/hero-premium.svg')",
-          backgroundSize: 'cover',
-          backgroundPosition: 'center',
-          filter: 'brightness(0.88) contrast(1.06) saturate(1.1)',
-        }}
-        aria-hidden="true"
-      />
-
-      {/* Subtle gradient overlay to blend photo into page palette */}
-      <div
-        className="absolute inset-0"
-        style={{
-          background:
-            'linear-gradient(160deg, rgba(2,8,17,0.55) 0%, rgba(6,14,28,0.35) 50%, rgba(11,21,40,0.65) 100%)',
-        }}
-        aria-hidden="true"
-      />
-
-      {/* Single ambient layer — molecular network only */}
+    <section className="relative min-h-[92vh] md:min-h-[96vh] flex items-center pt-24 md:pt-28 pb-14 md:pb-20 overflow-hidden bg-[#020811]">
+      {/* Background layers */}
+      <div className="absolute inset-0 bg-[radial-gradient(#1a2338_0.8px,transparent_1px)] bg-[length:4px_4px] opacity-40" />
       <HeroNetworkCanvas />
-      <div className="absolute inset-0 grid-overlay" aria-hidden="true" />
 
-      <div className="relative container-page w-full">
-        <div className="grid lg:grid-cols-12 gap-10 lg:gap-16 items-center">
-          {/* Left column — brand + copy + CTAs */}
+      <div className="container-page relative z-10 w-full">
+        <div className="lg:grid lg:grid-cols-12 gap-10 lg:gap-16 items-center">
+          {/* Left Column */}
           <div className="lg:col-span-7 text-center lg:text-left">
-            <motion.div
-              initial={{ opacity: 0, y: 12 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
-              className="mb-6 lg:mb-8 flex items-center gap-4 mx-auto lg:mx-0 w-fit"
-            >
-              <Logo variant="emblem" size="hero" className="drop-shadow-2xl" />
-              <div className="text-left">
-                <p
-                  className="font-black leading-none tracking-tight"
-                  style={{ fontSize: 'clamp(2.5rem, 5vw, 3.5rem)', color: 'var(--foreground)' }}
-                >
-                  TN<span style={{ color: 'var(--accent-cyan)' }}>i</span>C
-                </p>
-                <p
-                  className="font-mono uppercase tracking-[0.22em] text-muted-foreground mt-1"
-                  style={{ fontSize: '0.68rem' }}
-                >
-                  Longevity OS
-                </p>
+            <div className="flex items-center justify-center lg:justify-start gap-4 mb-6">
+              <div className="flex items-center gap-3">
+                <div className="w-9 h-9 rounded-xl bg-gradient-to-br from-[var(--accent-cyan)] to-[var(--accent-emerald)] flex items-center justify-center">
+                  <span className="text-[#020811] font-bold text-xl">T</span>
+                </div>
+                <div>
+                  <span className="text-4xl md:text-5xl font-semibold tracking-tighter">TN</span>
+                  <span className="text-4xl md:text-5xl font-semibold tracking-tighter text-[var(--accent-cyan)]">i</span>
+                  <span className="text-4xl md:text-5xl font-semibold tracking-tighter">C</span>
+                </div>
               </div>
-            </motion.div>
+              <div className="badge-live">
+                <span className="badge-live-dot" /> Platform Active
+              </div>
+            </div>
 
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              className="flex flex-wrap items-center gap-3 mb-8 justify-center lg:justify-start"
-            >
-              <span className="badge-live">
-                <span className="badge-live-dot" aria-hidden="true" />
-                Platform Active
-              </span>
-              <span className="inline-flex items-center gap-2 tnic-glass rounded-full px-5 py-2.5 text-sm text-white/90">
-                <Sparkles
-                  className="w-4 h-4 animate-pulse-glow"
-                  style={{ color: '#00F5FF' }}
-                  aria-hidden="true"
-                />
-                <span className="font-medium">Anti-Aging Operating System</span>
-                <span
-                  className="text-caption font-mono hidden sm:inline"
-                  style={{ color: '#00F5FF' }}
-                >
-                  v2.0
+            <div className="max-w-3xl mx-auto lg:mx-0">
+              <div className="mb-4">
+                <span className="inline-flex items-center gap-2 px-4 py-1 rounded-full text-xs font-medium bg-white/5 border border-white/10">
+                  <Sparkles className="w-3.5 h-3.5" /> Anti-Aging Operating System <span className="text-[var(--accent-cyan)]">v2.1</span>
                 </span>
-              </span>
-            </motion.div>
+              </div>
 
-            {/* LCP-critical: render immediately so the headline registers as LCP at first paint */}
-            <motion.h1 initial={false} className="headline-editorial mb-5">
-              {hero.line1}
-              <br />
-              <span className="gradient-sweep-text">{hero.line2}</span>
-            </motion.h1>
+              <h1 className="headline-editorial mb-5">
+                {hero.line1}<br />
+                <span className="gradient-sweep-text">{hero.line2}</span>
+              </h1>
 
-            <motion.p
-              initial={false}
-              className="text-body text-lg max-w-xl mb-8 mx-auto lg:mx-0 leading-relaxed"
-            >
-              {hero.subcopy}
-            </motion.p>
+              <p className="text-body text-lg max-w-2xl mx-auto lg:mx-0 mb-8 leading-relaxed text-[var(--color-text-secondary)]">
+                Subtract years from your biological age with evidence-graded protocols — privately, locally, and transparently.
+              </p>
 
-            <motion.div
-              initial={{ opacity: 0, y: 16 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.25 }}
-              className="mb-6"
-            >
-              <StatStrip stats={[...platformStats]} variant="hero" ariaLabel="Platform scale" />
-            </motion.div>
+              <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start mb-10">
+                <Link 
+                  href={hero.primary.href} 
+                  className="tnic-button-primary group inline-flex items-center justify-center gap-3 px-8 py-4 rounded-2xl text-base font-medium focus-ring"
+                >
+                  <ClipboardList className="w-5 h-5" />
+                  Take the 3-Min Quiz
+                  <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
+                </Link>
 
-            <motion.div
-              initial={{ opacity: 0, y: 12 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.28 }}
-            >
-              <HeroAgingTicker />
-            </motion.div>
+                <Link 
+                  href={hero.secondary.href} 
+                  className="tnic-button-secondary inline-flex items-center justify-center gap-3 px-8 py-4 rounded-2xl text-base font-medium focus-ring"
+                >
+                  <LayoutDashboard className="w-5 h-5" />
+                  Open Dashboard
+                </Link>
+              </div>
 
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.3 }}
-              className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start mt-8"
-            >
-              <Link
-                href={hero.primary.href}
-                className="focus-ring tnic-button-primary group inline-flex items-center justify-center gap-2 px-8 py-4 rounded-xl text-sm"
-              >
-                <ClipboardList className="w-5 h-5" aria-hidden="true" />
-                {hero.primary.label}
-                <ArrowRight
-                  className="w-5 h-5 group-hover:translate-x-1 transition-transform"
-                  aria-hidden="true"
-                />
-              </Link>
-              <Link
-                href={hero.secondary.href}
-                className="focus-ring tnic-button-secondary inline-flex items-center justify-center gap-2 px-8 py-4 rounded-xl text-sm font-medium"
-              >
-                <LayoutDashboard className="w-4 h-4" aria-hidden="true" />
-                {hero.secondary.label}
-              </Link>
-            </motion.div>
-
-            <motion.p
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ delay: 0.35 }}
-              className="text-caption font-mono mt-6 mx-auto lg:mx-0 text-white/40"
-            >
-              Educational only · Not medical advice · Data stays local
-            </motion.p>
+              <div className="flex items-center justify-center lg:justify-start gap-2 text-xs text-[var(--color-text-muted)]">
+                <span>Free forever</span>
+                <span className="w-1 h-1 rounded-full bg-white/30" />
+                <span>Data stays local</span>
+                <span className="w-1 h-1 rounded-full bg-white/30" />
+                <span>No accounts required</span>
+              </div>
+            </div>
           </div>
 
-          {/* Right column — quiz card */}
-          <motion.div
-            id="starter-quiz"
-            initial={{ opacity: 0, x: 40, scale: 0.96 }}
-            animate={{ opacity: 1, x: 0, scale: 1 }}
-            transition={{ delay: 0.4, duration: 0.8, type: 'spring', stiffness: 80 }}
-            className="lg:col-span-5 scroll-mt-28 relative"
-          >
-            <div
-              className="absolute -inset-4 rounded-3xl blur-2xl opacity-60 pointer-events-none"
-              style={{
-                background:
-                  'linear-gradient(to bottom right, rgba(0,245,255,0.20), rgba(52,211,153,0.10), rgba(167,139,250,0.15))',
-              }}
-              aria-hidden="true"
-            />
-            <div className="relative tnic-glass rounded-2xl p-1">
-              <StarterQuiz />
+          {/* Right Column - Quiz */}
+          <div className="lg:col-span-5 mt-12 lg:mt-0">
+            <div className="relative">
+              <div className="absolute -inset-4 rounded-3xl bg-gradient-to-br from-[var(--accent-cyan)]/10 via-transparent to-[var(--accent-emerald)]/10 blur-2xl" />
+              <div className="relative tnic-glass rounded-3xl p-1">
+                <StarterQuiz />
+              </div>
             </div>
-          </motion.div>
+          </div>
         </div>
 
-        {/* Context rail */}
-        <motion.div
-          initial={{ opacity: 0, y: 24 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.55, duration: 0.6 }}
-          className="mt-14 md:mt-20 max-w-4xl mx-auto lg:mx-0"
-        >
-          <ContextRail
-            what="A privacy-first longevity OS built on 12 Hallmarks of Aging — not a supplement store or medical service."
-            why="Most longevity sites sell products before explaining the mechanism. TNiC grades every compound claim, cites every PMID, and keeps your health data in your own browser — never on TNiC servers."
-            next={hero.contextNext}
-            theme="cyan"
-          />
-        </motion.div>
+        {/* Context Rail */}
+        <div className="mt-16 max-w-4xl mx-auto lg:mx-0">
+          <ContextRail theme="cyan" />
+        </div>
       </div>
     </section>
   );
