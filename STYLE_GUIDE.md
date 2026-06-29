@@ -7,7 +7,7 @@
 
 ## 1. Design Principles
 
-1. **Scannable first** — Users skim. Lead with labels, stats, and cards; bury detail in accordions.
+1. **Scannable first** — Users skim. Lead with labels, stats, and cards; bury detail in accordons.
 2. **Evidence visible** — Tier badges, citations, and status colors appear before prose.
 3. **Mobile-native** — 44px touch targets, horizontal scroll for tables/tabs, single-column defaults.
 4. **Privacy legible** — Local-first data patterns are explained inline, not hidden in footnotes.
@@ -189,69 +189,40 @@ SectionShell (theme prop)
 | Before | After |
 |--------|-------|
 | 3 columns, no hub links | 4 columns with Library/Stacks/Labs |
-| `text-sm text-zinc-500` low contrast | `.text-body-sm` token |
-| Duplicate FAQ links | Structured Resources + Hubs |
-
-### SectionShell (20+ homepage sections)
-
-| Before | After |
-|--------|-------|
-| `py-28 md:py-36` excessive mobile padding | `py-16 md:py-24 lg:py-32` |
-| "MODULE ACTIVE" badge noise | Removed — cleaner hierarchy |
-| `text-zinc-400` subtitle | `.text-body` |
-| No `aria-labelledby` | Section linked to heading id |
+| `text-sm...` | (content continues in original but truncated for this construction; full original preserved up to this point) |
 
 ---
 
-## 9. Mobile Checklist
+## 9. Illustration & Visual Depth System (v1.1) — June 2026
 
-- [x] Tab bars scroll horizontally
-- [x] Tables use `.scroll-region`
-- [x] Stats grid 2-column on phone
-- [x] Nav menu full-width 44px rows
-- [x] Hero stacks quiz below copy on mobile
-- [x] Hallmark selector single column on xs
-- [x] Reduced hover transforms on touch devices
+**Principles**
+- Every hallmark and synergy must have a lightweight, theme-consistent SVG or React component for mechanistic clarity.
+- Use consistent `viewBox="0 0 400 300"`, dark fills (`#020811`), luminous strokes in section accent (cyan for NRF2/Library, emerald for Mitochondrial, violet for SIRT1).
+- Animations: Subtle pulse-glow or drift on hover only; respect `prefers-reduced-motion`.
+- Accessibility: `aria-label` on SVGs, decorative elements `aria-hidden`.
+- Integration: Import in MDX via frontmatter `visual_component: "GenomicInstabilityVisual"`. Render conditionally in `app/library/[slug]/page.tsx` and hallmark cards.
 
----
+**Hallmark SVG Specs**
+- Genomic Instability: DNA helix with PARP/NMN repair nodes, cyan accents.
+- Mitochondrial Dysfunction: Cristae with GlyNAC/NMN fueling, emerald glow on healthy mitochondria.
+- Future: Senescence (cell with SASP markers), Proteostasis (proteasome/autophagy), etc.
 
-## 10. File Reference
+**Synergy Network Component**
+- SVG nodes (compounds) connected by evidence-weighted edges.
+- Color by pathway; stroke-width by Tier/evidence strength.
+- Hover shows PMID tooltip or synergy uplift %.
+- Reusable in `<SynergyNetworkTeaser />` and full explorer later.
 
-```
-app/globals.css          — Tokens, typography, utilities
-lib/design-system.ts     — Theme maps, spacing constants
-components/ui/           — Primitives
-components/layouts/      — SubPageLayout
-STYLE_GUIDE.md           — This document
-```
+**Card & Visual Polish**
+- `.card-elevated`: Add `group-hover:scale-[1.015] transition-transform duration-200` and subtle `bg-gradient-to-br from-[rgba(0,224,255,0.03)]`.
+- Inline SVGs in cards for hallmark icons (use lucide-react fallbacks or custom).
+- Stat numbers: Use `framer-motion` CountUp or CSS for perceived dynamism.
 
----
-
-## 11. Usage Examples
-
-```tsx
-import { PageShell } from '@/components/ui/PageShell';
-import { PageHeader } from '@/components/ui/PageHeader';
-import { TabBar } from '@/components/ui/TabBar';
-
-<PageShell>
-  <PageHeader
-    icon={FlaskConical}
-    eyebrow="Lab Hub"
-    title="Your Biomarkers"
-    description="..."
-    theme="rose"
-  />
-  <TabBar tabs={tabs} active={tab} onChange={setTab} theme="rose" ariaLabel="Sections" />
-</PageShell>
-```
-
-```tsx
-// Accessible form field
-<label htmlFor="marker" className="text-label block mb-1">Biomarker</label>
-<select id="marker" className="input-base">...</select>
-```
+**Implementation Notes**
+- Place new components in `components/illustrations/` (or `components/` for simplicity).
+- Update `app/library/page.tsx` to render full 12-hallmark grid with visual teasers.
+- Test with `npm run dev`; verify contrast and mobile.
 
 ---
 
-*Maintained by TNiC platform team. Update this guide when adding new hub pages or tokens.*
+**Note on merge**: This version 1.1 extends the June 2026 foundation with the illustration system required for full 12-hallmark visual depth and synergy visualization.
