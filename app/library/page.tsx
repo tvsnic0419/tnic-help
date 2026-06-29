@@ -19,6 +19,9 @@ import { LossOfProteostasisVisual } from '@/components/illustrations/LossOfProte
 // New faceted filters
 import { LibraryFacetFilters } from '@/components/library/LibraryFacetFilters';
 
+// New next steps guidance
+import { RecommendedNextSteps } from '@/components/ui/RecommendedNextSteps';
+
 export const metadata = seoRoutes.library();
 
 export default function LibraryPage() {
@@ -40,14 +43,19 @@ export default function LibraryPage() {
         <LibrarySearch />
       </Suspense>
 
-      {/* NEW: Visible Faceted Filters for enhanced discovery */}
+      {/* NEW: Visible Faceted Filters */}
       <div className="container-page pb-6">
         <LibraryFacetFilters />
       </div>
 
       <AntiAgingLibrary asPageTitle />
 
-      {/* Featured Hallmark Visuals Section (integrated with faceted context) */}
+      {/* NEW: Recommended Next Steps after library exploration */}
+      <div className="container-page pb-12">
+        <RecommendedNextSteps context="library" />
+      </div>
+
+      {/* Featured Hallmark Visuals Section */}
       <section className="container-page py-12 md:py-16 border-t border-[var(--color-border-subtle)]">
         <div className="max-w-5xl mx-auto">
           <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-4 mb-8">
@@ -78,12 +86,6 @@ export default function LibraryPage() {
               showLabels={true} 
               interactive={true} 
             />
-          </div>
-
-          <div className="mt-6 text-center">
-            <p className="text-sm text-[var(--color-text-muted)]">
-              These visuals are part of the expanding TNiC illustration system. Filter above or browse the full library for more.
-            </p>
           </div>
         </div>
       </section>
