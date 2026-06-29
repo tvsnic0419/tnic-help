@@ -54,8 +54,13 @@ export function Hero() {
                 <span className="gradient-sweep-text">{hero.line2}</span>
               </h1>
 
+              {/* IMPROVED: Much stronger, more impactful outcome line */}
+              <p className="max-w-2xl mx-auto lg:mx-0 mb-8 text-2xl md:text-[28px] leading-[1.15] font-semibold tracking-[-0.015em] text-[#f4f4f5]">
+                Subtract years from your biological age.
+              </p>
+
               <p className="text-body text-lg max-w-2xl mx-auto lg:mx-0 mb-8 leading-relaxed text-[var(--color-text-secondary)]">
-                Subtract years from your biological age with evidence-graded protocols — privately, locally, and transparently.
+                With evidence-graded protocols — privately, locally, and transparently.
               </p>
 
               <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start mb-10">
