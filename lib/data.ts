@@ -27,12 +27,31 @@ export const navLinks = [
   { href: '/elite-8', label: 'Elite 8', mod: 'MOD-EL8-17' },
 ];
 
+/**
+ * Single source of truth for platform-wide counts.
+ * Every surface that quotes a headline number (hero, funnels, pricing,
+ * community pulse) must read from here — no hardcoded counts elsewhere.
+ * Numbers are verifiable against the actual data:
+ *   compounds  → `compounds` array (evidence-graded, studies.length > 0)
+ *   hallmarks  → hallmarkLibrary (12 hallmarks of aging)
+ *   studies    → distinct PMIDs cited across the platform data files
+ *   tools      → toolsRegistry (protocol/healthspan tools)
+ */
+export const PLATFORM_STATS = {
+  compounds: 14,
+  hallmarks: 12,
+  studies: 59,
+  tools: 6,
+  faqAnswers: 33,
+  glossaryTerms: 20,
+} as const;
+
 export const communityPulse = [
-  { metric: '14', label: 'Evidence-Graded Compounds' },
-  { metric: '12', label: 'Hallmarks Explained' },
-  { metric: '33', label: 'FAQ Answers' },
-  { metric: '20', label: 'Glossary Terms' },
-  { metric: '28', label: 'Clinical Studies' },
+  { metric: String(PLATFORM_STATS.compounds), label: 'Evidence-Graded Compounds' },
+  { metric: String(PLATFORM_STATS.hallmarks), label: 'Hallmarks Explained' },
+  { metric: String(PLATFORM_STATS.faqAnswers), label: 'FAQ Answers' },
+  { metric: String(PLATFORM_STATS.glossaryTerms), label: 'Glossary Terms' },
+  { metric: String(PLATFORM_STATS.studies), label: 'Cited Studies' },
 ];
 
 export const compounds: Compound[] = [

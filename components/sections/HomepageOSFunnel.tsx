@@ -97,7 +97,7 @@ function ModuleThumbnail({ href, accent }: { href: string; accent: string }) {
           </div>
         ))}
         <div className="flex gap-2 mt-1.5">
-          <span className="text-[7px] font-mono" style={{ color: 'rgba(255,255,255,0.25)' }}>127 compounds · 22 studies</span>
+          <span className="text-[7px] font-mono" style={{ color: 'rgba(255,255,255,0.25)' }}>14 compounds · 59 studies</span>
         </div>
       </div>
     );

@@ -515,7 +515,7 @@ export function StarterProtocolGuide() {
             </div>
             <div className="px-5 py-4 border-t border-border/30 bg-muted/10">
               <p className="text-[11px] text-muted-foreground">
-                <span className="font-semibold text-foreground">Primary</span> markers are directly linked to this stack\'s mechanisms.{' '}
+                <span className="font-semibold text-foreground">Primary</span> markers are directly linked to this stack&rsquo;s mechanisms.{' '}
                 <span className="font-semibold text-foreground">Secondary</span> markers provide metabolic context.{' '}
                 <span className="font-semibold text-foreground">Optional</span> markers (DunedinPACE) are the highest-signal epigenetic aging tests but cost $200–400.
               </p>

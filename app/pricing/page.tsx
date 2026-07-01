@@ -32,7 +32,7 @@ const TIERS: Tier[] = [
     cta: { label: 'Get started', href: '/library' },
     features: [
       'Full Hallmark Library (12 hallmarks)',
-      'Compound Library (80+ compounds)',
+      'Compound Library (14 evidence-graded compounds)',
       'Stack Architect — unlimited stacks',
       'All 6 healthspan tools',
       'Primary citations (PMID links)',

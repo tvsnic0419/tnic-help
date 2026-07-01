@@ -4,12 +4,13 @@ import { useState, useEffect } from 'react';
 import { motion, useReducedMotion } from 'framer-motion';
 import Link from 'next/link';
 import { ArrowRight, Zap, Clock, Activity } from 'lucide-react';
+import { PLATFORM_STATS } from '@/lib/data';
 
 const STATS = [
-  { value: '12', label: 'Hallmarks of aging' },
-  { value: '80+', label: 'Evidence-graded compounds' },
-  { value: '500+', label: 'Cited studies' },
-  { value: '6', label: 'Protocol tools' },
+  { value: String(PLATFORM_STATS.hallmarks), label: 'Hallmarks of aging' },
+  { value: String(PLATFORM_STATS.compounds), label: 'Evidence-graded compounds' },
+  { value: String(PLATFORM_STATS.studies), label: 'Cited studies' },
+  { value: String(PLATFORM_STATS.tools), label: 'Protocol tools' },
 ] as const;
 
 // Foundation stack preview — hardcoded to avoid heavy imports in the critical path
@@ -19,7 +20,7 @@ const PREVIEW_STACK = [
     name: 'NMN',
     full: 'Nicotinamide Mononucleotide',
     category: 'NAD+ Precursor',
-    lqScore: 79,
+    lqScore: 75,
     dose: '500 mg · AM fasted',
     clockImpact: '−2.1 yr',
     hallmarks: 4,
@@ -31,7 +32,7 @@ const PREVIEW_STACK = [
     name: 'GlyNAC',
     full: 'Glycine + N-Acetylcysteine',
     category: 'Glutathione Precursor',
-    lqScore: 77,
+    lqScore: 78,
     dose: '1.8 g + 0.9 g · with meals',
     clockImpact: '−3.0 yr',
     hallmarks: 3,
@@ -43,7 +44,7 @@ const PREVIEW_STACK = [
     name: 'Sulforaphane',
     full: 'Broccoli Sprout Extract',
     category: 'NRF2 Activator',
-    lqScore: 74,
+    lqScore: 72,
     dose: '30 mg equiv. · AM fasted',
     clockImpact: '−0.9 yr',
     hallmarks: 3,
@@ -140,15 +141,15 @@ export function HeroSection() {
               transition={prefersReduced ? undefined : { delay: 0.3 }}
               className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start"
             >
-              <Link href="/library" className="focus-ring interactive group btn-gradient">
-                Explore the library
+              <Link href="/library/starter-protocol" className="focus-ring interactive group btn-gradient">
+                Start here — Foundation Protocol
                 <ArrowRight
                   className="w-5 h-5 group-hover:translate-x-1 transition-transform"
                   aria-hidden="true"
                 />
               </Link>
-              <Link href="/dashboard" className="focus-ring interactive btn-ghost-premium">
-                Open Longevity OS
+              <Link href="/library" className="focus-ring interactive btn-ghost-premium">
+                Explore the full library
               </Link>
             </motion.div>
 

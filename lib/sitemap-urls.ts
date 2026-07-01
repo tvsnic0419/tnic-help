@@ -4,6 +4,7 @@ import { getAllModuleParams } from '@/lib/library-modules';
 import { getAllComparisonSlugs } from '@/lib/comparisons';
 import { PRESET_KEYS } from '@/lib/quiz-share';
 import { toolsRegistry } from '@/lib/registry';
+import { compounds } from '@/lib/data';
 import { SITE } from '@/lib/site';
 
 export function buildSitemapEntries(lastModified = new Date()): MetadataRoute.Sitemap {
@@ -12,8 +13,14 @@ export function buildSitemapEntries(lastModified = new Date()): MetadataRoute.Si
   const coreRoutes: MetadataRoute.Sitemap = [
     { url: base, lastModified, changeFrequency: 'weekly', priority: 1 },
     { url: `${base}/library`, lastModified, changeFrequency: 'weekly', priority: 0.95 },
+    { url: `${base}/library/compounds`, lastModified, changeFrequency: 'weekly', priority: 0.93 },
+    { url: `${base}/library/starter-protocol`, lastModified, changeFrequency: 'weekly', priority: 0.92 },
+    { url: `${base}/library/synergy-matrix`, lastModified, changeFrequency: 'monthly', priority: 0.88 },
+    { url: `${base}/library/coverage`, lastModified, changeFrequency: 'monthly', priority: 0.86 },
+    { url: `${base}/library/systems`, lastModified, changeFrequency: 'monthly', priority: 0.84 },
     { url: `${base}/library/delivery-systems`, lastModified, changeFrequency: 'monthly', priority: 0.84 },
     { url: `${base}/library/compare`, lastModified, changeFrequency: 'weekly', priority: 0.9 },
+    { url: `${base}/pricing`, lastModified, changeFrequency: 'monthly', priority: 0.7 },
     { url: `${base}/learn`, lastModified, changeFrequency: 'weekly', priority: 0.88 },
     { url: `${base}/faq`, lastModified, changeFrequency: 'monthly', priority: 0.85 },
     { url: `${base}/stacks`, lastModified, changeFrequency: 'weekly', priority: 0.9 },
@@ -35,6 +42,16 @@ export function buildSitemapEntries(lastModified = new Date()): MetadataRoute.Si
     { url: `${base}/trust/journey`, lastModified, changeFrequency: 'monthly', priority: 0.6 },
     { url: `${base}/trust/updates`, lastModified, changeFrequency: 'weekly', priority: 0.65 },
   ];
+
+  // Individual compound reference pages — highest search-intent, keyword-optimized
+  const compoundRoutes = compounds
+    .filter((c) => c.studies.length > 0)
+    .map((c) => ({
+      url: `${base}/library/compounds/${c.id}`,
+      lastModified,
+      changeFrequency: 'monthly' as const,
+      priority: 0.9,
+    }));
 
   const hallmarkRoutes = hallmarkLibrary.map((h) => ({
     url: `${base}/library/${h.slug}`,
@@ -71,5 +88,23 @@ export function buildSitemapEntries(lastModified = new Date()): MetadataRoute.Si
     priority: 0.82,
   }));
 
-  return [...coreRoutes, ...quizShareRoutes, ...toolTabRoutes, ...hallmarkRoutes, ...compareRoutes, ...moduleRoutes];
+  const all = [
+    ...coreRoutes,
+    ...compoundRoutes,
+    ...quizShareRoutes,
+    ...toolTabRoutes,
+    ...hallmarkRoutes,
+    ...compareRoutes,
+    ...moduleRoutes,
+  ];
+
+  // Dedupe by URL — some routes overlap (e.g. compound detail pages are also
+  // emitted as `compounds` category modules). First occurrence wins, so the
+  // higher-priority compoundRoutes entries take precedence over module entries.
+  const seen = new Set<string>();
+  return all.filter((entry) => {
+    if (seen.has(entry.url)) return false;
+    seen.add(entry.url);
+    return true;
+  });
 }
