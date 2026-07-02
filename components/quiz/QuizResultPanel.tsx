@@ -120,7 +120,7 @@ export function QuizResultPanel({ result, answers, onRetake }: QuizResultPanelPr
               <div>
                 <p className="text-sm font-semibold">Shop verified picks</p>
                 <p className="text-xs text-muted-foreground mt-0.5">
-                  COA checklist filtered to <strong>{result.stack.label}</strong> — TNiC earns $0 from products
+                  COA checklist filtered to <strong>{result.stack.label}</strong> — affiliate links disclosed, commission never influences listings
                 </p>
               </div>
             </div>

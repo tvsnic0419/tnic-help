@@ -6,7 +6,7 @@ import { SITE } from '@/lib/site';
 export const metadata = buildPageMetadata({
   title: 'Protocol Shop — Stack-Filtered Buyer Verification',
   description:
-    'Brand-agnostic verification checklists filtered by your active stack. COA demands, RCT dose anchors, red flags — TNiC earns $0 from products.',
+    'Brand-agnostic verification checklists filtered by your active stack. COA demands, RCT dose anchors, red flags. Affiliate links disclosed — commission never influences which products are listed.',
   path: '/shop',
   keywords: ['supplement buyer guide', 'NMN COA', 'protocol shop', 'stack verification'],
 });
@@ -21,7 +21,7 @@ function buildShopSchemas() {
     operatingSystem: 'Web',
     offers: { '@type': 'Offer', price: '0', priceCurrency: 'USD' },
     description:
-      'Stack-filtered supplement buyer verification. COA demands, RCT dose anchors, and red-flag checklists for longevity compounds. Conflict-free — TNiC earns $0 from any product.',
+      'Stack-filtered supplement buyer verification. COA demands, RCT dose anchors, and red-flag checklists for longevity compounds. Affiliate links disclosed — commission never influences listings.',
     featureList: [
       'COA (Certificate of Analysis) verification checklist',
       'RCT-anchored dosage reference',

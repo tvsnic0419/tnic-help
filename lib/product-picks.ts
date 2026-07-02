@@ -14,12 +14,19 @@ export interface ProductPick {
   fallbackImageSrc: string;
   /** Manufacturer product / buy page */
   purchaseUrl: string;
+  /**
+   * Affiliate URL for this product. When set, /api/go/[productId] redirects
+   * here instead of purchaseUrl. Leave undefined until affiliate program is active.
+   */
+  affiliateUrl?: string;
   /** Brand homepage */
   brandWebsite: string;
   /** Optional second product (e.g. GlyNAC needs glycine + NAC) */
   companionPurchase?: {
     label: string;
     purchaseUrl: string;
+    /** Affiliate URL for the companion product */
+    affiliateUrl?: string;
     imageSrc?: string;
     fallbackImageSrc?: string;
   };

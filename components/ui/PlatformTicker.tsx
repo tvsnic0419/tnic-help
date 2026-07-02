@@ -7,7 +7,7 @@ const highlights = [
   { icon: Dna, text: '12 Hallmarks of Aging — full mechanistic coverage' },
   { icon: BookOpen, text: 'Every compound PMID-cited and Tier A/B/C graded' },
   { icon: FlaskConical, text: 'Biomarker tracking stays local — never on TNiC servers' },
-  { icon: Shield, text: 'Zero commission shop — intelligence, not inventory' },
+  { icon: Shield, text: 'Affiliate links disclosed — intelligence, not inventory' },
 ] as const;
 
 /** Infinite marquee of platform trust signals and live stats */

@@ -1,13 +1,15 @@
+'use client';
+
 import { Suspense } from 'react';
 import dynamic from 'next/dynamic';
 import Link from 'next/link';
 
 // Dynamic imports
 const AntiAgingLibrary = dynamic(() => import('@/components/library/AntiAgingLibrary').then(mod => ({ default: mod.AntiAgingLibrary })), { ssr: false });
-const LibraryModulesHub = dynamic(() => import('@/components/library/LibraryModulesHub'), { ssr: false });
-const LifestylePillarsHub = dynamic(() => import('@/components/library/LifestylePillarsHub'), { ssr: false });
-const LibrarySearch = dynamic(() => import('@/components/library/LibrarySearch'), { ssr: false });
-const ToolsPromoStrip = dynamic(() => import('@/components/tools/ToolsPromoStrip'), { ssr: false });
+const LibraryModulesHub = dynamic(() => import('@/components/library/LibraryModulesHub').then(m => ({ default: m.LibraryModulesHub })), { ssr: false });
+const LifestylePillarsHub = dynamic(() => import('@/components/library/LifestylePillarsHub').then(m => ({ default: m.LifestylePillarsHub })), { ssr: false });
+const LibrarySearch = dynamic(() => import('@/components/library/LibrarySearch').then(m => ({ default: m.LibrarySearch })), { ssr: false });
+const ToolsPromoStrip = dynamic(() => import('@/components/tools/ToolsPromoStrip').then(m => ({ default: m.ToolsPromoStrip })), { ssr: false });
 const LibraryFacetFilters = dynamic(() => import('@/components/library/LibraryFacetFilters').then(mod => ({ default: mod.LibraryFacetFilters })), { ssr: false });
 const RecommendedNextSteps = dynamic(() => import('@/components/ui/RecommendedNextSteps').then(mod => ({ default: mod.RecommendedNextSteps })), { ssr: false });
 
@@ -17,7 +19,7 @@ const TelomereAttritionVisual = dynamic(() => import('@/components/illustrations
 const EpigeneticAlterationsVisual = dynamic(() => import('@/components/illustrations/EpigeneticAlterationsVisual').then(mod => ({ default: mod.EpigeneticAlterationsVisual })), { ssr: false });
 const LossOfProteostasisVisual = dynamic(() => import('@/components/illustrations/LossOfProteostasisVisual').then(mod => ({ default: mod.LossOfProteostasisVisual })), { ssr: false });
 const DeregulatedNutrientSensingVisual = dynamic(() => import('@/components/illustrations/DeregulatedNutrientSensingVisual').then(mod => ({ default: mod.DeregulatedNutrientSensingVisual })), { ssr: false });
-const MitochondrialDysfunctionVisual = dynamic(() => import('@/components/illustrations/MitochondrialDysfunctionVisual').then(mod => ({ default: mod.MitochondrialDysfunctionVisual })), { ssr: false });
+const MitochondrialDysfunctionVisual = dynamic(() => import('@/components/illustrations/HallmarkVisuals').then(mod => ({ default: mod.MitochondrialDysfunctionVisual })), { ssr: false });
 const CellularSenescenceVisual = dynamic(() => import('@/components/illustrations/CellularSenescenceVisual').then(mod => ({ default: mod.CellularSenescenceVisual })), { ssr: false });
 const StemCellExhaustionVisual = dynamic(() => import('@/components/illustrations/StemCellExhaustionVisual').then(mod => ({ default: mod.StemCellExhaustionVisual })), { ssr: false });
 const AlteredIntercellularCommunicationVisual = dynamic(() => import('@/components/illustrations/AlteredIntercellularCommunicationVisual').then(mod => ({ default: mod.AlteredIntercellularCommunicationVisual })), { ssr: false });
