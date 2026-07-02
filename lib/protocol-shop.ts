@@ -98,14 +98,14 @@ export function getNrShopItems(): StackShopItem[] {
 
 /** Canonical commerce language — import everywhere; do not contradict elsewhere */
 export const commerceDisclosure = {
-  headline: 'TNiC earns $0 from product links',
-  body: 'TNiC does not sell supplements or hold inventory. Verified picks link directly to manufacturer websites — always request batch COA before purchase.',
+  headline: 'TNiC may earn a commission on verified picks',
+  body: 'TNiC does not sell supplements or hold inventory. Verified picks link to manufacturer websites via a redirect that may include an affiliate token — at no extra cost to you. Always request a batch COA before purchase.',
   policy:
-    'No Amazon affiliate CTAs. Any future commercial relationship would be disclosed per product before activation.',
+    'Commission never influences which products are listed, their evidence tier, or their buyer-guide criteria. Product selection is evidence-driven only.',
 };
 
 export const shopDisclosure = {
-  title: 'Zero inventory conflict',
+  title: 'How TNiC earns revenue',
   body: commerceDisclosure.body,
   affiliateNote: `${commerceDisclosure.headline}. ${commerceDisclosure.policy}`,
 };

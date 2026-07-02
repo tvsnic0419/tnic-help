@@ -70,7 +70,7 @@ export const hubContexts: Record<
   },
   shop: {
     theme: 'amber',
-    what: 'Stack-filtered buyer verification — COA demands, dose anchors, form requirements, and red flags. TNiC earns $0 from products.',
+    what: 'Stack-filtered buyer verification — COA demands, dose anchors, form requirements, and red flags. Affiliate links disclosed; commission never influences what is listed.',
     why: 'Most longevity sites are affiliate stores in disguise. This is an intelligence checklist, not a catalog — verify before you buy.',
     next: 'Share /shop?stack= with your preset URL, export the checklist, and cross-check against compound deep-dives in the library.',
   },
@@ -233,6 +233,11 @@ const toolContexts: Record<ToolId, HubContext> = {
     what: 'Lifestyle-based biological age estimate and antioxidant defense scan — sets your OS profile locally.',
     why: 'Subjective wellness needs a baseline. The scan anchors your dashboard bio-age and defense score.',
     next: 'Complete the scan, review your OS profile on the dashboard, then fix sleep and exercise pillars first.',
+  },
+  coverage: {
+    what: 'Maps your active stack against all 12 hallmarks of aging — shows covered hallmarks and gaps with compound suggestions.',
+    why: 'Most stacks cluster around one or two pathways. Coverage Analyzer reveals blind spots before they become bottlenecks.',
+    next: 'Toggle compounds to close the top-priority gap, then run the Simulator to confirm the interaction profile is clean.',
   },
 };
 

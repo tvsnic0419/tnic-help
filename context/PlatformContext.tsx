@@ -14,7 +14,8 @@ import {
   useState,
   type ReactNode,
 } from 'react';
-import { compounds, synergyScore, calculateDefenseProfile } from '@/lib/data';
+import { compounds, calculateDefenseProfile } from '@/lib/data';
+import { scoreStack, type StackScore } from '@/lib/stack-engine';
 import { stackPresets, type PresetKey } from '@/lib/presets';
 import { readStackFromSearch } from '@/lib/stack-url';
 import { exportLabsCsv as labsToCsv, type LabEntry } from '@/lib/labs';
@@ -64,13 +65,19 @@ interface PlatformContextValue {
   setSelected: (ids: string[]) => void;
   applyPreset: (key: PresetKey) => void;
   score: number;
+  stackScore: StackScore;
   selectedCompounds: typeof compounds;
   shareUrl: string;
   saveStack: () => void;
   saved: boolean;
   profile: Profile;
   setProfile: (patch: Partial<Profile>) => void;
-  defenseProfile: ReturnType<typeof calculateDefenseProfile>;
+  defenseProfile: ReturnType<typeof calculateDefenseProfile> & {
+    /** Lifestyle-only biological age, before stack adjustment. */
+    biologicalAgeLifestyle: number;
+    /** Years the modeled stack removes from biological age. */
+    stackYearsSaved: number;
+  };
   labs: LabEntry[];
   addLab: (markerId: string, value: number, date: string) => void;
   importLabs: (rows: { markerId: string; value: number; date: string }[]) => number;
@@ -407,10 +414,24 @@ export function PlatformProvider({ children }: { children: ReactNode }) {
     [privacyMode],
   );
 
-  const defenseProfile = useMemo(
-    () => calculateDefenseProfile(profile.age, profile.stress, profile.sleep, profile.exercise),
-    [profile],
-  );
+  const stackScore = useMemo(() => scoreStack(selected), [selected]);
+
+  const defenseProfile = useMemo(() => {
+    const base = calculateDefenseProfile(profile.age, profile.stress, profile.sleep, profile.exercise);
+    // A well-covered, evidence-graded, adequately-bioavailable stack modestly
+    // lowers *projected* biological age. Bounded and clearly labeled as modeled.
+    const adjustedBioAge = Math.max(
+      profile.age - 15,
+      Math.round((base.biologicalAge - stackScore.bioAgeDelta) * 10) / 10,
+    );
+    return {
+      ...base,
+      biologicalAgeLifestyle: base.biologicalAge,
+      biologicalAge: adjustedBioAge,
+      stackYearsSaved: Math.round((base.biologicalAge - adjustedBioAge) * 10) / 10,
+      ageDelta: Math.round(profile.age - adjustedBioAge),
+    };
+  }, [profile, stackScore.bioAgeDelta]);
 
   const selectedCompounds = useMemo(
     () => compounds.filter((c) => selected.includes(c.id)),
@@ -429,7 +450,8 @@ export function PlatformProvider({ children }: { children: ReactNode }) {
     toggle,
     setSelected,
     applyPreset,
-    score: synergyScore(selected),
+    score: stackScore.overall,
+    stackScore,
     selectedCompounds,
     shareUrl,
     saveStack,
@@ -476,6 +498,7 @@ export function useStack() {
     toggle: p.toggle,
     setSelected: p.setSelected,
     score: p.score,
+    stackScore: p.stackScore,
     selectedCompounds: p.selectedCompounds,
     shareUrl: p.shareUrl,
     saveStack: p.saveStack,
