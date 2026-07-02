@@ -4,13 +4,13 @@ import React from 'react';
 import Link from 'next/link';
 import { motion } from 'framer-motion';
 import { ClipboardList, LayoutDashboard, ArrowRight, Sparkles } from 'lucide-react';
-import { usePlatform } from '@/lib/platform';
-import { getHeroPersonalization } from '@/lib/hero-personalization';
+import { usePlatform } from '@/context/PlatformContext';
+import { getHeroPersonalization } from '@/lib/homepage-personalization';
 import { StatStrip } from '@/components/ui/StatStrip';
 import { ContextRail } from '@/components/ui/ContextRail';
-import { HeroNetworkCanvas } from '@/components/hero/HeroNetworkCanvas';
-import { HeroAgingTicker } from '@/components/hero/HeroAgingTicker';
-import { StarterQuiz } from '@/components/quiz/StarterQuiz';
+import { HeroNetworkCanvas } from '@/components/ui/HeroNetworkCanvas';
+import { HeroAgingTicker } from '@/components/ui/HeroAgingTicker';
+import { StarterQuiz } from '@/components/sections/StarterQuiz';
 
 export function Hero() {
   const { quizResult } = usePlatform();
@@ -106,7 +106,12 @@ export function Hero() {
 
         {/* Context Rail */}
         <div className="mt-16 max-w-4xl mx-auto lg:mx-0">
-          <ContextRail theme="cyan" />
+          <ContextRail
+            theme="cyan"
+            what="An evidence-graded longevity platform — stack builder, lab hub, and 12-hallmark library in one place."
+            why="Every compound is Tier A/B/C from human trials, scored by a transparent mechanistic engine — you see the reasoning, not just a number."
+            next="Take the 3-minute quiz to build your first evidence-matched stack."
+          />
         </div>
       </div>
     </section>
