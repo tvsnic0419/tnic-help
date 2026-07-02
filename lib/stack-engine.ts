@@ -29,6 +29,12 @@ import { pathwayGroups, emergentEffects } from './relations';
  */
 function getCompoundsForHallmark(hallmarkId: string): string[] {
   const ids = new Set<string>();
+  // Primary source: each compound's own curated hallmark targets. Every compound
+  // has these, so nothing is invisible even if the pathway-axis data omits it.
+  compounds.forEach((c) => {
+    if (c.hallmarks?.includes(hallmarkId)) ids.add(c.id);
+  });
+  // Enrich with mechanistic pathway-axis and emergent-effect membership.
   pathwayGroups
     .filter((g) => g.hallmarkIds.includes(hallmarkId))
     .forEach((g) => g.compoundIds.forEach((c) => ids.add(c)));
@@ -214,6 +220,14 @@ export function scoreStack(compoundIds: string[]): StackScore {
       saturation01,
     });
   }
+
+  // Credit compounds not captured by any curated pathway axis (via their own
+  // contribution) so every selected compound counts — the axis data doesn't
+  // enumerate every compound, and a Tier-A pick must never score zero.
+  const axisCompoundIds = new Set(pathwayLoad.flatMap((a) => a.compoundIds));
+  pathwaySaturationSum += saturatingSum(
+    ids.filter((id) => !axisCompoundIds.has(id)).map(compoundContribution),
+  );
 
   // 2. Breadth — reward distinct axes engaged.
   const breadth = pathwayLoad.length;
