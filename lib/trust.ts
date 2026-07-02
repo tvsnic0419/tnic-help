@@ -5,6 +5,7 @@ import type {
   SourceCitation,
   UpdateHistoryEntry,
 } from './types';
+import { researchFeed } from './data';
 
 /** Evidence tier definitions for tagging system */
 export const evidenceTagDefinitions: Record<
@@ -133,7 +134,17 @@ export const citationFramework = {
 };
 
 /** Canonical citation registry */
-export const citationRegistry: SourceCitation[] = [
+const curatedCitations: SourceCitation[] = [
+  {
+    id: 'c-taurine-2023',
+    title: 'Taurine deficiency as a driver of aging',
+    authors: 'Singh P et al.',
+    journal: 'Science',
+    year: 2023,
+    pmid: '37289930',
+    type: 'preclinical',
+    summary: 'Multi-species study: taurine declines ~80% with age; supplementation extended median lifespan 10–12% in mice with broad healthspan gains. Human data is associative — not yet an interventional RCT.',
+  },
   {
     id: 'c-glynac-2023',
     title: 'Improvement of mitochondrial function in older adults after GlyNAC',
@@ -345,6 +356,25 @@ export const citationRegistry: SourceCitation[] = [
     summary: 'Intermittent fisetin dosing reduced senescent cell markers in older adults.',
   },
 ];
+
+/**
+ * Every study surfaced in the research feed is registered as a citation. Hand-curated
+ * entries above take precedence; any feed study not already curated is derived here
+ * from its own metadata so the registry stays complete as the feed grows.
+ */
+const feedCitations: SourceCitation[] = researchFeed
+  .filter((r) => r.pmid && !curatedCitations.some((c) => c.pmid === r.pmid))
+  .map((r) => ({
+    id: `rf-${r.pmid}`,
+    title: r.title,
+    journal: r.source,
+    year: Number((r.date.match(/\d{4}/) ?? ['0'])[0]),
+    pmid: r.pmid,
+    type: (r.impact === 'preclinical' ? 'preclinical' : 'clinical') as SourceCitation['type'],
+    summary: r.summary,
+  }));
+
+export const citationRegistry: SourceCitation[] = [...curatedCitations, ...feedCitations];
 
 export const methodologySections = [
   {
