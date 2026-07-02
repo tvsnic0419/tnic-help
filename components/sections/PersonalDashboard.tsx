@@ -14,6 +14,7 @@ import {
   ArrowRight,
 } from 'lucide-react';
 import { SectionShell } from '@/components/SectionShell';
+import { ShareScorecard } from '@/components/scorecard/ShareScorecard';
 import { usePlatform } from '@/context/PlatformContext';
 import { biomarkers, gettingStartedSteps } from '@/lib/data';
 import { getLabStatus } from '@/lib/labs';
@@ -236,6 +237,8 @@ export function PersonalDashboard() {
           </div>
         </div>
       </div>
+
+      <ShareScorecard />
 
       {labs.length > 0 && (
         <div className="mt-6 glass rounded-2xl p-5">
