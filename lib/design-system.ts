@@ -120,4 +120,8 @@ export const cardVariants = {
   elevated: 'card-elevated',
   outline: 'border border-border bg-card rounded-xl',
   scientific: 'card-base border-l-2 border-l-accent-cyan',
+  /** v5 depth tier — tinted gradient bg, 4-layer shadow, lifts on hover */
+  depth: 'card-depth card-depth-hover rounded-2xl',
+  /** v6 flagship tier — 6-layer shadow stack, top glow, shine sweep on hover */
+  floating: 'card-floating card-floating-hover card-shine rounded-2xl',
 } as const;

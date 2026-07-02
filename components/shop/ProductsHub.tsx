@@ -19,7 +19,7 @@ function ProductCard({ pick }: { pick: ProductPick }) {
       href={`/api/go/${pick.compoundId}`}
       target="_blank"
       rel="noopener noreferrer sponsored"
-      className="group card-premium glow-hover-emerald rounded-2xl border border-border/80 overflow-hidden flex flex-col focus-ring h-full"
+      className="group card-premium card-shine glow-hover-emerald rounded-2xl border border-border/80 overflow-hidden flex flex-col focus-ring h-full"
       aria-label={`Buy ${pick.productName} from ${pick.brand} — opens manufacturer site`}
     >
       <div className="relative flex items-center justify-center bg-white/[0.03] h-52 overflow-hidden border-b border-border/50">

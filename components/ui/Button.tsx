@@ -46,7 +46,7 @@ export function Button({
   return (
     <button
       className={cn(
-        'focus-ring interactive inline-flex items-center justify-center gap-2 rounded-xl font-semibold disabled:opacity-40 disabled:pointer-events-none',
+        'focus-ring interactive press inline-flex items-center justify-center gap-2 rounded-xl font-semibold disabled:opacity-40 disabled:pointer-events-none',
         buttonSizes[size],
         variantStyles[variant],
         accentPrimary,

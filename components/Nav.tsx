@@ -6,6 +6,7 @@ import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { ArrowRight, ClipboardList, Menu, Search, ShoppingBag, X } from 'lucide-react';
 import { navLinks } from '@/lib/data';
+import { springSnappy, staggerParent, fadeUpSm } from '@/lib/motion';
 import { SiteSearch } from '@/components/SiteSearch';
 import { COMMAND_PALETTE_EVENT } from '@/components/os/CommandPalette';
 import { ThemeToggle } from '@/components/theme/ThemeToggle';
@@ -60,18 +61,31 @@ export function Nav() {
         <div className="hidden lg:flex gap-0.5 xl:gap-1">
           {navLinks.map((link) => {
             const active = isLinkActive(link.href);
-            const cls = `focus-ring interactive px-3.5 py-2 rounded-xl text-sm font-medium transition-all ${
+            const cls = `focus-ring interactive relative px-3.5 py-2 rounded-xl text-sm font-medium transition-colors ${
               active
-                ? 'text-accent-cyan bg-accent-cyan/12 shadow-[0_0_20px_-4px_rgba(34,211,238,0.35)]'
+                ? 'text-accent-cyan'
                 : 'text-muted-foreground hover:text-foreground hover:bg-accent-cyan/10'
             }`;
+            const inner = (
+              <>
+                {active && (
+                  <motion.span
+                    layoutId="nav-active-pill"
+                    className="nav-pill"
+                    transition={springSnappy}
+                    aria-hidden="true"
+                  />
+                )}
+                <span className="relative z-10">{link.label}</span>
+              </>
+            );
             return isExternal(link.href) ? (
               <Link key={link.href} href={link.href} className={cls} aria-current={active ? 'page' : undefined}>
-                {link.label}
+                {inner}
               </Link>
             ) : (
               <a key={link.href} href={link.href} className={cls}>
-                {link.label}
+                {inner}
               </a>
             );
           })}
@@ -134,28 +148,34 @@ export function Nav() {
             exit={{ opacity: 0, height: 0 }}
             className="lg:hidden relative nav-glass nav-glass-scrolled border-b border-border"
           >
-            <div className="container-page py-4 flex flex-col gap-1">
-              {navLinks.map((link) =>
-                isExternal(link.href) ? (
-                  <Link
-                    key={link.href}
-                    href={link.href}
-                    onClick={() => setMobileOpen(false)}
-                    className="focus-ring interactive flex justify-between items-center text-foreground hover:text-accent-cyan py-3.5 min-h-[var(--space-touch)] text-base font-medium border-b border-border/50 last:border-0"
-                  >
-                    {link.label}
-                  </Link>
-                ) : (
-                  <a
-                    key={link.href}
-                    onClick={() => setMobileOpen(false)}
-                    className="focus-ring interactive flex justify-between items-center text-foreground hover:text-accent-cyan py-3.5 min-h-[var(--space-touch)] text-base font-medium border-b border-border/50 last:border-0"
-                  >
-                    {link.label}
-                  </a>
-                ),
-              )}
-              <div className="flex flex-col gap-2 mt-3">
+            <motion.div
+              variants={staggerParent}
+              initial="hidden"
+              animate="visible"
+              className="container-page py-4 flex flex-col gap-1"
+            >
+              {navLinks.map((link) => (
+                <motion.div key={link.href} variants={fadeUpSm}>
+                  {isExternal(link.href) ? (
+                    <Link
+                      href={link.href}
+                      onClick={() => setMobileOpen(false)}
+                      className="focus-ring interactive flex justify-between items-center text-foreground hover:text-accent-cyan py-3.5 min-h-[var(--space-touch)] text-base font-medium border-b border-border/50 last:border-0"
+                    >
+                      {link.label}
+                    </Link>
+                  ) : (
+                    <a
+                      href={link.href}
+                      onClick={() => setMobileOpen(false)}
+                      className="focus-ring interactive flex justify-between items-center text-foreground hover:text-accent-cyan py-3.5 min-h-[var(--space-touch)] text-base font-medium border-b border-border/50 last:border-0"
+                    >
+                      {link.label}
+                    </a>
+                  )}
+                </motion.div>
+              ))}
+              <motion.div variants={fadeUpSm} className="flex flex-col gap-2 mt-3">
                 <Link
                   href="/quiz"
                   onClick={() => setMobileOpen(false)}
@@ -177,8 +197,8 @@ export function Nav() {
                 >
                   Open Longevity OS
                 </Link>
-              </div>
-            </div>
+              </motion.div>
+            </motion.div>
           </motion.div>
         )}
       </AnimatePresence>
