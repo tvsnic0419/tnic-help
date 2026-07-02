@@ -1196,6 +1196,36 @@ export const safetyNotes = [
     avoidIf: ['Scheduled surgery within 2 weeks (platelet effects, similar to resveratrol)'],
     consultIf: ['Statins or lipid-lowering drugs', 'Diabetes medications', 'Blood thinners'],
   },
+  {
+    compoundId: 'berberine',
+    cautions: ['Strongly lowers blood glucose — can cause hypoglycemia when stacked with diabetes drugs', 'Common GI effects (cramping, diarrhea) — split into TID doses with meals', 'Potent CYP3A4/P-gp inhibitor — can raise levels of many prescription drugs'],
+    avoidIf: ['Pregnancy or nursing (may cross placenta / cause kernicterus in infants)'],
+    consultIf: ['Any prescription medication (metabolized via CYP3A4)', 'Diabetes or blood-pressure medication', 'Liver or kidney disease'],
+  },
+  {
+    compoundId: 'urolithina',
+    cautions: ['Well-tolerated in human trials at 500–1000 mg', 'Direct Urolithin A supplementation bypasses variable gut-microbiome conversion'],
+    avoidIf: [],
+    consultIf: ['Pregnant or nursing', 'Active cancer treatment', 'Taking immunomodulating therapy'],
+  },
+  {
+    compoundId: 'fisetin',
+    cautions: ['Senolytic pulse dosing (2–3 consecutive days) is the studied protocol — not daily use', 'Poor bioavailability — liposomal or fat-based delivery preferred', 'May inhibit platelet aggregation and CYP enzymes at high pulse doses'],
+    avoidIf: ['Scheduled surgery within 2 weeks', 'Pregnant or nursing'],
+    consultIf: ['Blood thinners (warfarin, aspirin)', 'Chemotherapy', 'Any CYP-metabolized medication'],
+  },
+  {
+    compoundId: 'coq10',
+    cautions: ['Ubiquinol form preferred over ubiquinone for absorption after ~40', 'Take with a fat-containing meal', 'May modestly lower blood pressure'],
+    avoidIf: [],
+    consultIf: ['Warfarin (CoQ10 can reduce its anticoagulant effect)', 'Blood-pressure medication', 'Chemotherapy'],
+  },
+  {
+    compoundId: 'omega3',
+    cautions: ['High doses (>3 g/day) can increase bleeding time', 'Choose third-party-tested products for oxidation and heavy metals', 'Take with food to reduce reflux / fishy aftertaste'],
+    avoidIf: ['Scheduled surgery within 1–2 weeks (bleeding risk)'],
+    consultIf: ['Blood thinners (warfarin, aspirin, clopidogrel)', 'Known fish or shellfish allergy', 'Atrial fibrillation history'],
+  },
 ];
 
 export const generalSafetyGuidance = [
