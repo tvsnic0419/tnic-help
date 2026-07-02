@@ -1073,6 +1073,11 @@ export const simulateBiomarkers = (
   });
 };
 
+/**
+ * @deprecated Superseded by `scoreStack()` in lib/stack-engine.ts, which is
+ * evidence-weighted, bioavailability-adjusted, and pathway-saturation aware.
+ * Kept only for reference; no runtime callers remain.
+ */
 export const synergyScore = (selectedIds: string[]): number => {
   if (selectedIds.length === 0) return 0;
   const selected = compounds.filter((c) => selectedIds.includes(c.id));

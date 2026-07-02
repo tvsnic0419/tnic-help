@@ -7,6 +7,7 @@ import { analyzeStack } from '@/lib/stack-analysis';
 import { StackBuilder } from './StackBuilder';
 import { SynergyScorePanel } from './SynergyScorePanel';
 import { StackInteractionsPanel } from './StackInteractionsPanel';
+import { StackMechanismPanel } from './StackMechanismPanel';
 import { CompoundStackAnalyzer } from '@/components/library/CompoundStackAnalyzer';
 
 export function DynamicStackBuilder() {
@@ -34,6 +35,8 @@ export function DynamicStackBuilder() {
               className="space-y-4"
             >
               <StackInteractionsPanel analysis={analysis} />
+
+              <StackMechanismPanel />
 
               <div className="glass rounded-2xl p-5">
                 <p className="text-label text-muted-foreground mb-4">Hallmark Coverage</p>

@@ -1,4 +1,5 @@
-import { compounds, safetyNotes, synergyScore } from './data';
+import { compounds, safetyNotes } from './data';
+import { scoreStack } from './stack-engine';
 import type { EvidenceTier } from './types';
 
 export type InteractionType = 'synergy' | 'caution' | 'contraindication';
@@ -389,7 +390,7 @@ export function analyzeStack(selectedIds: string[]): StackAnalysis {
   const bioSum = selected.reduce((s, c) => s + c.bioavailability, 0);
 
   return {
-    score: synergyScore(selectedIds),
+    score: scoreStack(selectedIds).overall,
     synergies,
     interactions,
     cautions: [...new Set(cautions)],
