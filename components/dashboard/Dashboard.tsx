@@ -99,7 +99,7 @@ export function Dashboard() {
           <p className="text-body text-muted-foreground mt-3 max-w-2xl">
             {quizResult
               ? `Goal: ${goalLabels[quizResult.goal] ?? quizResult.goal} — stack, labs, and journey in one place.`
-              : 'Your anti-aging operating system — stack, labs, and journey in one place. Data stays local unless you export it.'}
+              : 'Your anti-aging operating system — stack, labs, and journey in one place.'}
           </p>
         </div>
         <button

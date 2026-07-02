@@ -29,7 +29,7 @@ const basePaths = [
   {
     icon: LayoutDashboard,
     title: 'Launch command center',
-    desc: 'Stack, labs, milestones, hallmark grid — unified dashboard. Data stays local.',
+    desc: 'Stack, labs, milestones, and the 12-hallmark grid in one unified dashboard.',
     href: '/dashboard',
     cta: 'Open Dashboard',
     accent: 'emerald' as AccentKey,
@@ -140,7 +140,7 @@ export function HomepageCTA() {
             Everything in one place.<br className="hidden sm:block" /> Free. Local. Yours.
           </h3>
           <p className="text-sm text-muted-foreground mb-8 max-w-md mx-auto leading-relaxed">
-            Stack architect, lab hub, 12-hallmark library, six evidence tools — all running in your browser with no account required.
+            Stack architect, lab hub, 12-hallmark library, and six evidence-graded tools — all free.
           </p>
           <div className="flex flex-col sm:flex-row gap-3 justify-center">
             <Link

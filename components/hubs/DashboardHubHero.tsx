@@ -68,7 +68,7 @@ export function DashboardHubHero() {
             <p className="text-body max-w-xl mb-6">
               {quizResult
                 ? `Goal: ${goalLabels[quizResult.goal] ?? quizResult.goal} — stack, labs, and journey unified.`
-                : 'Your anti-aging operating system — stack, labs, and journey in one place. Data stays local unless you export it.'}
+                : 'Your anti-aging operating system — stack, labs, and journey in one place.'}
             </p>
 
             <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 mb-6">

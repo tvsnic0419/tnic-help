@@ -116,7 +116,7 @@ export function PersonalDashboard() {
       theme="emerald"
       badge="Personal Command Center"
       title="Your Longevity Operating System"
-      subtitle="Stack, labs, bio age, and journey — unified in one dashboard. Everything stays in your browser unless you export it."
+      subtitle="Stack, labs, bio age, and journey — unified in one dashboard, scored by the mechanistic engine."
       className="bg-gradient-to-b from-accent-emerald/5 to-transparent border-y border-border"
     >
       <div className="mb-8 flex flex-wrap items-center justify-between gap-4">

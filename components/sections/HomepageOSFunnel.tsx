@@ -248,7 +248,7 @@ export function HomepageOSFunnel() {
             <span className="shimmer-text">Five modules. Zero excuses.</span>
           </h2>
           <p className="text-body max-w-2xl mx-auto leading-relaxed">
-            Every module is free, local-first, and held to the same rigorous evidence standard that grades every compound in the library. No paywalls. No accounts. No supplement agenda driving the recommendations.
+            Every module is held to the same rigorous evidence standard that grades every compound in the library — no supplement agenda driving the recommendations.
           </p>
           <div className="flex items-center justify-center gap-6 mt-6 flex-wrap">
             <span className="inline-flex items-center gap-1.5 text-caption font-mono text-accent-emerald">

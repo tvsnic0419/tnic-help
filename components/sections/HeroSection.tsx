@@ -44,8 +44,8 @@ export function HeroSection() {
               animate={{ opacity: 1 }}
               className="text-body max-w-xl mb-10 mx-auto lg:mx-0"
             >
-              Initialize your personal command center — stack architect, lab hub, hallmark library,
-              and six evidence-graded tools. No accounts. Data stays in your browser until you export.
+              Stack architect, lab hub, hallmark library, and six evidence-graded tools — every
+              recommendation traced to human trials and scored by a transparent mechanistic engine.
             </motion.p>
 
             <motion.div

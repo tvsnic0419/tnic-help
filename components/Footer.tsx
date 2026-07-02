@@ -33,6 +33,7 @@ const resourceLinks = [
   { href: '/#next-up', label: "What's Next", icon: Rocket },
   { href: '/faq', label: 'FAQ', icon: HelpCircle },
   { href: '/about', label: 'About / Founder', icon: HelpCircle },
+  { href: '/club', label: '150-Year Club', icon: Rocket },
   { href: '/trust', label: 'Trust & Transparency', icon: Shield },
   { href: '/trust/methodology', label: 'Methodology', icon: BookOpen },
   { href: '/trust/disclaimers', label: 'Disclaimers', icon: BookOpen },
