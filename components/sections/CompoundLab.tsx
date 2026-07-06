@@ -78,12 +78,10 @@ function CompoundPanel({ compound, compare }: { compound: Compound; compare?: bo
 
       {!compare && (
         <a
-          href="https://amazon.com"
-          target="_blank"
-          rel="noopener noreferrer"
+          href="/shop"
           className="inline-flex items-center gap-2 text-sm text-foreground/80 hover:text-accent-cyan transition-colors"
         >
-          Shop Now <ChevronRight className="w-4 h-4" />
+          Verify in Protocol Shop <ChevronRight className="w-4 h-4" />
         </a>
       )}
     </div>

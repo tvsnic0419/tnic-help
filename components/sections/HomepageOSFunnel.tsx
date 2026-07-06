@@ -63,9 +63,9 @@ const accentConfig: Record<AccentKey, {
 const osPaths = [
   {
     icon: LayoutDashboard,
-    title: 'My Longevity OS',
-    desc: 'Command center — active stack, hallmark coverage map, lab status, outcome milestones, and export kit.',
-    context: 'Ties every module together. Your personal protocol hub, visible at a glance.',
+    title: 'Forecast Hub',
+    desc: 'Command center — active supplement stack, hallmark coverage map, lab status, modeled outcomes, and export kit.',
+    context: 'Turns your inputs into a clear view of possible longevity impact, visible at a glance.',
     href: '/dashboard',
     cta: 'Open dashboard',
     accent: 'emerald' as AccentKey,
@@ -75,7 +75,7 @@ const osPaths = [
   {
     icon: Layers,
     title: 'Stack Architect',
-    desc: 'Build protocols with live synergy scoring, hallmark coverage, and contraindication checks.',
+    desc: 'Build supplement protocols with live synergy scoring, hallmark coverage, contraindication flags, and pathway impact.',
     context: 'Every compound is evidence-graded Tier A/B/C before it enters a preset. No random bundling.',
     href: '/stacks',
     cta: 'Build stack',
@@ -85,8 +85,8 @@ const osPaths = [
   {
     icon: FlaskConical,
     title: 'Lab Hub',
-    desc: 'Log biomarkers locally. Track NAD+, glutathione, hs-CRP. Trends, retest nudges, CSV export.',
-    context: 'Compare your real bloodwork against modeled projections — no cloud, no accounts.',
+    desc: 'Log biomarkers locally. Track NAD+, glutathione, hs-CRP, trends, retest nudges, and CSV export.',
+    context: 'Compare real bloodwork against modeled supplement effect ranges — no cloud, no accounts.',
     href: '/labs',
     cta: 'Track labs',
     accent: 'cyan' as AccentKey,
@@ -96,7 +96,7 @@ const osPaths = [
     icon: Library,
     title: 'Anti-Aging Library',
     desc: '12 hallmarks, 9 compound deep-dives, synergy guides — all PMID-cited and evidence-graded.',
-    context: 'Search by compound, hallmark, or pathway. Every entry links to the primary trial.',
+    context: 'Search by compound, hallmark, or pathway. Every entry explains expected effect, limits, and primary trials.',
     href: '/library',
     cta: 'Search library',
     accent: 'amber' as AccentKey,
@@ -104,9 +104,9 @@ const osPaths = [
   },
   {
     icon: Wand2,
-    title: 'Longevity Tools',
-    desc: 'Six interactive tools: stack simulator, interaction network, biomarker forecasts, defense scan.',
-    context: 'All local-first. No paywall, no account required. Run scenarios before you commit to a stack.',
+    title: 'Longevity Forecast Tools',
+    desc: 'Interactive tools for stack simulation, interaction networks, biomarker forecasts, and defense scanning.',
+    context: 'All local-first. Run scenarios before you commit to a supplement plan.',
     href: '/tools',
     cta: 'Open tools',
     accent: 'rose' as AccentKey,
@@ -118,7 +118,7 @@ const funnelNextByGoal: Record<string, string> = {
   learn: 'Start at the Library for mechanism-mapped deep-dives, then take the quiz for a stack preset.',
   defense: 'Run Defense Scan first, then build an NRF2-focused stack with synergy scoring.',
   energy: 'Open Stack Architect for mitochondrial presets, then log NAD+ and inflammation labs.',
-  full: 'Open your dashboard for the full OS picture, then customize the Hybrid preset in Stack Architect.',
+  full: 'Open the Forecast Hub for the full picture, then customize the Hybrid preset in Stack Architect.',
 };
 
 export function HomepageOSFunnel() {
@@ -126,24 +126,24 @@ export function HomepageOSFunnel() {
   const order = getOsFunnelOrder(quizResult?.goal);
   const sorted = [...osPaths].sort((a, b) => order.indexOf(a.href) - order.indexOf(b.href));
   const featuredHref = order[0];
-  const contextNext = funnelNextByGoal[quizResult?.goal ?? ''] ?? 'Start at the dashboard for the full picture, or jump directly to the module you need right now.';
+  const contextNext = funnelNextByGoal[quizResult?.goal ?? ''] ?? 'Start at the Forecast Hub for the full picture, or jump directly to the module you need right now.';
 
   return (
     <section id="os" className="py-16 md:py-24 border-b border-border bg-card section-glow-emerald section-mesh">
       <div className="container-page">
         <div className="text-center mb-8 md:mb-10 section-header-mesh">
-          <p className="text-label text-accent-emerald mb-2">Longevity OS</p>
+          <p className="text-label text-accent-emerald mb-2">Longevity Forecasting</p>
           <h2 className="heading-section">
-            One operating system. Five entry points.
+            One evidence engine. Five ways to understand impact.
           </h2>
           <p className="text-body-sm mt-3 max-w-xl mx-auto">
-            Every module is free, local-first, and grounded in the same evidence standards that grade the library. No paywall. No accounts. No supplement store agenda.
+            Every module explains what a supplement may affect, how confident the evidence is, and how to track whether the projection matches your own biology. No paywall. No accounts. No supplement store agenda.
           </p>
         </div>
 
         <ContextRail
-          what="Five evidence-grounded modules — stack architect, biomarker tracker, library, tools, and dashboard — built around the 12 Hallmarks of Aging."
-          why="Most people combine supplements from multiple sources with no synergy check and no outcome tracking. TNiC maps every compound to a specific hallmark, checks pathway interactions, and tracks results over time."
+          what="Five evidence-grounded modules — stack architect, biomarker tracker, library, forecasting tools, and dashboard — built around the 12 Hallmarks of Aging."
+          why="Most people combine supplements from multiple sources with no synergy check, no effect-size context, and no outcome tracking. TNiC maps every compound to a hallmark, checks pathway interactions, and compares modeled effects against real follow-up data."
           next={contextNext}
           theme="emerald"
           className="mb-10 md:mb-14 max-w-4xl mx-auto"

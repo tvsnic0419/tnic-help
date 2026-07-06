@@ -6,7 +6,9 @@ import { PRESET_KEYS } from '@/lib/quiz-share';
 import { toolsRegistry } from '@/lib/registry';
 import { SITE } from '@/lib/site';
 
-export function buildSitemapEntries(lastModified = new Date()): MetadataRoute.Sitemap {
+export const DEFAULT_SITEMAP_LAST_MODIFIED = new Date('2026-07-05T00:00:00.000Z');
+
+export function buildSitemapEntries(lastModified = DEFAULT_SITEMAP_LAST_MODIFIED): MetadataRoute.Sitemap {
   const base = SITE.url;
 
   const coreRoutes: MetadataRoute.Sitemap = [

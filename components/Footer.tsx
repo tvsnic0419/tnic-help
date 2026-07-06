@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import Image from 'next/image';
 import {
   Dna,
   Shield,
@@ -46,13 +47,15 @@ export function Footer() {
       <div className="container-page">
         <div className="grid sm:grid-cols-2 lg:grid-cols-5 gap-8 lg:gap-10 mb-10">
           <div className="sm:col-span-2 lg:col-span-1">
-            <Link href="/" className="focus-ring inline-flex items-center gap-2.5 mb-4 rounded-lg group">
-              <div className="w-9 h-9 rounded-xl bg-gradient-to-br from-accent-cyan to-accent-emerald flex items-center justify-center logo-glow group-hover:scale-105 transition-transform">
-                <Dna className="w-4 h-4 text-black" aria-hidden="true" />
-              </div>
-              <span className="font-bold text-lg">
-                TN<span className="shimmer-text">i</span>C
-              </span>
+            <Link href="/" className="focus-ring inline-flex items-center mb-4 rounded-xl group">
+              <Image
+                src="/brand/tnic-wordmark-wide.png"
+                alt="TNiC"
+                width={2048}
+                height={550}
+                sizes="160px"
+                className="h-10 w-auto max-w-[160px] rounded-xl border border-white/10 bg-black/80 object-contain shadow-lg shadow-accent-emerald/10 transition-transform group-hover:scale-[1.02]"
+              />
             </Link>
             <p className="text-body-sm max-w-xs">
               Independent longevity intelligence. Evidence-graded compounds,

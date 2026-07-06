@@ -1,6 +1,7 @@
 'use client';
 
 import { motion } from 'framer-motion';
+import Image from 'next/image';
 import Link from 'next/link';
 import { ArrowRight, LayoutDashboard, Sparkles, ClipboardList } from 'lucide-react';
 import { StarterQuiz } from '@/components/sections/StarterQuiz';
@@ -31,12 +32,29 @@ export function HeroSection() {
         <div className="grid lg:grid-cols-12 gap-10 lg:gap-16 items-center">
           <div className="lg:col-span-7 text-center lg:text-left">
             <motion.div
+              initial={{ opacity: 0, y: 16, scale: 0.98 }}
+              animate={{ opacity: 1, y: 0, scale: 1 }}
+              transition={{ duration: 0.7 }}
+              className="mb-7 flex justify-center lg:justify-start"
+            >
+              <Image
+                src="/brand/tnic-transformative-lockup.png"
+                alt="TNiC — Transformative Nutrition in Cell-Health"
+                width={1680}
+                height={945}
+                priority
+                sizes="(min-width: 1024px) 520px, (min-width: 768px) 620px, 92vw"
+                className="h-auto w-full max-w-[520px] md:max-w-[620px] lg:max-w-[540px] rounded-2xl border border-white/10 bg-black/75 shadow-2xl shadow-accent-cyan/10"
+              />
+            </motion.div>
+
+            <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               className="inline-flex items-center gap-2 card-premium rounded-full px-5 py-2.5 mb-8 text-sm text-foreground/90"
             >
               <Sparkles className="w-4 h-4 text-accent-emerald animate-pulse-glow" aria-hidden="true" />
-              <span className="font-medium">Anti-Aging Operating System</span>
+              <span className="font-medium">Supplement Intelligence & Longevity Forecasting</span>
               <span className="w-1.5 h-1.5 rounded-full bg-accent-emerald animate-pulse-glow" aria-hidden="true" />
               <span className="text-caption font-mono hidden sm:inline">v1.36</span>
             </motion.div>
@@ -96,7 +114,7 @@ export function HeroSection() {
               transition={{ delay: 0.35 }}
               className="text-caption font-mono mt-6 mx-auto lg:mx-0"
             >
-              Educational only · Not medical advice · Data stays local
+              Educational model · Not medical advice · Data stays local
             </motion.p>
           </div>
 
@@ -121,8 +139,8 @@ export function HeroSection() {
           className="mt-14 md:mt-20 max-w-4xl mx-auto lg:mx-0"
         >
           <ContextRail
-            what="A privacy-first longevity OS built on 12 Hallmarks of Aging — not a supplement store or medical service."
-            why="Most longevity sites sell products before explaining the mechanism. TNiC grades every compound claim, cites every PMID, and keeps your health data in your own browser — never on TNiC servers."
+            what="A privacy-first supplement intelligence platform built on the 12 Hallmarks of Aging — not a supplement store or medical service."
+            why="Most longevity sites sell products before explaining expected effects. TNiC maps each compound to mechanisms, evidence tiers, biomarkers, and directional healthspan projections — while keeping your data in your own browser."
             next={hero.contextNext}
             theme="cyan"
           />

@@ -1,21 +1,33 @@
 'use client';
 
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import Link from 'next/link';
 import { Shield } from 'lucide-react';
 import { usePlatform } from '@/context/PlatformContext';
+
+const DISMISS_KEY = 'tnic-privacy-banner-dismissed';
 
 export function PrivacyConsentBanner() {
   const { privacyConsent, acceptPrivacyConsent } = usePlatform();
   const [dismissed, setDismissed] = useState(false);
 
+  useEffect(() => {
+    setDismissed(sessionStorage.getItem(DISMISS_KEY) === '1');
+  }, []);
+
+  const dismissForSession = () => {
+    sessionStorage.setItem(DISMISS_KEY, '1');
+    setDismissed(true);
+  };
+
   if (privacyConsent || dismissed) return null;
 
   return (
     <div
-      role="dialog"
+      role="region"
       aria-labelledby="privacy-banner-title"
       aria-describedby="privacy-banner-desc"
+      aria-live="polite"
       className="fixed bottom-0 inset-x-0 z-50 p-4 md:p-6"
     >
       <div className="container-page max-w-3xl mx-auto glass border border-accent-emerald/20 rounded-xl p-4 md:p-5 shadow-2xl">
@@ -39,7 +51,7 @@ export function PrivacyConsentBanner() {
                 Got it
               </button>
               <button
-                onClick={() => setDismissed(true)}
+                onClick={dismissForSession}
                 className="focus-ring interactive px-4 py-2 rounded-lg text-xs font-semibold text-muted-foreground hover:text-foreground/80"
               >
                 Dismiss

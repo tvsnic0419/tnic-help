@@ -21,6 +21,10 @@ const compoundModuleMap: Record<string, { name: string; slug: string; synergy?: 
   resveratrol: { name: 'Trans-Resveratrol', slug: 'resveratrol' },
   cakg: { name: 'Ca-AKG', slug: 'nad-mito-stack', synergy: true },
   rala: { name: 'R-Alpha Lipoic Acid', slug: 'glynac-nrf2-triad', synergy: true },
+  taurine: { name: 'Taurine', slug: 'taurine' },
+  spermidine: { name: 'Spermidine', slug: 'spermidine' },
+  pterostilbene: { name: 'Pterostilbene', slug: 'pterostilbene' },
+  tudca: { name: 'TUDCA', slug: 'tudca' },
 };
 
 /** NR alternative shop card when user chose NR over NMN */
@@ -53,7 +57,11 @@ export function getStackShopItems(compoundIds: string[]): StackShopItem[] {
       const guide = getBuyerGuide(id);
       const dose = guide?.doseAnchors[0]?.dose ?? 'See module';
       const timing =
-        id === 'resveratrol' ? 'PM with fat meal' : id === 'nmn' ? 'AM fasted' : 'AM';
+        id === 'resveratrol' || id === 'pterostilbene'
+          ? 'PM with fat meal'
+          : id === 'nmn'
+            ? 'AM fasted'
+            : 'AM';
 
       return {
         compoundId: id,

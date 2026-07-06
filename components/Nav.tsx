@@ -2,17 +2,21 @@
 
 import { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
+import Image from 'next/image';
 import Link from 'next/link';
-import { ArrowRight, ClipboardList, Dna, Menu, Search, ShoppingBag, X } from 'lucide-react';
+import { usePathname } from 'next/navigation';
+import { ArrowRight, ClipboardList, Menu, Search, ShoppingBag, X } from 'lucide-react';
 import { navLinks } from '@/lib/data';
 import { SiteSearch } from '@/components/SiteSearch';
 import { COMMAND_PALETTE_EVENT } from '@/components/os/CommandPalette';
 import { ThemeToggle } from '@/components/theme/ThemeToggle';
 
 export function Nav() {
+  const pathname = usePathname();
   const [mobileOpen, setMobileOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const menuRef = useRef<HTMLDivElement>(null);
+  const menuButtonRef = useRef<HTMLButtonElement>(null);
 
   useEffect(() => {
     let rafId: number;
@@ -31,17 +35,45 @@ export function Nav() {
   useEffect(() => {
     if (!mobileOpen) return;
     const onKey = (e: KeyboardEvent) => {
-      if (e.key === 'Escape') setMobileOpen(false);
+      if (e.key === 'Escape') {
+        setMobileOpen(false);
+        menuButtonRef.current?.focus();
+        return;
+      }
+
+      if (e.key !== 'Tab') return;
+
+      const focusable = menuRef.current?.querySelectorAll<HTMLElement>(
+        'a[href], button:not([disabled]), [tabindex]:not([tabindex="-1"])',
+      );
+      if (!focusable?.length) return;
+
+      const first = focusable[0];
+      const last = focusable[focusable.length - 1];
+
+      if (e.shiftKey && document.activeElement === first) {
+        e.preventDefault();
+        last.focus();
+      } else if (!e.shiftKey && document.activeElement === last) {
+        e.preventDefault();
+        first.focus();
+      }
     };
     document.addEventListener('keydown', onKey);
     document.body.style.overflow = 'hidden';
+    requestAnimationFrame(() => menuRef.current?.querySelector<HTMLElement>('a[href]')?.focus());
     return () => {
       document.removeEventListener('keydown', onKey);
       document.body.style.overflow = '';
     };
   }, [mobileOpen]);
 
-  const isExternal = (href: string) => href.startsWith('/');
+  useEffect(() => {
+    setMobileOpen(false);
+  }, [pathname]);
+
+  const isInternal = (href: string) => href.startsWith('/');
+  const isActive = (href: string) => href === pathname || (href !== '/' && pathname.startsWith(`${href}/`));
 
   return (
     <nav className="fixed top-0 w-full z-50" aria-label="Main navigation">
@@ -49,21 +81,25 @@ export function Nav() {
         className={`absolute inset-0 nav-glass ${scrolled ? 'nav-glass-scrolled' : ''}`}
       />
       <div className="relative container-page py-3 md:py-4 flex justify-between items-center gap-4">
-        <Link href="/" className="focus-ring interactive flex items-center gap-2.5 rounded-lg shrink-0 group">
-          <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-accent-cyan via-accent-emerald to-accent-cyan flex items-center justify-center logo-glow transition-transform group-hover:scale-105">
-            <Dna className="w-5 h-5 text-primary-foreground" aria-hidden="true" />
-          </div>
-          <span className="text-xl font-bold tracking-tight text-foreground">
-            TN<span className="shimmer-text">i</span>C
-          </span>
+        <Link href="/" className="focus-ring interactive flex items-center rounded-xl shrink-0 group">
+          <Image
+            src="/brand/tnic-wordmark-wide.png"
+            alt="TNiC"
+            width={2048}
+            height={550}
+            priority
+            sizes="(min-width: 768px) 156px, 132px"
+            className="h-9 w-auto max-w-[132px] rounded-xl border border-white/10 bg-black/80 object-contain shadow-lg shadow-accent-cyan/10 transition-transform group-hover:scale-[1.02] md:h-10 md:max-w-[156px]"
+          />
         </Link>
 
         <div className="hidden lg:flex gap-0.5 xl:gap-1">
           {navLinks.map((link) =>
-            isExternal(link.href) ? (
+            isInternal(link.href) ? (
               <Link
                 key={link.href}
                 href={link.href}
+                aria-current={isActive(link.href) ? 'page' : undefined}
                 className="focus-ring interactive px-3.5 py-2 rounded-xl text-sm font-medium text-muted-foreground hover:text-foreground hover:bg-accent-cyan/10 transition-all"
               >
                 {link.label}
@@ -113,6 +149,7 @@ export function Nav() {
             <Search className="w-5 h-5" />
           </button>
           <button
+            ref={menuButtonRef}
             onClick={() => setMobileOpen(!mobileOpen)}
             className="focus-ring touch-target flex items-center justify-center text-muted-foreground hover:text-foreground rounded-lg"
             aria-expanded={mobileOpen}
@@ -139,11 +176,11 @@ export function Nav() {
           >
             <div className="container-page py-4 flex flex-col gap-1">
               {navLinks.map((link) =>
-                isExternal(link.href) ? (
+                isInternal(link.href) ? (
                   <Link
                     key={link.href}
                     href={link.href}
-                    onClick={() => setMobileOpen(false)}
+                    aria-current={isActive(link.href) ? 'page' : undefined}
                     className="focus-ring interactive flex justify-between items-center text-foreground hover:text-accent-cyan py-3.5 min-h-[var(--space-touch)] text-base font-medium border-b border-border/50 last:border-0"
                   >
                     {link.label}
@@ -152,7 +189,6 @@ export function Nav() {
                   <a
                     key={link.href}
                     href={link.href}
-                    onClick={() => setMobileOpen(false)}
                     className="focus-ring interactive flex justify-between items-center text-foreground hover:text-accent-cyan py-3.5 min-h-[var(--space-touch)] text-base font-medium border-b border-border/50 last:border-0"
                   >
                     {link.label}

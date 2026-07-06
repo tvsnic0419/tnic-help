@@ -167,7 +167,7 @@ const hubPages: PaletteItem[] = [
     kind: 'page',
     title: 'Lab webhook events',
     subtitle: 'Poll partner panel completions',
-    href: '/api/labs/partner/events',
+    href: '/labs#lab-partner-oauth',
     keywords: ['webhook', 'events', 'lab push', 'notification'],
   },
   {
@@ -262,7 +262,7 @@ const faqItems: PaletteItem[] = consumerFAQ.map((f, i) => ({
   kind: 'faq' as const,
   title: f.question,
   subtitle: 'FAQ',
-  href: '/library',
+  href: '/faq',
   keywords: [f.question.toLowerCase(), 'faq', 'learn'],
 }));
 
@@ -271,7 +271,7 @@ const glossaryItems: PaletteItem[] = glossary.map((g) => ({
   kind: 'glossary' as const,
   title: g.term,
   subtitle: g.simple.slice(0, 80),
-  href: '/library',
+  href: '/learn?tab=glossary',
   keywords: [g.term.toLowerCase(), 'glossary', g.simple.toLowerCase()],
 }));
 

@@ -12,6 +12,6 @@ export default function manifest(): MetadataRoute.Manifest {
     background_color: '#030712',
     theme_color: '#030712',
     lang: 'en',
-    categories: ['health', 'education', 'medical'],
+    categories: ['health', 'education', 'productivity'],
   };
 }

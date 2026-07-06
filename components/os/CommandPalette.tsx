@@ -22,6 +22,7 @@ export function CommandPalette() {
   const [recentModules, setRecentModules] = useState(readRecentModules);
   const inputRef = useRef<HTMLInputElement>(null);
   const listRef = useRef<HTMLUListElement>(null);
+  const returnFocusRef = useRef<HTMLElement | null>(null);
 
   const palette = useMemo(
     () =>
@@ -42,6 +43,7 @@ export function CommandPalette() {
     setOpen(false);
     setQuery('');
     setActiveIndex(0);
+    requestAnimationFrame(() => returnFocusRef.current?.focus());
   }, []);
 
   const runItem = useCallback(
@@ -74,6 +76,7 @@ export function CommandPalette() {
 
   useEffect(() => {
     const onOpen = () => {
+      returnFocusRef.current = document.activeElement instanceof HTMLElement ? document.activeElement : null;
       setRecentModules(readRecentModules());
       setOpen(true);
     };
@@ -175,6 +178,7 @@ export function CommandPalette() {
             role="combobox"
             aria-expanded="true"
             aria-controls="command-palette-list"
+            aria-activedescendant={results[activeIndex] ? `command-palette-option-${results[activeIndex].id}` : undefined}
             aria-autocomplete="list"
             placeholder="Search or pick a contextual shortcut…"
             value={query}
@@ -208,7 +212,12 @@ export function CommandPalette() {
             </li>
           ) : hasQuery ? (
             results.map((item, i) => (
-              <li key={item.id} role="option" aria-selected={i === activeIndex}>
+              <li
+                id={`command-palette-option-${item.id}`}
+                key={item.id}
+                role="option"
+                aria-selected={i === activeIndex}
+              >
                 <PaletteRow
                   item={item}
                   active={i === activeIndex}
@@ -230,7 +239,12 @@ export function CommandPalette() {
                     {groupItems.map((item) => {
                       const i = flatIndex++;
                       return (
-                        <li key={item.id} role="option" aria-selected={i === activeIndex}>
+                        <li
+                          id={`command-palette-option-${item.id}`}
+                          key={item.id}
+                          role="option"
+                          aria-selected={i === activeIndex}
+                        >
                           <PaletteRow
                             item={item}
                             active={i === activeIndex}

@@ -41,7 +41,7 @@ export function StarterStackCTA() {
     '',
     starterStack.disclaimer,
     '',
-    'Build your custom stack: https://tnic.help/#stacks',
+    'Build your custom stack: https://tnic.help/stacks',
   ].join('\n');
 
   const copyStack = () => {

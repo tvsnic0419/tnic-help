@@ -560,7 +560,7 @@ export const researchFeed = [
     impact: 'clinical' as const,
     relatedHrefs: [
       { label: 'Cellular Senescence', href: '/library/cellular-senescence' },
-      { label: 'Glossary: SASP', href: '/library/glossary#sasp' },
+      { label: 'Glossary: SASP', href: '/learn?tab=glossary' },
     ],
   },
 ];
@@ -975,10 +975,10 @@ export const supplementRedFlags = [
 
 export const gettingStartedSteps = [
   { step: 1, title: 'Take the 3-Min Starter Quiz', desc: 'Answer three questions about your goal, age, and experience. Get a personalized stack preset and next OS step.', link: '/quiz' },
-  { step: 2, title: 'Review Your Biomarkers', desc: 'See which longevity markers are most depleted for your profile. Understand what your stack needs to target.', link: '#biomarkers' },
-  { step: 3, title: 'Build Your Stack', desc: 'Use the Stack Architect to toggle compounds. Watch synergy score and AM/PM dosing update in real time.', link: '#stacks' },
+  { step: 2, title: 'Review Your Biomarkers', desc: 'See which longevity markers are most depleted for your profile. Understand what your stack needs to target.', link: '/labs?tab=input' },
+  { step: 3, title: 'Build Your Stack', desc: 'Use the Stack Architect to toggle compounds. Watch synergy score and AM/PM dosing update in real time.', link: '/stacks' },
   { step: 4, title: 'Check Safety & Consult', desc: 'Review contraindications in the Trust Center. Export your protocol and bring it to your physician.', link: '/trust' },
-  { step: 5, title: 'Track & Iterate', desc: 'Follow the outcomes timeline for realistic expectations. Re-scan every 90 days and adjust your stack.', link: '#learn' },
+  { step: 5, title: 'Track & Iterate', desc: 'Follow the outcomes timeline for realistic expectations. Re-scan every 90 days and adjust your stack.', link: '/learn?tab=outcomes' },
 ];
 
 export const glossary = [

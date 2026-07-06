@@ -12,14 +12,14 @@ export interface QuizProfile {
 export function getHeroPersonalization(quiz: QuizProfile | null | undefined) {
   if (!quiz?.preset || !(quiz.preset in stackPresets)) {
     return {
-      line1: 'Your longevity OS.',
-      line2: 'Local. Cited. Yours.',
+      line1: 'Understand what supplements may do.',
+      line2: 'Then model the longevity impact.',
       subcopy:
-        'Six evidence-graded modules — stack architect, biomarker tracker, hallmark library, and longevity tools. Every compound rated Tier A, B, or C from human trials. Your data stays in your browser.',
+        'TNiC turns supplement research into clear, cited projections: what each compound targets, how strong the evidence is, which biomarkers may move, and what that could mean for healthspan. Your data stays in your browser.',
       primary: { href: '/quiz', label: 'Start 3-Min Quiz' },
-      secondary: { href: '/dashboard', label: 'Open Longevity OS' },
+      secondary: { href: '/dashboard', label: 'Open Forecast Hub' },
       contextNext:
-        'Take the 3-min quiz for a mechanism-matched stack preset, or open the OS dashboard to start building and tracking your protocol.',
+        'Take the 3-min quiz for a mechanism-matched supplement path, or open the dashboard to compare modeled effects against your own labs and goals.',
     };
   }
 
@@ -38,7 +38,7 @@ export function getHeroPersonalization(quiz: QuizProfile | null | undefined) {
     subcopy: result.insight,
     primary: { href: `/stacks?preset=${preset}`, label: `Resume ${stack.label}` },
     secondary: { href: buildShopPresetUrl(preset), label: 'Verify picks at Shop' },
-    contextNext: `Load ${stack.label} in Stack Architect (${stack.ids.length} compounds), log baseline labs, then verify brands with stack-filtered COA checklists.`,
+    contextNext: `Load ${stack.label} in Stack Architect (${stack.ids.length} compounds), review modeled pathway effects, log baseline labs, then verify brands with stack-filtered COA checklists.`,
   };
 }
 

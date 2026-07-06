@@ -35,24 +35,17 @@ export const PRODUCT_PICKS: Record<string, ProductPick> = {
   glynac: {
     compoundId: 'glynac',
     compoundName: 'GlyNAC',
-    brand: 'Codeage',
-    productName: 'Liposomal Glycine + Liposomal NAC',
-    imageSrc: `${PRODUCTS}/glynac.jpg`,
+    brand: 'Nutri',
+    productName: 'GlyNAC-ET 1800/375mg Extra Strength',
+    imageSrc: `${PRODUCTS}/nutri-glynac-et.jpg`,
     fallbackImageSrc: `${PRODUCTS}/glynac.svg`,
     purchaseUrl:
-      'https://www.codeage.com/products/liposomal-glycine-free-form-amino-acid-capsules',
-    brandWebsite: 'https://www.codeage.com',
-    companionPurchase: {
-      label: 'Also add: Codeage Liposomal NAC',
-      purchaseUrl:
-        'https://www.codeage.com/products/liposomal-nac-n-acetyl-l-cysteine-capsules',
-      imageSrc: `${PRODUCTS}/glynac.jpg`,
-      fallbackImageSrc: `${PRODUCTS}/glynac.svg`,
-    },
-    linkVerifiedAt: '2026-06-18',
+      'https://www.gnc.com/brain-memory-support/580824.html',
+    brandWebsite: 'https://www.gnc.com/brands/natures-fusions',
+    linkVerifiedAt: '2026-07-05',
     whyThisPick:
-      'Matched pair from one manufacturer — liposomal delivery, clear dosing, widely available.',
-    doseNote: 'Target ~7g glycine + ~600mg NAC daily (split doses). Buy both products.',
+      'Single-bottle GlyNAC-ET formula from Nutri/Nature’s Fusions with glycine plus NAC ethyl ester in one serving.',
+    doseNote: 'Label serving: 3 capsules provides 1,800mg glycine + 375mg NAC ethyl ester; compare against protocol targets.',
   },
   nmn: {
     compoundId: 'nmn',
@@ -84,17 +77,17 @@ export const PRODUCT_PICKS: Record<string, ProductPick> = {
   },
   sulforaphane: {
     compoundId: 'sulforaphane',
-    compoundName: 'Sulforaphane',
-    brand: 'Avmacol',
-    productName: 'Avmacol Extra Strength',
-    imageSrc: `${PRODUCTS}/sulforaphane.png`,
+    compoundName: 'NRF2 / Sulforaphane',
+    brand: 'Allergy Research Group',
+    productName: 'Nrf2 Renew®',
+    imageSrc: `${PRODUCTS}/nrf2-renew.png`,
     fallbackImageSrc: `${PRODUCTS}/sulforaphane.svg`,
-    purchaseUrl: 'https://www.avmacol.com/products/avmacol-extra-strength',
-    brandWebsite: 'https://www.avmacol.com',
-    linkVerifiedAt: '2026-06-18',
+    purchaseUrl: 'https://allergyresearchgroup.com/products/rf2-renew-120-vegetarian-capsules',
+    brandWebsite: 'https://allergyresearchgroup.com',
+    linkVerifiedAt: '2026-07-05',
     whyThisPick:
-      'Clinically studied sulforaphane glucosinolate (TrueBroc®). Standard reference product.',
-    doseNote: '1–2 tablets daily with food (provides SGS equivalent).',
+      'Broad NRF2 formula featuring sulforaphane plus green tea, green coffee, pomegranate, olive leaf, ginkgo, and milk thistle extracts.',
+    doseNote: 'Label serving: 2 capsules daily provides 50mg sulforaphane plus botanicals; compare against protocol targets.',
   },
   resveratrol: {
     compoundId: 'resveratrol',
@@ -113,16 +106,16 @@ export const PRODUCT_PICKS: Record<string, ProductPick> = {
   cakg: {
     compoundId: 'cakg',
     compoundName: 'Ca-AKG',
-    brand: 'DoNotAge',
-    productName: 'Pure Ca-AKG',
-    imageSrc: `${PRODUCTS}/cakg.png`,
+    brand: 'Toniiq',
+    productName: 'Calcium AKG 1500',
+    imageSrc: `${PRODUCTS}/toniiq-cakg.jpg`,
     fallbackImageSrc: `${PRODUCTS}/cakg.svg`,
-    purchaseUrl: 'https://donotage.org/ca-akg',
-    brandWebsite: 'https://donotage.org',
-    linkVerifiedAt: '2026-06-18',
+    purchaseUrl: 'https://www.toniiq.com/products/calcium-akg',
+    brandWebsite: 'https://www.toniiq.com',
+    linkVerifiedAt: '2026-07-05',
     whyThisPick:
-      'Direct from the longevity research brand. Pure calcium alpha-ketoglutarate.',
-    doseNote: 'Typical research dose: ~1g Ca-AKG daily.',
+      'Manufacturer-direct Ca-AKG with 99%+ purity language, COA access, and third-party testing details.',
+    doseNote: 'Label serving: 3 capsules daily for 1,500mg Ca-AKG. Compare with protocol target before use.',
   },
   rala: {
     compoundId: 'rala',
@@ -138,6 +131,63 @@ export const PRODUCT_PICKS: Record<string, ProductPick> = {
     whyThisPick:
       'Stabilized R-form (not racemic ALA). 300mg matches common protocol doses.',
     doseNote: '300mg R-ALA daily, often split AM/PM.',
+  },
+  taurine: {
+    compoundId: 'taurine',
+    compoundName: 'Taurine',
+    brand: 'Life Extension',
+    productName: 'Taurine 1000 mg',
+    imageSrc: `${PRODUCTS}/life-extension-taurine.png`,
+    fallbackImageSrc: `${PRODUCTS}/nmn.svg`,
+    purchaseUrl: 'https://www.lifeextension.com/vitamins-supplements/item01827/taurine',
+    brandWebsite: 'https://www.lifeextension.com',
+    linkVerifiedAt: '2026-07-05',
+    whyThisPick:
+      'Simple 1,000mg taurine capsule from an established clinical supplement brand, with gluten-free, Non-GMO, vegetarian labeling.',
+    doseNote: 'Label: 1,000mg per capsule; many protocols use 1-3g/day, adjusted for diet and tolerance.',
+  },
+  spermidine: {
+    compoundId: 'spermidine',
+    compoundName: 'Spermidine',
+    brand: 'Oxford Healthspan',
+    productName: 'Primeadine® Original',
+    imageSrc: `${PRODUCTS}/primeadine-original.jpg`,
+    fallbackImageSrc: `${PRODUCTS}/resveratrol.svg`,
+    purchaseUrl:
+      'https://oxfordhealthspan.com/products/whole-food-spermidine-supplement-primeadine-original-1-bottle-30-day-supply',
+    brandWebsite: 'https://oxfordhealthspan.com',
+    linkVerifiedAt: '2026-07-05',
+    whyThisPick:
+      'Whole-food spermidine from concentrated Japanese wheat germ extract, with posted COA links and third-party testing language.',
+    doseNote: 'Label serving: 3 capsules daily provides 1mg whole-food spermidine; avoid if wheat/gluten is unsuitable.',
+  },
+  pterostilbene: {
+    compoundId: 'pterostilbene',
+    compoundName: 'Pterostilbene',
+    brand: 'Double Wood',
+    productName: 'Pterostilbene Supplement',
+    imageSrc: `${PRODUCTS}/double-wood-pterostilbene.jpg`,
+    fallbackImageSrc: `${PRODUCTS}/resveratrol.svg`,
+    purchaseUrl: 'https://doublewoodsupplements.com/products/pterostilbene',
+    brandWebsite: 'https://doublewoodsupplements.com',
+    linkVerifiedAt: '2026-07-05',
+    whyThisPick:
+      'Single-ingredient pterostilbene with manufacturer COA/test-result links and third-party testing for identity, potency, and contaminants.',
+    doseNote: 'Label guidance centers on 100-200mg/day with food; monitor lipids if using long term.',
+  },
+  tudca: {
+    compoundId: 'tudca',
+    compoundName: 'TUDCA',
+    brand: 'Double Wood',
+    productName: 'TUDCA Supplement',
+    imageSrc: `${PRODUCTS}/double-wood-tudca.jpg`,
+    fallbackImageSrc: `${PRODUCTS}/rala.svg`,
+    purchaseUrl: 'https://doublewoodsupplements.com/products/tudca',
+    brandWebsite: 'https://doublewoodsupplements.com',
+    linkVerifiedAt: '2026-07-05',
+    whyThisPick:
+      'Synthetic, non-animal TUDCA with batch COA/test-result links and cGMP plus third-party testing language.',
+    doseNote: 'Label: 250mg per capsule; standard serving is 2 capsules for 500mg/day, preferably on an empty stomach.',
   },
 };
 
@@ -160,6 +210,10 @@ export function getProductPickByName(compoundName: string): ProductPick | undefi
     rala: 'rala',
     rlipoicacid: 'rala',
     rlipoic: 'rala',
+    taurine: 'taurine',
+    spermidine: 'spermidine',
+    pterostilbene: 'pterostilbene',
+    tudca: 'tudca',
   };
   const id = aliases[key];
   return id ? PRODUCT_PICKS[id] : undefined;
