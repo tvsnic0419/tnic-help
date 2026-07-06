@@ -1,4 +1,20 @@
-# TNiC Help — Anti-Aging Operating System
+# DEPRECATED — DO NOT USE THIS REPOSITORY
+
+This repository is **not** the production source for `tnic.help`.
+
+Production is deployed from:
+
+`https://github.com/tvsnic0419/tnic-longevity-new`
+
+Vercel project `tnic-help` is linked to `tvsnic0419/tnic-longevity-new`, branch `main`.
+
+Do not run this repo locally. Do not commit new site work here. Do not expect pushes here to deploy `tnic.help`.
+
+This repo is retained only as a historical reference until the GitHub repository can be archived by an account admin.
+
+---
+
+# Historical README
 
 Evidence-based longevity education platform at [tnic.help](https://tnic.help).
 
@@ -9,6 +25,8 @@ Evidence-based longevity education platform at [tnic.help](https://tnic.help).
 - **Vitest** — unit tests · **ESLint** — linting
 
 ## Local development
+
+Stop. Use `../tnic-longevity-new` instead.
 
 ```bash
 npm install
